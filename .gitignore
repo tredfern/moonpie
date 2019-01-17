@@ -1,4 +1,7 @@
-# Compiled Lua sources
+# Editor Files
+*.swp
+
+## Compiled Lua sources
 luac.out
 
 # luarocks build files

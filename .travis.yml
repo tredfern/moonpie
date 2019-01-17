@@ -22,7 +22,7 @@
     - luarocks install luacov-coveralls
 
   script:
-    - luacheck main.lua ./src
+    - luacheck .
     - busted --run=travis
 
   after_success:
