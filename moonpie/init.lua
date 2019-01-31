@@ -7,6 +7,6 @@ local BASE = (...) .. "."
 
 return {
   component = require(BASE .. "component"),
-  label = require(BASE .. "label"),
+  text = require(BASE .. "text"),
 
 }

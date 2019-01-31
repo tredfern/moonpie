@@ -10,4 +10,8 @@ describe("Initialize Moonpie", function()
     assert.not_nil(moonpie.component)
   end)
 
+  it("has a text element", function()
+    assert.not_nil(moonpie.text)
+  end)
+
 end)

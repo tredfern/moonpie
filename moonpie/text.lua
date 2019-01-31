@@ -5,6 +5,9 @@
 
 return function(props)
   return function()
+    if props.font then love.graphics.setFont(props.font) end
+    if props.color then love.graphics.setColor(props.color) end
+
     love.graphics.print(props.text)
   end
 end

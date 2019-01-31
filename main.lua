@@ -7,11 +7,14 @@
 --
 
 local moonpie = require "moonpie"
-local app = moonpie.component:new()
+local fonts = {
+  bebas = love.graphics.newFont("fonts/BebasNeue/BebasNeue-Regular.ttf")
+}
+local app = moonpie.component:new{ background_color = { 1, 1, 1, 1 } }
 
 function love.load()
   app:update(
-    moonpie.label{ text = "Hello World!" }
+    moonpie.text{ font = fonts.bebas, text = "Hello World!", color = { 0, 1, 1, 1 } }
   )
 end
 
