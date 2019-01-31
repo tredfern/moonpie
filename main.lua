@@ -14,7 +14,8 @@ local app = moonpie.component:new{ background_color = { 1, 1, 1, 1 } }
 
 function love.load()
   app:update(
-    moonpie.text{ font = fonts.bebas, text = "Hello World!", color = { 0, 1, 1, 1 } }
+    moonpie.text{ font = fonts.bebas, text = "Hello World!", color = { 0, 1, 1, 1 } },
+    moonpie.text{ text = "And now for something completely different", color = { 1, 1, 0, 1 } }
   )
 end
 

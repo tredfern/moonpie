@@ -10,12 +10,21 @@ describe("Elements - Text", function()
   describe("initializing text", function()
   end)
 
+  describe("calculating box model", function()
+    it("determines the width and height based on the font size", function()
+      local l = Text{ text = "Hello World", font = mock_love.font }
+      local cw, ch = l:content_size()
+      assert.equals(mock_love.font:getWidth(), cw)
+      assert.equals(mock_love.font:getHeight(), ch)
+    end)
+  end)
+
   describe("rendering", function()
     it("draws the text out to the screen", function()
       mock_love.mock(love.graphics, "print", spy.new(function() end))
       local l = Text{ text = "Hello World!" }
 
-      l()
+      l.render()
 
       assert.spy(love.graphics.print).was.called_with("Hello World!")
     end)
@@ -24,17 +33,16 @@ describe("Elements - Text", function()
       mock_love.mock(love.graphics, "setFont", spy.new(function() end))
 
       it("changes the font if set", function()
-        local font = {}
-        local l = Text{ text = "Foo", font = font }
+        local l = Text{ text = "Foo", font = mock_love.font }
 
-        l()
+        l.render()
 
-        assert.spy(love.graphics.setFont).was.called_with(font)
+        assert.spy(love.graphics.setFont).was.called_with(mock_love.font)
       end)
 
       it("does not set the font if font is nil", function()
         local l = Text{ text = "Foo" }
-        l()
+        l.render()
         assert.spy(love.graphics.setFont).was_not.called_with(nil)
       end)
     end)
@@ -45,13 +53,13 @@ describe("Elements - Text", function()
       it("sets the color if specified", function()
         local color = { 1, 1, 1, 1 }
         local l = Text{ text = "Foo", color =  color }
-        l()
+        l.render()
         assert.spy(love.graphics.setColor).was.called_with(color)
       end)
 
       it("does not set the color if nil", function()
         local l = Text{ text = "foo" }
-        l()
+        l.render()
         assert.spy(love.graphics.setColor).was_not.called_with(nil)
       end)
     end)

@@ -61,5 +61,6 @@ return {
   end,
   simulate_key_up = function(key)
     key_down[key] = nil
-  end
+  end,
+  font = font
 }

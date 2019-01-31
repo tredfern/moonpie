@@ -18,7 +18,7 @@ end
 
 function Component:render()
   for _, v in ipairs(self.children) do
-    v()
+    v.render()
   end
 end
 
