@@ -16,6 +16,21 @@ describe("Component", function()
     end)
   end)
 
+  describe("layout", function()
+    it("loops through every control and updates the box model for each control", function()
+      local c = component:new()
+      local ctrl = { width = 30, height = 12 }
+      local ctrl2 = { width = 49, height = 48 }
+      c:update(ctrl, ctrl2)
+
+      c:layout()
+      assert.equals(30, ctrl.box.area.width)
+      assert.equals(12, ctrl.box.area.height)
+      assert.equals(49, ctrl2.box.area.width)
+      assert.equals(48, ctrl2.box.area.height)
+    end)
+  end)
+
   describe("Rendering", function()
     it("goes through every control calling it's render method", function()
       local c = component:new()
