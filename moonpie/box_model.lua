@@ -27,6 +27,7 @@ local function get_size(ctrl)
 end
 
 return function(ctrl)
+  ctrl = ctrl or { width = 0, height = 0 }
   local cw, ch = get_size(ctrl)
 
   local box = {}

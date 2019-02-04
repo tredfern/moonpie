@@ -5,6 +5,32 @@
 
 describe("Box Model", function()
   local box_model = require "moonpie.box_model"
+
+  describe("setting up box model", function()
+    it("initializes all the box values to zero", function()
+      local box = box_model()
+      assert.equals(0, box.area:left())
+      assert.equals(0, box.area:right())
+      assert.equals(0, box.area:top())
+      assert.equals(0, box.area:bottom())
+      assert.equals(0, box.margin.left)
+      assert.equals(0, box.margin.right)
+      assert.equals(0, box.margin.top)
+      assert.equals(0, box.margin.bottom)
+      assert.equals(0, box.border.left)
+      assert.equals(0, box.border.right)
+      assert.equals(0, box.border.top)
+      assert.equals(0, box.border.bottom)
+      assert.equals(0, box.padding.left)
+      assert.equals(0, box.padding.right)
+      assert.equals(0, box.padding.top)
+      assert.equals(0, box.padding.bottom)
+
+      assert.equals(0, box.content.width)
+      assert.equals(0, box.content.height)
+    end)
+  end)
+
   describe("Calculating Box Model from pure control properties", function()
     it("sets everything to zero if no values provided", function()
       local ctrl = { }

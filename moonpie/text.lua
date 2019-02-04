@@ -9,7 +9,7 @@ return function(props)
       return props.font:getWidth(props.text), props.font:getHeight()
     end,
 
-    render = function()
+    paint = function()
       if props.font then love.graphics.setFont(props.font) end
       if props.color then love.graphics.setColor(props.color) end
 

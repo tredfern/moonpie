@@ -8,5 +8,6 @@ local BASE = (...) .. "."
 return {
   component = require(BASE .. "component"),
   text = require(BASE .. "text"),
+  renderer = require(BASE .. "renderer")
 
 }

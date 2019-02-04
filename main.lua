@@ -10,12 +10,13 @@ local moonpie = require "moonpie"
 local fonts = {
   bebas = love.graphics.newFont("fonts/BebasNeue/BebasNeue-Regular.ttf")
 }
-local app = moonpie.component:new{ background_color = { 1, 1, 1, 1 } }
+local renderer
 
 function love.load()
-  app:update(
-    moonpie.text{ font = fonts.bebas, text = "Hello World!", color = { 0, 1, 1, 1 } },
-    moonpie.text{ text = "And now for something completely different", color = { 1, 1, 0, 1 } }
+  renderer = moonpie.renderer(
+    { text = "Hello World!", font = fonts.bebas, color = { 0, 1, 1, 1 },
+      background = { color = {1, 1, 1, 1 } }, width = 100, height = 50 },
+    { width = 20, height = 200, background = { color = { 1, 1, 0, 1 } } }
   )
 end
 
@@ -23,5 +24,5 @@ function love.update()
 end
 
 function love.draw()
-  app:render()
+  renderer:paint()
 end
