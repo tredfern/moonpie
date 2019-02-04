@@ -7,15 +7,12 @@ describe("Elements - Text", function()
   local Text = require "moonpie.text"
   local mock_love = require "test_helpers.mock_love"
 
-  describe("initializing text", function()
-  end)
-
-  describe("calculating box model", function()
-    it("determines the width and height based on the font size", function()
-      local l = Text{ text = "Hello World", font = mock_love.font }
-      local cw, ch = l:content_size()
-      assert.equals(mock_love.font:getWidth(), cw)
-      assert.equals(mock_love.font:getHeight(), ch)
+  describe("Layout", function()
+    it("calculates its box based ont he size of the text", function()
+      local t = Text{ text = "Foobar", font = mock_love.font }
+      t:layout()
+      assert.equals(mock_love.font:getWidth(), t.box.content.width)
+      assert.equals(mock_love.font:getHeight(), t.box.content.height)
     end)
   end)
 

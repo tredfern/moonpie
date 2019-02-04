@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Renderer", function()
-  require "test_helpers.mock_love"
+  local mock_love = require "test_helpers.mock_love"
   local Renderer = require "moonpie.renderer"
 
   describe("Building the tree", function()
@@ -24,25 +24,11 @@ describe("Renderer", function()
       end)
 
       it("adds text elements for a node with a text value associated with it", function()
-        local text_block = { display = "block", text = "Some text" }
+        local text_block = { display = "block", text = "Some text", font = mock_love.font }
         local r = Renderer(text_block)
         local first_node = r.children[1]
         assert.equals(1, #first_node.children)
       end)
-    end)
-  end)
-
-  describe("Layout elements", function()
-  end)
-
-  describe("Painting", function()
-    local doc_tree = {
-      { text = "some text" }
-    }
-    local renderer = Renderer(doc_tree)
-
-    it("does not error", function()
-      renderer:paint()
     end)
   end)
 end)

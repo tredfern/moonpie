@@ -46,17 +46,48 @@ describe("Block", function()
     it("updates the layouts of its children with itself as parent", function()
       local b = Block({ width = 39, height = 39 })
       local params
-      local c1 = { layout = function(s, p) params = { s, p } end }
-      local no_layout = {}
-      b:add(c1, no_layout)
+      local c1 = Block()
+      c1.layout = function(s, p) params = { s, p } end
+      b:add(c1)
       b:layout(parent)
       assert.equals(c1, params[1])
       assert.equals(b, params[2])
+    end)
+
+    describe("Horizontal layout", function()
+      it("assigns the position of elements after calculating the width of them", function()
+        local b = Block()
+        local c1 = Block({width = 10 })
+        local c2 = Block({width = 20 })
+        local c3 = Block({width = 49 })
+        b:add(c1, c2, c3)
+        b:layout(parent)
+        assert.equals(0, c1.box.x)
+        assert.equals(0, c1.box.y)
+        assert.equals(10, c2.box.x)
+        assert.equals(0, c2.box.y)
+        assert.equals(30, c3.box.x)
+        assert.equals(0, c3.box.y)
+      end)
     end)
   end)
 
   describe("Painting", function()
     local mock_love = require "test_helpers.mock_love"
+
+    it("translates its position to the x, y position", function()
+      local b = Block()
+      b.box.x = 39
+      b.box.y = 59
+      mock_love.mock(love.graphics, "push", spy.new(function() end))
+      mock_love.mock(love.graphics, "translate", spy.new(function() end))
+      mock_love.mock(love.graphics, "pop", spy.new(function() end))
+
+      b:paint()
+      assert.spy(love.graphics.push).was.called()
+      assert.spy(love.graphics.translate).was.called_with(39, 59)
+      assert.spy(love.graphics.pop).was.called()
+    end)
 
     it("paints each of its children", function()
       local b = Block()

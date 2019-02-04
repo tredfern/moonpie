@@ -3,9 +3,6 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local BASE = (...):match('(.-)[^%.]+$')
-local rectangle = require(BASE .. "rectangle")
-
 local function new_box(l, r, t, b)
   return {
     left = l,
@@ -30,11 +27,12 @@ return function(ctrl)
   ctrl = ctrl or { width = 0, height = 0 }
   local cw, ch = get_size(ctrl)
 
-  local box = {}
-  box.margin = new_box(0, 0, 0, 0)
-  box.border = new_box(0, 0, 0, 0)
-  box.padding = new_box(0, 0, 0, 0)
-  box.content = { width = cw, height = ch }
-  box.area = rectangle{ width = cw, height = ch }
+  local box = {
+    x = 0, y = 0,
+    margin = new_box(0, 0, 0, 0),
+    border = new_box(0, 0, 0, 0),
+    padding = new_box(0, 0, 0, 0),
+    content = { width = cw, height = ch }
+  }
   return box
 end
