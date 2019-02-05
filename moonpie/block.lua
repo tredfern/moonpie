@@ -25,7 +25,7 @@ return function(element)
         if v.layout then v:layout(self) end
       end
 
-      local x, y, line_height = 0, 0, 0
+      local x, y, line_height, max_width = 0, 0, 0, 0
       for _, v in pairs(self.children) do
         if x > 0 and x + v.box.content.width > self.box.content.width then
           x = 0
@@ -34,9 +34,15 @@ return function(element)
         end
 
         v.box.x, v.box.y = x, y
-        x = x + v.box.content.width
+        x = x + v.box:width()
         line_height = math.max(v.box.content.height, line_height)
+        max_width = math.max(max_width, x)
       end
+
+      if self.element.display == "inline" then
+        self.box.content.width = self.element.width or max_width
+      end
+
       self.box.content.height = self.element.height or y + line_height
     end,
 

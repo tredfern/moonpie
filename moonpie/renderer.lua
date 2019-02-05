@@ -7,15 +7,23 @@ local BASE = (...):match('(.-)[^%.]+$')
 local Block = require(BASE .. "block")
 local Text = require(BASE .. "text")
 
+local function build_item(item)
+  local new_block = Block(item)
+  if item.text then
+    new_block:add(Text(item))
+  end
+
+  for _, v in ipairs(item) do
+    new_block:add(build_item(v))
+  end
+  return new_block
+end
+
 return function(...)
   local r = Block()
 
   for _, v in ipairs({...}) do
-    local new_block = Block(v)
-    if v.text then
-      new_block:add(Text(v))
-    end
-    r:add(new_block)
+    r:add(build_item(v))
   end
 
   r:layout({

@@ -30,5 +30,23 @@ describe("Renderer", function()
         assert.equals(1, #first_node.children)
       end)
     end)
+
+    describe("deep tree", function()
+      local r = Renderer(
+      { id = "1",
+        { id = "1.1",
+          { id = "1.1.1" },
+          { id = "1.1.2" }
+        }
+      },
+      {
+        id = "2"
+      })
+      assert.equals("1", r.children[1].element.id)
+      assert.equals("2", r.children[2].element.id)
+      assert.equals("1.1", r.children[1].children[1].element.id)
+      assert.equals("1.1.1", r.children[1].children[1].children[1].element.id)
+      assert.equals("1.1.2", r.children[1].children[1].children[2].element.id)
+    end)
   end)
 end)

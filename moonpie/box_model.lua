@@ -3,15 +3,6 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local function new_box(l, r, t, b)
-  return {
-    left = l,
-    right = r,
-    top = t,
-    bottom = b
-  }
-end
-
 local function get_size(ctrl)
   local cw, ch = 0, 0
 
@@ -29,10 +20,9 @@ return function(ctrl)
 
   local box = {
     x = 0, y = 0,
-    margin = new_box(0, 0, 0, 0),
-    border = new_box(0, 0, 0, 0),
-    padding = new_box(0, 0, 0, 0),
-    content = { width = cw, height = ch }
+    content = { width = cw, height = ch },
+    width = function(self) return self.content.width end,
+    height = function(self) return self.content.height end
   }
   return box
 end
