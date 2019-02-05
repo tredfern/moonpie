@@ -15,7 +15,8 @@ local renderer
 function love.load()
   renderer = moonpie.renderer(
     { text = "Hello World!", font = fonts.bebas, color = { 0, 1, 1, 1 } },
-    { width = 20, height = 200, background = { color = { 1, 1, 0, 1 } } }
+    { width = 20, height = 200, background = { color = { 1, 1, 0, 1 } } },
+    { width = 200, height = 20, background = { color = { 1, 0, 1, 1 } } }
   )
 end
 

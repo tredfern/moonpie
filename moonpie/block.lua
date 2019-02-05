@@ -20,17 +20,24 @@ return function(element)
 
     layout = function(self, parent)
       self.box.content.width = self.element.width or parent.width or parent.box.content.width
-      self.box.content.height = self.element.height
 
       for _, v in pairs(self.children) do
         if v.layout then v:layout(self) end
       end
 
-      local x = 0
+      local x, y, line_height = 0, 0, 0
       for _, v in pairs(self.children) do
-        v.box.x, v.box.y = x, 0
+        if x > 0 and x + v.box.content.width > self.box.content.width then
+          x = 0
+          y = y + line_height
+          line_height = 0
+        end
+
+        v.box.x, v.box.y = x, y
         x = x + v.box.content.width
+        line_height = math.max(v.box.content.height, line_height)
       end
+      self.box.content.height = self.element.height or y + line_height
     end,
 
     paint = function(self)
