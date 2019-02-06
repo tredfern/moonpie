@@ -25,28 +25,4 @@ describe("Box Model", function()
       assert.equals(99, box:height())
     end)
   end)
-
-  describe("Calculating Box Model from pure control properties", function()
-    it("sets everything to zero if no values provided", function()
-      local ctrl = { }
-      local box = box_model(ctrl)
-      assert.equals(0, box.content.width)
-      assert.equals(0, box.content.height)
-    end)
-
-    it("uses the content_size if no width/height set", function()
-      local ctrl = { content_size = function() return 100, 50 end }
-      local box = box_model(ctrl)
-
-      assert.equals(100, box.content.width)
-      assert.equals(50, box.content.height)
-    end)
-
-    it("uses the width - height if provided", function()
-      local ctrl = { width = 39, height = 48 }
-      local box = box_model(ctrl)
-      assert.equals(39, box.content.width)
-      assert.equals(48, box.content.height)
-    end)
-  end)
 end)
