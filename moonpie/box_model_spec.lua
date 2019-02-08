@@ -24,5 +24,18 @@ describe("Box Model", function()
       assert.equals(49, box:width())
       assert.equals(99, box:height())
     end)
+
+    it("includes margins in the total size", function()
+      local box = box_model()
+      box.margin.left = 3
+      box.margin.right = 5
+      box.margin.top = 5
+      box.margin.bottom = 9
+      box.content.width = 50
+      box.content.height = 40
+      assert.equals(58, box:width())
+      assert.equals(54, box:height())
+    end)
   end)
+
 end)
