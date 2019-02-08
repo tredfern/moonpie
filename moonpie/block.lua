@@ -25,7 +25,9 @@ return function(element)
         if v.layout then v:layout(self) end
       end
 
-      local x, y, line_height, max_width = 0, 0, 0, 0
+      local x, y = self.box:content_position()
+      local line_height, max_width = 0, 0
+
       for _, v in pairs(self.children) do
         if x > 0 and x + v.box.content.width > self.box.content.width then
           x = 0

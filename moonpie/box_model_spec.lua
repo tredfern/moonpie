@@ -25,6 +25,15 @@ describe("Box Model", function()
       assert.equals(99, box:height())
     end)
 
+    it("uses the margins to figure out the left/top area of the content area", function()
+      local box = box_model()
+      box.margin.left = 42
+      box.margin.top = 67
+      local x, y = box:content_position()
+      assert.equals(42, x)
+      assert.equals(67, y)
+    end)
+
     it("includes margins in the total size", function()
       local box = box_model()
       box.margin.left = 3

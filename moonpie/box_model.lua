@@ -13,6 +13,9 @@ return function()
     end,
     height = function(self)
       return self.margin.top + self.content.height + self.margin.bottom
+    end,
+    content_position = function(self)
+      return self.margin.left, self.margin.top
     end
   }
 end

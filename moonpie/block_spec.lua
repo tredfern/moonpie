@@ -55,6 +55,7 @@ describe("Block", function()
       assert.equals(493, b.box.content.height)
     end)
 
+
     it("updates the layouts of its children with itself as parent", function()
       local b = Block({ width = 39, height = 39 })
       local params
@@ -64,6 +65,17 @@ describe("Block", function()
       b:layout(parent)
       assert.equals(c1, params[1])
       assert.equals(b, params[2])
+    end)
+
+    it("uses it's content position of it's box to determine where children positions stop and end", function()
+      local b = Block()
+      b.box.margin.left = 10
+      b.box.margin.top = 15
+      local c1 = Block({width = 30})
+      b:add(c1)
+      b:layout(parent)
+      assert.equals(10, c1.box.x)
+      assert.equals(15, c1.box.y)
     end)
 
     describe("Horizontal layout", function()
