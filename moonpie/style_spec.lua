@@ -4,6 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Style", function()
+  require "test_helpers.mock_love"
   local Style = require "moonpie.style"
 
   describe("Creating", function()
@@ -61,6 +62,20 @@ describe("Style", function()
       assert.is_true(cust2.all)
       assert.equals(49, cust2.width)
       assert.equals(55, cust2.height)
+    end)
+  end)
+
+  describe("Empty Style", function()
+    it("has display set to block", function()
+      assert.equals("block", Style.none.display)
+    end)
+  end)
+
+  describe("Root window style", function()
+    it("has the width and height of the window", function()
+      assert.equals(love.graphics.getWidth(), Style.root.width)
+      assert.equals(love.graphics.getHeight(), Style.root.height)
+      assert.equals("block", Style.root.display)
     end)
   end)
 end)

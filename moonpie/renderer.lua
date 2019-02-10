@@ -6,6 +6,7 @@
 local BASE = (...):match('(.-)[^%.]+$')
 local Block = require(BASE .. "block")
 local Text = require(BASE .. "text")
+local Style = require(BASE .. "style")
 
 local function build_item(item)
   local new_block = Block(item)
@@ -20,16 +21,13 @@ local function build_item(item)
 end
 
 return function(...)
-  local r = Block()
+  local r = Block(Style.root)
 
   for _, v in ipairs({...}) do
     r:add(build_item(v))
   end
 
-  r:layout({
-    width = love.graphics.getWidth(),
-    height = love.graphics.getHeight()
-  })
+  r:layout()
 
   return r
 end

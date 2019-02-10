@@ -24,4 +24,7 @@ setmetatable(style, {
   end
 })
 
+style("none", { display = "block" })
+style("root", { display = "block", width = love.graphics.getWidth(), height = love.graphics.getHeight() })
+
 return style
