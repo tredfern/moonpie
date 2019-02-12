@@ -6,7 +6,9 @@
 local BASE = (...) .. "."
 
 return {
+  colors = require(BASE .. "colors"),
   component = require(BASE .. "component"),
+  element = require(BASE .. "element"),
   text = require(BASE .. "text"),
   renderer = require(BASE .. "renderer")
 

@@ -11,12 +11,21 @@ describe("Initialize Moonpie", function()
     assert.not_nil(moonpie.component)
   end)
 
-  it("has a text element", function()
+  it("has a text renderer", function()
     assert.not_nil(moonpie.text)
   end)
 
   it("has a renderer", function()
     assert.not_nil(moonpie.renderer)
+  end)
+
+  it("has elements", function()
+    assert.not_nil(moonpie.element)
+  end)
+
+  it("has colors", function()
+    assert.not_nil(moonpie.colors)
+    assert.not_nil(moonpie.colors.red)
   end)
 
 end)

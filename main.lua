@@ -13,8 +13,8 @@ local elements = require "elements"
 function love.load()
   renderer = moonpie.renderer(
     {
-      elements.text("text1", { text = "Hello World!", color = { 0, 1, 1, 1 } }),
-      elements.text("text2", { text = "And now for something completely different", color = { 1, 0, 1, 1 } }),
+      elements.text("text1", { text = "Hello World!", color = moonpie.colors.cyan }),
+      elements.text("text2", { text = "And now for something completely different", color = moonpie.colors.blue }),
     },
     elements["funky-rect"]("rect1"),
     elements["funky-rect2"]("rect2")

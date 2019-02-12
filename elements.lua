@@ -3,17 +3,15 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-
-local BASE = (...):match('(.-)[^%.]+$')
-local Element = require(BASE .. "moonpie.element")
+local moonpie = require("moonpie")
 
 local fonts = {
   bebas = love.graphics.newFont("fonts/BebasNeue/BebasNeue-Regular.ttf")
 }
 
-Element("base", { font = fonts.bebas })
-Element.base("text", { display = "inline", color = { 1, 1, 1, 1 } })
-Element("funky-rect", { width = 20, height = 200, background = { color = { 1, 1, 0, 1 } } })
-Element("funky-rect2", { width = 200, height = 20, background = { color = { 1, 0, 1, 1 } } })
+moonpie.element("base", { font = fonts.bebas })
+moonpie.element.base("text", { display = "inline", color = moonpie.colors.white })
+moonpie.element("funky-rect", { width = 20, height = 200, background = { color = moonpie.colors.fuchsia_crayola } })
+moonpie.element("funky-rect2", { width = 200, height = 20, background = { color = moonpie.colors.yellow } })
 
-return Element
+return moonpie.element
