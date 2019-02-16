@@ -16,6 +16,16 @@ return function()
     end,
     content_position = function(self)
       return self.margin.left, self.margin.top
+    end,
+    region = function(self)
+      local r = { left = 0, top = 0 }
+      if self.parent then r = self.parent:region() end
+      return {
+        left = r.left + self.x,
+        top = r.top + self.y,
+        right = r.left + self.x + self:width(),
+        bottom = r.top + self.y + self:height()
+      }
     end
   }
 end

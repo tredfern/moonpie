@@ -4,6 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Block", function()
+  local mock_love = require "test_helpers.mock_love"
   local box_model = require "moonpie.box_model"
   local Block = require "moonpie.block"
 
@@ -115,8 +116,22 @@ describe("Block", function()
     end)
   end)
 
+  describe("Status Checks", function()
+    local b = Block({ width = 20, height = 30 })
+    b:layout()
+
+    it("can flag that the mouse is hovering", function()
+      mock_love.mock(love.mouse, "getPosition", function() return 3, 5 end)
+      assert.is_true(b:hover())
+    end)
+
+    it("returns false for hover if mouse is outside the region", function()
+      mock_love.mock(love.mouse, "getPosition", function() return 300, 500 end)
+      assert.is_false(b:hover())
+    end)
+  end)
+
   describe("Painting", function()
-    local mock_love = require "test_helpers.mock_love"
 
     it("translates its position to the x, y position", function()
       local b = Block()
@@ -157,6 +172,24 @@ describe("Block", function()
 
       assert.spy(love.graphics.setColor).was.called_with(node.background.color)
       assert.spy(love.graphics.rectangle).was.called_with("fill", 0, 0, 120, 483)
+    end)
+
+    describe("Hover State", function()
+      local Element = require "moonpie.element"
+
+      it("uses the hover state of the element for painting properties", function()
+        mock_love.mock(love.mouse, "getPosition", function() return 24, 42 end)
+        mock_love.mock(love.graphics, "setColor", spy.new(function() end))
+
+        local element = Element("hover-test",
+          {width = 120, height = 120, background = { color = { 0, 0, 0, 0 } } })
+          :on_hover({ background = { color = { 1, 1, 1, 1 } } })
+        local b = Block(element)
+        b:layout()
+        b:paint()
+
+        assert.spy(love.graphics.setColor).was.called_with(element.hover.background.color)
+      end)
     end)
   end)
 end)

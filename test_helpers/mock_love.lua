@@ -44,6 +44,11 @@ love = {
         return key_down[key] ~= nil
       end
     },
+    mouse = {
+      getPosition = function()
+        return 0, 0
+      end
+    },
     timer = {
       getDelta = function() return 0.03 end
     },

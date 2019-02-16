@@ -47,4 +47,23 @@ describe("Box Model", function()
     end)
   end)
 
+  describe("it can return a region that represents the area contained by the box", function()
+    it("calculates it's region based on the x, y offset of it's parent's region and it's x, y", function()
+      local parent = box_model()
+      parent.x = 50
+      parent.y = 70
+      local box = box_model()
+      box.parent = parent
+      box.x = 10
+      box.y = 20
+      box.content.width = 60
+      box.content.height = 70
+      local region = box:region()
+      assert.equals(60, region.left)
+      assert.equals(90, region.top)
+      assert.equals(120, region.right)
+      assert.equals(160, region.bottom)
+    end)
+  end)
+
 end)

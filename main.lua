@@ -7,11 +7,11 @@
 --
 
 local moonpie = require "moonpie"
-local renderer
+local gui
 local elements = require "elements"
 
 function love.load()
-  renderer = moonpie.renderer(
+  gui = moonpie.renderer(
     {
       elements.text("text1", { text = "Hello World!", color = moonpie.colors.cyan }),
       elements.text("text2", { text = "And now for something completely different", color = moonpie.colors.blue }),
@@ -25,5 +25,5 @@ function love.update()
 end
 
 function love.draw()
-  renderer:paint()
+  gui:paint()
 end

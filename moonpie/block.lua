@@ -18,6 +18,12 @@ return function(element)
       end
     end,
 
+    hover = function(self)
+      local mx, my = love.mouse.getPosition()
+      local region = self.box:region()
+      return region.left < mx and region.right > mx and region.top < my and region.bottom > my
+    end,
+
     layout = function(self, parent)
       self.box.content.width = self.element.width or parent.width or parent.box.content.width
 
@@ -49,10 +55,13 @@ return function(element)
     end,
 
     paint = function(self)
+      local e = self.element
+      if self.element.hover and self:hover() then e = self.element.hover end
+
       love.graphics.push()
       love.graphics.translate(self.box.x, self.box.y)
-      if self.element.background then
-        love.graphics.setColor(self.element.background.color)
+      if e.background then
+        love.graphics.setColor(e.background.color)
         love.graphics.rectangle("fill", 0, 0, self.box.content.width, self.box.content.height)
       end
 
