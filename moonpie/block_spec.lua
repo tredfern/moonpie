@@ -65,6 +65,12 @@ describe("Block", function()
         b:layout(parent)
         assert.equals(128, b.box.content.width)
       end)
+
+      it("shaves off the padding from the content width", function()
+        local b = Block({ padding = 6 })
+        b:layout(parent)
+        assert.equals(140, b.box.content.width)
+      end)
     end)
 
     it("uses its height if provided on the node", function()
@@ -188,18 +194,29 @@ describe("Block", function()
       assert.spy(spy_paint).was.called_with(c2)
     end)
 
+    it("translates to where the background is to draw the background", function()
+      mock_love.mock(love.graphics, "push", spy.new(function() end))
+      mock_love.mock(love.graphics, "pop", spy.new(function() end))
+      mock_love.mock(love.graphics, "translate", spy.new(function() end))
+      local b = Block{ margin = 5, padding = 4, background = { color = {1, 1, 1, 1 } } }
+      b:draw_background(b.element)
+      assert.spy(love.graphics.push).was.called()
+      assert.spy(love.graphics.translate).was.called.with(5, 5)
+      assert.spy(love.graphics.pop).was.called()
+    end)
+
     it("translates the children to where the content starts", function()
       mock_love.mock(love.graphics, "translate", spy.new(function() end))
-      local b = Block({ margin = 5 })
+      local b = Block({ margin = 5, padding = 4 })
       b:paint()
-      assert.spy(love.graphics.translate).was.called.with(5, 5)
+      assert.spy(love.graphics.translate).was.called.with(9, 9)
     end)
 
     it("paints a background.color for it's area if provided", function()
       mock_love.mock(love.graphics, "setColor", spy.new(function() end))
       mock_love.mock(love.graphics, "rectangle", spy.new(function() end))
 
-      local node = { background = { color = { 1, 1, 1, 1 } }, width = 120, height = 483 }
+      local node = { padding = 4, background = { color = { 1, 1, 1, 1 } }, width = 120, height = 483 }
       local b = Block(node)
       b:layout()
 
@@ -207,7 +224,7 @@ describe("Block", function()
       --check the background was called
 
       assert.spy(love.graphics.setColor).was.called_with(node.background.color)
-      assert.spy(love.graphics.rectangle).was.called_with("fill", 0, 0, 120, 483)
+      assert.spy(love.graphics.rectangle).was.called_with("fill", 0, 0, 128, 491)
     end)
 
     describe("Hover State", function()

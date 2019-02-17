@@ -17,6 +17,10 @@ describe("Box Model", function()
       assert.equals(0, box.margin.top)
       assert.equals(0, box.margin.right)
       assert.equals(0, box.margin.bottom)
+      assert.equals(0, box.padding.left)
+      assert.equals(0, box.padding.right)
+      assert.equals(0, box.padding.top)
+      assert.equals(0, box.padding.bottom)
     end)
 
     it("sets all the margins to the same size if the element is set up as a number", function()
@@ -25,6 +29,14 @@ describe("Box Model", function()
       assert.equals(5, box.margin.top)
       assert.equals(5, box.margin.bottom)
       assert.equals(5, box.margin.right)
+    end)
+
+    it("sets all the paddings to the same size if set as a number", function()
+      local box = box_model{ padding = 12 }
+      assert.equals(12, box.padding.left)
+      assert.equals(12, box.padding.right)
+      assert.equals(12, box.padding.top)
+      assert.equals(12, box.padding.bottom)
     end)
   end)
 
@@ -46,6 +58,29 @@ describe("Box Model", function()
       assert.equals(67, y)
     end)
 
+    it("uses the padding to figure out the left/top are of the content area", function()
+      local box = box_model{ padding = 3 }
+      local x, y = box:content_position()
+      assert.equals(3, x)
+      assert.equals(3, y)
+    end)
+
+    it("uses the margins to calculate the start of the active area but not the padding", function()
+      local box = box_model{ margin = 5, padding = 6 }
+      local x, y = box:background_position()
+      assert.equals(5, x)
+      assert.equals(5, y)
+    end)
+
+    it("uses includes the padding when calculating the background size", function()
+      local box = box_model{ margin = 2, padding = 7 }
+      box.content.width = 4
+      box.content.height = 3
+      local w, h = box:background_size()
+      assert.equals(18, w)
+      assert.equals(17, h)
+    end)
+
     it("includes margins in the total size", function()
       local box = box_model()
       box.margin.left = 3
@@ -56,6 +91,15 @@ describe("Box Model", function()
       box.content.height = 40
       assert.equals(58, box:width())
       assert.equals(54, box:height())
+    end)
+
+    it("includes padding in the total size", function()
+      local box = box_model{ padding = { left = 1, right = 2, top = 3, bottom = 4 } }
+      box.content.width = 30
+      box.content.height = 22
+
+      assert.equals(33, box:width())
+      assert.equals(29, box:height())
     end)
   end)
 

@@ -16,7 +16,7 @@ function love.load()
       {
         elements.text("text1", { text = "Hello World!", color = moonpie.colors.cyan }),
         elements.text("text2", { text = "And now for something completely different", color = moonpie.colors.blue }),
-    }),
+    }):on_hover( { background = { color = moonpie.colors.light_gray } } ),
     elements["funky-rect"]("rect1"),
     elements["funky-rect2"]("rect2")
   )

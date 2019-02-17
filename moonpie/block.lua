@@ -26,7 +26,9 @@ return function(element)
 
     layout = function(self, parent)
       self.box.content.width = self.element.width or
-        (parent.box.content.width - self.box.margin.left - self.box.margin.right)
+        (parent.box.content.width
+          - self.box.margin.left - self.box.margin.right
+          - self.box.padding.left - self.box.padding.right)
 
       for _, v in pairs(self.children) do
         if v.layout then v:layout(self) end
@@ -63,16 +65,23 @@ return function(element)
 
       love.graphics.push()
       love.graphics.translate(self.box.x, self.box.y)
+      self:draw_background(e)
+
       love.graphics.translate(self.box:content_position())
-      if e.background then
-        love.graphics.setColor(e.background.color)
-        love.graphics.rectangle("fill", 0, 0, self.box.content.width, self.box.content.height)
-      end
 
       for _, v in ipairs(self.children) do
         v:paint()
       end
       love.graphics.pop()
     end,
+    draw_background = function(self, e)
+      if e.background then
+        love.graphics.push()
+        love.graphics.translate(self.box:background_position())
+        love.graphics.setColor(e.background.color)
+        love.graphics.rectangle("fill", 0, 0, self.box:background_size())
+        love.graphics.pop()
+      end
+    end
   }
 end
