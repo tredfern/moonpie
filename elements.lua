@@ -14,5 +14,6 @@ moonpie.element.base("text", { display = "inline", color = moonpie.colors.white 
 moonpie.element("funky-rect", { width = 20, height = 200, background = { color = moonpie.colors.fuchsia_crayola } })
   :on_hover({ background = { color = moonpie.colors.green } })
 moonpie.element("funky-rect2", { width = 200, height = 20, background = { color = moonpie.colors.yellow } })
+moonpie.element("container", { margin = 5, padding = 10, background = { color = moonpie.colors.gray } })
 
 return moonpie.element

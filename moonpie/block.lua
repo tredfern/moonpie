@@ -9,7 +9,7 @@ local box_model = require(BASE .. "box_model")
 return function(element)
   return {
     element = element or {},
-    box = box_model(),
+    box = box_model(element),
     children = {},
 
     add = function(self, ...)
@@ -25,33 +25,36 @@ return function(element)
     end,
 
     layout = function(self, parent)
-      self.box.content.width = self.element.width or parent.width or parent.box.content.width
+      self.box.content.width = self.element.width or
+        (parent.box.content.width - self.box.margin.left - self.box.margin.right)
 
       for _, v in pairs(self.children) do
         if v.layout then v:layout(self) end
       end
 
-      local x, y = self.box:content_position()
+      local x, y = 0, 0
       local line_height, max_width = 0, 0
 
       for _, v in pairs(self.children) do
-        if x > 0 and x + v.box.content.width > self.box.content.width then
+        if x > 0 and x + v.box:width() > self.box.content.width then
           x = 0
           y = y + line_height
+          self.box.content.height = self.box.content.height + line_height
           line_height = 0
         end
 
         v.box.x, v.box.y = x, y
         x = x + v.box:width()
-        line_height = math.max(v.box.content.height, line_height)
+        line_height = math.max(v.box:height(), line_height)
         max_width = math.max(max_width, x)
       end
+      self.box.content.height = self.box.content.height + line_height
 
       if self.element.display == "inline" then
         self.box.content.width = self.element.width or max_width
       end
 
-      self.box.content.height = self.element.height or y + line_height
+      self.box.content.height = self.element.height or self.box.content.height
     end,
 
     paint = function(self)
@@ -60,6 +63,7 @@ return function(element)
 
       love.graphics.push()
       love.graphics.translate(self.box.x, self.box.y)
+      love.graphics.translate(self.box:content_position())
       if e.background then
         love.graphics.setColor(e.background.color)
         love.graphics.rectangle("fill", 0, 0, self.box.content.width, self.box.content.height)

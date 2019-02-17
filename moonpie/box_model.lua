@@ -3,11 +3,28 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-return function()
+local function get_rekt(element, property)
+  if type(element[property]) == "table" then
+    return {
+      left = element[property].left or 0,
+      top = element[property].top or 0,
+      right = element[property].right or 0,
+      bottom = element[property].bottom or 0,
+    }
+  else
+    local v = tonumber(element[property]) or 0
+    return {
+      left = v, top = v, right = v, bottom = v
+    }
+  end
+end
+
+return function(element)
+  element = element or {}
   return {
     x = 0, y = 0,
     content = { width = 0, height = 0 },
-    margin = { left = 0, right = 0, top = 0, bottom = 0 },
+    margin = get_rekt(element, "margin"),
     width = function(self)
       return self.margin.left + self.content.width + self.margin.right
     end,

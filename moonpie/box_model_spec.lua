@@ -13,6 +13,18 @@ describe("Box Model", function()
       assert.equals(0, box.y)
       assert.equals(0, box.content.width)
       assert.equals(0, box.content.height)
+      assert.equals(0, box.margin.left)
+      assert.equals(0, box.margin.top)
+      assert.equals(0, box.margin.right)
+      assert.equals(0, box.margin.bottom)
+    end)
+
+    it("sets all the margins to the same size if the element is set up as a number", function()
+      local box = box_model{ margin = 5 }
+      assert.equals(5, box.margin.left)
+      assert.equals(5, box.margin.top)
+      assert.equals(5, box.margin.bottom)
+      assert.equals(5, box.margin.right)
     end)
   end)
 

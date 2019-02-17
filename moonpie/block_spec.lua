@@ -5,7 +5,6 @@
 
 describe("Block", function()
   local mock_love = require "test_helpers.mock_love"
-  local box_model = require "moonpie.box_model"
   local Block = require "moonpie.block"
 
   it("initializes based on the element it's referenced too", function()
@@ -23,8 +22,20 @@ describe("Block", function()
   end)
 
   describe("Layout", function()
-    local parent = { width = 152, height = 499 }
-    parent.box = box_model(parent)
+    local parent = Block({ width = 152, height = 499 })
+    parent:layout()
+
+    describe("initializing box model", function()
+      it("has the margins of the element", function()
+        local b = Block({ margin = 5 })
+        local b2 = Block({ margin = { left = 9 } })
+        assert.equals(5, b.box.margin.left)
+        assert.equals(5, b.box.margin.top)
+        assert.equals(5, b.box.margin.right)
+        assert.equals(5, b.box.margin.bottom)
+        assert.equals(9, b2.box.margin.left)
+      end)
+    end)
 
     describe("Width Calculations", function()
       it("uses it's parent width to determine it's maximum and defaults to full width", function()
@@ -48,14 +59,19 @@ describe("Block", function()
         b:layout(parent)
         assert.equals(64, b.box.content.width)
       end)
+
+      it("shaves off the margin from the width", function()
+        local b = Block({ margin = 12 })
+        b:layout(parent)
+        assert.equals(128, b.box.content.width)
+      end)
     end)
 
-    it("uses its height if propvided on the node", function()
+    it("uses its height if provided on the node", function()
       local b = Block({ height = 493 })
       b:layout(parent)
       assert.equals(493, b.box.content.height)
     end)
-
 
     it("updates the layouts of its children with itself as parent", function()
       local b = Block({ width = 39, height = 39 })
@@ -66,17 +82,6 @@ describe("Block", function()
       b:layout(parent)
       assert.equals(c1, params[1])
       assert.equals(b, params[2])
-    end)
-
-    it("uses it's content position of it's box to determine where children positions stop and end", function()
-      local b = Block()
-      b.box.margin.left = 10
-      b.box.margin.top = 15
-      local c1 = Block({width = 30})
-      b:add(c1)
-      b:layout(parent)
-      assert.equals(10, c1.box.x)
-      assert.equals(15, c1.box.y)
     end)
 
     describe("Horizontal layout", function()
@@ -113,6 +118,31 @@ describe("Block", function()
           assert.equals(71, block.box.content.height)
         end)
       end)
+
+      describe("Margins", function()
+        local block = Block({ display = "inline", margin = 5 })
+        local child = Block({ margin = 2, width = 10, height = 10 })
+        block:add(child)
+        block:layout(parent)
+
+        it("starts the content based on the margin", function()
+          local x, y = block.box:content_position()
+          assert.equals(5, x)
+          assert.equals(5, y)
+        end)
+
+        it("content area includes the margins of the child", function()
+          assert.equals(14, block.box.content.width)
+          assert.equals(14, block.box.content.height)
+        end)
+
+        it("uses the margins for the total size", function()
+          assert.equals(14, child.box:height())
+          assert.equals(14, child.box:width())
+          assert.equals(24, block.box:height())
+          assert.equals(24, block.box:width())
+        end)
+      end)
     end)
   end)
 
@@ -132,7 +162,6 @@ describe("Block", function()
   end)
 
   describe("Painting", function()
-
     it("translates its position to the x, y position", function()
       local b = Block()
       b.box.x = 39
@@ -157,6 +186,13 @@ describe("Block", function()
       b:paint()
       assert.spy(spy_paint).was.called_with(c1)
       assert.spy(spy_paint).was.called_with(c2)
+    end)
+
+    it("translates the children to where the content starts", function()
+      mock_love.mock(love.graphics, "translate", spy.new(function() end))
+      local b = Block({ margin = 5 })
+      b:paint()
+      assert.spy(love.graphics.translate).was.called.with(5, 5)
     end)
 
     it("paints a background.color for it's area if provided", function()
