@@ -71,6 +71,12 @@ describe("Block", function()
         b:layout(parent)
         assert.equals(140, b.box.content.width)
       end)
+
+      it("shaves off the border from the content width", function()
+        local b = Block({ border = 2 })
+        b:layout(parent)
+        assert.equals(148, b.box.content.width)
+      end)
     end)
 
     it("uses its height if provided on the node", function()
@@ -225,6 +231,35 @@ describe("Block", function()
 
       assert.spy(love.graphics.setColor).was.called_with(node.background.color)
       assert.spy(love.graphics.rectangle).was.called_with("fill", 0, 0, 128, 491)
+    end)
+
+    describe("border", function()
+      local bordered = Block{ margin = 2, border = 3, width = 20, height = 25, border_color = { 1, 0, 1, 1 }  }
+      bordered:layout()
+
+      it("sets the line width to the border size", function()
+        mock_love.mock(love.graphics, "setLineWidth", spy.new(function() end))
+        bordered:paint()
+        assert.spy(love.graphics.setLineWidth).was.called.with(3)
+      end)
+
+      it("sets the border color", function()
+        mock_love.mock(love.graphics, "setColor", spy.new(function() end))
+        bordered:paint()
+        assert.spy(love.graphics.setColor).was.called.with(bordered.element.border_color)
+      end)
+
+      it("translates away the margin", function()
+        mock_love.mock(love.graphics, "translate", spy.new(function() end))
+        bordered:paint()
+        assert.spy(love.graphics.translate).was.called.with(2, 2)
+      end)
+
+      it("draws a rectangle for the border", function()
+        mock_love.mock(love.graphics, "rectangle", spy.new(function() end))
+        bordered:paint()
+        assert.spy(love.graphics.rectangle).was.called.with("line", 0, 0, bordered.box:border_size())
+      end)
     end)
 
     describe("Hover State", function()

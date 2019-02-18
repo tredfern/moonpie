@@ -81,6 +81,56 @@ describe("Box Model", function()
       assert.equals(17, h)
     end)
 
+    describe("border", function()
+      it("is included in total size", function()
+        local box = box_model{ border = 3 }
+        box.content.width = 10
+        box.content.height = 12
+        assert.equals(16, box:width())
+        assert.equals(18, box:height())
+      end)
+
+      it("is included in background offset", function()
+        local box = box_model{ border = 2 }
+        local x, y = box:background_position()
+        assert.equals(2, x)
+        assert.equals(2, y)
+      end)
+
+      it("is included in the content offset", function()
+        local box = box_model{ border = 2 }
+        local x, y = box:content_position()
+        assert.equals(2, x)
+        assert.equals(2, y)
+      end)
+
+      it("identifies the top-left corner of the border", function()
+        local box = box_model{ margin = 3, border = 2 }
+        local x, y = box:border_position()
+        assert.equals(3, x)
+        assert.equals(3, y)
+      end)
+
+      it("can return the width and height for the border", function()
+        local box = box_model{ border = 3 }
+        box.content.width = 100
+        box.content.height = 200
+        local w, h = box:border_size()
+        assert.equals(106, w)
+        assert.equals(206, h)
+      end)
+
+      it("includes the padding in the width and height for the border", function()
+        local box = box_model{ border = 1, padding = 2 }
+        box.content.width = 100
+        box.content.height = 100
+        local w, h = box:border_size()
+        assert.equals(106, w)
+        assert.equals(106, h)
+      end)
+    end)
+
+
     it("includes margins in the total size", function()
       local box = box_model()
       box.margin.left = 3
