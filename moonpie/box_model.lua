@@ -23,7 +23,7 @@ local function get_rekt(element, property)
   end
 end
 
-return function(element)
+return function(element, parent)
   element = element or {}
   return {
     x = 0, y = 0,
@@ -31,6 +31,7 @@ return function(element)
     border = get_rekt(element, "border"),
     margin = get_rekt(element, "margin"),
     padding = get_rekt(element, "padding"),
+    parent = parent,
     width = function(self)
       return self.margin:landr() + self.border:landr() + self.padding:landr() + self.content.width
     end,
@@ -57,12 +58,19 @@ return function(element)
     end,
     region = function(self)
       local r = { left = 0, top = 0 }
-      if self.parent then r = self.parent:region() end
+      local cx, cy = 0, 0
+      if self.parent then
+        r = self.parent:region()
+        cx = self.parent.padding.left + self.parent.border.left
+        cy = self.parent.padding.top + self.parent.border.top
+      end
+      local bx, by = self:border_position()
+      local bw, bh = self:border_size()
       return {
-        left = r.left + self.x,
-        top = r.top + self.y,
-        right = r.left + self.x + self:width(),
-        bottom = r.top + self.y + self:height()
+        left = r.left + cx + self.x + bx,
+        top = r.top + cy + self.y + by,
+        right = r.left + cx + self.x + bx + bw,
+        bottom = r.top + cy + self.y + by + bh
       }
     end
   }

@@ -35,6 +35,12 @@ describe("Block", function()
         assert.equals(5, b.box.margin.bottom)
         assert.equals(9, b2.box.margin.left)
       end)
+
+      it("tracks the parent layout used", function()
+        local b = Block()
+        b:layout(parent)
+        assert.equals(parent.box, b.box.parent)
+      end)
     end)
 
     describe("Width Calculations", function()
@@ -204,7 +210,7 @@ describe("Block", function()
       mock_love.mock(love.graphics, "push", spy.new(function() end))
       mock_love.mock(love.graphics, "pop", spy.new(function() end))
       mock_love.mock(love.graphics, "translate", spy.new(function() end))
-      local b = Block{ margin = 5, padding = 4, background = { color = {1, 1, 1, 1 } } }
+      local b = Block{ margin = 5, padding = 4, background_color = {1, 1, 1, 1 } }
       b:draw_background(b.element)
       assert.spy(love.graphics.push).was.called()
       assert.spy(love.graphics.translate).was.called.with(5, 5)
@@ -222,14 +228,14 @@ describe("Block", function()
       mock_love.mock(love.graphics, "setColor", spy.new(function() end))
       mock_love.mock(love.graphics, "rectangle", spy.new(function() end))
 
-      local node = { padding = 4, background = { color = { 1, 1, 1, 1 } }, width = 120, height = 483 }
+      local node = { padding = 4, background_color = { 1, 1, 1, 1 }, width = 120, height = 483 }
       local b = Block(node)
       b:layout()
 
       b:paint()
       --check the background was called
 
-      assert.spy(love.graphics.setColor).was.called_with(node.background.color)
+      assert.spy(love.graphics.setColor).was.called_with(node.background_color)
       assert.spy(love.graphics.rectangle).was.called_with("fill", 0, 0, 128, 491)
     end)
 
@@ -270,13 +276,13 @@ describe("Block", function()
         mock_love.mock(love.graphics, "setColor", spy.new(function() end))
 
         local element = Element("hover-test",
-          {width = 120, height = 120, background = { color = { 0, 0, 0, 0 } } })
+          {width = 120, height = 120, background_color = { 0, 0, 0, 0 } })
           :on_hover({ background = { color = { 1, 1, 1, 1 } } })
         local b = Block(element)
         b:layout()
         b:paint()
 
-        assert.spy(love.graphics.setColor).was.called_with(element.hover.background.color)
+        assert.spy(love.graphics.setColor).was.called_with(element.hover.background_color)
       end)
     end)
   end)

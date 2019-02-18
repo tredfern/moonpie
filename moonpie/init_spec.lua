@@ -15,8 +15,12 @@ describe("Initialize Moonpie", function()
     assert.not_nil(moonpie.text)
   end)
 
-  it("has a renderer", function()
-    assert.not_nil(moonpie.renderer)
+  it("has a paint", function()
+    assert.not_nil(moonpie.paint)
+  end)
+
+  it("has a update method", function()
+    assert.not_nil(moonpie.update)
   end)
 
   it("has elements", function()

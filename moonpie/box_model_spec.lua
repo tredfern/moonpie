@@ -38,6 +38,12 @@ describe("Box Model", function()
       assert.equals(12, box.padding.top)
       assert.equals(12, box.padding.bottom)
     end)
+
+    it("sets the parent if a second table is provided", function()
+      local parent = box_model()
+      local box = box_model({}, parent)
+      assert.equals(parent, box.parent)
+    end)
   end)
 
   describe("calculating the full box area", function()
@@ -154,22 +160,20 @@ describe("Box Model", function()
   end)
 
   describe("it can return a region that represents the area contained by the box", function()
-    it("calculates it's region based on the x, y offset of it's parent's region and it's x, y", function()
-      local parent = box_model()
+    it("calculates it's region based off its parent's region and its x + margin, y + margin", function()
+      local parent = box_model({ margin = 2, border = 2, padding = 4 })
       parent.x = 50
       parent.y = 70
-      local box = box_model()
-      box.parent = parent
+      local box = box_model({ margin = 5 }, parent)
       box.x = 10
       box.y = 20
       box.content.width = 60
       box.content.height = 70
       local region = box:region()
-      assert.equals(60, region.left)
-      assert.equals(90, region.top)
-      assert.equals(120, region.right)
-      assert.equals(160, region.bottom)
+      assert.equals(73, region.left)
+      assert.equals(103, region.top)
+      assert.equals(133, region.right)
+      assert.equals(173, region.bottom)
     end)
   end)
-
 end)

@@ -102,7 +102,4 @@ describe("Element", function()
       assert.equals("block", Element.root.display)
     end)
   end)
-
-  describe("Events", function()
-  end)
 end)

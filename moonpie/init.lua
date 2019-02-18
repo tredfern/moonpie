@@ -5,11 +5,18 @@
 
 local BASE = (...) .. "."
 
+local renderer = require(BASE .. "renderer")
+local gui
+
 return {
   colors = require(BASE .. "colors"),
   component = require(BASE .. "component"),
   element = require(BASE .. "element"),
+  paint = function()
+    gui:paint()
+  end,
   text = require(BASE .. "text"),
-  renderer = require(BASE .. "renderer")
-
+  update = function(...)
+    gui = renderer(...)
+  end,
 }

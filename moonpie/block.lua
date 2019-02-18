@@ -25,6 +25,7 @@ return function(element)
     end,
 
     layout = function(self, parent)
+      if parent then self.box.parent = parent.box end
       self.box.content.width = self.element.width or
         (parent.box.content.width
           - self.box.margin.left - self.box.margin.right
@@ -77,10 +78,10 @@ return function(element)
       love.graphics.pop()
     end,
     draw_background = function(self, e)
-      if e.background then
+      if e.background_color then
         love.graphics.push()
         love.graphics.translate(self.box:background_position())
-        love.graphics.setColor(e.background.color)
+        love.graphics.setColor(e.background_color)
         love.graphics.rectangle("fill", 0, 0, self.box:background_size())
         love.graphics.pop()
       end
@@ -95,5 +96,14 @@ return function(element)
         love.graphics.pop()
       end
     end,
+    draw_click_region = function(self)
+      local r = self.box:region()
+      love.graphics.push()
+      love.graphics.origin()
+      love.graphics.setColor({1, 1, 1, 1 })
+      love.graphics.setLineWidth(1)
+      love.graphics.rectangle("line", r.left, r.top, r.right - r.left, r.bottom - r.top)
+      love.graphics.pop()
+    end
   }
 end
