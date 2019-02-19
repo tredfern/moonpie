@@ -3,18 +3,18 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-describe("Block", function()
+describe("Node", function()
   local mock_love = require "test_helpers.mock_love"
-  local Block = require "moonpie.block"
+  local Node = require "moonpie.node"
 
   it("initializes based on the component it's referenced too", function()
     local text_component = { text = "Foo bar" }
-    local b = Block(text_component)
+    local b = Node(text_component)
     assert.equals(text_component, b.component)
   end)
 
   it("can have child nodes", function()
-    local b = Block()
+    local b = Node()
     local c1, c2 = {}, {}
     b:add(c1, c2)
     assert.equals(c1, b.children[1])
@@ -22,13 +22,13 @@ describe("Block", function()
   end)
 
   describe("Layout", function()
-    local parent = Block({ width = 152, height = 499 })
+    local parent = Node({ width = 152, height = 499 })
     parent:layout()
 
     describe("initializing box model", function()
       it("has the margins of the component", function()
-        local b = Block({ margin = 5 })
-        local b2 = Block({ margin = { left = 9 } })
+        local b = Node({ margin = 5 })
+        local b2 = Node({ margin = { left = 9 } })
         assert.equals(5, b.box.margin.left)
         assert.equals(5, b.box.margin.top)
         assert.equals(5, b.box.margin.right)
@@ -37,7 +37,7 @@ describe("Block", function()
       end)
 
       it("tracks the parent layout used", function()
-        local b = Block()
+        local b = Node()
         b:layout(parent)
         assert.equals(parent.box, b.box.parent)
       end)
@@ -45,21 +45,21 @@ describe("Block", function()
 
     describe("Width Calculations", function()
       it("uses it's parent width to determine it's maximum and defaults to full width", function()
-        local b = Block()
+        local b = Node()
         b:layout(parent)
         assert.equals(152, b.box.content.width)
       end)
 
       it("uses it's own width if provided on the node", function()
-        local b = Block({ width = 120 })
+        local b = Node({ width = 120 })
         b:layout(parent)
         assert.equals(120, b.box.content.width)
       end)
 
       it("uses the width of its children if display is 'inline'", function()
-        local b = Block({ display = "inline" })
-        local c1 = Block({ width = 30 })
-        local c2 = Block({ width = 34 })
+        local b = Node({ display = "inline" })
+        local c1 = Node({ width = 30 })
+        local c2 = Node({ width = 34 })
         b:add(c1, c2)
 
         b:layout(parent)
@@ -67,34 +67,34 @@ describe("Block", function()
       end)
 
       it("shaves off the margin from the width", function()
-        local b = Block({ margin = 12 })
+        local b = Node({ margin = 12 })
         b:layout(parent)
         assert.equals(128, b.box.content.width)
       end)
 
       it("shaves off the padding from the content width", function()
-        local b = Block({ padding = 6 })
+        local b = Node({ padding = 6 })
         b:layout(parent)
         assert.equals(140, b.box.content.width)
       end)
 
       it("shaves off the border from the content width", function()
-        local b = Block({ border = 2 })
+        local b = Node({ border = 2 })
         b:layout(parent)
         assert.equals(148, b.box.content.width)
       end)
     end)
 
     it("uses its height if provided on the node", function()
-      local b = Block({ height = 493 })
+      local b = Node({ height = 493 })
       b:layout(parent)
       assert.equals(493, b.box.content.height)
     end)
 
     it("updates the layouts of its children with itself as parent", function()
-      local b = Block({ width = 39, height = 39 })
+      local b = Node({ width = 39, height = 39 })
       local params
-      local c1 = Block()
+      local c1 = Node()
       c1.layout = function(s, p) params = { s, p } end
       b:add(c1)
       b:layout(parent)
@@ -104,10 +104,10 @@ describe("Block", function()
 
     describe("Horizontal layout", function()
       it("assigns the position of components after calculating the width of them", function()
-        local b = Block()
-        local c1 = Block({width = 10 })
-        local c2 = Block({width = 20 })
-        local c3 = Block({width = 49 })
+        local b = Node()
+        local c1 = Node({width = 10 })
+        local c2 = Node({width = 20 })
+        local c3 = Node({width = 49 })
         b:add(c1, c2, c3)
         b:layout(parent)
         assert.equals(0, c1.box.x)
@@ -119,13 +119,13 @@ describe("Block", function()
       end)
 
       describe("Wrapping", function()
-        local block = Block()
-        local big_child = Block({ width = 500, height = 39})
-        local little_child = Block({ width = 43, height = 32})
-        block:add(big_child, little_child)
-        block:layout(parent)
+        local node = Node()
+        local big_child = Node({ width = 500, height = 39})
+        local little_child = Node({ width = 43, height = 32})
+        node:add(big_child, little_child)
+        node:layout(parent)
 
-        it("puts a block onto another line if the next block cannot fit onto the line", function()
+        it("puts a node onto another line if the next node cannot fit onto the line", function()
           assert.equals(0, big_child.box.x)
           assert.equals(0, big_child.box.y)
           assert.equals(0, little_child.box.x)
@@ -133,39 +133,39 @@ describe("Block", function()
         end)
 
         it("calculates it's own height to be the size of all the lines", function()
-          assert.equals(71, block.box.content.height)
+          assert.equals(71, node.box.content.height)
         end)
       end)
 
       describe("Margins", function()
-        local block = Block({ display = "inline", margin = 5 })
-        local child = Block({ margin = 2, width = 10, height = 10 })
-        block:add(child)
-        block:layout(parent)
+        local node = Node({ display = "inline", margin = 5 })
+        local child = Node({ margin = 2, width = 10, height = 10 })
+        node:add(child)
+        node:layout(parent)
 
         it("starts the content based on the margin", function()
-          local x, y = block.box:content_position()
+          local x, y = node.box:content_position()
           assert.equals(5, x)
           assert.equals(5, y)
         end)
 
         it("content area includes the margins of the child", function()
-          assert.equals(14, block.box.content.width)
-          assert.equals(14, block.box.content.height)
+          assert.equals(14, node.box.content.width)
+          assert.equals(14, node.box.content.height)
         end)
 
         it("uses the margins for the total size", function()
           assert.equals(14, child.box:height())
           assert.equals(14, child.box:width())
-          assert.equals(24, block.box:height())
-          assert.equals(24, block.box:width())
+          assert.equals(24, node.box:height())
+          assert.equals(24, node.box:width())
         end)
       end)
     end)
   end)
 
   describe("Status Checks", function()
-    local b = Block({ width = 20, height = 30 })
+    local b = Node({ width = 20, height = 30 })
     b:layout()
 
     it("can flag that the mouse is hovering", function()
@@ -181,7 +181,7 @@ describe("Block", function()
 
   describe("Painting", function()
     it("translates its position to the x, y position", function()
-      local b = Block()
+      local b = Node()
       b.box.x = 39
       b.box.y = 59
       mock_love.mock(love.graphics, "push", spy.new(function() end))
@@ -195,7 +195,7 @@ describe("Block", function()
     end)
 
     it("paints each of its children", function()
-      local b = Block()
+      local b = Node()
       local spy_paint = spy.new(function() end)
       local c1 = { paint = spy_paint }
       local c2 = { paint = spy_paint }
@@ -210,7 +210,7 @@ describe("Block", function()
       mock_love.mock(love.graphics, "push", spy.new(function() end))
       mock_love.mock(love.graphics, "pop", spy.new(function() end))
       mock_love.mock(love.graphics, "translate", spy.new(function() end))
-      local b = Block{ margin = 5, padding = 4, background_color = {1, 1, 1, 1 } }
+      local b = Node{ margin = 5, padding = 4, background_color = {1, 1, 1, 1 } }
       b:draw_background(b.component)
       assert.spy(love.graphics.push).was.called()
       assert.spy(love.graphics.translate).was.called.with(5, 5)
@@ -219,7 +219,7 @@ describe("Block", function()
 
     it("translates the children to where the content starts", function()
       mock_love.mock(love.graphics, "translate", spy.new(function() end))
-      local b = Block({ margin = 5, padding = 4 })
+      local b = Node({ margin = 5, padding = 4 })
       b:paint()
       assert.spy(love.graphics.translate).was.called.with(9, 9)
     end)
@@ -229,7 +229,7 @@ describe("Block", function()
       mock_love.mock(love.graphics, "rectangle", spy.new(function() end))
 
       local node = { padding = 4, background_color = { 1, 1, 1, 1 }, width = 120, height = 483 }
-      local b = Block(node)
+      local b = Node(node)
       b:layout()
 
       b:paint()
@@ -240,7 +240,7 @@ describe("Block", function()
     end)
 
     describe("border", function()
-      local bordered = Block{ margin = 2, border = 3, width = 20, height = 25, border_color = { 1, 0, 1, 1 }  }
+      local bordered = Node{ margin = 2, border = 3, width = 20, height = 25, border_color = { 1, 0, 1, 1 }  }
       bordered:layout()
 
       it("sets the line width to the border size", function()
@@ -278,7 +278,7 @@ describe("Block", function()
         local component = Component("hover-test",
           {width = 120, height = 120, background_color = { 0, 0, 0, 0 } })
           :on_hover({ background = { color = { 1, 1, 1, 1 } } })
-        local b = Block(component)
+        local b = Node(component)
         b:layout()
         b:paint()
 

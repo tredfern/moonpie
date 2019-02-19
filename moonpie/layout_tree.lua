@@ -4,24 +4,24 @@
 -- https://opensource.org/licenses/MIT
 
 local BASE = (...):match('(.-)[^%.]+$')
-local Block = require(BASE .. "block")
+local Node = require(BASE .. "node")
 local Text = require(BASE .. "text")
 local Component = require(BASE .. "component")
 
 local function build_item(item)
-  local new_block = Block(item)
+  local new_node = Node(item)
   if item.text then
-    new_block:add(Text(item))
+    new_node:add(Text(item))
   end
 
   for _, v in ipairs(item) do
-    new_block:add(build_item(v))
+    new_node:add(build_item(v))
   end
-  return new_block
+  return new_node
 end
 
 return function(...)
- local r = Block(Component.root)
+ local r = Node(Component.root)
 
   for _, v in ipairs({...}) do
     r:add(build_item(v))

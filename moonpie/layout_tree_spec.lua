@@ -18,14 +18,14 @@ describe("LayoutTree", function()
 
     describe("adding children", function()
       it("sets all the components on the root to children of it", function()
-        local ele1, ele2, ele3 = { display = "block" }, { display = "block" }, { display = "block" }
+        local ele1, ele2, ele3 = { }, { }, { }
         local r = LayoutTree(ele1, ele2, ele3)
         assert.equals(3, #r.children)
       end)
 
       it("adds text components for a node with a text value associated with it", function()
-        local text_block = { display = "block", text = "Some text", font = mock_love.font }
-        local r = LayoutTree(text_block)
+        local text_node = { text = "Some text", font = mock_love.font }
+        local r = LayoutTree(text_node)
         local first_node = r.children[1]
         assert.equals(1, #first_node.children)
       end)
