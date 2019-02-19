@@ -20,8 +20,7 @@ return function(component)
 
     hover = function(self)
       local mx, my = love.mouse.getPosition()
-      local region = self.box:region()
-      return region.left < mx and region.right > mx and region.top < my and region.bottom > my
+      return self.box:region():contains(mx, my)
     end,
 
     layout = function(self, parent)

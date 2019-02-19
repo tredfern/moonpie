@@ -3,6 +3,9 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
+local BASE = (...):match('(.-)[^%.]+$')
+local region = require(BASE .. "region")
+
 local function get_rekt(element, property)
   if type(element[property]) == "table" then
     return {
@@ -59,19 +62,22 @@ return function(element, parent)
     region = function(self)
       local r = { left = 0, top = 0 }
       local cx, cy = 0, 0
+
       if self.parent then
         r = self.parent:region()
         cx = self.parent.padding.left + self.parent.border.left
         cy = self.parent.padding.top + self.parent.border.top
       end
+
       local bx, by = self:border_position()
       local bw, bh = self:border_size()
-      return {
-        left = r.left + cx + self.x + bx,
-        top = r.top + cy + self.y + by,
-        right = r.left + cx + self.x + bx + bw,
-        bottom = r.top + cy + self.y + by + bh
-      }
+
+      return region(
+        r.left + cx + self.x + bx,
+        r.top + cy + self.y + by,
+        r.left + cx + self.x + bx + bw,
+        r.top + cy + self.y + by + bh
+      )
     end
   }
 end
