@@ -3,23 +3,36 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local Component = {}
+local component_factory = {}
 
-function Component:new()
-  local c = {}
-  setmetatable(c, self)
-  self.__index = self
-  return c
+local function create_component(_base_, name, values)
+  assert(type(name) == "string", "Component requires a name.")
+  local t = values or {}
+  t.name = name
+  component_factory[name] = t
+
+  setmetatable(t, {
+    __index = _base_,
+    __call = create_component
+  })
+
+  return t
 end
 
-function Component:update(...)
-  self.children = {...}
-end
-
-function Component:render()
-  for _, v in ipairs(self.children) do
-    v.render()
+local component = {
+  on_hover = function(self, hover)
+    self.hover = self(self.name .. ".hover", hover)
+    return self
   end
-end
+}
 
-return Component
+setmetatable(component_factory, { __call =
+  function(_, name, values)
+    return create_component(component, name, values)
+  end
+})
+
+component_factory("none", { display = "block" })
+component_factory("root", { display = "block", width = love.graphics.getWidth(), height = love.graphics.getHeight() })
+
+return component_factory

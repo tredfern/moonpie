@@ -7,10 +7,10 @@ describe("Block", function()
   local mock_love = require "test_helpers.mock_love"
   local Block = require "moonpie.block"
 
-  it("initializes based on the element it's referenced too", function()
-    local text_element = { text = "Foo bar" }
-    local b = Block(text_element)
-    assert.equals(text_element, b.element)
+  it("initializes based on the component it's referenced too", function()
+    local text_component = { text = "Foo bar" }
+    local b = Block(text_component)
+    assert.equals(text_component, b.component)
   end)
 
   it("can have child nodes", function()
@@ -26,7 +26,7 @@ describe("Block", function()
     parent:layout()
 
     describe("initializing box model", function()
-      it("has the margins of the element", function()
+      it("has the margins of the component", function()
         local b = Block({ margin = 5 })
         local b2 = Block({ margin = { left = 9 } })
         assert.equals(5, b.box.margin.left)
@@ -103,7 +103,7 @@ describe("Block", function()
     end)
 
     describe("Horizontal layout", function()
-      it("assigns the position of elements after calculating the width of them", function()
+      it("assigns the position of components after calculating the width of them", function()
         local b = Block()
         local c1 = Block({width = 10 })
         local c2 = Block({width = 20 })
@@ -211,7 +211,7 @@ describe("Block", function()
       mock_love.mock(love.graphics, "pop", spy.new(function() end))
       mock_love.mock(love.graphics, "translate", spy.new(function() end))
       local b = Block{ margin = 5, padding = 4, background_color = {1, 1, 1, 1 } }
-      b:draw_background(b.element)
+      b:draw_background(b.component)
       assert.spy(love.graphics.push).was.called()
       assert.spy(love.graphics.translate).was.called.with(5, 5)
       assert.spy(love.graphics.pop).was.called()
@@ -252,7 +252,7 @@ describe("Block", function()
       it("sets the border color", function()
         mock_love.mock(love.graphics, "setColor", spy.new(function() end))
         bordered:paint()
-        assert.spy(love.graphics.setColor).was.called.with(bordered.element.border_color)
+        assert.spy(love.graphics.setColor).was.called.with(bordered.component.border_color)
       end)
 
       it("translates away the margin", function()
@@ -269,20 +269,20 @@ describe("Block", function()
     end)
 
     describe("Hover State", function()
-      local Element = require "moonpie.element"
+      local Component = require "moonpie.component"
 
-      it("uses the hover state of the element for painting properties", function()
+      it("uses the hover state of the component for painting properties", function()
         mock_love.mock(love.mouse, "getPosition", function() return 24, 42 end)
         mock_love.mock(love.graphics, "setColor", spy.new(function() end))
 
-        local element = Element("hover-test",
+        local component = Component("hover-test",
           {width = 120, height = 120, background_color = { 0, 0, 0, 0 } })
           :on_hover({ background = { color = { 1, 1, 1, 1 } } })
-        local b = Block(element)
+        local b = Block(component)
         b:layout()
         b:paint()
 
-        assert.spy(love.graphics.setColor).was.called_with(element.hover.background_color)
+        assert.spy(love.graphics.setColor).was.called_with(component.hover.background_color)
       end)
     end)
   end)

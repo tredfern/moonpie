@@ -6,10 +6,10 @@
 local BASE = (...):match('(.-)[^%.]+$')
 local box_model = require(BASE .. "box_model")
 
-return function(element)
+return function(component)
   return {
-    element = element or {},
-    box = box_model(element),
+    component = component or {},
+    box = box_model(component),
     children = {},
 
     add = function(self, ...)
@@ -26,7 +26,7 @@ return function(element)
 
     layout = function(self, parent)
       if parent then self.box.parent = parent.box end
-      self.box.content.width = self.element.width or
+      self.box.content.width = self.component.width or
         (parent.box.content.width
           - self.box.margin.left - self.box.margin.right
           - self.box.padding.left - self.box.padding.right
@@ -54,16 +54,16 @@ return function(element)
       end
       self.box.content.height = self.box.content.height + line_height
 
-      if self.element.display == "inline" then
-        self.box.content.width = self.element.width or max_width
+      if self.component.display == "inline" then
+        self.box.content.width = self.component.width or max_width
       end
 
-      self.box.content.height = self.element.height or self.box.content.height
+      self.box.content.height = self.component.height or self.box.content.height
     end,
 
     paint = function(self)
-      local e = self.element
-      if self.element.hover and self:hover() then e = self.element.hover end
+      local e = self.component
+      if self.component.hover and self:hover() then e = self.component.hover end
 
       love.graphics.push()
       love.graphics.translate(self.box.x, self.box.y)

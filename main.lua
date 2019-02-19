@@ -7,20 +7,20 @@
 --
 
 local moonpie = require "moonpie"
-local elements = require "elements"
+local components = require "components"
 
 function love.load()
-  moonpie.update(
-    elements.container("button-tests", {
-      elements.button("button1", { text = "Click Me!" })
+  moonpie.layout(
+    components.container("button-tests", {
+      components.button("button1", { text = "Click Me!" })
     }),
-    elements.container("text-wrapper",
+    components.container("text-wrapper",
       {
-        elements["text-border"]("text1", { text = "Hello World!", color = moonpie.colors.cyan }),
-        elements.text("text2", { text = "And now for something completely different", color = moonpie.colors.blue }),
+        components["text-border"]("text1", { text = "Hello World!", color = moonpie.colors.cyan }),
+        components.text("text2", { text = "And now for something completely different", color = moonpie.colors.blue }),
     }):on_hover( { background_color = moonpie.colors.light_gray }),
-    elements["funky-rect"]("rect1"),
-    elements["funky-rect2"]("rect2")
+    components["funky-rect"]("rect1"),
+    components["funky-rect2"]("rect2")
   )
 end
 
