@@ -21,6 +21,13 @@ describe("Node", function()
     assert.equals(c2, b.children[2])
   end)
 
+  it("passes any functions it doesn't know to the component", function()
+    local comp = { click = spy.new(function() end) }
+    local b = Node(comp)
+    b:click()
+    assert.spy(comp.click).was.called.with(b)
+  end)
+
   describe("Layout", function()
     local parent = Node({ width = 152, height = 499 })
     parent:layout()

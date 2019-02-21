@@ -7,6 +7,8 @@ local image = {
   getHeight = function() return 100 end
 }
 local key_down = {}
+local mouse_down = {}
+local mouse_x, mouse_y = 0, 0
 love = {
     event = {
       quit = function() end,
@@ -46,8 +48,11 @@ love = {
     },
     mouse = {
       getPosition = function()
-        return 0, 0
-      end
+        return mouse_x, mouse_y
+      end,
+      isDown = function(button)
+        return mouse_down[button] ~= nil
+      end,
     },
     timer = {
       getDelta = function() return 0.03 end
@@ -66,6 +71,19 @@ return {
   end,
   simulate_key_up = function(key)
     key_down[key] = nil
+  end,
+  simulate_button_down = function(button)
+    mouse_down[button] = true
+  end,
+  simulate_button_up = function(button)
+    mouse_down[button] = nil
+  end,
+  move_mouse = function(x, y)
+    mouse_x, mouse_y = x, y
+  end,
+  reset_mouse = function()
+    mouse_x, mouse_y = 0, 0
+    mouse_down = {}
   end,
   font = font
 }

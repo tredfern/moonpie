@@ -7,7 +7,7 @@ local BASE = (...):match('(.-)[^%.]+$')
 local box_model = require(BASE .. "box_model")
 
 return function(component)
-  return {
+  return setmetatable({
     component = component or {},
     box = box_model(component),
     children = {},
@@ -104,5 +104,7 @@ return function(component)
       love.graphics.rectangle("line", r.left, r.top, r.right - r.left, r.bottom - r.top)
       love.graphics.pop()
     end
-  }
+  }, {
+    __index = component
+  })
 end
