@@ -3,7 +3,6 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-
 local BASE = (...):match('(.-)[^%.]+$')
 local box_model = require(BASE .. "box_model")
 

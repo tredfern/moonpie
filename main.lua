@@ -12,7 +12,7 @@ local components = require "components"
 function love.load()
   moonpie.layout(
     components.container("button-tests", {
-      components.button("button1", { text = "Click Me!" })
+      components.button("button1", { text = "Click Me!" }):on_click(function(self) self.text = "Clicked!" end)
     }),
     components.container("text-wrapper",
       {
@@ -25,6 +25,7 @@ function love.load()
 end
 
 function love.update()
+  moonpie.update()
 end
 
 function love.draw()

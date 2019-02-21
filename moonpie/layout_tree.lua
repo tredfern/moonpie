@@ -6,7 +6,7 @@
 local BASE = (...):match('(.-)[^%.]+$')
 local Node = require(BASE .. "node")
 local Text = require(BASE .. "text")
-local Component = require(BASE .. "component")
+local Components = require(BASE .. "components")
 
 local function build_item(item)
   local new_node = Node(item)
@@ -21,7 +21,7 @@ local function build_item(item)
 end
 
 return function(...)
- local r = Node(Component.root)
+ local r = Node(Components.root)
 
   for _, v in ipairs({...}) do
     r:add(build_item(v))

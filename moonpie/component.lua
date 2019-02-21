@@ -23,6 +23,12 @@ local component = {
   on_hover = function(self, hover)
     self.hover = self(self.name .. ".hover", hover)
     return self
+  end,
+  on_click = function(self, callback)
+    self.click = function()
+      callback(self)
+    end
+    return self
   end
 }
 
@@ -31,8 +37,5 @@ setmetatable(component_factory, { __call =
     return create_component(component, name, values)
   end
 })
-
-component_factory("none", { display = "block" })
-component_factory("root", { display = "block", width = love.graphics.getWidth(), height = love.graphics.getHeight() })
 
 return component_factory

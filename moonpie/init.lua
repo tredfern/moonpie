@@ -7,10 +7,12 @@ local BASE = (...) .. "."
 
 local layout_tree = require(BASE .. "layout_tree")
 local gui
+local mouse = require(BASE .. "mouse")
 
-return {
+local moonpie = {
   colors = require(BASE .. "colors"),
   component = require(BASE .. "component"),
+  mouse = mouse,
   paint = function()
     gui:paint()
   end,
@@ -18,4 +20,12 @@ return {
   layout = function(...)
     gui = layout_tree(...)
   end,
+  update = function()
+    mouse:update(gui)
+  end
 }
+
+-- set up base components
+require(BASE .. "components")
+
+return moonpie
