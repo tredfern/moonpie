@@ -28,6 +28,10 @@ describe("Initialize Moonpie", function()
     assert.not_nil(moonpie.colors.red)
   end)
 
+  it("has fonts", function()
+    assert.not_nil(moonpie.font)
+  end)
+
   describe("updating", function()
     it("has an update method", function()
       assert.not_nil(moonpie.update)

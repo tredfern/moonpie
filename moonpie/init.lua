@@ -12,6 +12,7 @@ local mouse = require(BASE .. "mouse")
 local moonpie = {
   colors = require(BASE .. "colors"),
   component = require(BASE .. "component"),
+  font = require(BASE .. "font"),
   mouse = mouse,
   paint = function()
     gui:paint()

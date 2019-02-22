@@ -6,10 +6,10 @@
 local moonpie = require("moonpie")
 
 local fonts = {
-  bebas = love.graphics.newFont("fonts/BebasNeue/BebasNeue-Regular.ttf")
+  bebas = moonpie.font("fonts/BebasNeue/BebasNeue-Regular.ttf")
 }
 
-moonpie.component("base", { font = fonts.bebas })
+moonpie.component("base", { font = fonts.bebas(12) })
 moonpie.component.base("text", { display = "inline", color = moonpie.colors.white })
 moonpie.component.base("text-border", { display = "inline",
   color = moonpie.colors.white,
@@ -19,6 +19,7 @@ moonpie.component("funky-rect", { width = 20, height = 200, background_color = m
 moonpie.component("funky-rect2", { width = 200, height = 20, background_color = moonpie.colors.yellow })
 moonpie.component("container", { margin = 5, padding = 10, background_color = moonpie.colors.black })
 moonpie.component.base("button", {
+  font = fonts.bebas(26),
   display = "inline",
   color = moonpie.colors.white,
   background_color = moonpie.colors.blue_green,
