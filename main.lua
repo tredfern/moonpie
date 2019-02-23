@@ -27,7 +27,7 @@ function love.load()
     components["funky-rect2"]("rect2"),
     components.container("text-test",
     {
-      components.text("long-text", { text = lorem })
+      components.text("long-text", { text = lorem, border_color = moonpie.colors.green, border = 3, padding = 10 })
     })
   )
 end
