@@ -10,16 +10,17 @@ return function(props)
   return {
     box = box_model(),
 
-    paint = function()
-      if props.font then love.graphics.setFont(props.font) end
+    paint = function(self)
       if props.color then love.graphics.setColor(props.color) end
-
-      love.graphics.print(props.text)
+      love.graphics.draw(self.text_image, 0, 0)
     end,
 
-    layout = function(self)
-      self.box.content.width, self.box.content.height =
-        props.font:getWidth(props.text), props.font:getHeight()
+    layout = function(self, parent)
+      local max_width = parent.box.content.width
+      local f = props.font or love.graphics.getFont()
+      self.text_image = love.graphics.newText(f)
+      self.text_image:setf(props.text, max_width, "left")
+      self.box.content.width, self.box.content.height = self.text_image:getDimensions()
     end
   }
 end

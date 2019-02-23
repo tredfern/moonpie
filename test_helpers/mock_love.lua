@@ -1,10 +1,21 @@
 local font = {
   getWidth = function() return 10 end,
-  getHeight = function() return 10 end
+  getHeight = function() return 10 end,
+  getWrap = function(_, text) 
+    local t={}
+    for str in string.gmatch(text, "([^:]+)") do
+      table.insert(t, str)
+    end
+    return 10, t
+  end
 }
 local image = {
   getWidth = function() return 100 end,
   getHeight = function() return 100 end
+}
+local text = {
+  setf = function() end,
+  getDimensions = function() return 10, 10 end
 }
 local key_down = {}
 local mouse_down = {}
@@ -20,6 +31,7 @@ love = {
         newFont = function() return font end,
         newQuad = function() return { } end,
         newImage = function() return image end,
+        newText = function() return setmetatable({}, { __index = text }) end,
         origin = function() end,
         pop = function() end,
         print = function() end,
@@ -85,5 +97,6 @@ return {
     mouse_x, mouse_y = 0, 0
     mouse_down = {}
   end,
-  font = font
+  font = font,
+  text = text
 }
