@@ -30,6 +30,7 @@ return function(component)
           - self.box.margin.left - self.box.margin.right
           - self.box.padding.left - self.box.padding.right
           - self.box.border.left - self.box.border.right)
+      self.box.content.height = 0
 
       for _, v in pairs(self.children) do
         if v.layout then v:layout(self) end
@@ -58,6 +59,11 @@ return function(component)
       end
 
       self.box.content.height = self.component.height or self.box.content.height
+      self.component.refresh_layout = nil
+    end,
+
+    refresh_needed = function(self)
+      return self.component.refresh_layout
     end,
 
     paint = function(self)

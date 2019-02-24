@@ -20,6 +20,15 @@ local function create_component(_base_, name, values)
 end
 
 local component = {
+  modify = function(self, values)
+    for k, v in pairs(values) do
+      self[k] = v
+    end
+    self.refresh_layout = true
+  end,
+  children = function(self)
+    return ipairs(self)
+  end,
   on_hover = function(self, hover)
     self.hover = self(self.name .. ".hover", hover)
     return self

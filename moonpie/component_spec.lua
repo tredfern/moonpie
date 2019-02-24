@@ -39,6 +39,22 @@ describe("Component", function()
     end)
   end)
 
+  describe("Modifying the component", function()
+    it("copies any new/changed keys to the existing component", function()
+      local n = Component("modify-test", { text = "Foo" })
+      assert.is_nil(n.new)
+      n:modify({ text = "bar", new = "some value" })
+      assert.equals("bar", n.text)
+      assert.equals("some value", n.new)
+    end)
+
+    it("flags itself as dirty to notify that it needs to have its layout refreshed", function()
+      local c = Component("modify-test", {})
+      c:modify({})
+      assert.is_true(c.refresh_layout)
+    end)
+  end)
+
   describe("Customizing", function()
     -- a strategy allowing generating new components without storing them in a global table for others to reference
     it("Allows taking a component as it's base and then customizing the properties", function()

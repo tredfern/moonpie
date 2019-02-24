@@ -7,8 +7,10 @@ local function search_by_coord(x, y, node, results)
   if node.box:region():contains(x, y) then
     results[#results + 1] = node
 
-    for _, v in ipairs(node.children) do
-      search_by_coord(x, y, v, results)
+    if node.children then
+      for _, v in ipairs(node.children) do
+        search_by_coord(x, y, v, results)
+      end
     end
   end
 end

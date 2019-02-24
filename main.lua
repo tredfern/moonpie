@@ -14,9 +14,9 @@ function love.load()
   moonpie.layout(
     components.container("button-tests", {
       components.button("button1", { text = "Click Me!" })
-        :on_click(function(self) self.text = "Clicked!" end),
+        :on_click(function(self) self:modify({ text = "Clicked!" }) end),
       components.button("button1", { text = "Click Me 2!" })
-        :on_click(function(self) self.text = "Clicked 2!" end)
+        :on_click(function(self) self:modify({ text = "Clicked 2!" }) end)
     }),
     components.container("text-wrapper",
       {

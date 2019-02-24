@@ -35,4 +35,15 @@ describe("FindByCoordinates", function()
     assert.equals(c1, results[2])
     assert.equals(c1_1, results[3])
   end)
+
+  it("if no children element just skip", function()
+    local n = node({ width = 200, height = 200 })
+    n:layout()
+    -- kind of breaking change but if there are nodes where
+    -- children value is destroyed, this simulates it
+    n.children = nil
+    assert.has_no.errors(function() find(5, 3, n) end)
+
+
+  end)
 end)
