@@ -5,7 +5,7 @@
 
 describe("Component", function()
   require "test_helpers.mock_love"
-  local Component = require "moonpie.component"
+  local Component = require "moonpie.components.component"
 
   describe("Creating", function()
     it("has a name describing the component", function()

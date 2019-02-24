@@ -7,7 +7,8 @@
 --
 
 local moonpie = require "moonpie"
-local components = require "components"
+require "components"
+local components = moonpie.components
 local lorem = love.filesystem.read("lorem_ipsum.txt")
 
 function love.load()
@@ -28,7 +29,8 @@ function love.load()
     components.container("text-test",
     {
       components.text("long-text", { text = lorem, border_color = moonpie.colors.green, border = 3, padding = 10 })
-    })
+    }),
+    components.vertical_scrollbar("test-bar")
   )
 end
 

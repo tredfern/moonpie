@@ -6,7 +6,6 @@
 local BASE = (...):match('(.-)[^%.]+$')
 local Component = require(BASE .. "component")
 
-Component("none", { })
-Component("root", { width = love.graphics.getWidth(), height = love.graphics.getHeight() })
+Component("vertical_scrollbar", {
 
-return Component
+})

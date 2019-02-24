@@ -310,7 +310,7 @@ describe("Node", function()
     end)
 
     describe("Hover State", function()
-      local Component = require "moonpie.component"
+      local Component = require "moonpie.components"
 
       it("uses the hover state of the component for painting properties", function()
         mock_love.mock(love.mouse, "getPosition", function() return 24, 42 end)

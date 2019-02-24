@@ -7,8 +7,8 @@ describe("Initialize Moonpie", function()
   require "test_helpers.mock_love"
   local moonpie = require "moonpie"
 
-  it("has an component base", function()
-    assert.not_nil(moonpie.component)
+  it("has an components base", function()
+    assert.not_nil(moonpie.components)
   end)
 
   it("has a text renderer", function()
@@ -44,7 +44,7 @@ describe("Initialize Moonpie", function()
     end)
 
     it("refreshes the layout of the gui if it is dirty", function()
-      local c = moonpie.component("node", { })
+      local c = moonpie.components("node", { })
       local tree = moonpie.layout(c)
       c:modify({ })
       tree.layout = spy.new(function() end)

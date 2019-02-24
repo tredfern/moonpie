@@ -27,7 +27,7 @@ end
 
 local moonpie = {
   colors = require(BASE .. "colors"),
-  component = require(BASE .. "component"),
+  components = require(BASE .. "components"),
   font = require(BASE .. "font"),
   mouse = mouse,
   paint = function()

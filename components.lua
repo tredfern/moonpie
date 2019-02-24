@@ -9,16 +9,16 @@ local fonts = {
   bebas = moonpie.font("fonts/BebasNeue/BebasNeue-Regular.ttf")
 }
 
-moonpie.component("base", { font = fonts.bebas(12) })
-moonpie.component.base("text", { display = "inline", color = moonpie.colors.white })
-moonpie.component.base("text-border", { display = "inline",
+moonpie.components("base", { font = fonts.bebas(12) })
+moonpie.components.base("text", { display = "inline", color = moonpie.colors.white })
+moonpie.components.base("text-border", { display = "inline",
   color = moonpie.colors.white,
   border_color = moonpie.colors.blue_bell, border = 4, margin = 4, padding = 4 })
-moonpie.component("funky-rect", { width = 20, height = 200, background_color = moonpie.colors.fuchsia_crayola })
+moonpie.components("funky-rect", { width = 20, height = 200, background_color = moonpie.colors.fuchsia_crayola })
   :on_hover({ background_color = moonpie.colors.green })
-moonpie.component("funky-rect2", { width = 200, height = 20, background_color = moonpie.colors.yellow })
-moonpie.component("container", { margin = 5, padding = 10, background_color = moonpie.colors.black })
-moonpie.component.base("button", {
+moonpie.components("funky-rect2", { width = 200, height = 20, background_color = moonpie.colors.yellow })
+moonpie.components("container", { margin = 5, padding = 10, background_color = moonpie.colors.black })
+moonpie.components.base("button", {
   font = fonts.bebas(26),
   display = "inline",
   color = moonpie.colors.white,
@@ -31,4 +31,4 @@ moonpie.component.base("button", {
   background_color = moonpie.colors.orange
 })
 
-return moonpie.component
+return moonpie.components
