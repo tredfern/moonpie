@@ -43,11 +43,15 @@ local moonpie = {
     if gui and check_node_for_refresh(gui) then
       gui:layout()
     end
-  end
+  end,
+  themes = {
+    standard = require(BASE .. "themes.standard"),
+    light_mode = require(BASE .. "themes.light_mode"),
+    dark_mode = require(BASE .. "themes.dark_mode")
+  }
 }
 
-
--- set up base components
-require(BASE .. "components")
+moonpie.themes.standard(moonpie)
+moonpie.themes.light_mode(moonpie)
 
 return moonpie

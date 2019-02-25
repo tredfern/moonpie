@@ -5,6 +5,8 @@
 
 local BASE = (...):match('(.-)[^%.]+$')
 local box_model = require(BASE .. "box_model")
+local colors = require(BASE .. "colors")
+local align = require(BASE .. "alignment")
 
 return function(component)
   return setmetatable({
@@ -23,42 +25,52 @@ return function(component)
       return self.box:region():contains(mx, my)
     end,
 
-    layout = function(self, parent)
-      if parent then self.box.parent = parent.box end
-      self.box.content.width = self.component.width or
+    max_width = function(self, parent)
+      return self.component.width or
         (parent.box.content.width
           - self.box.margin.left - self.box.margin.right
           - self.box.padding.left - self.box.padding.right
           - self.box.border.left - self.box.border.right)
-      self.box.content.height = 0
+    end,
+
+    layout_children = function(self, width)
+      local x, y = 0, 0
+      local line_height, max_width, max_height = 0, 0, 0
 
       for _, v in pairs(self.children) do
         if v.layout then v:layout(self) end
-      end
 
-      local x, y = 0, 0
-      local line_height, max_width = 0, 0
-
-      for _, v in pairs(self.children) do
-        if x > 0 and x + v.box:width() > self.box.content.width then
+        if x > 0 and x + v.box:width() > width then
           x = 0
           y = y + line_height
-          self.box.content.height = self.box.content.height + line_height
+          max_height = max_height + line_height
           line_height = 0
         end
 
-        v.box.x, v.box.y = x, y
-        x = x + v.box:width()
+        local a = v.component and v.component.align or "left"
+        v.box.x, v.box.y = align(a, x, width, v.box:width()), y
+        x = v.box.x + v.box:width()
         line_height = math.max(v.box:height(), line_height)
         max_width = math.max(max_width, x)
       end
-      self.box.content.height = self.box.content.height + line_height
+
+      max_height = max_height + line_height
+
+      return max_width, max_height
+    end,
+
+    layout = function(self, parent)
+      if parent then self.box.parent = parent.box end
+      self.box.content.width = self:max_width(parent)
+      self.box.content.height = 0
+
+      local w, h = self:layout_children(self.box.content.width)
 
       if self.component.display == "inline" then
-        self.box.content.width = self.component.width or max_width
+        self.box.content.width = self.component.width or w
       end
+      self.box.content.height = self.component.height or h
 
-      self.box.content.height = self.component.height or self.box.content.height
       self.component.refresh_layout = nil
     end,
 
@@ -86,7 +98,7 @@ return function(component)
       if e.background_color then
         love.graphics.push()
         love.graphics.translate(self.box:background_position())
-        love.graphics.setColor(e.background_color)
+        love.graphics.setColor(colors(e.background_color))
         love.graphics.rectangle("fill", 0, 0, self.box:background_size())
         love.graphics.pop()
       end
@@ -95,20 +107,11 @@ return function(component)
       if e.border then
         love.graphics.push()
         love.graphics.translate(self.box:border_position())
-        love.graphics.setColor(e.border_color)
+        love.graphics.setColor(colors(e.border_color))
         love.graphics.setLineWidth(e.border)
         love.graphics.rectangle("line", 0, 0, self.box:border_size())
         love.graphics.pop()
       end
-    end,
-    draw_click_region = function(self)
-      local r = self.box:region()
-      love.graphics.push()
-      love.graphics.origin()
-      love.graphics.setColor({1, 1, 1, 1 })
-      love.graphics.setLineWidth(1)
-      love.graphics.rectangle("line", r.left, r.top, r.right - r.left, r.bottom - r.top)
-      love.graphics.pop()
     end
   }, {
     __index = component

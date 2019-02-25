@@ -7,31 +7,25 @@
 --
 
 local moonpie = require "moonpie"
-require "components"
 local components = moonpie.components
 local lorem = love.filesystem.read("lorem_ipsum.txt")
+local show_light = true
 
 function love.load()
-  moonpie.layout(
-    components.container("button-tests", {
-      components.button("button1", { text = "Click Me!" })
-        :on_click(function(self) self:modify({ text = "Clicked!" }) end),
-      components.button("button1", { text = "Click Me 2!" })
-        :on_click(function(self) self:modify({ text = "Clicked 2!" }) end)
+  moonpie.layout({
+    components.header1("h1", { text = "UI Test Bed",
+      components.button("btn1", { text = "Switch Mode", align="right" }):on_click(function()
+        if show_light then
+          moonpie.themes.dark_mode(moonpie)
+        else
+          moonpie.themes.light_mode(moonpie)
+        end
+        show_light = not show_light
+      end)
     }),
-    components.container("text-wrapper",
-      {
-        components["text-border"]("text1", { text = "Hello World!", color = moonpie.colors.cyan }),
-        components.text("text2", { text = "And now for something completely different", color = moonpie.colors.blue }),
-    }):on_hover( { background_color = moonpie.colors.light_gray }),
-    components["funky-rect"]("rect1"),
-    components["funky-rect2"]("rect2"),
-    components.container("text-test",
-    {
-      components.text("long-text", { text = lorem, border_color = moonpie.colors.green, border = 3, padding = 10 })
-    }),
-    components.vertical_scrollbar("test-bar")
-  )
+    components.header1("h2", { text = "Big Text" }),
+    components.text("lorem", { text = lorem, padding = 5 })
+  })
 end
 
 function love.update()

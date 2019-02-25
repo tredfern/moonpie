@@ -5,13 +5,14 @@
 
 local BASE = (...):match('(.-)[^%.]+$')
 local box_model = require(BASE .. "box_model")
+local colors = require(BASE .. "colors")
 
 return function(props)
   return {
     box = box_model(),
 
     paint = function(self)
-      if props.color then love.graphics.setColor(props.color) end
+      if props.color then love.graphics.setColor(colors(props.color)) end
       love.graphics.draw(self.text_image, 0, 0)
     end,
 

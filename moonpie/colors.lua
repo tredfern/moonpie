@@ -31,4 +31,15 @@ for fields in contents:lines() do
     colors[fields[1]]={r, g, b, 1, displayname=fields[2]}
 end
 
+setmetatable(colors, {
+  __call = function(t, clr)
+    if type(clr) == "table" then
+      return clr
+    elseif type(clr) == "string" then
+      return t(t[clr])
+    end
+    return nil
+  end
+})
+
 return colors

@@ -26,7 +26,7 @@ army_green,"Army Green",#4b5320,75,83,32
 arsenic,"Arsenic",#3b444b,59,68,75
 arylide_yellow,"Arylide Yellow",#e9d66b,233,214,107
 ash_grey,"Ash Grey",#b2beb5,178,190,181
-asparagus,"Asparagus",#87a96b,135,169,107
+asparagus,"Asparagus",#6a9549,135,169,107
 atomic_tangerine,"Atomic Tangerine",#f96,255,153,102
 auburn,"Auburn",#a52a2a,165,42,42
 aureolin,"Aureolin",#fdee00,253,238,0
@@ -49,10 +49,12 @@ beige,"Beige",#f5f5dc,245,245,220
 big_dip_o_ruby,"Big Dip O’Ruby",#9c2542,156,37,66
 bisque,"Bisque",#ffe4c4,255,228,196
 bistre,"Bistre",#3d2b1f,61,43,31
+bitter,"Bitter",#858a7e
 bittersweet,"Bittersweet",#fe6f5e,254,111,94
 bittersweet_shimmer,"Bittersweet Shimmer",#bf4f51,191,79,81
 black,"Black",#000,0,0,0
 black_bean,"Black Bean",#3d0c02,61,12,2
+blackcurrant,"Blackcurrant",#332a37
 black_leather_jacket,"Black Leather Jacket",#253529,37,53,41
 black_olive,"Black Olive",#3b3c36,59,60,54
 blanched_almond,"Blanched Almond",#ffebcd,255,235,205
@@ -93,6 +95,7 @@ brilliant_rose,"Brilliant Rose",#ff55a3,255,85,163
 brink_pink,"Brink Pink",#fb607f,251,96,127
 british_racing_green,"British Racing Green",#004225,0,66,37
 bronze,"Bronze",#cd7f32,205,127,50
+brown_rust,"Brown Rust",#b05938
 brown_traditional,"Brown (Traditional)",#964b00,150,75,0
 brown_web,"Brown (Web)",#a52a2a,165,42,42
 bubble_gum,"Bubble Gum",#ffc1cc,255,193,204
@@ -328,17 +331,21 @@ fulvous,"Fulvous",#e48400,228,132,0
 fuzzy_wuzzy,"Fuzzy Wuzzy",#c66,204,102,102
 gainsboro,"Gainsboro",#dcdcdc,220,220,220
 gamboge,"Gamboge",#e49b0f,228,155,15
+ghost,"Ghost",#c8ccd9
 ghost_white,"Ghost White",#f8f8ff,248,248,255
 ginger,"Ginger",#b06500,176,101,0
 glaucous,"Glaucous",#6082b6,96,130,182
 glitter,"Glitter",#e6e8fa,230,232,250
 gold_metallic,"Gold (Metallic)",#d4af37,212,175,55
+golden_bell,"Golden Bell",#e78511
 gold_web_golden,"Gold (Web) (Golden)",#ffd700,255,215,0
 golden_brown,"Golden Brown",#996515,153,101,21
+golden_sand,"Golden Sand",#eede6b
 golden_poppy,"Golden Poppy",#fcc200,252,194,0
 golden_yellow,"Golden Yellow",#ffdf00,255,223,0
 goldenrod,"Goldenrod",#daa520,218,165,32
 granny_smith_apple,"Granny Smith Apple",#a8e4a0,168,228,160
+gray_medium,"Gray (Medium)",#999999
 gray,"Gray",#808080,128,128,128
 gray_asparagus,"Gray-Asparagus",#465945,70,89,69
 gray_html_css_gray,"Gray (Html/Css Gray)",#808080,128,128,128
@@ -529,6 +536,7 @@ navy_blue,"Navy Blue",#000080,0,0,128
 neon_carrot,"Neon Carrot",#ffa343,255,163,67
 neon_fuchsia,"Neon Fuchsia",#fe4164,254,65,100
 neon_green,"Neon Green",#39ff14,57,255,20
+nepal,"Nepal",#91acbe
 new_york_pink,"New York Pink",#d7837f,215,131,127
 non_photo_blue,"Non-Photo Blue",#a4dded,164,221,237
 north_texas_green,"North Texas Green",#059033,5,144,51
@@ -632,6 +640,8 @@ pistachio,"Pistachio",#93c572,147,197,114
 platinum,"Platinum",#e5e4e2,229,228,226
 plum_traditional,"Plum (Traditional)",#8e4585,142,69,133
 plum_web,"Plum (Web)",#dda0dd,221,160,221
+pomegranate,"Pomegranate",#f44336
+porsche,"Porsche",#f0bc6f
 portland_orange,"Portland Orange",#ff5a36,255,90,54
 powder_blue_web,"Powder Blue (Web)",#b0e0e6,176,224,230
 princeton_orange,"Princeton Orange",#ff8f00,255,143,0
@@ -640,6 +650,7 @@ prussian_blue,"Prussian Blue",#003153,0,49,83
 psychedelic_purple,"Psychedelic Purple",#df00ff,223,0,255
 puce,"Puce",#c89,204,136,153
 pumpkin,"Pumpkin",#ff7518,255,117,24
+purple,"Purple",#9c27b0
 purple_heart,"Purple Heart",#69359c,105,53,156
 purple_html_css,"Purple (Html/Css)",#800080,128,0,128
 purple_mountain_majesty,"Purple Mountain Majesty",#9678b6,150,120,182
@@ -717,6 +728,7 @@ sand,"Sand",#c2b280,194,178,128
 sand_dune,"Sand Dune",#967117,150,113,23
 sandstorm,"Sandstorm",#ecd540,236,213,64
 sandy_brown,"Sandy Brown",#f4a460,244,164,96
+sandy_brown_alt,"Sandy Brown (alt)",#f38266
 sandy_taupe,"Sandy Taupe",#967117,150,113,23
 sangria,"Sangria",#92000a,146,0,10
 sap_green,"Sap Green",#507d2a,80,125,42
@@ -745,6 +757,7 @@ sky_blue,"Sky Blue",#87ceeb,135,206,235
 sky_magenta,"Sky Magenta",#cf71af,207,113,175
 slate_blue,"Slate Blue",#6a5acd,106,90,205
 slate_gray,"Slate Gray",#708090,112,128,144
+slate_gray_alt,"Slate Gray (alt)",#7a8691,112,128,144
 smalt_dark_powder_blue,"Smalt (Dark Powder Blue)",#039,0,51,153
 smokey_topaz,"Smokey Topaz",#933d41,147,61,65
 smoky_black,"Smoky Black",#100c08,16,12,8

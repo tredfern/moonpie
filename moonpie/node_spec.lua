@@ -159,6 +159,14 @@ describe("Node", function()
         assert.equals(0, c3.box.y)
       end)
 
+      describe("Child Alignment", function()
+        local b = Node()
+        local c1 = Node({ width = 10, align = "right" })
+        b:add(c1)
+        b:layout(parent)
+        assert.equals(parent.width - 10, c1.box.x)
+      end)
+
       describe("Wrapping", function()
         local node = Node()
         local big_child = Node({ width = 500, height = 39})
@@ -280,6 +288,16 @@ describe("Node", function()
       assert.spy(love.graphics.rectangle).was.called_with("fill", 0, 0, 128, 491)
     end)
 
+    it("can lookup the color if specified as a string", function()
+      local colors = require "moonpie.colors"
+      mock_love.mock(love.graphics, "setColor", spy.new(function() end))
+      local comp = { background_color = "red", width = 120, height = 483 }
+      local b = Node(comp)
+      b:layout()
+      b:paint()
+      assert.spy(love.graphics.setColor).was.called.with(colors.red)
+    end)
+
     describe("border", function()
       local bordered = Node{ margin = 2, border = 3, width = 20, height = 25, border_color = { 1, 0, 1, 1 }  }
       bordered:layout()
@@ -306,6 +324,16 @@ describe("Node", function()
         mock_love.mock(love.graphics, "rectangle", spy.new(function() end))
         bordered:paint()
         assert.spy(love.graphics.rectangle).was.called.with("line", 0, 0, bordered.box:border_size())
+      end)
+
+      it("can lookup the color if specified as a string", function()
+        local colors = require "moonpie.colors"
+        mock_love.mock(love.graphics, "setColor", spy.new(function() end))
+        local comp = { border_color = "red", border = 2, width = 120, height = 483 }
+        local b = Node(comp)
+        b:layout()
+        b:paint()
+        assert.spy(love.graphics.setColor).was.called.with(colors.red)
       end)
     end)
 

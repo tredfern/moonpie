@@ -18,17 +18,6 @@ moonpie.components("funky-rect", { width = 20, height = 200, background_color = 
   :on_hover({ background_color = moonpie.colors.green })
 moonpie.components("funky-rect2", { width = 200, height = 20, background_color = moonpie.colors.yellow })
 moonpie.components("container", { margin = 5, padding = 10, background_color = moonpie.colors.black })
-moonpie.components.base("button", {
-  font = fonts.bebas(26),
-  display = "inline",
-  color = moonpie.colors.white,
-  background_color = moonpie.colors.blue_green,
-  border = 1,
-  border_color = moonpie.colors.light_gray,
-  padding = 5,
-  margin = 2,
-}):on_hover({
-  background_color = moonpie.colors.orange
-})
+assert(moonpie.components.button)
 
 return moonpie.components
