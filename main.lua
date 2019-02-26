@@ -10,24 +10,11 @@ local moonpie = require "moonpie"
 local components = moonpie.components
 local lorem = love.filesystem.read("lorem_ipsum.txt")
 local show_light = true
+local current_layout = 1
+local layouts
 
 function love.load()
-  moonpie.layout({
-    components.header1("h1", { text = "Moonpie for Love2D",
-      components.button("btn1", { text = "Switch Mode", align="right" }):on_click(function()
-        if show_light then
-          moonpie.themes.dark_mode(moonpie)
-        else
-          moonpie.themes.light_mode(moonpie)
-        end
-        show_light = not show_light
-      end)
-    }),
-    components.header3("h2", { text = "Long Text Demo" }),
-    components.text("lorem", { text = lorem, padding = 5 }),
-    components.button_primary("next", { text = "Next Demo", align="center" }):on_click(function()
-    end)
-  })
+  layouts[current_layout]()
 end
 
 function love.update()
@@ -37,3 +24,52 @@ end
 function love.draw()
   moonpie.paint()
 end
+
+function text_layout()
+  moonpie.layout({
+    header(),
+    components.header3({ text = "Long Text Demo" }),
+    components.text({ text = lorem, padding = 5 }),
+  })
+end
+
+function button_layout()
+  moonpie.layout({
+    header(),
+    components.header3({ text = "Buttons" }),
+    components.button_group({
+      margin = 5,
+      components.button({ text = "Default" }),
+      components.button_primary({ text = "Primary" }),
+      components.button_info({ text = "Info" }),
+      components.button_success({ text = "Success" }),
+      components.button_warning({ text = "Warning" }),
+      components.button_danger({ text = "Danger" })
+    })
+  })
+end
+
+function header()
+  return components.header1("h1", { text = "Moonpie for Love2D",
+      components.button_group("group1", { align = "right", 
+        components.button_primary("next", { text = "Next Demo" }):on_click(function()
+          current_layout = current_layout + 1
+          layouts[current_layout]()
+        end),
+        components.button("btn1", { text = "Switch Mode" }):on_click(function()
+          if show_light then
+            moonpie.themes.dark_mode(moonpie)
+          else
+            moonpie.themes.light_mode(moonpie)
+          end
+          show_light = not show_light
+        end)
+      })
+    })
+end
+
+layouts = {
+  text_layout,
+  button_layout,
+}
+

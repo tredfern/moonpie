@@ -6,4 +6,6 @@
 return function(moonpie)
   moonpie.colors.background = "dark_shade"
   moonpie.colors.text = "light_shade"
+  moonpie.colors.invert_background = "light_shade"
+  moonpie.colors.invert_text = "dark_shade"
 end

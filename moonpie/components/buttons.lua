@@ -14,16 +14,30 @@ Component.text("button", {
   margin = { left = 1, right = 1, top = 5, bottom = 5 },
   display = "inline",
 
-  border = 1,
-  border_color = "button_text"
-}):on_hover({
-  background_color = "button_default_hover",
-  color = "dark_accent"
 })
 
 Component.button("button_primary", {
   background_color = "primary"
 })
 
-return Component.button("arrow_up_button", {
+Component.button("button_info", {
+  background_color = "info"
 })
+
+Component.button("button_success", {
+  background_color = "success"
+})
+
+Component.button("button_warning", {
+  background_color = "warning"
+})
+
+Component.button("button_danger", {
+  background_color = "danger"
+})
+
+Component.button("arrow_up_button", {
+})
+
+Component("button_group", { display = "inline" })
+

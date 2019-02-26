@@ -5,8 +5,20 @@
 
 local component_factory = {}
 
+local function create_next_name(name)
+  local i = 1
+  while component_factory[name..tostring(i)] ~= nil do
+    i = i + 1
+  end
+  return name..tostring(i)
+end
+
 local function create_component(_base_, name, values)
-  assert(type(name) == "string", "Component requires a name.")
+  if type(name) == "table" then
+    values = name
+    name = create_next_name(_base_.name)
+  end
+
   local t = values or {}
   t.name = name
   component_factory[name] = t

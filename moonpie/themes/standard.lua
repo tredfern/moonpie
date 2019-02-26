@@ -14,7 +14,7 @@ return function(moonpie)
   moonpie.colors.button_default_hover = moonpie.colors.light_gray
   moonpie.colors.button_text = moonpie.colors.white
   moonpie.colors.primary = moonpie.colors.main
-  moonpie.colors.info = moonpie.colors.dark_shade
+  moonpie.colors.info = moonpie.colors.dark_accent
   moonpie.colors.success = moonpie.colors.asparagus
   moonpie.colors.warning = moonpie.colors.golden_bell
   moonpie.colors.danger = moonpie.colors.pomegranate
