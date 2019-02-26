@@ -11,7 +11,7 @@ Component("header", {
 })
 
 Component.header("header1", {
-  margin = 10 
+  margin = 10
 })
 
 Component.header("header2", {

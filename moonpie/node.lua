@@ -100,7 +100,7 @@ return function(component)
         love.graphics.translate(self.box:background_position())
         love.graphics.setColor(colors(e.background_color))
         local w, h = self.box:background_size()
-        love.graphics.rectangle("fill", 0, 0, w, h, 
+        love.graphics.rectangle("fill", 0, 0, w, h,
           self.corner_radius_x or 0, self.corner_radius_y or 0)
         love.graphics.pop()
       end

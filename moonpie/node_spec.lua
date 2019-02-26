@@ -289,7 +289,7 @@ describe("Node", function()
       end)
 
       it("provides rounded corners if provided", function()
-        local node = { background_color = {1, 1, 1, 1}, width = 120, height = 40, 
+        local node = { background_color = {1, 1, 1, 1}, width = 120, height = 40,
           corner_radius_x = 2, corner_radius_y = 3 }
         local b = Node(node)
         b:layout()
@@ -349,7 +349,7 @@ describe("Node", function()
 
       it("provides rounded corners if provided", function()
         mock_love.mock(love.graphics, "rectangle", spy.new(function() end))
-        local node = { border = 1, border_color = {1, 1, 1, 1}, width = 120, height = 40, 
+        local node = { border = 1, border_color = {1, 1, 1, 1}, width = 120, height = 40,
           corner_radius_x = 2, corner_radius_y = 3 }
         local b = Node(node)
         b:layout()
