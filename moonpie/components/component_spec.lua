@@ -35,7 +35,7 @@ describe("Component", function()
     end)
 
     it("if no name is provided it defaults the name to the current name + the next free index", function()
-      local b = Component("name", {})
+      Component("name", {})
       local name1 = Component.name({})
       local name2 = Component.name({})
       local name3 = Component.name({})

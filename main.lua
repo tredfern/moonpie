@@ -25,33 +25,9 @@ function love.draw()
   moonpie.paint()
 end
 
-function text_layout()
-  moonpie.layout({
-    header(),
-    components.header3({ text = "Long Text Demo" }),
-    components.text({ text = lorem, padding = 5 }),
-  })
-end
-
-function button_layout()
-  moonpie.layout({
-    header(),
-    components.header3({ text = "Buttons" }),
-    components.button_group({
-      margin = 5,
-      components.button({ text = "Default" }),
-      components.button_primary({ text = "Primary" }),
-      components.button_info({ text = "Info" }),
-      components.button_success({ text = "Success" }),
-      components.button_warning({ text = "Warning" }),
-      components.button_danger({ text = "Danger" })
-    })
-  })
-end
-
-function header()
+local function header()
   return components.header1("h1", { text = "Moonpie for Love2D",
-      components.button_group("group1", { align = "right", 
+      components.button_group("group1", { align = "right",
         components.button_primary("next", { text = "Next Demo" }):on_click(function()
           current_layout = current_layout + 1
           layouts[current_layout]()
@@ -67,6 +43,31 @@ function header()
       })
     })
 end
+
+local function text_layout()
+  moonpie.layout({
+    header(),
+    components.header3({ text = "Long Text Demo" }),
+    components.text({ text = lorem, padding = 5 }),
+  })
+end
+
+local function button_layout()
+  moonpie.layout({
+    header(),
+    components.header3({ text = "Buttons" }),
+    components.button_group({
+      margin = 5,
+      components.button({ text = "Default" }),
+      components.button_primary({ text = "Primary" }),
+      components.button_info({ text = "Info" }),
+      components.button_success({ text = "Success" }),
+      components.button_warning({ text = "Warning" }),
+      components.button_danger({ text = "Danger" })
+    })
+  })
+end
+
 
 layouts = {
   text_layout,
