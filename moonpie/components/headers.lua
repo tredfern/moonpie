@@ -7,9 +7,16 @@ local BASE = (...):match('(.-)[^%.]+$')
 local Component = require(BASE .. "component")
 
 Component("header", {
-  color = "text"
+  color = "primary"
 })
 
 Component.header("header1", {
-  margin = 10
+  margin = 10 
+})
+
+Component.header("header2", {
+  margin = { left = 10, right = 10, top = 7, bottom = 7 }
+})
+Component.header("header3", {
+  margin = { left = 10, right = 10, top = 5, bottom = 5 }
 })

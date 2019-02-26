@@ -22,11 +22,18 @@ return function(moonpie)
 
   --TODO: More elegant solution for this
   moonpie.fonts = {
-    default = moonpie.font("moonpie/assets/fonts/roboto/Roboto-Black.ttf")
+    default = {
+      regular = moonpie.font("moonpie/assets/fonts/roboto/Regular.ttf"),
+      bold = moonpie.font("moonpie/assets/fonts/roboto/Bold.ttf")
+    },
+    headline = {
+      regular = moonpie.font("moonpie/assets/fonts/roboto_slab/Regular.ttf"),
+      bold = moonpie.font("moonpie/assets/fonts/roboto_slab/Bold.ttf")
+    }
   }
 
-  moonpie.components.text.font = moonpie.fonts.default(12)
-  moonpie.components.header.font = moonpie.fonts.default(18)
-  moonpie.components.header1.font = moonpie.fonts.default(24)
-
+  moonpie.components.text.font = moonpie.fonts.default.regular(14)
+  moonpie.components.header1.font = moonpie.fonts.headline.bold(32)
+  moonpie.components.header2.font = moonpie.fonts.headline.bold(24)
+  moonpie.components.header3.font = moonpie.fonts.headline.bold(20)
 end

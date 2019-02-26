@@ -13,7 +13,7 @@ local show_light = true
 
 function love.load()
   moonpie.layout({
-    components.header1("h1", { text = "UI Test Bed",
+    components.header1("h1", { text = "Moonpie for Love2D",
       components.button("btn1", { text = "Switch Mode", align="right" }):on_click(function()
         if show_light then
           moonpie.themes.dark_mode(moonpie)
@@ -23,8 +23,10 @@ function love.load()
         show_light = not show_light
       end)
     }),
-    components.header1("h2", { text = "Big Text" }),
-    components.text("lorem", { text = lorem, padding = 5 })
+    components.header3("h2", { text = "Long Text Demo" }),
+    components.text("lorem", { text = lorem, padding = 5 }),
+    components.button_primary("next", { text = "Next Demo", align="center" }):on_click(function()
+    end)
   })
 end
 

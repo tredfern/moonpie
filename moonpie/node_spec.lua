@@ -266,6 +266,7 @@ describe("Node", function()
       assert.spy(love.graphics.pop).was.called()
     end)
 
+
     it("translates the children to where the content starts", function()
       mock_love.mock(love.graphics, "translate", spy.new(function() end))
       local b = Node({ margin = 5, padding = 4 })
@@ -273,19 +274,28 @@ describe("Node", function()
       assert.spy(love.graphics.translate).was.called.with(9, 9)
     end)
 
-    it("paints a background.color for it's area if provided", function()
+    describe("rectangle tests", function()
       mock_love.mock(love.graphics, "setColor", spy.new(function() end))
       mock_love.mock(love.graphics, "rectangle", spy.new(function() end))
 
-      local node = { padding = 4, background_color = { 1, 1, 1, 1 }, width = 120, height = 483 }
-      local b = Node(node)
-      b:layout()
+      it("paints a background.color for it's area if provided", function()
+        local node = { padding = 4, background_color = { 1, 1, 1, 1 }, width = 120, height = 483 }
+        local b = Node(node)
+        b:layout()
+        b:paint()
 
-      b:paint()
-      --check the background was called
+        assert.spy(love.graphics.setColor).was.called_with(node.background_color)
+        assert.spy(love.graphics.rectangle).was.called_with("fill", 0, 0, 128, 491, 0, 0)
+      end)
 
-      assert.spy(love.graphics.setColor).was.called_with(node.background_color)
-      assert.spy(love.graphics.rectangle).was.called_with("fill", 0, 0, 128, 491)
+      it("provides rounded corners if provided", function()
+        local node = { background_color = {1, 1, 1, 1}, width = 120, height = 40, 
+          corner_radius_x = 2, corner_radius_y = 3 }
+        local b = Node(node)
+        b:layout()
+        b:paint()
+        assert.spy(love.graphics.rectangle).was.called.with("fill", 0, 0, 120, 40, 2, 3)
+      end)
     end)
 
     it("can lookup the color if specified as a string", function()
@@ -323,7 +333,8 @@ describe("Node", function()
       it("draws a rectangle for the border", function()
         mock_love.mock(love.graphics, "rectangle", spy.new(function() end))
         bordered:paint()
-        assert.spy(love.graphics.rectangle).was.called.with("line", 0, 0, bordered.box:border_size())
+        local w, h = bordered.box:border_size()
+        assert.spy(love.graphics.rectangle).was.called.with("line", 0, 0, w, h, 0, 0)
       end)
 
       it("can lookup the color if specified as a string", function()
@@ -334,6 +345,16 @@ describe("Node", function()
         b:layout()
         b:paint()
         assert.spy(love.graphics.setColor).was.called.with(colors.red)
+      end)
+
+      it("provides rounded corners if provided", function()
+        mock_love.mock(love.graphics, "rectangle", spy.new(function() end))
+        local node = { border = 1, border_color = {1, 1, 1, 1}, width = 120, height = 40, 
+          corner_radius_x = 2, corner_radius_y = 3 }
+        local b = Node(node)
+        b:layout()
+        b:paint()
+        assert.spy(love.graphics.rectangle).was.called.with("line", 0, 0, 122, 42, 2, 3)
       end)
     end)
 

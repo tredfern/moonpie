@@ -99,7 +99,9 @@ return function(component)
         love.graphics.push()
         love.graphics.translate(self.box:background_position())
         love.graphics.setColor(colors(e.background_color))
-        love.graphics.rectangle("fill", 0, 0, self.box:background_size())
+        local w, h = self.box:background_size()
+        love.graphics.rectangle("fill", 0, 0, w, h, 
+          self.corner_radius_x or 0, self.corner_radius_y or 0)
         love.graphics.pop()
       end
     end,
@@ -109,7 +111,9 @@ return function(component)
         love.graphics.translate(self.box:border_position())
         love.graphics.setColor(colors(e.border_color))
         love.graphics.setLineWidth(e.border)
-        love.graphics.rectangle("line", 0, 0, self.box:border_size())
+        local w, h = self.box:border_size()
+        love.graphics.rectangle("line", 0, 0, w, h,
+          self.corner_radius_x or 0, self.corner_radius_y or 0)
         love.graphics.pop()
       end
     end
