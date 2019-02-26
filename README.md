@@ -24,5 +24,5 @@ of figuring out how to wire up events. I didn't like the effort needed to move t
 
 ## Current Screenshots
 ![Long Text](screenshots/Demo1.PNG "Long Text")
-![Buttons](screenshots/Demo2.png "Buttons")
+![Buttons](screenshots/Demo2.PNG "Buttons")
 
