@@ -22,5 +22,6 @@ Component("text", {
 require(BASE .. "headers")
 require(BASE .. "buttons")
 require(BASE .. "vertical_scrollbar")
+require(BASE .. "debug")
 
 return Component

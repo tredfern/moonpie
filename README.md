@@ -23,6 +23,6 @@ of figuring out how to wire up events. I didn't like the effort needed to move t
  * Handling user input is intuitive and testable
 
 ## Current Screenshots
-![Long Text](https://github.com/tredfern/moonpie/raw/master/screenshots/Demo1.png "Long Text")
-![Buttons](https://github.com/tredfern/moonpie/raw/master/screenshots/Demo2.png "Buttons")
+![Long Text](screenshots/Demo1.png "Long Text")
+![Buttons](screenshots/Demo2.png "Buttons")
 

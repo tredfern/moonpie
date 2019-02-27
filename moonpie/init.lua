@@ -6,8 +6,11 @@
 local BASE = (...) .. "."
 
 local layout_tree = require(BASE .. "layout_tree")
-local gui
 local mouse = require(BASE .. "mouse")
+local layers = {}
+local layer_order = {
+  "ui", "debug"
+}
 
 local function check_node_for_refresh(n)
   if n.refresh_needed and n:refresh_needed() then
@@ -25,23 +28,36 @@ local function check_node_for_refresh(n)
   return false
 end
 
-local moonpie = {
+local moonpie
+moonpie = {
   colors = require(BASE .. "colors"),
   components = require(BASE .. "components"),
   font = require(BASE .. "font"),
   mouse = mouse,
   paint = function()
-    gui:paint()
+    for _, v in ipairs(layer_order) do
+      if layers[v] then
+        layers[v]:paint()
+      end
+    end
   end,
   text = require(BASE .. "text"),
+  layers = layers,
   layout = function(...)
-    gui = layout_tree(...)
-    return gui
+    return moonpie.render("ui", ...)
+  end,
+  render = function(layer_name, ...)
+    layers[layer_name] = layout_tree(...)
+    return layers[layer_name]
   end,
   update = function()
-    mouse:update(gui)
-    if gui and check_node_for_refresh(gui) then
-      gui:layout()
+    for _, v in ipairs(layer_order) do
+      if layers[v] then
+        mouse:update(layers[v])
+        if check_node_for_refresh(layers[v]) then
+          layers[v]:layout()
+        end
+      end
     end
   end,
   themes = {
