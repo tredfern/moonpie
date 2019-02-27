@@ -23,6 +23,11 @@ of figuring out how to wire up events. I didn't like the effort needed to move t
  * Handling user input is intuitive and testable
 
 ## Current Screenshots
+<<<<<<< HEAD
 ![Long Text](screenshots/Demo1.png "Long Text")
 ![Buttons](screenshots/Demo2.png "Buttons")
+=======
+![Long Text](screenshots/Demo1.PNG "Long Text")
+![Buttons](screenshots/Demo2.PNG "Buttons")
+>>>>>>> 9b4273627f74a96b98d655080da8dd95024b9706
 
