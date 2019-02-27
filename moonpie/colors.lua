@@ -31,6 +31,34 @@ for fields in contents:lines() do
     colors[fields[1]]={r, g, b, 1, displayname=fields[2]}
 end
 
+
+function colors.redistribute_rgb(clr)
+  local r, g, b, a = clr[1], clr[2], clr[3], clr[4]
+  local m = math.max(r, g, b)
+  if m <= 1.0 then
+    return { r, g, b, a }
+  end
+
+  -- maxed out
+  local total = r + g + b
+  if total >= 3 then
+    return { 1, 1, 1, a }
+  end
+  local x = (3 - total) / (3 * m - total)
+  local gray = 1 - x * m
+
+  return { gray + x * r, gray + x * g, gray + x * b, a }
+end
+
+function colors.lighten(clr, multiplier)
+  return colors.redistribute_rgb({
+    clr[1] * multiplier,
+    clr[2] * multiplier,
+    clr[3] * multiplier,
+    clr[4]
+  })
+end
+
 setmetatable(colors, {
   __call = function(t, clr)
     if type(clr) == "table" then

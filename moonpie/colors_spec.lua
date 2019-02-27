@@ -36,4 +36,34 @@ describe("Colors", function()
     colors.referrer = "some_color"
     assert.equals(colors.some_color, colors("referrer"))
   end)
+
+  it("does not redistribute any values if less or equals to 1.0", function()
+    local clr = colors.redistribute_rgb({ 1, 0.6, 1.0, 0.6 })
+    assert.equals(1, clr[1])
+    assert.equals(0.6, clr[2])
+    assert.equals(1, clr[3])
+  end)
+
+  it("can redistribute the r, g, b, values after threshold to keep things balanced", function()
+    local satur = { 1.2, 0.4, 1.1, 1 }
+    local clr = colors.redistribute_rgb(satur)
+    assert.equals(1, clr[1])
+    -- TODO: other asserts are challenging with floats...
+  end)
+
+  it("can returns white if you are just off the limits", function()
+    local clr = colors.redistribute_rgb({ 4, 20, 23, 1 })
+    assert.equals(1, clr[1])
+    assert.equals(1, clr[2])
+    assert.equals(1, clr[3])
+    assert.equals(1, clr[4])
+  end)
+
+  it("can lighten the color", function()
+    local c = colors.lighten({0.4, 0.2, 0.5, 1 }, 1.2)
+    assert.is_true(0.4 < c[1])
+    assert.is_true(0.2 < c[2])
+    assert.is_true(0.5 < c[3])
+    assert.equals(1, c[4])
+  end)
 end)
