@@ -25,6 +25,12 @@ describe("Colors", function()
     assert.is.equal(target, b)
   end)
 
+  it("can process a function to generate a color", function()
+    local light_red = colors(function() return colors.lighten(colors("red"), 1.2) end)
+    assert.equals(4, #light_red)
+    assert.is_true(light_red[1] > 0)
+  end)
+
   it("can decipher whether the passed in value is a color or a lookup", function()
     colors.some_color = {1, 1, 1, 1}
     assert.equals(colors.some_color, colors("some_color"))

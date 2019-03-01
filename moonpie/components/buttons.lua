@@ -3,8 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local BASE = (...):match('(.-)[^%.]+$')
-local Component = require(BASE .. "component")
+local Component = require("moonpie.components.component")
 
 Component.text("button", {
   background_color = "button_default",
@@ -13,7 +12,6 @@ Component.text("button", {
   padding = { left = 30, right = 30, top = 12, bottom = 12 },
   margin = { left = 1, right = 1, top = 5, bottom = 5 },
   display = "inline",
-
 })
 
 Component.button("button_primary", {

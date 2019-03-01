@@ -3,8 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local BASE = (...):match('(.-)[^%.]+$')
-local csv = require(BASE .. "ext.csv")
+local csv = require("moonpie.ext.csv")
 local colors = { }
 
 function colors.convert_hex(hex)
@@ -59,15 +58,19 @@ function colors.lighten(clr, multiplier)
   })
 end
 
-setmetatable(colors, {
-  __call = function(t, clr)
-    if type(clr) == "table" then
-      return clr
-    elseif type(clr) == "string" then
-      return t(t[clr])
-    end
-    return nil
+function colors.get_color(self, clr)
+  if type(clr) == "table" then
+    return clr
+  elseif type(clr) == "string" then
+    return self(self[clr])
+  elseif type(clr) == "function" then
+    return self(clr(self))
   end
+  return nil
+end
+
+setmetatable(colors, {
+  __call = colors.get_color
 })
 
 return colors

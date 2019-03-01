@@ -3,8 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local BASE = (...):match('(.-)[^%.]+$')
-local find_by_coordinates = require(BASE .. "find_by_coordinates")
+local find_by_coordinates = require("moonpie.find_by_coordinates")
 
 local BUTTON_COUNT = 4
 

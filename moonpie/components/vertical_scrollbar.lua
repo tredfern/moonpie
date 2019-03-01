@@ -3,8 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local BASE = (...):match('(.-)[^%.]+$')
-local Component = require(BASE .. "component")
+local Component = require("moonpie.components.component")
 
 return Component("vertical_scrollbar", {
   minimum = 0,

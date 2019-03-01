@@ -3,9 +3,8 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local BASE = (...):match('(.-)[^%.]+$')
-local box_model = require(BASE .. "box_model")
-local colors = require(BASE .. "colors")
+local box_model = require("moonpie.box_model")
+local colors = require("moonpie.colors")
 
 return function(props)
   return {

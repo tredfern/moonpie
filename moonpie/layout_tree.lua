@@ -3,10 +3,9 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local BASE = (...):match('(.-)[^%.]+$')
-local Node = require(BASE .. "node")
-local Text = require(BASE .. "text")
-local Components = require(BASE .. "components")
+local Node = require("moonpie.node")
+local Text = require("moonpie.text")
+local Components = require("moonpie.components")
 
 local function build_item(item)
   local new_node = Node(item)

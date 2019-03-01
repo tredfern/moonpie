@@ -3,8 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local BASE = (...):match('(.-)[^%.]+$')
-local region = require(BASE .. "region")
+local region = require("moonpie.region")
 
 local function get_rekt(element, property)
   if type(element[property]) == "table" then

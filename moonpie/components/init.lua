@@ -3,8 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local BASE = (...) .. "."
-local Component = require(BASE .. "component")
+local Component = require("moonpie.components.component")
 
 Component("none", { })
 Component("root", {
@@ -19,9 +18,9 @@ Component("text", {
   color = "text"
 })
 
-require(BASE .. "headers")
-require(BASE .. "buttons")
-require(BASE .. "vertical_scrollbar")
-require(BASE .. "debug")
+require("moonpie.components.headers")
+require("moonpie.components.buttons")
+require("moonpie.components.vertical_scrollbar")
+require("moonpie.components.debug")
 
 return Component

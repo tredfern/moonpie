@@ -3,10 +3,9 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local BASE = (...) .. "."
 
-local layout_tree = require(BASE .. "layout_tree")
-local mouse = require(BASE .. "mouse")
+local layout_tree = require("moonpie.layout_tree")
+local mouse = require("moonpie.mouse")
 local layers = {}
 local layer_order = {
   "ui", "debug"
@@ -30,9 +29,9 @@ end
 
 local moonpie
 moonpie = {
-  colors = require(BASE .. "colors"),
-  components = require(BASE .. "components"),
-  font = require(BASE .. "font"),
+  colors = require("moonpie.colors"),
+  components = require("moonpie.components"),
+  font = require("moonpie.font"),
   mouse = mouse,
   paint = function()
     for _, v in ipairs(layer_order) do
@@ -41,7 +40,7 @@ moonpie = {
       end
     end
   end,
-  text = require(BASE .. "text"),
+  text = require("moonpie.text"),
   layers = layers,
   layout = function(...)
     return moonpie.render("ui", ...)
@@ -61,9 +60,9 @@ moonpie = {
     end
   end,
   themes = {
-    standard = require(BASE .. "themes.standard"),
-    light_mode = require(BASE .. "themes.light_mode"),
-    dark_mode = require(BASE .. "themes.dark_mode")
+    standard = require("moonpie.themes.standard"),
+    light_mode = require("moonpie.themes.light_mode"),
+    dark_mode = require("moonpie.themes.dark_mode")
   }
 }
 

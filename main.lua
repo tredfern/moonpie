@@ -31,7 +31,9 @@ local function header()
         components.button_primary("next", { text = "Next Demo" }):on_click(function()
           current_layout = current_layout + 1
           layouts[current_layout]()
-        end),
+        end):on_hover({ background_color = moonpie.colors(function()
+          return moonpie.colors.lighten(moonpie.colors("primary"), 1.2)
+        end) }),
         components.button("btn1", { text = "Switch Mode" }):on_click(function()
           if show_light then
             moonpie.themes.dark_mode(moonpie)
