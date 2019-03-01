@@ -13,6 +13,12 @@ describe("Node", function()
     assert.equals(text_component, b.component)
   end)
 
+  it("can be initialized with a parent node", function()
+    local parent_node = Node({})
+    local child_node = Node({}, parent_node)
+    assert.equals(parent_node, child_node.parent)
+  end)
+
   it("can have child nodes", function()
     local b = Node()
     local c1, c2 = {}, {}
@@ -260,7 +266,7 @@ describe("Node", function()
       mock_love.mock(love.graphics, "pop", spy.new(function() end))
       mock_love.mock(love.graphics, "translate", spy.new(function() end))
       local b = Node{ margin = 5, padding = 4, background_color = {1, 1, 1, 1 } }
-      b:draw_background(b.component)
+      b:paint(b.component)
       assert.spy(love.graphics.push).was.called()
       assert.spy(love.graphics.translate).was.called.with(5, 5)
       assert.spy(love.graphics.pop).was.called()
