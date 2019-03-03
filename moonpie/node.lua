@@ -8,8 +8,9 @@ local layouts = require("moonpie.layouts")
 local renderers = require("moonpie.renderers")
 
 return function(component, parent)
+  component = component or {}
   return setmetatable({
-    component = component or {},
+    component = component,
     box = box_model(component, parent),
     children = {},
     parent = parent,
@@ -25,14 +26,13 @@ return function(component, parent)
       return self.box:region():contains(mx, my)
     end,
 
-    layout_children = layouts.children,
-    layout = layouts.standard,
+    layout = component.layout or layouts.standard,
 
     refresh_needed = function(self)
       return self.component.refresh_layout
     end,
 
-    paint = renderers.standard
+    paint = component.paint or renderers.standard
   }, {
     __index = component
   })

@@ -47,7 +47,7 @@ function layouts.standard(node, parent)
   node.box.content.width = layouts.max_width(node, parent)
   node.box.content.height = 0
 
-  local w, h = node:layout_children(node.box.content.width)
+  local w, h = layouts.children(node, node.box.content.width)
 
   if node.component.display == "inline" then
     node.box.content.width = node.component.width or w
@@ -55,6 +55,14 @@ function layouts.standard(node, parent)
   node.box.content.height = node.component.height or h
 
   node.component.refresh_layout = nil
+end
+
+function layouts.text(node, parent)
+  local max_width = parent.box.content.width
+  local f = node.font or love.graphics.getFont()
+  node.text_image = love.graphics.newText(f)
+  node.text_image:setf(node.text, max_width, "left")
+  node.box.content.width, node.box.content.height = node.text_image:getDimensions()
 end
 
 return layouts

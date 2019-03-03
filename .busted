@@ -2,7 +2,7 @@ return {
   _all = {
     ROOT = {"./"},
     lpath = "./src/?.lua;./src/?/?.lua;./src/?/init.lua;ext/artemis/?.lua;./?/init.lua;",
-    helper = "test_helpers/mock_love.lua"
+    helper = "test_helpers/busted_extensions.lua"
   },
   travis = {
     verbose = true,

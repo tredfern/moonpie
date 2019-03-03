@@ -49,6 +49,12 @@ describe("Node", function()
   end)
 
   describe("Layout", function()
+    it("uses the layout defined in the component if available", function()
+      local c = { layout = function() end }
+      local n = Node(c)
+      assert.equals(c.layout, n.layout)
+    end)
+
     local parent = Node({ width = 152, height = 499 })
     parent:layout()
 
@@ -235,6 +241,12 @@ describe("Node", function()
   end)
 
   describe("Painting", function()
+    it("uses the components paint method if provided", function()
+      local c = { paint = function() end }
+      local n = Node(c)
+      assert.equals(c.paint, n.paint)
+    end)
+
     it("translates its position to the x, y position", function()
       local b = Node()
       b.box.x = 39

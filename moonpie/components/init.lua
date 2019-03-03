@@ -13,11 +13,7 @@ Component("root", {
   height = love.graphics.getHeight()
 })
 
-Component("text", {
-  display = "inline",
-  color = "text"
-})
-
+require("moonpie.components.text")
 require("moonpie.components.headers")
 require("moonpie.components.buttons")
 require("moonpie.components.vertical_scrollbar")

@@ -30,6 +30,7 @@ end
 local moonpie
 moonpie = {
   colors = require("moonpie.colors"),
+  collections = require("moonpie.collections"),
   components = require("moonpie.components"),
   font = require("moonpie.font"),
   mouse = mouse,

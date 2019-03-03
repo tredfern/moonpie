@@ -12,7 +12,9 @@ return function(props)
 
     paint = function(self)
       if props.color then love.graphics.setColor(colors(props.color)) end
-      love.graphics.draw(self.text_image, 0, 0)
+      if(self.text_image) then
+        love.graphics.draw(self.text_image, 0, 0)
+      end
     end,
 
     layout = function(self, parent)
