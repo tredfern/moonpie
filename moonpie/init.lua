@@ -49,6 +49,7 @@ moonpie = {
     layers[layer_name] = layout_tree(...)
     return layers[layer_name]
   end,
+  styles = require("moonpie.stylesheet"),
   update = function()
     for _, v in ipairs(layer_order) do
       if layers[v] then

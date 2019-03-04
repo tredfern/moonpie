@@ -6,6 +6,7 @@
 describe("Node", function()
   local mock_love = require "test_helpers.mock_love"
   local Node = require "moonpie.node"
+  local styles = require "moonpie.styles"
 
   it("can be initialized with a parent node", function()
     local parent_node = Node({})
@@ -25,6 +26,13 @@ describe("Node", function()
     b:add(c1, c2)
     assert.equals(c1, b.children[1])
     assert.equals(c2, b.children[2])
+  end)
+
+  it("uses the styles associated with the component", function()
+    styles.add("test1", { padding = 10 })
+    local c = { style = "test1" }
+    local n = Node(c)
+    assert.equals(10, n.padding)
   end)
 
   it("passes any functions it doesn't know to the component", function()
@@ -49,6 +57,19 @@ describe("Node", function()
   end)
 
   describe("Layout", function()
+    it("uses styles for box definition", function()
+      styles.add("box_test", { padding = 10, margin = 20, width = 100 })
+      local b = Node({ style = "box_test" })
+      assert.equals(20, b.box.margin.left)
+      assert.equals(20, b.box.margin.top)
+      assert.equals(20, b.box.margin.bottom)
+      assert.equals(20, b.box.margin.right)
+      assert.equals(10, b.box.padding.right)
+      assert.equals(10, b.box.padding.left)
+      assert.equals(10, b.box.padding.bottom)
+      assert.equals(10, b.box.padding.top)
+      assert.equals(100, b.width)
+    end)
     it("uses the layout defined in the component if available", function()
       local c = { layout = spy.new(function() end) }
       local n = Node(c)
