@@ -13,6 +13,12 @@ describe("Node", function()
     assert.equals(parent_node, child_node.parent)
   end)
 
+  it("initializes the box parent to the parent node", function()
+    local p = Node({})
+    local c = Node({}, p)
+    assert.equals(p.box, c.box.parent)
+  end)
+
   it("can have child nodes", function()
     local b = Node()
     local c1, c2 = {}, {}
@@ -62,12 +68,6 @@ describe("Node", function()
         assert.equals(5, b.box.margin.right)
         assert.equals(5, b.box.margin.bottom)
         assert.equals(9, b2.box.margin.left)
-      end)
-
-      it("tracks the parent layout used", function()
-        local b = Node()
-        b:layout(parent)
-        assert.equals(parent.box, b.box.parent)
       end)
     end)
 

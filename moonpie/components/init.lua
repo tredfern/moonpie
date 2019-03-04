@@ -13,6 +13,7 @@ Component("root", {
   height = love.graphics.getHeight()
 })
 
+require("moonpie.components.section")
 require("moonpie.components.text")
 require("moonpie.components.headers")
 require("moonpie.components.buttons")

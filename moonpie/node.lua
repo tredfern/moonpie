@@ -9,8 +9,9 @@ local renderers = require("moonpie.renderers")
 
 return function(component, parent)
   component = component or {}
+  parent = parent or {}
   return setmetatable({
-    box = box_model(component, parent),
+    box = box_model(component, parent.box),
     children = {},
     parent = parent,
 

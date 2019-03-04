@@ -25,6 +25,7 @@ function layouts.children(node, width)
     local a = v.align or "left"
     v.box.x, v.box.y = align(a, x, width, v.box:width()), y
     x = v.box.x + v.box:width()
+
     line_height = math.max(v.box:height(), line_height)
     max_width = math.max(max_width, x)
   end
@@ -43,7 +44,6 @@ function layouts.max_width(node, p)
 end
 
 function layouts.standard(node, parent)
-  if parent then node.box.parent = parent.box end
   node.box.content.width = layouts.max_width(node, parent)
   node.box.content.height = 0
 

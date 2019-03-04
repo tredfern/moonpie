@@ -26,19 +26,20 @@ function love.draw()
 end
 
 local function header()
-  return components.header1("h1", { text = "Moonpie for Love2D",
+  return 
+  components.section({
+      components.header1("h1", { text = "Moonpie for Love2D" }),
       components.button_group("group1", { align = "right",
         components.button_primary("next", {
-          width = 100,
-          height = 50,
-          components.text({ text = "Next Demo" })
+          caption = "Next Demo",
+          click = function()
+            current_layout = current_layout + 1
+            layouts[current_layout]()
+          end
+        }),
+        components.button({
+          components.text({ text = "Switch Mode" })
         }):on_click(function()
-          current_layout = current_layout + 1
-          layouts[current_layout]()
-        end):on_hover({ background_color = moonpie.colors(function()
-          return moonpie.colors.lighten(moonpie.colors("primary"), 1.2)
-        end) }),
-        components.button("btn1", { text = "Switch Mode" }):on_click(function()
           if show_light then
             moonpie.themes.dark_mode(moonpie)
           else

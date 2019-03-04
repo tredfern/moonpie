@@ -21,6 +21,14 @@ describe("LayoutTree", function()
         local r = LayoutTree(ele1, ele2, ele3)
         assert.equals(3, #r.children)
       end)
+
+      it("assigns the parent", function()
+        local c = { }
+        local p = { c }
+        local r = LayoutTree(p)
+        assert.equals(r, r.children[1].parent)
+        assert.equals(r.children[1], r.children[1].children[1].parent)
+      end)
     end)
 
     describe("deep tree", function()
