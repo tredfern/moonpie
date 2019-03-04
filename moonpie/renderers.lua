@@ -48,9 +48,12 @@ function renderers.draw_border(node, e)
   end
 end
 
-function renderers.draw_text(node)
+function renderers.text(node)
+  love.graphics.push()
+  love.graphics.translate(node.box:content_position())
   if node.color then love.graphics.setColor(colors(node.color)) end
   love.graphics.draw(node.text_image, 0, 0)
+  love.graphics.pop()
 end
 
 

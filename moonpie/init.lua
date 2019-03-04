@@ -41,7 +41,6 @@ moonpie = {
       end
     end
   end,
-  text = require("moonpie.text"),
   layers = layers,
   layout = function(...)
     return moonpie.render("ui", ...)

@@ -5,8 +5,9 @@
 
 local Component = require("moonpie.components.component")
 
-Component("header", {
-  color = "primary"
+Component.text("header", {
+  color = "primary",
+  display = "block"
 })
 
 Component.header("header1", {

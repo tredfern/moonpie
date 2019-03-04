@@ -13,7 +13,7 @@ function layouts.children(node, width)
   local line_height, max_width, max_height = 0, 0, 0
 
   for _, v in pairs(node.children) do
-    if v.layout then v:layout(node) end
+    v:layout(node)
 
     if x > 0 and x + v.box:width() > width then
       x = 0
@@ -57,11 +57,13 @@ function layouts.standard(node, parent)
   node.component.refresh_layout = nil
 end
 
+
+local template = require "moonpie.template"
 function layouts.text(node, parent)
-  local max_width = parent.box.content.width
+  local max_width = layouts.max_width(node, parent)
   local f = node.font or love.graphics.getFont()
   node.text_image = love.graphics.newText(f)
-  node.text_image:setf(node.text, max_width, "left")
+  node.text_image:setf(template(node.text, node), max_width, "left")
   node.box.content.width, node.box.content.height = node.text_image:getDimensions()
 end
 

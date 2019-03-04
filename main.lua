@@ -28,7 +28,9 @@ end
 local function header()
   return components.header1("h1", { text = "Moonpie for Love2D",
       components.button_group("group1", { align = "right",
-        components.button_primary("next", { text = "Next Demo" }):on_click(function()
+        components.button_primary("next", {
+          components.text({ text = "Next Demo" })
+        }):on_click(function()
           current_layout = current_layout + 1
           layouts[current_layout]()
         end):on_hover({ background_color = moonpie.colors(function()

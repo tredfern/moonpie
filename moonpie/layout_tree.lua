@@ -4,14 +4,10 @@
 -- https://opensource.org/licenses/MIT
 
 local Node = require("moonpie.node")
-local Text = require("moonpie.text")
 local Components = require("moonpie.components")
 
 local function build_item(item)
   local new_node = Node(item)
-  if item.text then
-    new_node:add(Text(item))
-  end
 
   for _, v in ipairs(item) do
     new_node:add(build_item(v))

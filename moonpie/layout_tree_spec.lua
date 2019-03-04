@@ -4,7 +4,6 @@
 -- https://opensource.org/licenses/MIT
 
 describe("LayoutTree", function()
-  local mock_love = require "test_helpers.mock_love"
   local LayoutTree = require "moonpie.layout_tree"
 
   describe("Building the tree", function()
@@ -21,13 +20,6 @@ describe("LayoutTree", function()
         local ele1, ele2, ele3 = { }, { }, { }
         local r = LayoutTree(ele1, ele2, ele3)
         assert.equals(3, #r.children)
-      end)
-
-      it("adds text components for a node with a text value associated with it", function()
-        local text_node = { text = "Some text", font = mock_love.font }
-        local r = LayoutTree(text_node)
-        local first_node = r.children[1]
-        assert.equals(1, #first_node.children)
       end)
     end)
 
