@@ -29,6 +29,8 @@ local function header()
   return components.header1("h1", { text = "Moonpie for Love2D",
       components.button_group("group1", { align = "right",
         components.button_primary("next", {
+          width = 100,
+          height = 50,
           components.text({ text = "Next Demo" })
         }):on_click(function()
           current_layout = current_layout + 1

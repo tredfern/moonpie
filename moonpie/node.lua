@@ -10,7 +10,6 @@ local renderers = require("moonpie.renderers")
 return function(component, parent)
   component = component or {}
   return setmetatable({
-    component = component,
     box = box_model(component, parent),
     children = {},
     parent = parent,
@@ -26,10 +25,14 @@ return function(component, parent)
       return self.box:region():contains(mx, my)
     end,
 
-    layout = component.layout or layouts.standard,
+    layout = function(...)
+      local l = component.layout or layouts.standard
+      l(...)
+      component.refresh_layout = false
+    end,
 
-    refresh_needed = function(self)
-      return self.component.refresh_layout
+    refresh_needed = function()
+      return component.refresh_layout
     end,
 
     paint = component.paint or renderers.standard

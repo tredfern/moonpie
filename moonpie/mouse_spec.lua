@@ -25,7 +25,7 @@ describe("Mouse", function()
       mock_love.reset_mouse()
 
       node_tree = node({ name = "root", width = 100, height = 100 })
-      n2 = node({ name = "level1", width = 20, height = 20 })
+      n2 = node({ name = "level1", width = 20, height = 20, click = spy.new(function() end) })
       n3 = node({ name = "level2", width = 10, height = 10 })
 
       node_tree:add(n2)
@@ -62,7 +62,6 @@ describe("Mouse", function()
       end)
 
       it("triggers the click handler of the lowest node in the tree on release of button", function()
-        n2.component.click = spy.new(function() end)
         mock_love.move_mouse(5, 5)
         mock_love.simulate_button_down(1)
         mouse:update(node_tree)

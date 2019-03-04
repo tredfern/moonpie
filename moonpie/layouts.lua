@@ -22,7 +22,7 @@ function layouts.children(node, width)
       line_height = 0
     end
 
-    local a = v.component and v.component.align or "left"
+    local a = v.align or "left"
     v.box.x, v.box.y = align(a, x, width, v.box:width()), y
     x = v.box.x + v.box:width()
     line_height = math.max(v.box:height(), line_height)
@@ -35,7 +35,7 @@ function layouts.children(node, width)
 end
 
 function layouts.max_width(node, p)
-  return node.component.width or
+  return node.width or
     (p.box.content.width
       - node.box.margin.left - node.box.margin.right
       - node.box.padding.left - node.box.padding.right
@@ -49,12 +49,10 @@ function layouts.standard(node, parent)
 
   local w, h = layouts.children(node, node.box.content.width)
 
-  if node.component.display == "inline" then
-    node.box.content.width = node.component.width or w
+  if node.display == "inline" then
+    node.box.content.width = node.width or w
   end
-  node.box.content.height = node.component.height or h
-
-  node.component.refresh_layout = nil
+  node.box.content.height = node.height or h
 end
 
 

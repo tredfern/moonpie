@@ -66,7 +66,7 @@ describe("Initialize Moonpie", function()
     it("can add layers to the debug", function()
       local c = moonpie.components("debug_component", {})
       moonpie.render("debug", c)
-      assert.equals(c, moonpie.layers.debug.children[1].component)
+      assert.equals(c.name, moonpie.layers.debug.children[1].name)
     end)
   end)
 

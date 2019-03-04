@@ -7,12 +7,6 @@ describe("Node", function()
   local mock_love = require "test_helpers.mock_love"
   local Node = require "moonpie.node"
 
-  it("initializes based on the component it's referenced too", function()
-    local text_component = { text = "Foo bar" }
-    local b = Node(text_component)
-    assert.equals(text_component, b.component)
-  end)
-
   it("can be initialized with a parent node", function()
     local parent_node = Node({})
     local child_node = Node({}, parent_node)
@@ -50,9 +44,10 @@ describe("Node", function()
 
   describe("Layout", function()
     it("uses the layout defined in the component if available", function()
-      local c = { layout = function() end }
+      local c = { layout = spy.new(function() end) }
       local n = Node(c)
-      assert.equals(c.layout, n.layout)
+      n:layout("values")
+      assert.spy(c.layout).was.called.with(n, "values")
     end)
 
     local parent = Node({ width = 152, height = 499 })
@@ -339,7 +334,7 @@ describe("Node", function()
       it("sets the border color", function()
         mock_love.mock(love.graphics, "setColor", spy.new(function() end))
         bordered:paint()
-        assert.spy(love.graphics.setColor).was.called.with(bordered.component.border_color)
+        assert.spy(love.graphics.setColor).was.called.with(bordered.border_color)
       end)
 
       it("translates away the margin", function()
