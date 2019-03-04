@@ -54,8 +54,12 @@ end
 local function text_layout()
   moonpie.layout({
     header(),
-    components.header3({ text = "Long Text Demo" }),
-    components.text({ text = lorem, padding = 5 }),
+    components.section({
+      components.header3({ text = "Long Text Demo" }),
+    }),
+    components.section({
+      components.text({ text = lorem, padding = 5 }),
+    })
   })
 end
 

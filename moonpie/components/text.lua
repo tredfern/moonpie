@@ -9,7 +9,6 @@ local renderers = require "moonpie.renderers"
 
 Component("text", {
   display = "inline",
-  color = "text",
   layout = layouts.text,
   paint = renderers.text
 })
