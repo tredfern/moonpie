@@ -13,7 +13,15 @@ local function create_next_name(name)
   return name..tostring(i)
 end
 
+local function new_create_component(name, values)
+  component_factory[name] = values
+end
+
 local function create_component(_base_, name, values)
+  if type(values) == "function" then
+    return new_create_component(name, values)
+  end
+
   if type(name) == "table" then
     values = name
     name = create_next_name(_base_.name)

@@ -26,11 +26,10 @@ function love.draw()
 end
 
 local function header()
-  return 
-  components.section({
+  return components.section({
       components.header1("h1", { text = "Moonpie for Love2D" }),
       components.button_group("group1", { align = "right",
-        components.button_primary("next", {
+        components.button({
           caption = "Next Demo",
           click = function()
             current_layout = current_layout + 1
@@ -38,15 +37,16 @@ local function header()
           end
         }),
         components.button({
-          components.text({ text = "Switch Mode" })
-        }):on_click(function()
-          if show_light then
-            moonpie.themes.dark_mode(moonpie)
-          else
-            moonpie.themes.light_mode(moonpie)
+          caption = "Switch Mode",
+          click = function()
+            if show_light then
+              moonpie.themes.dark_mode(moonpie)
+            else
+              moonpie.themes.light_mode(moonpie)
+            end
+            show_light = not show_light
           end
-          show_light = not show_light
-        end)
+        })
       })
     })
 end

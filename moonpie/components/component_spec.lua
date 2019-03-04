@@ -7,6 +7,14 @@ describe("Component", function()
   require "test_helpers.mock_love"
   local Component = require "moonpie.components.component"
 
+  describe("Refactor", function()
+    it("allows you to pass an initialization function to define the component", function()
+      Component("button", function(props) return { foo = props.value } end)
+      local new = Component.button({ value = "something" })
+      assert.equals("something", new.foo)
+    end)
+  end)
+
   describe("Creating", function()
     it("has a name describing the component", function()
       local s = Component("NewComponent")
