@@ -7,7 +7,6 @@ local align = require("moonpie.alignment")
 
 local layouts = {}
 
-
 function layouts.children(node, width)
   local x, y = 0, 0
   local line_height, max_width, max_height = 0, 0, 0
@@ -44,6 +43,7 @@ function layouts.max_width(node, p)
 end
 
 function layouts.standard(node, parent)
+  parent = parent or node.parent
   node.box.content.width = layouts.max_width(node, parent)
   node.box.content.height = 0
 

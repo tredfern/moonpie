@@ -53,5 +53,4 @@ function renderers.text(node)
   love.graphics.pop()
 end
 
-
 return renderers

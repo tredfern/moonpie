@@ -26,7 +26,8 @@ function love.draw()
 end
 
 local function header()
-  return components.section({
+  return {
+    components.section({
       components.header1({ text = "Moonpie for Love2D" }),
       components.button_group({ align = "right",
         components.button({
@@ -49,6 +50,7 @@ local function header()
         })
       })
     })
+  }
 end
 
 local function text_layout()
