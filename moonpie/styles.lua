@@ -46,6 +46,9 @@ function styles.compute(source, parent_style)
      __index = get_value
    })
 
+  if source.name and styles[source.name] then
+    result.styles:add(styles[source.name])
+  end
 
   if s then
     local style_list = str.split(s)
@@ -53,6 +56,7 @@ function styles.compute(source, parent_style)
       result.styles:add(styles[v])
     end
   end
+
   return result
 end
 

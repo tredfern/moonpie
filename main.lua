@@ -27,8 +27,8 @@ end
 
 local function header()
   return components.section({
-      components.header1("h1", { text = "Moonpie for Love2D" }),
-      components.button_group("group1", { align = "right",
+      components.header1({ text = "Moonpie for Love2D" }),
+      components.button_group({ align = "right",
         components.button({
           caption = "Next Demo",
           click = function()
