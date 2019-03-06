@@ -23,6 +23,6 @@ of figuring out how to wire up events. I didn't like the effort needed to move t
  * Handling user input is intuitive and testable
 
 ## Demo
-![Demo](https://i.imgur.com/X4WlHum.gifv)
+![Imgur](https://i.imgur.com/X4WlHum.gifv)
 
 
