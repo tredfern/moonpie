@@ -5,19 +5,16 @@
 
 local Component = require("moonpie.components.component")
 
-Component("none", { })
-Component("root", {
-  background_color = "background",
-  color = "text",
-  width = love.graphics.getWidth(),
-  height = love.graphics.getHeight()
-})
+Component("root", function()
+  return {
+    width = love.graphics.getWidth(),
+    height = love.graphics.getHeight()
+  }
+end)
 
 require("moonpie.components.section")
 require("moonpie.components.text")
 require("moonpie.components.headers")
 require("moonpie.components.buttons")
-require("moonpie.components.vertical_scrollbar")
-require("moonpie.components.debug")
 
 return Component

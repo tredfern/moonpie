@@ -16,7 +16,7 @@ local function build_item(item, parent)
 end
 
 return function(...)
- local r = Node(Components.root)
+ local r = Node(Components.root())
 
   for _, v in ipairs({...}) do
     r:add(build_item(v, r))

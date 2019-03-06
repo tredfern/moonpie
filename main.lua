@@ -29,26 +29,29 @@ local function header(props)
   return {
     components.section({
       components.h1({ text = "Moonpie for Love2D" }),
-      components.button_group({ align = "right",
-        components.button({
-          style = "button_primary",
-          caption = "Next Demo",
-          click = function()
-            current_layout = current_layout + 1
-            layouts[current_layout]()
-          end
-        }),
-        components.button({
-          caption = "Switch Mode",
-          click = function()
-            if show_light then
-              moonpie.themes.dark_mode(moonpie)
-            else
-              moonpie.themes.light_mode(moonpie)
+      components.button_group({
+        style = "align-right",
+        buttons = {
+          components.button({
+            style = "button_primary",
+            caption = "Next Demo",
+            click = function()
+              current_layout = current_layout + 1
+              layouts[current_layout]()
             end
-            show_light = not show_light
-          end
-        })
+          }),
+          components.button({
+            caption = "Switch Mode",
+            click = function()
+              if show_light then
+                moonpie.themes.dark_mode(moonpie)
+              else
+                moonpie.themes.light_mode(moonpie)
+              end
+              show_light = not show_light
+            end
+          })
+        }
       })
     }),
     components.section({
@@ -71,21 +74,25 @@ local function button_layout()
     header("Buttons"),
     components.button_group({
       margin = 5,
-      components.button({ caption = "Default" }),
-      components.button({ style = "button_primary", caption = "Primary" }),
-      components.button({ style = "button_info", caption = "Info" }),
-      components.button({ style = "button_warning", caption = "Warning" }),
-      components.button({ style = "button_success", caption = "Success" }),
-      components.button({ style = "button_danger", caption = "Danger" }),
+      buttons = {
+        components.button({ caption = "Default" }),
+        components.button({ style = "button_primary", caption = "Primary" }),
+        components.button({ style = "button_info", caption = "Info" }),
+        components.button({ style = "button_warning", caption = "Warning" }),
+        components.button({ style = "button_success", caption = "Success" }),
+        components.button({ style = "button_danger", caption = "Danger" }),
+      }
     }),
     components.button_group({
       margin = 5,
-      components.button({ style = "button_small", caption = "Default" }),
-      components.button({ style = "button_primary button_small", caption = "Primary" }),
-      components.button({ style = "button_info button_small", caption = "Info" }),
-      components.button({ style = "button_warning button_small", caption = "Warning" }),
-      components.button({ style = "button_success button_small", caption = "Success" }),
-      components.button({ style = "button_danger button_small", caption = "Danger" }),
+      buttons = {
+        components.button({ style = "button_small", caption = "Default" }),
+        components.button({ style = "button_primary button_small", caption = "Primary" }),
+        components.button({ style = "button_info button_small", caption = "Info" }),
+        components.button({ style = "button_warning button_small", caption = "Warning" }),
+        components.button({ style = "button_success button_small", caption = "Success" }),
+        components.button({ style = "button_danger button_small", caption = "Danger" }),
+      }
     }),
   })
 end

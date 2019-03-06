@@ -20,4 +20,23 @@ describe("Components - Button", function()
       assert.spy(s).was.called.with(b)
     end)
   end)
+
+  describe("Button Group", function()
+    it("adds buttons provided", function()
+      local bg = components.button_group({
+        buttons = {
+          components.button({ caption = "One" }),
+          components.button({ caption = "Two" }),
+        }
+      })
+
+      assert.equals("One", bg[1].caption)
+      assert.equals("Two", bg[2].caption)
+    end)
+
+    it("if no buttons provided do nothing", function()
+      local bg = components.button_group()
+      assert.equals(0, #bg)
+    end)
+  end)
 end)

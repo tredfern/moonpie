@@ -6,8 +6,9 @@
 return function(moonpie)
   local styles = moonpie.styles
   styles.root = {
+    background_color = "background",
     padding = 10,
-    font = moonpie.fonts.default.regular(10)
+    font = moonpie.fonts.default.regular(12),
   }
 
   styles.button = {
@@ -35,4 +36,6 @@ return function(moonpie)
   styles.h1 = { margin = 10, color = "primary", font = moonpie.fonts.headline.bold(28) }
   styles.h2 = { color = "primary", font = moonpie.fonts.headline.bold(24) }
   styles.h3 = { margin = 10, color = "primary", font = moonpie.fonts.headline.bold(18) }
+
+  styles["align-right"] = { align = "right" }
 end
