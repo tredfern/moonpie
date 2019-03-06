@@ -5,11 +5,7 @@
 
 return function(moonpie)
   local styles = moonpie.styles
-  styles.root = {
-    background_color = "background",
-    padding = 10,
-    font = moonpie.fonts.default.regular(12),
-  }
+  styles.root = { background_color = "background" }
 
   styles.button = {
     font = moonpie.fonts.default.regular(12),

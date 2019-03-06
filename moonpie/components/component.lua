@@ -4,7 +4,8 @@
 -- https://opensource.org/licenses/MIT
 
 local copy_props = {
-  "style"
+  "style",
+  "padding"
 }
 
 local component_factory = {}

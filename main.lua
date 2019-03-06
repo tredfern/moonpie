@@ -13,8 +13,16 @@ local show_light = true
 local current_layout = 1
 local layouts
 
+local function update_layout()
+  local lt = components.section({
+    padding = 5,
+    layouts[current_layout]()
+  })
+  moonpie.layout(lt)
+end
+
 function love.load()
-  layouts[current_layout]()
+  update_layout()
 end
 
 function love.update()
@@ -37,7 +45,7 @@ local function header(props)
             caption = "Next Demo",
             click = function()
               current_layout = current_layout + 1
-              layouts[current_layout]()
+              update_layout()
             end
           }),
           components.button({
@@ -61,16 +69,16 @@ local function header(props)
 end
 
 local function text_layout()
-  moonpie.layout({
+  return {
     header("Long Text Demo"),
     components.section({
       components.text({ text = lorem, padding = 5 }),
     })
-  })
+  }
 end
 
 local function button_layout()
-  moonpie.layout({
+  return {
     header("Buttons"),
     components.button_group({
       margin = 5,
@@ -94,12 +102,10 @@ local function button_layout()
         components.button({ style = "button_danger button_small", caption = "Danger" }),
       }
     }),
-  })
+  }
 end
-
 
 layouts = {
   text_layout,
   button_layout,
 }
-
