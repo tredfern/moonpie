@@ -15,4 +15,8 @@ describe("Template", function()
     local t = "Hello {{name}}!"
     assert.equals("Hello Bob!", template(t, { name = "Bob" }))
   end)
+
+  it("returns nil if template is nil", function()
+    assert.is_nil(template(nil, {}))
+  end)
 end)

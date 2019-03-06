@@ -31,9 +31,4 @@ return function(moonpie)
       bold = moonpie.font("moonpie/assets/fonts/roboto_slab/Bold.ttf")
     }
   }
-
-  moonpie.components.text.font = moonpie.fonts.default.regular(14)
-  moonpie.components.header1.font = moonpie.fonts.headline.bold(32)
-  moonpie.components.header2.font = moonpie.fonts.headline.bold(24)
-  moonpie.components.header3.font = moonpie.fonts.headline.bold(20)
 end

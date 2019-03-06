@@ -17,7 +17,7 @@ describe("Component", function()
     it("can handle state", function()
       Component("button", function()
         local b = {}
-        b.set_value = function(v) b.foo = v end 
+        b.set_value = function(v) b.foo = v end
         return b
       end)
 

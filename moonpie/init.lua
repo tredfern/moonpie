@@ -49,7 +49,7 @@ moonpie = {
     layers[layer_name] = layout_tree(...)
     return layers[layer_name]
   end,
-  styles = require("moonpie.stylesheet"),
+  styles = require("moonpie.styles"),
   update = function()
     for _, v in ipairs(layer_order) do
       if layers[v] then
@@ -69,5 +69,6 @@ moonpie = {
 
 moonpie.themes.standard(moonpie)
 moonpie.themes.light_mode(moonpie)
+require("moonpie.stylesheet")(moonpie)
 
 return moonpie

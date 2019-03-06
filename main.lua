@@ -28,9 +28,10 @@ end
 local function header(props)
   return {
     components.section({
-      components.header1({ text = "Moonpie for Love2D" }),
+      components.h1({ text = "Moonpie for Love2D" }),
       components.button_group({ align = "right",
         components.button({
+          style = "button_primary",
           caption = "Next Demo",
           click = function()
             current_layout = current_layout + 1
@@ -51,7 +52,7 @@ local function header(props)
       })
     }),
     components.section({
-      components.header3({ text = props }),
+      components.h3({ text = props }),
     }),
   }
 end
@@ -76,7 +77,16 @@ local function button_layout()
       components.button({ style = "button_warning", caption = "Warning" }),
       components.button({ style = "button_success", caption = "Success" }),
       components.button({ style = "button_danger", caption = "Danger" }),
-    })
+    }),
+    components.button_group({
+      margin = 5,
+      components.button({ style = "button_small", caption = "Default" }),
+      components.button({ style = "button_primary button_small", caption = "Primary" }),
+      components.button({ style = "button_info button_small", caption = "Info" }),
+      components.button({ style = "button_warning button_small", caption = "Warning" }),
+      components.button({ style = "button_success button_small", caption = "Success" }),
+      components.button({ style = "button_danger button_small", caption = "Danger" }),
+    }),
   })
 end
 

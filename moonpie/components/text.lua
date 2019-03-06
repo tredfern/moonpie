@@ -6,9 +6,13 @@
 local Component = require("moonpie.components.component")
 local layouts = require "moonpie.layouts"
 local renderers = require "moonpie.renderers"
+local template = require "moonpie.template"
 
-Component("text", {
-  display = "inline",
-  layout = layouts.text,
-  paint = renderers.text
-})
+Component("text", function(props)
+  return {
+    text = template(props.text, props),
+    display = "inline",
+    layout = layouts.text,
+    paint = renderers.text
+  }
+end)

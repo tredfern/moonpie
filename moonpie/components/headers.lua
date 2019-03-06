@@ -5,18 +5,14 @@
 
 local Component = require("moonpie.components.component")
 
-Component.text("header", {
-  color = "primary",
-  display = "block"
-})
+Component("h1", function(props)
+  return Component.text({ text = props.text })
+end)
 
-Component.header("header1", {
-  margin = 10
-})
+Component("h2", function(props)
+  return Component.text({ text = props.text })
+end)
 
-Component.header("header2", {
-  margin = { left = 10, right = 10, top = 7, bottom = 7 }
-})
-Component.header("header3", {
-  margin = { left = 10, right = 10, top = 5, bottom = 5 }
-})
+Component("h3", function(props)
+  return Component.text({ text = props.text })
+end)

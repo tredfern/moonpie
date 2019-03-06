@@ -10,7 +10,8 @@ local list = require "moonpie.collections.list"
 local styles = {}
 
 local INHERITABLE = list:new({
-  "color"
+  "color",
+  "font"
 })
 
 local function get_value(computed, value)

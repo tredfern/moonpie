@@ -10,21 +10,19 @@ describe("Components - Text", function()
   describe("not great tests but help define changing the code", function()
     it("has a layout geared for text", function()
       local layouts = require "moonpie.layouts"
-      assert.equals(layouts.text, text.layout)
+      local t = text({})
+      assert.equals(layouts.text, t.layout)
     end)
 
     it("has a paint geared for text", function()
       local renderers = require "moonpie.renderers"
-      assert.equals(renderers.text, text.paint)
+      local t = text({})
+      assert.equals(renderers.text, t.paint)
     end)
   end)
 
   describe("it can perform some templating of text", function()
-    local node = require "moonpie.node"
-    local t = text("say_hello", { text = "Hello {{name}}!", font = {} })
-    t({ name = "Oskar!" })
-    local n = node(t)
-    local p = node({ width = 100 })
-    n:layout(p)
+    local t = text({ text = "Hello {{name}}!", name = "Oskar" })
+    assert.equals("Hello Oskar!", t.text)
   end)
 end)

@@ -6,5 +6,7 @@
 local MATCH_PATTERN = "{{(%w+)}}"
 
 return function(template, props)
-  return string.gsub(template, MATCH_PATTERN, props)
+  if template then
+    return string.gsub(template, MATCH_PATTERN, props)
+  end
 end
