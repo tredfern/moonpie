@@ -11,11 +11,14 @@ local styles = require("moonpie.styles")
 return function(component, parent)
   component = component or {}
   parent = parent or {}
+
   local n = setmetatable({}, {
-    __index = function(_, k)
-      return styles.compute(component, parent)[k]
+    __index = function(self, k)
+      local hover = rawget(self, "hover")
+      return styles.compute(component, parent, { hover = hover and hover(self) })[k]
     end
   })
+
   n.children = {}
   n.parent = parent
   n.box = box_model(n, parent.box)

@@ -100,5 +100,17 @@ describe("Styles", function()
         assert.is_nil(s.width)
       end)
     end)
+
+    describe("conditional styles", function()
+      describe("hover", function()
+        styles.text = { color = "blue", _hover_ = { color = "green" } }
+        local item = { style = "text" }
+        local parent = {}
+        local s = styles.compute(item, parent, { hover = false })
+        assert.equals("blue", s.color)
+        s = styles.compute(item, parent, { hover = true })
+        assert.equals("green", s.color)
+      end)
+    end)
   end)
 end)

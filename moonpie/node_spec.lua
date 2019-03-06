@@ -33,6 +33,14 @@ describe("Node", function()
     assert.spy(c.click).was.called.with(n)
   end)
 
+  it("passes the hover flag to the computed styles", function()
+    styles.add("text", { color = "green", _hover_ = { color = "red" } })
+    local c = { style = "text" }
+    local n = Node(c)
+    n.hover = function() return true end -- just override the hover check
+    assert.equals("red", n.color)
+  end)
+
   it("layout refresh is needed if the component has been modified", function()
     local comp = { text = "foobar",  }
     local b = Node(comp)

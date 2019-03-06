@@ -25,6 +25,9 @@ local function get_value(computed, value)
 
   for _, v in ipairs(computed.styles) do
     if v[value] then
+      if computed._flags.hover and v._hover_ and v._hover_[value] then
+        return v._hover_[value]
+      end
       return v[value]
     end
   end
@@ -38,11 +41,12 @@ function styles.add(name, values)
   styles[name] = values
 end
 
-function styles.compute(source, parent_style)
+function styles.compute(source, parent_style, flags)
   local s = source.style
   local result = setmetatable({
     _source = source,
     _parent = parent_style,
+    _flags = flags or {},
     styles = list:new() }, {
      __index = get_value
    })
