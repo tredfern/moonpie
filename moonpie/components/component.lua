@@ -3,6 +3,10 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
+local copy_props = {
+  "style"
+}
+
 local component_factory = {}
 
 local function create_next_name(name)
@@ -13,8 +17,18 @@ local function create_next_name(name)
   return name..tostring(i)
 end
 
-local function new_create_component(name, values)
-  component_factory[name] = values
+local function new_create_component(name, generator)
+
+  component_factory[name] = function(props)
+    props = props or {}
+    local c = generator(props)
+    c.name = name
+    for _, v in ipairs(copy_props) do
+      if props[v] then c[v] = props[v] end
+    end
+    return c
+  end
+
 end
 
 local function create_component(_base_, name, values)

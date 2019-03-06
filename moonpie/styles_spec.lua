@@ -61,10 +61,10 @@ describe("Styles", function()
     end)
 
     it("looks for a style matching the name if component has a name", function()
-      local c = { name = "button" }
+      local c = { name = "button", style = "button-primary" }
       local s = styles.compute(c)
       assert.equals(10, s.font_size)
-      assert.equals("red", s.color)
+      assert.equals("green", s.color)
     end)
 
     describe("inherited properties", function()

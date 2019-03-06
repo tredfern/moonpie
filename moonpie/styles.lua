@@ -46,15 +46,15 @@ function styles.compute(source, parent_style)
      __index = get_value
    })
 
-  if source.name and styles[source.name] then
-    result.styles:add(styles[source.name])
-  end
-
   if s then
     local style_list = str.split(s)
     for v in reverse(style_list) do
       result.styles:add(styles[v])
     end
+  end
+
+  if source.name and styles[source.name] then
+    result.styles:add(styles[source.name])
   end
 
   return result

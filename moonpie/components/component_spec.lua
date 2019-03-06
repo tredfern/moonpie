@@ -13,6 +13,30 @@ describe("Component", function()
       local new = Component.button({ value = "something" })
       assert.equals("something", new.foo)
     end)
+
+    it("can handle state", function()
+      Component("button", function()
+        local b = {}
+        b.set_value = function(v) b.foo = v end 
+        return b
+      end)
+
+      local b = Component.button()
+      b.set_value("Some state")
+      assert.equals("Some state", b.foo)
+    end)
+
+    it("copies style properties passed in", function()
+      Component("button", function() return {} end)
+      local s = Component.button({ style = "some" })
+      assert.equals("some", s.style)
+    end)
+
+    it("assigns the name of the component", function()
+      Component("button", function() return {} end)
+      local s = Component.button()
+      assert.equals("button", s.name)
+    end)
   end)
 
   describe("Creating", function()
