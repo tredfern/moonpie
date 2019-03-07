@@ -53,4 +53,13 @@ function renderers.text(node)
   love.graphics.pop()
 end
 
+function renderers.image(node)
+  local clr = node.color or { 1, 1, 1, 1 }
+  love.graphics.push()
+  love.graphics.translate(node.box:content_position())
+  love.graphics.setColor(colors(clr))
+  love.graphics.draw(node.image, 0, 0)
+  love.graphics.pop()
+end
+
 return renderers

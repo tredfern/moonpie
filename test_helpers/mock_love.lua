@@ -9,10 +9,13 @@ local font = {
     return 10, t
   end
 }
-local image = {
+
+local image = setmetatable({
   getWidth = function() return 100 end,
-  getHeight = function() return 100 end
-}
+  getHeight = function() return 100 end,
+  getDimensions = function(self) return self:getWidth(), self:getHeight() end,
+}, { __newindex = function() error("Love does not allow this") end })
+
 local text = {
   setf = function() end,
   getDimensions = function() return 10, 10 end
@@ -20,6 +23,7 @@ local text = {
 local key_down = {}
 local mouse_down = {}
 local mouse_x, mouse_y = 0, 0
+
 love = {
     event = {
       quit = function() end,
@@ -98,5 +102,6 @@ return {
     mouse_down = {}
   end,
   font = font,
+  image = image,
   text = text
 }

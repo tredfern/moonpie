@@ -15,6 +15,7 @@ describe("Renderers", function()
     mock_love.mock(love.graphics, "setColor", spy.new(function() end))
     mock_love.mock(love.graphics, "rectangle", spy.new(function() end))
     mock_love.mock(love.graphics, "setLineWidth", spy.new(function() end))
+    mock_love.mock(love.graphics, "draw", spy.new(function() end))
 
   end)
 
@@ -135,6 +136,43 @@ describe("Renderers", function()
         renderers.standard(b)
         assert.spy(love.graphics.rectangle).was.called.with("line", 0, 0, 122, 42, 2, 3)
       end)
+    end)
+  end)
+
+  describe("Image", function()
+    before_each(function()
+      local c = { image = mock_love.image, width = 100, height = 100, color = { 1, 1, 0, 1 } }
+      local node = Node(c)
+      node:layout()
+      renderers.image(node)
+    end)
+
+    it("pushes to the translation stack", function()
+      assert.spy(love.graphics.push).was.called()
+    end)
+
+    it("pops the translation stack", function()
+      assert.spy(love.graphics.pop).was.called()
+    end)
+
+    it("moves to the content position", function()
+      assert.spy(love.graphics.translate).was.called.with(0, 0)
+    end)
+
+    it("sets the color", function()
+      assert.spy(love.graphics.setColor).was.called.with({ 1, 1, 0, 1 })
+    end)
+
+    it("draws the image at the content position", function()
+      assert.spy(love.graphics.draw).was.called.with(mock_love.image, 0, 0)
+    end)
+
+    it("if no color is set just use white", function()
+      local c = { image = mock_love.image, width = 100, height = 100 }
+      local node = Node(c)
+      node:layout()
+      renderers.image(node)
+      assert.spy(love.graphics.setColor).was.called.with({ 1, 1, 1, 1 })
     end)
   end)
 end)

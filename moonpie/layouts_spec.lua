@@ -6,6 +6,7 @@
 describe("Layouts", function()
   local layouts = require "moonpie.layouts"
   local Node = require "moonpie.node"
+  local mock_love = require("test_helpers.mock_love")
 
   local parent
   before_each(function()
@@ -156,6 +157,15 @@ describe("Layouts", function()
           assert.equals(24, node.box:width())
         end)
       end)
+    end)
+  end)
+
+  describe("Image layouts", function()
+    it("calculates it's layout width and height based on the size of the image", function()
+      local img_node = Node({ image = mock_love.image, layout = layouts.image })
+      img_node:layout(parent)
+      assert.equals(100, img_node.box.content.width)
+      assert.equals(100, img_node.box.content.height)
     end)
   end)
 end)

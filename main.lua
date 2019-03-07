@@ -105,7 +105,26 @@ local function button_layout()
   }
 end
 
+local function image_layout()
+  return {
+    header("Images"),
+    components.section({
+      components.h3({ text = "Just an image" }),
+      components.image({ src = "assets/images/cat.jpg" }),
+    }),
+    components.section({
+      components.h3({ text = "Stretch it" }),
+      components.image({ src = "assets/images/small.jpg",  width = 200, height = 200, scaling = "stretch" }),
+    }),
+    components.section({
+      components.h3({ text = "Shrink it" }),
+      components.image({ src = "assets/images/big.jpg", width = 200, heigth = 200, scaling = "fit" }),
+    })
+  }
+end
+
 layouts = {
   text_layout,
   button_layout,
+  image_layout
 }

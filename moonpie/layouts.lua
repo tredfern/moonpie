@@ -65,4 +65,8 @@ function layouts.text(node, parent)
   node.box.content.width, node.box.content.height = node.text_image:getDimensions()
 end
 
+function layouts.image(node)
+  node.box.content.width, node.box.content.height = node.image:getDimensions()
+end
+
 return layouts

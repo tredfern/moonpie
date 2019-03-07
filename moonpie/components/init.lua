@@ -15,6 +15,7 @@ end)
 require("moonpie.components.section")
 require("moonpie.components.text")
 require("moonpie.components.headers")
+require("moonpie.components.images")
 require("moonpie.components.buttons")
 
 return Component
