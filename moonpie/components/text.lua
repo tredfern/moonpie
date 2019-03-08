@@ -5,7 +5,6 @@
 
 local Component = require("moonpie.components.component")
 local layouts = require "moonpie.layouts"
-local renderers = require "moonpie.renderers"
 local template = require "moonpie.template"
 
 Component("text", function(props)

@@ -119,6 +119,16 @@ local function image_layout()
   }
 end
 
+local function color_gradient(base_color, gradients)
+  local t = {}
+  for i = 1, gradients do
+    t[i] = components.text({ padding = 10, text = tostring(i),
+      background_color = moonpie.colors.lighten(base_color, 1 + ( i / 10))
+    })
+  end
+  return t
+end
+
 local function pulsing_color()
   local function make_color_change(time, v, e)
     local clr = v
@@ -133,28 +143,20 @@ local function pulsing_color()
   return {
     header("Colors!"),
     components.section({
-      components.text({ padding = 10, text = "Black to Cyan", 
+      components.text({ padding = 10, text = "Black to Cyan",
         background_color = make_color_change(5, moonpie.colors.black, moonpie.colors.cyan) }),
-      components.text({ padding = 10, text = "Red to Gray", 
+      components.text({ padding = 10, text = "Red to Gray",
         background_color = make_color_change(10, moonpie.colors.red, moonpie.colors.gray) }),
     }),
     components.h3({ text = "Lighten the things" }),
     components.section({
-      components.text({ padding = 10, text = "0", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 1.0) }),
-      components.text({ padding = 10, text = "1", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 1.1) }),
-      components.text({ padding = 10, text = "2", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 1.2) }),
-      components.text({ padding = 10, text = "3", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 1.3) }),
-      components.text({ padding = 10, text = "4", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 1.4) }),
-      components.text({ padding = 10, text = "5", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 1.5) }),
-      components.text({ padding = 10, text = "6", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 1.6) }),
-      components.text({ padding = 10, text = "7", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 1.7) }),
-      components.text({ padding = 10, text = "8", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 1.8) }),
-      components.text({ padding = 10, text = "9", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 1.9) }),
-      components.text({ padding = 10, text = "10", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 2.0) }),
-      components.text({ padding = 10, text = "11", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 2.1) }),
+      color_gradient(moonpie.colors.dark_lava, 20),
+      color_gradient(moonpie.colors.purple, 20),
+      color_gradient(moonpie.colors.avocado, 20),
     })
   }
 end
+
 
 layouts = {
   text_layout,
