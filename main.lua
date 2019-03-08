@@ -123,8 +123,26 @@ local function image_layout()
   }
 end
 
+local function pulsing_color()
+  local clr = moonpie.colors.black
+  local ctween = moonpie.tween.new(5, clr, moonpie.colors.cyan)
+
+  local bg = function()
+    ctween:update(love.timer.getDelta())
+    return clr
+  end
+
+  return {
+    header("Colors!"),
+    components.section({
+      components.text({ padding = 10, text = "Change Colors!", background_color = bg })
+    })
+  }
+end
+
 layouts = {
   text_layout,
   button_layout,
-  image_layout
+  image_layout,
+  pulsing_color
 }

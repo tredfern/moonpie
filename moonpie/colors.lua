@@ -27,7 +27,7 @@ local csv_file = love.filesystem.read("moonpie/assets/colors.csv")
 local contents = csv.openstring(csv_file)
 for fields in contents:lines() do
     local r,g,b = colors.convert_hex(fields[3])
-    colors[fields[1]]={r, g, b, 1, displayname=fields[2]}
+    colors[fields[1]]={ r, g, b, 1 }
 end
 
 

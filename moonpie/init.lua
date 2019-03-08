@@ -50,6 +50,7 @@ moonpie = {
     return layers[layer_name]
   end,
   styles = require("moonpie.styles"),
+  tween = require("moonpie.ext.tween"),
   update = function()
     for _, v in ipairs(layer_order) do
       if layers[v] then
