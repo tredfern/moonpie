@@ -114,7 +114,7 @@ local function image_layout()
     }),
     components.section({
       components.h3({ text = "Stretch it" }),
-      components.image({ src = "assets/images/small.jpg",  width = 200, height = 200, scaling = "stretch" }),
+      components.image({ src = "assets/images/small.jpg",  width = 200, height = 200, scaling = "fit" }),
     }),
     components.section({
       components.h3({ text = "Shrink it" }),
@@ -124,18 +124,37 @@ local function image_layout()
 end
 
 local function pulsing_color()
-  local clr = moonpie.colors.black
-  local ctween = moonpie.tween.new(5, clr, moonpie.colors.cyan)
+  local function make_color_change(time, v, e)
+    local clr = v
+    local ctween = moonpie.tween.new(time, clr, e)
 
-  local bg = function()
-    ctween:update(love.timer.getDelta())
-    return clr
+    return function()
+      ctween:update(love.timer.getDelta())
+      return v
+    end
   end
 
   return {
     header("Colors!"),
     components.section({
-      components.text({ padding = 10, text = "Change Colors!", background_color = bg })
+      components.text({ padding = 10, text = "Black to Cyan", 
+        background_color = make_color_change(5, moonpie.colors.black, moonpie.colors.cyan) }),
+      components.text({ padding = 10, text = "Red to Gray", 
+        background_color = make_color_change(10, moonpie.colors.red, moonpie.colors.gray) }),
+    }),
+    components.section({
+      components.text({ padding = 10, text = "0", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 1.0) }),
+      components.text({ padding = 10, text = "1", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 1.1) }),
+      components.text({ padding = 10, text = "2", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 1.2) }),
+      components.text({ padding = 10, text = "3", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 1.3) }),
+      components.text({ padding = 10, text = "4", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 1.4) }),
+      components.text({ padding = 10, text = "5", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 1.5) }),
+      components.text({ padding = 10, text = "6", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 1.6) }),
+      components.text({ padding = 10, text = "7", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 1.7) }),
+      components.text({ padding = 10, text = "8", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 1.8) }),
+      components.text({ padding = 10, text = "9", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 1.9) }),
+      components.text({ padding = 10, text = "10", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 2.0) }),
+      components.text({ padding = 10, text = "11", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 2.1) }),
     })
   }
 end

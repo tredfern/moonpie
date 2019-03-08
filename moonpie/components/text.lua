@@ -12,7 +12,6 @@ Component("text", function(props)
   return {
     text = template(props.text, props),
     display = "inline",
-    layout = layouts.text,
-    paint = renderers.text
+    layout = layouts.text
   }
 end)
