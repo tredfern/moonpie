@@ -11,6 +11,7 @@ function renderers.standard(node)
   love.graphics.translate(node.box.x, node.box.y)
   renderers.draw_border(node)
   renderers.draw_background(node)
+  renderers.image(node)
 
   love.graphics.translate(node.box:content_position())
 
@@ -45,15 +46,8 @@ function renderers.draw_border(node)
   end
 end
 
-function renderers.text(node)
-  love.graphics.push()
-  love.graphics.translate(node.box:content_position())
-  if node.color then love.graphics.setColor(colors(node.color)) end
-  love.graphics.draw(node.text_image, 0, 0)
-  love.graphics.pop()
-end
-
 function renderers.image(node)
+  if not node.image then return end
   local clr = node.color or { 1, 1, 1, 1 }
   love.graphics.push()
   love.graphics.translate(node.box:content_position())

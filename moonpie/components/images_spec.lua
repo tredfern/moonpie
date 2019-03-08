@@ -23,10 +23,10 @@ describe("Components - Images", function()
     assert.not_nil(img.layout)
   end)
 
-  it("uses the image renderer", function()
+  it("uses the standard renderer", function()
     local renderers = require("moonpie.renderers")
     local img = components.image({src = "image.jpg" })
-    assert.equals(renderers.image, img.paint)
+    assert.equals(renderers.standard, img.paint)
     assert.not_nil(img.paint)
   end)
 

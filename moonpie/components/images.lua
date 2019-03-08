@@ -11,7 +11,7 @@ local renderers = require "moonpie.renderers"
 Component("image", function(props)
   local i = {
     layout = layouts.image,
-    paint = renderers.image
+    paint = renderers.standard
   }
 
   i.image = image.load(props.src)

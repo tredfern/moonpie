@@ -60,9 +60,10 @@ local template = require "moonpie.template"
 function layouts.text(node, parent)
   local max_width = layouts.max_width(node, parent)
   local f = node.font or love.graphics.getFont()
-  node.text_image = love.graphics.newText(f)
-  node.text_image:setf(template(node.text, node), max_width, "left")
-  node.box.content.width, node.box.content.height = node.text_image:getDimensions()
+  node.image = love.graphics.newText(f)
+  node.image:setf(template(node.text, node), max_width, "left")
+
+  return layouts.image(node)
 end
 
 function layouts.image(node)

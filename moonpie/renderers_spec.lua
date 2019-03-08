@@ -60,6 +60,13 @@ describe("Renderers", function()
       assert.spy(love.graphics.translate).was.called.with(9, 9)
     end)
 
+    it("draws an image if available", function()
+      spy.on(renderers, "image")
+      local b = Node({ image = {} })
+      renderers.standard(b)
+      assert.spy(renderers.image).was.called.with(b)
+    end)
+
     describe("rectangle tests", function()
 
       it("paints a background.color for it's area if provided", function()
@@ -145,6 +152,12 @@ describe("Renderers", function()
       local node = Node(c)
       node:layout()
       renderers.image(node)
+    end)
+
+    it("does nothing if there is no image", function()
+      local node = Node({})
+      renderers.image(node)
+      assert.spy(love.graphics.draw).was_not.called.with(nil, 0, 0)
     end)
 
     it("pushes to the translation stack", function()

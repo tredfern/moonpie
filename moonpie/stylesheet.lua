@@ -20,7 +20,8 @@ return function(moonpie)
     }
   end
 
-  styles.root = { background_color = "background" }
+  styles.root = { background_color = "background", color = "text" }
+  styles.image = { color = { 1, 1, 1, 1 } }
 
   styles.button = {
     font = moonpie.fonts.default.regular(12),
