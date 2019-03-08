@@ -4,7 +4,6 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Components", function()
-  require "test_helpers.mock_love"
   local Components = require "moonpie.components"
 
   describe("Root window component", function()

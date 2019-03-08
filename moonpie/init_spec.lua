@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Initialize Moonpie", function()
-  require "test_helpers.mock_love"
+  require "moonpie.test_helpers.mock_love"
   local moonpie = require "moonpie"
 
   it("has an components base", function()

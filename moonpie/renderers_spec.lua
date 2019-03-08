@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Renderers", function()
-  local mock_love = require "test_helpers.mock_love"
+  local mock_love = require "moonpie.test_helpers.mock_love"
   local renderers = require "moonpie.renderers"
   local Node = require "moonpie.node"
 

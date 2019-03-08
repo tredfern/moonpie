@@ -4,8 +4,6 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Colors", function()
-  require "test_helpers.mock_love"
-
   local colors = require "moonpie.colors"
   it("can convert rgb hex values to integer rgb", function()
     local r,g,b = colors.convert_hex("#FFFFFF")

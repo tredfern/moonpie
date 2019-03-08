@@ -6,7 +6,7 @@
 describe("Layouts", function()
   local layouts = require "moonpie.layouts"
   local Node = require "moonpie.node"
-  local mock_love = require("test_helpers.mock_love")
+  local mock_love = require "moonpie.test_helpers.mock_love"
 
   local parent
   before_each(function()

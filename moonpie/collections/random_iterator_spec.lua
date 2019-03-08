@@ -5,7 +5,7 @@
 
 describe("RandomIterator", function()
   local irandom = require "moonpie.collections.random_iterator"
-  local MockRandom = require "test_helpers.mock_random"
+  local MockRandom = require "moonpie.test_helpers.mock_random"
 
   it("returns elements in a random sequence", function()
     local t = {1, 2, 3, 4, 5}

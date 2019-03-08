@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Font", function()
-  local mock_love = require "test_helpers.mock_love"
+  local mock_love = require "moonpie.test_helpers.mock_love"
   local Font = require "moonpie.font"
 
   it("is initialized with a font file name", function()

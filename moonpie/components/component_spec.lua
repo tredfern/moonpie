@@ -4,7 +4,6 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Component", function()
-  require "test_helpers.mock_love"
   local Component = require "moonpie.components.component"
 
   describe("Function components", function()

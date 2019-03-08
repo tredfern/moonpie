@@ -4,9 +4,9 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Components - Images", function()
-  local components = require("moonpie.components")
-  local image = require("moonpie.image")
-  local mock_love = require("test_helpers.mock_love")
+  local components = require "moonpie.components"
+  local image = require "moonpie.image"
+  local mock_love = require "moonpie.test_helpers.mock_love"
 
   it("loads the image from file/store", function()
     local old_load = image.load

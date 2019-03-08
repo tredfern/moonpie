@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Node", function()
-  local mock_love = require "test_helpers.mock_love"
+  local mock_love = require "moonpie.test_helpers.mock_love"
   local Node = require "moonpie.node"
   local styles = require "moonpie.styles"
 

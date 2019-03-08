@@ -5,7 +5,7 @@
 
 describe("Randomized Queue", function()
   local RandomizedQueue = require "moonpie.collections.randomized_queue"
-  local MockRandom = require "test_helpers.mock_random"
+  local MockRandom = require "moonpie.test_helpers.mock_random"
 
   it("Knows when it is empty", function()
     local r = RandomizedQueue:new()

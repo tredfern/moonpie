@@ -4,8 +4,8 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Image", function()
-  local image = require("moonpie.image")
-  local mock_love = require("test_helpers.mock_love")
+  local image = require "moonpie.image"
+  local mock_love = require "moonpie.test_helpers.mock_love"
 
   it("returns the same image if the same name is requested", function()
     local i = image.load("assets/images/cat.jpg")
