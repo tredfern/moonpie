@@ -80,28 +80,32 @@ end
 local function button_layout()
   return {
     header("Buttons"),
-    components.button_group({
-      margin = 5,
-      buttons = {
-        components.button({ caption = "Default" }),
-        components.button({ style = "button_primary", caption = "Primary" }),
-        components.button({ style = "button_info", caption = "Info" }),
-        components.button({ style = "button_warning", caption = "Warning" }),
-        components.button({ style = "button_success", caption = "Success" }),
-        components.button({ style = "button_danger", caption = "Danger" }),
-      }
-    }),
-    components.button_group({
-      margin = 5,
-      buttons = {
-        components.button({ style = "button_small", caption = "Default" }),
-        components.button({ style = "button_primary button_small", caption = "Primary" }),
-        components.button({ style = "button_info button_small", caption = "Info" }),
-        components.button({ style = "button_warning button_small", caption = "Warning" }),
-        components.button({ style = "button_success button_small", caption = "Success" }),
-        components.button({ style = "button_danger button_small", caption = "Danger" }),
-      }
-    }),
+    {
+      components.button_group({
+        margin = 5,
+        buttons = {
+          components.button({ caption = "Default" }),
+          components.button({ style = "button_primary", caption = "Primary" }),
+          components.button({ style = "button_info", caption = "Info" }),
+          components.button({ style = "button_warning", caption = "Warning" }),
+          components.button({ style = "button_success", caption = "Success" }),
+          components.button({ style = "button_danger", caption = "Danger" }),
+        }
+      }),
+    },
+    {
+      components.button_group({
+        margin = 5,
+        buttons = {
+          components.button({ style = "button_small", caption = "Default" }),
+          components.button({ style = "button_primary button_small", caption = "Primary" }),
+          components.button({ style = "button_info button_small", caption = "Info" }),
+          components.button({ style = "button_warning button_small", caption = "Warning" }),
+          components.button({ style = "button_success button_small", caption = "Success" }),
+          components.button({ style = "button_danger button_small", caption = "Danger" }),
+        }
+      }),
+    }
   }
 end
 
@@ -142,6 +146,7 @@ local function pulsing_color()
       components.text({ padding = 10, text = "Red to Gray", 
         background_color = make_color_change(10, moonpie.colors.red, moonpie.colors.gray) }),
     }),
+    components.h3({ text = "Lighten the things" }),
     components.section({
       components.text({ padding = 10, text = "0", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 1.0) }),
       components.text({ padding = 10, text = "1", background_color = moonpie.colors.lighten(moonpie.colors.dark_lava, 1.1) }),

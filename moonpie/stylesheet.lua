@@ -28,7 +28,7 @@ return function(moonpie)
     background_color = "button_default",
     color = "button_text",
     corner_radius_x = 4, corner_radius_y = 4,
-    padding = { left = 30, right = 30, top = 12, bottom = 12 },
+    padding = { left = 12, right = 12, top = 8, bottom = 8 },
     margin = { left = 1, right = 1, top = 5, bottom = 5 },
     display = "inline",
     _hover_ = {
@@ -36,17 +36,17 @@ return function(moonpie)
     }
   }
 
+  styles.button_small = {
+    corner_radius_x = 3, corner_radius_y = 3,
+    font = moonpie.fonts.default.regular(10),
+    padding = { left = 8, right = 8, top = 4, bottom = 4 }
+  }
+
   button_style("primary", "primary")
   button_style("info", "info")
   button_style("danger", "danger")
   button_style("warning", "warning")
   button_style("success", "success")
-
-  styles.button_small = {
-    corner_radius_x = 3, corner_radius_y = 3,
-    font = moonpie.fonts.default.regular(10),
-    padding = { left = 15, right = 15, top = 6, bottom = 6 }
-  }
 
   styles.h1 = { margin = 10, color = "primary", font = moonpie.fonts.headline.bold(28) }
   styles.h2 = { color = "primary", font = moonpie.fonts.headline.bold(24) }
