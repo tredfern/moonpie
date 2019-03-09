@@ -33,6 +33,32 @@ function love.draw()
   moonpie.paint()
 end
 
+local function next_demo_button()
+  return components.button({
+    style = "button_primary",
+    caption = "Next Demo",
+    click = function()
+      current_layout = current_layout + 1
+      update_layout()
+    end
+  })
+end
+
+local function switch_mode_button()
+  return components.button({
+    caption = "Switch Mode",
+    click = function()
+      if show_light then
+        moonpie.themes.dark_mode(moonpie)
+      else
+        moonpie.themes.light_mode(moonpie)
+      end
+      show_light = not show_light
+    end
+  })
+end
+
+
 local function header(props)
   return {
     components.section({
@@ -40,25 +66,8 @@ local function header(props)
       components.button_group({
         style = "align-right",
         buttons = {
-          components.button({
-            style = "button_primary",
-            caption = "Next Demo",
-            click = function()
-              current_layout = current_layout + 1
-              update_layout()
-            end
-          }),
-          components.button({
-            caption = "Switch Mode",
-            click = function()
-              if show_light then
-                moonpie.themes.dark_mode(moonpie)
-              else
-                moonpie.themes.light_mode(moonpie)
-              end
-              show_light = not show_light
-            end
-          })
+          next_demo_button(),
+          switch_mode_button()
         }
       })
     }),
