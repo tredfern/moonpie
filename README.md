@@ -71,4 +71,4 @@ component.
  * Handling user input is intuitive and testable
 
 ## Demo
-![Imgur](https://i.imgur.com/X4WlHum.gifv)
+![Demo](screenshots/moonpie_progress.gif)
