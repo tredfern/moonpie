@@ -5,8 +5,10 @@
 
 local copy_props = {
   "background_color",
+  "height",
   "padding",
   "style",
+  "width"
 }
 
 local component_factory = {}

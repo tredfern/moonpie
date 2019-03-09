@@ -11,8 +11,10 @@ local font = {
 }
 
 local image = setmetatable({
-  getWidth = function() return 100 end,
-  getHeight = function() return 100 end,
+  width = 100,
+  height = 100,
+  getWidth = function(self) return self.width end,
+  getHeight = function(self) return self.height end,
   getDimensions = function(self) return self:getWidth(), self:getHeight() end,
 }, { __newindex = function() error("Love does not allow this") end })
 

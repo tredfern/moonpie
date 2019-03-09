@@ -67,7 +67,8 @@ function layouts.text(node, parent)
 end
 
 function layouts.image(node)
-  node.box.content.width, node.box.content.height = node.image:getDimensions()
+  local w, h = node.image:getDimensions()
+  node.box.content.width, node.box.content.height = node.width or w, node.height or h
 end
 
 return layouts

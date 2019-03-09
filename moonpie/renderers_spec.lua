@@ -177,7 +177,7 @@ describe("Renderers", function()
     end)
 
     it("draws the image at the content position", function()
-      assert.spy(love.graphics.draw).was.called.with(mock_love.image, 0, 0)
+      assert.spy(love.graphics.draw).was.called.with(mock_love.image, 0, 0, 0, 1, 1)
     end)
 
     it("if no color is set just use white", function()
@@ -186,6 +186,14 @@ describe("Renderers", function()
       node:layout()
       renderers.image(node)
       assert.spy(love.graphics.setColor).was.called.with({ 1, 1, 1, 1 })
+    end)
+
+    it("will scale the image if scaling property is set to fit", function()
+      local c = { image = mock_love.image, width = 150, height = 150, scaling = "fit" }
+      local node = Node(c)
+      node:layout()
+      renderers.image(node)
+      assert.spy(love.graphics.draw).was.called.with(mock_love.image, 0, 0, 0, 1.5, 1.5)
     end)
   end)
 end)

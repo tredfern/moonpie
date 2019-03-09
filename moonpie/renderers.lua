@@ -5,6 +5,7 @@
 
 local renderers = {}
 local colors = require "moonpie.colors"
+local image = require "moonpie.image"
 
 function renderers.standard(node)
   love.graphics.push()
@@ -48,11 +49,19 @@ end
 
 function renderers.image(node)
   if not node.image then return end
+  local rot, sx, sy = 0, 1, 1
+  if node.width then
+    sx = image.scale_width(node.image, node.width)
+  end
+  if node.height then
+    sy = image.scale_height(node.image, node.height)
+  end
+
   local clr = node.color or { 1, 1, 1, 1 }
   love.graphics.push()
   love.graphics.translate(node.box:content_position())
   love.graphics.setColor(colors(clr))
-  love.graphics.draw(node.image, 0, 0)
+  love.graphics.draw(node.image, 0, 0, rot, sx, sy)
   love.graphics.pop()
 end
 
