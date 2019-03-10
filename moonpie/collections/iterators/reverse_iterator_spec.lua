@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 describe("reverse", function()
-  local reverse = require "moonpie.collections.reverse_iterator"
+  local reverse = require "moonpie.collections.iterators.reverse_iterator"
 
   it("returns each element from last to first", function()
     local set = {1, 2, 3, 4, 5}

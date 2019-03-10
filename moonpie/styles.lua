@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 local str = require "moonpie.string"
-local reverse = require "moonpie.collections.reverse_iterator"
+local reverse = require "moonpie.collections.iterators.reverse_iterator"
 local list = require "moonpie.collections.list"
 
 local styles = {}

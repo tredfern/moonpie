@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 describe("RandomIterator", function()
-  local irandom = require "moonpie.collections.random_iterator"
+  local irandom = require "moonpie.collections.iterators.random_iterator"
   local MockRandom = require "moonpie.test_helpers.mock_random"
 
   it("returns elements in a random sequence", function()

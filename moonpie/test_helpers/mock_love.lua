@@ -73,7 +73,8 @@ love = {
       end,
     },
     timer = {
-      getDelta = function() return 0.03 end
+      getDelta = function() return 0.03 end,
+      getFPS = function() return 29 end,
     },
     handlers = { }
 }

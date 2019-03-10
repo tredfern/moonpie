@@ -31,6 +31,12 @@ describe("Component", function()
       assert.equals("button", s.name)
     end)
 
+    describe("Modifying state/update", function()
+      Component("text", function(props) return { text = props.text } end)
+      local txt = Component.text({ text = "Hi there!" })
+      assert.equals("Hi there!", txt.text)
+    end)
+
     describe("Copiable properties", function()
       before_each(function()
         Component("button", function() return {} end)

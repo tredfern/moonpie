@@ -74,6 +74,7 @@ local function header(props)
     components.section({
       components.h3({ text = props }),
     }),
+    components.fps_counter()
   }
 end
 
