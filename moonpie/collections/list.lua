@@ -12,8 +12,10 @@ function list:new(table)
   return b
 end
 
-function list:add(item)
-  self[#self + 1] = item
+function list:add(...)
+  for _, i in ipairs({...}) do
+    self[#self + 1] = i
+  end
 end
 
 function list:remove(item)

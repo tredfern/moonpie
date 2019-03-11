@@ -23,6 +23,12 @@ describe("List", function()
     assert.array_matches({"foo"}, b)
   end)
 
+  it("can add many items at a time", function()
+    local b = list:new()
+    b:add(1, 2, 3, 4)
+    assert.array_matches({1, 2, 3, 4 }, b)
+  end)
+
   it("can find items in the list", function()
     local b = list:new()
     b:add("foo")
