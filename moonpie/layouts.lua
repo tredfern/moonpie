@@ -21,8 +21,9 @@ function layouts.children(node, width)
       line_height = 0
     end
 
-    local a = v.align or "left"
-    v.box.x, v.box.y = align(a, x, width, v.box:width()), y
+    local horiz, vert = v.align or "left", v.vertical_align or "top"
+    v.box.x = align(horiz, x, width, v.box:width())
+    v.box.y = align(vert, y, line_height, v.box:height())
     x = v.box.x + v.box:width()
 
     line_height = math.max(v.box:height(), line_height)

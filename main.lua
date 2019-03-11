@@ -10,19 +10,14 @@ local moonpie = require "moonpie"
 local components = moonpie.components
 local lorem = love.filesystem.read("lorem_ipsum.txt")
 local show_light = true
-local current_layout = 1
 local layouts
 
-local function update_layout()
-  local lt = components.section({
-    padding = 5,
-    layouts[current_layout]()
-  })
-  moonpie.layout(lt)
+local function next_layout()
+  moonpie.layout(layouts()())
 end
 
 function love.load()
-  update_layout()
+  next_layout()
 end
 
 function love.update()
@@ -37,10 +32,7 @@ local function next_demo_button()
   return components.button({
     style = "button_primary",
     caption = "Next Demo",
-    click = function()
-      current_layout = current_layout + 1
-      update_layout()
-    end
+    click = next_layout
   })
 end
 
@@ -58,23 +50,36 @@ local function switch_mode_button()
   })
 end
 
+local function quit_button()
+  return components.button({
+    caption = "Quit",
+    style = "button_warning",
+    click = function()
+      love.event.quit()
+    end
+  })
+end
+
 
 local function header(props)
   return {
     components.section({
+      padding = 10,
+      background_color = "invert_background",
       components.h1({ text = "Moonpie for Love2D" }),
       components.button_group({
-        style = "align-right",
+        style = "align-right align-middle",
+        margin = { right = 10 },
         buttons = {
           next_demo_button(),
-          switch_mode_button()
+          switch_mode_button(),
+          quit_button()
         }
       })
     }),
     components.section({
       components.h3({ text = props }),
-    }),
-    components.fps_counter()
+    })
   }
 end
 
@@ -161,9 +166,9 @@ local function pulsing_color()
 end
 
 
-layouts = {
+layouts = moonpie.collections.iterators.cycle({
   text_layout,
   button_layout,
   image_layout,
   pulsing_color
-}
+})

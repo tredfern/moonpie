@@ -24,7 +24,7 @@ return function(moonpie)
   styles.image = { color = { 1, 1, 1, 1 } }
 
   styles.button = {
-    font = moonpie.fonts.default.regular(12),
+    font = moonpie.fonts.default.bold(12),
     background_color = "button_default",
     color = "button_text",
     corner_radius_x = 4, corner_radius_y = 4,
@@ -53,4 +53,5 @@ return function(moonpie)
   styles.h3 = { margin = 10, color = "primary", font = moonpie.fonts.headline.bold(18) }
 
   styles["align-right"] = { align = "right" }
+  styles["align-middle"] = { vertical_align = "middle" }
 end

@@ -4,9 +4,9 @@
 -- https://opensource.org/licenses/MIT
 
 return function(align, min, max, size)
-  if align == "right" then
+  if align == "right" or align == "bottom" then
     return max - size
-  elseif align == "center" then
+  elseif align == "center" or align == "middle" then
     return (max - min - size) / 2
   else
     return min
