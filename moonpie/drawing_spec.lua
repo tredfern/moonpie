@@ -5,7 +5,7 @@
 
 describe("Renderers", function()
   local mock_love = require "moonpie.test_helpers.mock_love"
-  local renderers = require "moonpie.renderers"
+  local drawing = require "moonpie.drawing"
   local Node = require "moonpie.node"
 
   before_each(function()
@@ -25,7 +25,7 @@ describe("Renderers", function()
       b.box.x = 39
       b.box.y = 59
 
-      renderers.standard(b)
+      drawing.standard(b)
       assert.spy(love.graphics.push).was.called()
       assert.spy(love.graphics.translate).was.called_with(39, 59)
       assert.spy(love.graphics.pop).was.called()
@@ -38,7 +38,7 @@ describe("Renderers", function()
       local c2 = { paint = spy_paint }
 
       b:add(c1, c2)
-      renderers.standard(b)
+      drawing.standard(b)
       assert.spy(spy_paint).was.called_with(c1)
       assert.spy(spy_paint).was.called_with(c2)
     end)
@@ -46,7 +46,7 @@ describe("Renderers", function()
     it("translates to where the background is to draw the background", function()
       local b = Node{ margin = 5, padding = 4, background_color = {1, 1, 1, 1 } }
 
-      renderers.standard(b)
+      drawing.standard(b)
       assert.spy(love.graphics.push).was.called()
       assert.spy(love.graphics.translate).was.called.with(5, 5)
       assert.spy(love.graphics.pop).was.called()
@@ -55,16 +55,16 @@ describe("Renderers", function()
 
     it("translates the children to where the content starts", function()
       local b = Node({ margin = 5, padding = 4 })
-      renderers.standard(b)
+      drawing.standard(b)
 
       assert.spy(love.graphics.translate).was.called.with(9, 9)
     end)
 
     it("draws an image if available", function()
-      spy.on(renderers, "image")
+      spy.on(drawing, "image")
       local b = Node({ image = {} })
-      renderers.standard(b)
-      assert.spy(renderers.image).was.called.with(b)
+      drawing.standard(b)
+      assert.spy(drawing.image).was.called.with(b)
     end)
 
     describe("rectangle tests", function()
@@ -74,7 +74,7 @@ describe("Renderers", function()
         local b = Node(node)
         b:layout()
 
-        renderers.standard(b)
+        drawing.standard(b)
 
         assert.spy(love.graphics.setColor).was.called_with(node.background_color)
         assert.spy(love.graphics.rectangle).was.called_with("fill", 0, 0, 128, 491, 0, 0)
@@ -86,7 +86,7 @@ describe("Renderers", function()
         local b = Node(node)
         b:layout()
 
-        renderers.standard(b)
+        drawing.standard(b)
         assert.spy(love.graphics.rectangle).was.called.with("fill", 0, 0, 120, 40, 2, 3)
       end)
     end)
@@ -97,7 +97,7 @@ describe("Renderers", function()
       local b = Node(comp)
       b:layout()
 
-      renderers.standard(b)
+      drawing.standard(b)
       assert.spy(love.graphics.setColor).was.called.with(colors.red)
     end)
 
@@ -106,22 +106,22 @@ describe("Renderers", function()
       bordered:layout()
 
       it("sets the line width to the border size", function()
-        renderers.standard(bordered)
+        drawing.standard(bordered)
         assert.spy(love.graphics.setLineWidth).was.called.with(3)
       end)
 
       it("sets the border color", function()
-        renderers.standard(bordered)
+        drawing.standard(bordered)
         assert.spy(love.graphics.setColor).was.called.with(bordered.border_color)
       end)
 
       it("translates away the margin", function()
-        renderers.standard(bordered)
+        drawing.standard(bordered)
         assert.spy(love.graphics.translate).was.called.with(2, 2)
       end)
 
       it("draws a rectangle for the border", function()
-        renderers.standard(bordered)
+        drawing.standard(bordered)
         local w, h = bordered.box:border_size()
         assert.spy(love.graphics.rectangle).was.called.with("line", 0, 0, w, h, 0, 0)
       end)
@@ -131,7 +131,7 @@ describe("Renderers", function()
         local comp = { border_color = "red", border = 2, width = 120, height = 483 }
         local b = Node(comp)
         b:layout()
-        renderers.standard(b)
+        drawing.standard(b)
         assert.spy(love.graphics.setColor).was.called.with(colors.red)
       end)
 
@@ -140,7 +140,7 @@ describe("Renderers", function()
           corner_radius_x = 2, corner_radius_y = 3 }
         local b = Node(node)
         b:layout()
-        renderers.standard(b)
+        drawing.standard(b)
         assert.spy(love.graphics.rectangle).was.called.with("line", 0, 0, 122, 42, 2, 3)
       end)
     end)
@@ -151,12 +151,12 @@ describe("Renderers", function()
       local c = { image = mock_love.image, width = 100, height = 100, color = { 1, 1, 0, 1 } }
       local node = Node(c)
       node:layout()
-      renderers.image(node)
+      drawing.image(node)
     end)
 
     it("does nothing if there is no image", function()
       local node = Node({})
-      renderers.image(node)
+      drawing.image(node)
       assert.spy(love.graphics.draw).was_not.called.with(nil, 0, 0)
     end)
 
@@ -184,7 +184,7 @@ describe("Renderers", function()
       local c = { image = mock_love.image, width = 100, height = 100 }
       local node = Node(c)
       node:layout()
-      renderers.image(node)
+      drawing.image(node)
       assert.spy(love.graphics.setColor).was.called.with({ 1, 1, 1, 1 })
     end)
 
@@ -192,7 +192,7 @@ describe("Renderers", function()
       local c = { image = mock_love.image, width = 150, height = 150, scaling = "fit" }
       local node = Node(c)
       node:layout()
-      renderers.image(node)
+      drawing.image(node)
       assert.spy(love.graphics.draw).was.called.with(mock_love.image, 0, 0, 0, 1.5, 1.5)
     end)
   end)

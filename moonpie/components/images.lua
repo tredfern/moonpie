@@ -6,12 +6,10 @@
 local Component = require "moonpie.components.component"
 local image = require "moonpie.image"
 local layouts = require "moonpie.layouts"
-local renderers = require "moonpie.renderers"
 
 Component("image", function(props)
   local i = {
-    layout = layouts.image,
-    paint = renderers.standard
+    layout = layouts.image
   }
 
   i.image = image.load(props.src)

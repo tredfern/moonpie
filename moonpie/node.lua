@@ -5,7 +5,7 @@
 
 local box_model = require("moonpie.box_model")
 local layouts = require("moonpie.layouts")
-local renderers = require("moonpie.renderers")
+local drawing = require("moonpie.drawing")
 local styles = require("moonpie.styles")
 
 return function(component, parent)
@@ -44,7 +44,7 @@ return function(component, parent)
     return component.refresh_layout
   end
 
-  n.paint = component.paint or renderers.standard
+  n.paint = component.paint or drawing.standard
 
   return n
 end

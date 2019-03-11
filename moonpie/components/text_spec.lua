@@ -14,9 +14,9 @@ describe("Components - Text", function()
     end)
 
     it("has a paint geared for text", function()
-      local renderers = require "moonpie.renderers"
+      local drawing = require "moonpie.drawing"
       local t = text({})
-      assert.equals(renderers.text, t.paint)
+      assert.equals(drawing.text, t.paint)
     end)
   end)
 
