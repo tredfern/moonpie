@@ -13,7 +13,7 @@ local show_light = true
 local layouts
 
 local function next_layout()
-  moonpie.layout(layouts()())
+  moonpie.render("ui", layouts()())
 end
 
 function love.load()

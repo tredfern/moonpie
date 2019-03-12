@@ -113,4 +113,17 @@ describe("Node", function()
       assert.equals(c.paint, n.paint)
     end)
   end)
+
+  describe("Re-Rendering", function()
+    before_each(function()
+      Component("section", function(props)
+        return { props }
+      end)
+      Component("button", function(props)
+        return { text = props.text }
+      end)
+    end)
+
+
+  end)
 end)

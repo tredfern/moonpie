@@ -3,37 +3,50 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-describe("Render Engine", function()
+describe("RenderEngine", function()
   local RenderEngine = require "moonpie.render_engine"
 
-  it("tracks all the components that have been added to it", function()
-    local ele1, ele2, ele3 = {}, {}, {}
-    local r = RenderEngine(ele1, ele2, ele3)
-    assert.equals(3, #r.tree)
-  end)
+  describe("Building the tree", function()
+    describe("root component", function()
+      local layout_tree = RenderEngine()
 
-  it("rendering returns tables as they are", function()
-    local ele1, ele2 = {}, {}
-    local r = RenderEngine(ele1, ele2)
-    local output = r:render()
-    assert.equals(ele1, output[1])
-    assert.equals(ele2, output[2])
-  end)
+      it("has an component", function()
+        assert.not_nil(layout_tree)
+      end)
+    end)
 
-  it("calls any function that has been added and adds it's result to the layout tree", function()
-    local ele = {}
-    local comp = function() return ele end
-    local r = RenderEngine(comp)
-    local output = r:render()
-    assert.equals(ele, output[1])
-  end)
+    describe("adding children", function()
+      it("sets all the components on the root to children of it", function()
+        local ele1, ele2, ele3 = { }, { }, { }
+        local r = RenderEngine(ele1, ele2, ele3)
+        assert.equals(3, #r.children)
+      end)
 
-  it("recursively adds tables", function()
-    local ele = {}
-    local parent = { ele }
-    local r = RenderEngine(parent)
-    local output = r:render()
-    assert.equals(parent, output[1])
-    assert.equals(ele, output[1][1])
+      it("assigns the parent", function()
+        local c = { }
+        local p = { c }
+        local r = RenderEngine(p)
+        assert.equals(r, r.children[1].parent)
+        assert.equals(r.children[1], r.children[1].children[1].parent)
+      end)
+    end)
+
+    describe("deep tree", function()
+      local r = RenderEngine(
+      { id = "1",
+        { id = "1.1",
+          { id = "1.1.1" },
+          { id = "1.1.2" }
+        }
+      },
+      {
+        id = "2"
+      })
+      assert.equals("1", r.children[1].id)
+      assert.equals("2", r.children[2].id)
+      assert.equals("1.1", r.children[1].children[1].id)
+      assert.equals("1.1.1", r.children[1].children[1].children[1].id)
+      assert.equals("1.1.2", r.children[1].children[1].children[2].id)
+    end)
   end)
 end)

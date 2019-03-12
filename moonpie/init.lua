@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 
-local layout_tree = require("moonpie.layout_tree")
+local RenderEngine = require("moonpie.render_engine")
 local mouse = require("moonpie.mouse")
 local layers = {}
 local layer_order = {
@@ -42,11 +42,8 @@ moonpie = {
     end
   end,
   layers = layers,
-  layout = function(...)
-    return moonpie.render("ui", ...)
-  end,
   render = function(layer_name, ...)
-    layers[layer_name] = layout_tree(...)
+    layers[layer_name] = RenderEngine(...)
     return layers[layer_name]
   end,
   styles = require("moonpie.styles"),

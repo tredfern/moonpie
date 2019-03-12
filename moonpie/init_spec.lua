@@ -15,8 +15,8 @@ describe("Initialize Moonpie", function()
     assert.not_nil(moonpie.paint)
   end)
 
-  it("has a layout method", function()
-    assert.not_nil(moonpie.layout)
+  it("has a render method", function()
+    assert.not_nil(moonpie.render)
   end)
 
   it("has colors", function()
@@ -34,7 +34,7 @@ describe("Initialize Moonpie", function()
     end)
 
     it("updates the mouse each frame if there is a layer", function()
-      moonpie.layout({ })
+      moonpie.render("ui", { })
       moonpie.mouse.update = spy.new(function() end)
       moonpie.update()
       assert.spy(moonpie.mouse.update).was.called()
@@ -42,7 +42,7 @@ describe("Initialize Moonpie", function()
 
     it("refreshes the layout of the gui if it is dirty", function()
       local c = { }
-      local tree = moonpie.layout(c)
+      local tree = moonpie.render("ui", c)
       c.refresh_layout = true
       tree.layout = spy.new(function() end)
       moonpie.update()

@@ -13,11 +13,12 @@ local copy_props = {
 
 local component_factory = {}
 
-local function create_component(name, generator)
+local function create_component(name, render)
   component_factory[name] = function(props)
     props = props or {}
-    local c = generator(props)
+    local c = render(props)
     c.name = name
+    c.render = render
     for _, v in ipairs(copy_props) do
       if props[v] then c[v] = props[v] end
     end
@@ -27,8 +28,8 @@ local function create_component(name, generator)
 end
 
 setmetatable(component_factory, { __call =
-  function(_, name, generator)
-    return create_component(name, generator)
+  function(_, name, render)
+    return create_component(name, render)
   end
 })
 
