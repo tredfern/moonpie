@@ -39,15 +39,6 @@ describe("Initialize Moonpie", function()
       moonpie.update()
       assert.spy(moonpie.mouse.update).was.called()
     end)
-
-    it("refreshes the layout of the gui if it is dirty", function()
-      local c = { }
-      local tree = moonpie.render("ui", c)
-      c.refresh_layout = true
-      tree.root.layout = spy.new(function() end)
-      moonpie.update()
-      assert.spy(tree.root.layout).was.called()
-    end)
   end)
 
   describe("layers", function()

@@ -20,6 +20,10 @@ function RenderEngine:paint()
   self.root:paint()
 end
 
+function RenderEngine:update(mouse)
+  mouse:update(self.root)
+end
+
 return function(...)
   local renderer = setmetatable({}, { __index = RenderEngine })
   renderer.root = Node(Components.root())

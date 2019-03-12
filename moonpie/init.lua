@@ -11,22 +11,6 @@ local layer_order = {
   "ui", "debug"
 }
 
-local function check_node_for_refresh(n)
-  if n.refresh_needed and n:refresh_needed() then
-    return true
-  end
-
-  if n.children then
-    for _, v in ipairs(n.children) do
-      if check_node_for_refresh(v) then
-        return true
-      end
-    end
-  end
-
-  return false
-end
-
 local moonpie
 moonpie = {
   colors = require("moonpie.colors"),
@@ -51,10 +35,7 @@ moonpie = {
   update = function()
     for _, v in ipairs(layer_order) do
       if layers[v] then
-        mouse:update(layers[v].root)
-        if check_node_for_refresh(layers[v].root) then
-          layers[v].root:layout()
-        end
+        layers[v]:update(mouse)
       end
     end
   end,

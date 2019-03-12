@@ -37,11 +37,6 @@ return function(component, parent)
   n.layout = function(...)
     local l = component.layout or layouts.standard
     l(...)
-    component.refresh_layout = false
-  end
-
-  n.refresh_needed = function()
-    return component.refresh_layout
   end
 
   n.paint = component.paint or drawing.standard

@@ -41,20 +41,6 @@ describe("Node", function()
     assert.equals("red", n.color)
   end)
 
-  it("layout refresh is needed if the component has been modified", function()
-    local comp = { text = "foobar",  }
-    local b = Node(comp)
-    comp.refresh_layout = true
-    assert.is_true(b:refresh_needed())
-  end)
-
-  it("clears the refresh layout flag after calling layout", function()
-    local comp = { refresh_layout = true, width = 10, height = 10 }
-    local b = Node(comp)
-    b:layout()
-    assert.is_falsy(comp.refresh_layout)
-  end)
-
   describe("Initializing the box", function()
     it("uses styles for box definition", function()
       styles.add("box_test", { padding = 10, margin = 20, width = 100 })
@@ -112,18 +98,5 @@ describe("Node", function()
       local n = Node(c)
       assert.equals(c.paint, n.paint)
     end)
-  end)
-
-  describe("Re-Rendering", function()
-    before_each(function()
-      Component("section", function(props)
-        return { props }
-      end)
-      Component("button", function(props)
-        return { text = props.text }
-      end)
-    end)
-
-
   end)
 end)

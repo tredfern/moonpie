@@ -58,4 +58,18 @@ describe("RenderEngine", function()
       assert.spy(r.root.paint).was.called()
     end)
   end)
+
+  describe("Updating", function()
+    describe("Refreshing", function()
+    end)
+
+    describe("Handling Mouse Behavior", function()
+      it("updates the mouse passing in it's root node", function()
+        local r = RenderEngine({})
+        local mouse = { update = spy.new(function() end) }
+        r:update(mouse)
+        assert.spy(mouse.update).was.called.with(mouse, r.root)
+      end)
+    end)
+  end)
 end)
