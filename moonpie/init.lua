@@ -51,9 +51,9 @@ moonpie = {
   update = function()
     for _, v in ipairs(layer_order) do
       if layers[v] then
-        mouse:update(layers[v])
-        if check_node_for_refresh(layers[v]) then
-          layers[v]:layout()
+        mouse:update(layers[v].root)
+        if check_node_for_refresh(layers[v].root) then
+          layers[v].root:layout()
         end
       end
     end

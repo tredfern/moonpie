@@ -5,24 +5,31 @@
 
 local Node = require("moonpie.node")
 local Components = require("moonpie.components")
+local RenderEngine = {}
 
-local function build_item(item, parent)
-  local new_node = Node(item, parent)
+local function build_node(component, parent)
+  local new_node = Node(component, parent)
 
-  for _, v in ipairs(item) do
-    new_node:add(build_item(v, new_node))
+  for _, v in ipairs(component) do
+    new_node:add(build_node(v, new_node))
   end
   return new_node
 end
 
+function RenderEngine:paint()
+  self.root:paint()
+end
+
 return function(...)
- local r = Node(Components.root())
+  local renderer = setmetatable({}, { __index = RenderEngine })
+  renderer.root = Node(Components.root())
 
   for _, v in ipairs({...}) do
-    r:add(build_item(v, r))
+    renderer.root:add(build_node(v, renderer.root))
   end
 
-  r:layout()
+  renderer.root:layout()
 
-  return r
+  return renderer
 end
+

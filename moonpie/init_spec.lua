@@ -44,9 +44,9 @@ describe("Initialize Moonpie", function()
       local c = { }
       local tree = moonpie.render("ui", c)
       c.refresh_layout = true
-      tree.layout = spy.new(function() end)
+      tree.root.layout = spy.new(function() end)
       moonpie.update()
-      assert.spy(tree.layout).was.called()
+      assert.spy(tree.root.layout).was.called()
     end)
   end)
 
