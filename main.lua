@@ -165,7 +165,6 @@ local function pulsing_color()
   }
 end
 
-
 layouts = moonpie.collections.iterators.cycle({
   text_layout,
   button_layout,
