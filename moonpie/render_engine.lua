@@ -10,9 +10,15 @@ local RenderEngine = {}
 local function build_node(component, parent)
   local new_node = Node(component, parent)
 
-  for _, v in ipairs(component) do
-    new_node:add(build_node(v, new_node))
+  if component.render then
+    local rendered = component:render()
+    new_node:add(build_node(rendered, new_node))
+  else
+    for _, v in ipairs(component) do
+      new_node:add(build_node(v, new_node))
+    end
   end
+
   return new_node
 end
 

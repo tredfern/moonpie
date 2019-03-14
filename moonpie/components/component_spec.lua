@@ -31,12 +31,6 @@ describe("Component", function()
       assert.equals("button", s.name)
     end)
 
-    it("has the render function for this component to rerender it", function()
-      Component("button", function() return { "foo" } end)
-      local s = Component.button()
-      assert.array_matches( { "foo" }, s.render())
-    end)
-
     describe("Modifying state/update", function()
       Component("text", function(props) return { text = props.text } end)
       local txt = Component.text({ text = "Hi there!" })

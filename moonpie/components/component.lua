@@ -18,7 +18,7 @@ local function create_component(name, render)
     props = props or {}
     local c = render(props)
     c.name = name
-    c.render = render
+
     for _, v in ipairs(copy_props) do
       if props[v] then c[v] = props[v] end
     end

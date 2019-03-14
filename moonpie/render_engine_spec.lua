@@ -5,6 +5,7 @@
 
 describe("RenderEngine", function()
   local RenderEngine = require "moonpie.render_engine"
+  local Component = require "moonpie.components.component"
 
   describe("Building the tree", function()
     describe("root component", function()
@@ -56,6 +57,28 @@ describe("RenderEngine", function()
       r.root.paint = spy.new(function() end)
       r:paint()
       assert.spy(r.root.paint).was.called()
+    end)
+  end)
+
+  describe("Complex Components", function()
+    before_each(function()
+      Component("complex", function()
+        return {
+          text = "complex",
+          render = function()
+            return { text = "foo" }
+          end
+        }
+      end)
+    end)
+
+    it("calls the render method and adds results to children if component has a render method", function()
+      local c = Component.complex()
+      local r = RenderEngine(c)
+
+      -- nodes should be Root -> Complex (c) -> text = "foo"
+      assert.equals("complex", r.root.children[1].text)
+      assert.equals("foo", r.root.children[1].children[1].text)
     end)
   end)
 
