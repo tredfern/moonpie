@@ -22,12 +22,46 @@ local function build_node(component, parent)
   return new_node
 end
 
+local function render_node(node)
+  local rendered = node:render()
+  node:clear_children()
+  node:add(build_node(rendered, node))
+end
+
 function RenderEngine:paint()
   self.root:paint()
 end
 
+function RenderEngine:find_by_component(c, node)
+  node = node or self.root
+  if node.component == c then
+    return node
+  end
+
+  for _, v in ipairs(node.children) do
+    local r = self:find_by_component(c, v)
+    if r then
+      return r
+    end
+  end
+end
+
 function RenderEngine:update(mouse)
   mouse:update(self.root)
+  self:update_nodes(self.root)
+end
+
+function RenderEngine:update_nodes(node)
+  if node.has_updates and node:has_updates() then
+    render_node(node)
+    node:layout()
+    node:flag_updates(false)
+  else
+    for _, v in ipairs(node.children) do
+      self:update_nodes(v)
+    end
+  end
+
 end
 
 return function(...)

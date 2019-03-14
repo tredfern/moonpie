@@ -6,6 +6,19 @@
 describe("RenderEngine", function()
   local RenderEngine = require "moonpie.render_engine"
   local Component = require "moonpie.components.component"
+  local Mouse = require "moonpie.mouse"
+
+  before_each(function()
+    Component("complex", function(props)
+      return {
+        text = "complex",
+        value = props.value,
+        render = function(self)
+          return { text = "foo", value = self.value }
+        end
+      }
+    end)
+  end)
 
   describe("Building the tree", function()
     describe("root component", function()
@@ -51,6 +64,15 @@ describe("RenderEngine", function()
     end)
   end)
 
+  describe("Searching", function()
+    it("can find a node by a component", function()
+      local c = Component.complex()
+      local r = RenderEngine(c)
+      local node = r:find_by_component(c)
+      assert.equals(c, node.component)
+    end)
+  end)
+
   describe("Paint", function()
     it("delegates to root", function()
       local r = RenderEngine({})
@@ -62,14 +84,6 @@ describe("RenderEngine", function()
 
   describe("Complex Components", function()
     before_each(function()
-      Component("complex", function()
-        return {
-          text = "complex",
-          render = function()
-            return { text = "foo" }
-          end
-        }
-      end)
     end)
 
     it("calls the render method and adds results to children if component has a render method", function()
@@ -84,6 +98,24 @@ describe("RenderEngine", function()
 
   describe("Updating", function()
     describe("Refreshing", function()
+      it("will rerender child output if the component is flagged for updates and has a render method", function()
+        local c = Component.complex()
+        local r = RenderEngine(c)
+        c:update({ value = 10 })
+        r:update(Mouse)
+        assert.equals(10, r.root.children[1].children[1].value)
+        assert.is_false(c:has_updates())
+      end)
+
+      it("updates the layout of the newly rendered children", function()
+        local c = Component.complex()
+        local r = RenderEngine(c)
+        local n = r:find_by_component(c)
+        n.layout = spy.new(function() end)
+        c:update({ value = 10 })
+        r:update(Mouse)
+        assert.spy(n.layout).was.called()
+      end)
     end)
 
     describe("Handling Mouse Behavior", function()

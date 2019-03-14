@@ -35,6 +35,20 @@ describe("Component", function()
       Component("text", function(props) return { text = props.text } end)
       local txt = Component.text({ text = "Hi there!" })
       assert.equals("Hi there!", txt.text)
+
+      it("can be updated and flagged that it has changed", function()
+        Component("updates", function() return {
+          a = "a", b = "b", c = "c"
+        } end)
+
+        local c = Component.updates()
+        assert.equals("a", c.a)
+        assert.equals("b", c.b)
+        assert.equals("c", c.c)
+        c:update({ a = "abcd" })
+        assert.is_true(c:has_updates())
+        assert.equals("abcd", c.a)
+      end)
     end)
 
     describe("Copiable properties", function()

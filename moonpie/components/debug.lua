@@ -6,8 +6,14 @@
 local Component = require "moonpie.components.component"
 
 Component("fps_counter", function()
-  return Component.text{
-    text = "FPS: {{fps}}",
-    fps = love.timer.getFPS()
+  return {
+    render = function()
+      return {
+        Component.text({
+          text = "FPS: {{fps}}",
+          fps = love.timer.getFPS()
+        })
+      }
+    end
   }
 end)

@@ -3,6 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
+local copy_keys = require "moonpie.copy_keys"
 local copy_props = {
   "background_color",
   "height",
@@ -18,6 +19,14 @@ local function create_component(name, render)
     props = props or {}
     local c = render(props)
     c.name = name
+
+    c.update = function(self, new)
+      copy_keys(new, self, true)
+      self:flag_updates(true)
+    end
+
+    c.flag_updates = function(_, f) c.updates_available = f end
+    c.has_updates = function(_) return c.updates_available end
 
     for _, v in ipairs(copy_props) do
       if props[v] then c[v] = props[v] end

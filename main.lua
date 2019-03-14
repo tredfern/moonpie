@@ -11,6 +11,7 @@ local components = moonpie.components
 local lorem = love.filesystem.read("lorem_ipsum.txt")
 local show_light = true
 local layouts
+local fps = moonpie.components.fps_counter()
 
 local function next_layout()
   moonpie.render("ui", layouts()())
@@ -22,6 +23,7 @@ end
 
 function love.update()
   moonpie.update()
+  fps:update({})
 end
 
 function love.draw()
@@ -83,12 +85,22 @@ local function header(props)
   }
 end
 
+local function footer()
+  return {
+    components.section({
+      padding = { left = 10, right = 10, top = 2, bottom = 2 },
+      fps
+    })
+  }
+end
+
 local function text_layout()
   return {
     header("Long Text Demo"),
     components.section({
       components.text({ text = lorem, padding = 5 }),
-    })
+    }),
+    footer()
   }
 end
 
@@ -112,7 +124,8 @@ local function button_layout()
       components.button({ style = "button_warning button_small", caption = "Warning" }),
       components.button({ style = "button_success button_small", caption = "Success" }),
       components.button({ style = "button_danger button_small", caption = "Danger" }),
-    }
+    },
+    footer()
   }
 end
 
@@ -124,6 +137,7 @@ local function image_layout()
       components.image({ src = "assets/images/small.jpg",  width = 200, height = 200 }),
       components.image({ src = "assets/images/big.jpg", width = 300, height = 150 }),
     }),
+    footer()
   }
 end
 
@@ -161,7 +175,8 @@ local function pulsing_color()
       color_gradient(moonpie.colors.dark_lava, 20),
       color_gradient(moonpie.colors.purple, 20),
       color_gradient(moonpie.colors.avocado, 20),
-    })
+    }),
+    footer()
   }
 end
 

@@ -23,6 +23,14 @@ describe("Node", function()
     assert.equals(c2, b.children[2])
   end)
 
+  it("can remove children", function()
+    local b = Node()
+    local c1, c2 = {}, {}
+    b:add(c1, c2)
+    b:clear_children()
+    assert.equals(0, #b.children)
+  end)
+
   it("looks like the component plus any styles", function()
     styles.add("test1", { padding = 10 })
     local c = { style = "test1", width = 100, click = spy.new(function() end) }

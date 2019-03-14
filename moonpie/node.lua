@@ -19,14 +19,19 @@ return function(component, parent)
     end
   })
 
-  n.children = {}
   n.parent = parent
+  n.component = component
+  n.children = {}
   n.box = box_model(n, parent.box)
 
   n.add = function(self, ...)
     for _, v in ipairs({...}) do
       self.children[#self.children + 1] = v
     end
+  end
+
+  n.clear_children = function(self)
+    self.children = {}
   end
 
   n.hover = function(self)
