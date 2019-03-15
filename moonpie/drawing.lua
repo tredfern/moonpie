@@ -3,16 +3,17 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local renderers = {}
+local drawing = {}
 local colors = require "moonpie.colors"
 local image = require "moonpie.image"
 
-function renderers.standard(node)
+function drawing.standard(node)
+  if node.hidden then return end
   love.graphics.push()
   love.graphics.translate(node.box.x, node.box.y)
-  renderers.draw_border(node)
-  renderers.draw_background(node)
-  renderers.image(node)
+  drawing.draw_border(node)
+  drawing.draw_background(node)
+  drawing.image(node)
 
   love.graphics.translate(node.box:content_position())
 
@@ -22,11 +23,11 @@ function renderers.standard(node)
   love.graphics.pop()
 end
 
-function renderers.draw_background(node)
+function drawing.draw_background(node)
   if node.background_color then
     love.graphics.push()
     love.graphics.translate(node.box:background_position())
-    love.graphics.setColor(colors(node.background_color))
+    love.graphics.setColor(colors(node.background_color, node.opacity))
     local w, h = node.box:background_size()
     love.graphics.rectangle("fill", 0, 0, w, h,
       node.corner_radius_x or 0, node.corner_radius_y or 0)
@@ -34,7 +35,7 @@ function renderers.draw_background(node)
   end
 end
 
-function renderers.draw_border(node)
+function drawing.draw_border(node)
   if node.border then
     love.graphics.push()
     love.graphics.translate(node.box:border_position())
@@ -47,7 +48,7 @@ function renderers.draw_border(node)
   end
 end
 
-function renderers.image(node)
+function drawing.image(node)
   if not node.image then return end
   local rot, sx, sy = 0, 1, 1
   if node.width then
@@ -65,4 +66,4 @@ function renderers.image(node)
   love.graphics.pop()
 end
 
-return renderers
+return drawing

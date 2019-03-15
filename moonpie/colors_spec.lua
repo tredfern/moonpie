@@ -31,14 +31,14 @@ describe("Colors", function()
 
   it("can decipher whether the passed in value is a color or a lookup", function()
     colors.some_color = {1, 1, 1, 1}
-    assert.equals(colors.some_color, colors("some_color"))
-    assert.equals(colors.red, colors(colors.red))
+    assert.same(colors.some_color, colors("some_color"))
+    assert.same(colors.red, colors(colors.red))
   end)
 
   it("can call several layers to find the original color", function()
     colors.some_color = {1, 1, 1, 1}
     colors.referrer = "some_color"
-    assert.equals(colors.some_color, colors("referrer"))
+    assert.same(colors.some_color, colors("referrer"))
   end)
 
   it("does not redistribute any values if less or equals to 1.0", function()
@@ -69,5 +69,15 @@ describe("Colors", function()
     assert.is_true(0.2 < c[2])
     assert.is_true(0.5 < c[3])
     assert.equals(1, c[4])
+  end)
+
+  it("can adjust the opacity if provided", function()
+    local c = colors("red", 0.5)
+    assert.same({1, 0, 0, 0.5 }, c)
+  end)
+
+  it("has a transparent color", function()
+    local c = colors("transparent")
+    assert.same({0,0,0,0}, c)
   end)
 end)

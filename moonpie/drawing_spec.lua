@@ -4,6 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Renderers", function()
+  local match = require "luassert.match"
   local mock_love = require "moonpie.test_helpers.mock_love"
   local drawing = require "moonpie.drawing"
   local Node = require "moonpie.node"
@@ -16,7 +17,17 @@ describe("Renderers", function()
     mock_love.mock(love.graphics, "rectangle", spy.new(function() end))
     mock_love.mock(love.graphics, "setLineWidth", spy.new(function() end))
     mock_love.mock(love.graphics, "draw", spy.new(function() end))
+  end)
 
+  it("does nothing if flagged as hidden", function()
+    local b = Node({ hidden = true, width = 100, height = 100, background_color = "red" })
+    drawing.standard(b)
+    assert.spy(love.graphics.push).was.not_called()
+    assert.spy(love.graphics.translate).was.not_called()
+    assert.spy(love.graphics.rectangle).was.not_called()
+    assert.spy(love.graphics.setLineWidth).was.not_called()
+    assert.spy(love.graphics.setColor).was.not_called()
+    assert.spy(love.graphics.pop).was.not_called()
   end)
 
   describe("Painting", function()
@@ -99,6 +110,14 @@ describe("Renderers", function()
 
       drawing.standard(b)
       assert.spy(love.graphics.setColor).was.called.with(colors.red)
+    end)
+
+    it("sets the opacity of the background color if specified", function()
+      local comp = { background_color = { 1, 1, 1, 1 }, opacity = 0.5, width = 120, height = 485 }
+      local n = Node(comp)
+      n:layout()
+      drawing.standard(n)
+      assert.spy(love.graphics.setColor).was.called.with(match.is_same({ 1, 1, 1, 0.5 }))
     end)
 
     describe("border", function()

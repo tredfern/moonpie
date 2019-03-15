@@ -11,7 +11,8 @@ local styles = {}
 
 local INHERITABLE = list:new({
   "color",
-  "font"
+  "font",
+  "opacity"
 })
 
 local function get_value(computed, value)

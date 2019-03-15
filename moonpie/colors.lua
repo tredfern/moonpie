@@ -29,6 +29,7 @@ for fields in contents:lines() do
     local r,g,b = colors.convert_hex(fields[3])
     colors[fields[1]]={ r, g, b, 1 }
 end
+colors.transparent = {0,0,0,0}
 
 
 function colors.redistribute_rgb(clr)
@@ -58,13 +59,13 @@ function colors.lighten(clr, multiplier)
   })
 end
 
-function colors.get_color(self, clr)
+function colors.get_color(self, clr, opacity)
   if type(clr) == "table" then
-    return clr
+    return { clr[1], clr[2], clr[3], opacity or clr[4] }
   elseif type(clr) == "string" then
-    return self(self[clr])
+    return self(self[clr], opacity)
   elseif type(clr) == "function" then
-    return self(clr(self))
+    return self(clr(self), opacity)
   end
   return nil
 end

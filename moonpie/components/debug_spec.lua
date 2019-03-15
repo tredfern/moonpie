@@ -14,4 +14,8 @@ describe("Debug components", function()
     assert.not_nil(fps)
     --assert.equals("FPS: 32.32", fps.text)
   end)
+
+  describe("Debug Panel", function()
+
+  end)
 end)

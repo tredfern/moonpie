@@ -12,6 +12,7 @@ local layer_order = {
 }
 
 local moonpie
+local debug
 moonpie = {
   colors = require("moonpie.colors"),
   collections = require("moonpie.collections"),
@@ -33,6 +34,7 @@ moonpie = {
   styles = require("moonpie.styles"),
   tween = require("moonpie.ext.tween"),
   update = function()
+    debug:update({})
     for _, v in ipairs(layer_order) do
       if layers[v] then
         layers[v]:update(mouse)
@@ -49,5 +51,11 @@ moonpie = {
 moonpie.themes.standard(moonpie)
 moonpie.themes.light_mode(moonpie)
 require("moonpie.stylesheet")(moonpie)
+
+debug = moonpie.components.debug_panel()
+moonpie.render("debug", debug )
+debug.hidden = true
+layers["debug"].root.background_color = "transparent"
+layers["debug"].root.color = "background"
 
 return moonpie

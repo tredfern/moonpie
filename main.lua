@@ -11,7 +11,6 @@ local components = moonpie.components
 local lorem = love.filesystem.read("lorem_ipsum.txt")
 local show_light = true
 local layouts
-local fps = moonpie.components.fps_counter()
 
 local function next_layout()
   moonpie.render("ui", layouts()())
@@ -23,7 +22,6 @@ end
 
 function love.update()
   moonpie.update()
-  fps:update({})
 end
 
 function love.draw()
@@ -89,7 +87,6 @@ local function footer()
   return {
     components.section({
       padding = { left = 10, right = 10, top = 2, bottom = 2 },
-      fps
     })
   }
 end
