@@ -4,6 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 local align = require("moonpie.alignment")
+local math_ext = require("moonpie.math_ext")
 
 local layouts = {}
 
@@ -43,17 +44,25 @@ function layouts.max_width(node, p)
       - node.box.border.left - node.box.border.right)
 end
 
+function layouts.calc_height(node, parent, content)
+  if math_ext.is_percent(node.height) then
+    return math_ext.percent_to_number(node.height) * parent.box.content.height
+  else
+    return node.height or content
+  end
+end
+
 function layouts.standard(node, parent)
   parent = parent or node.parent
   node.box.content.width = layouts.max_width(node, parent)
-  node.box.content.height = 0
+  node.box.content.height = layouts.calc_height(node, parent, 0)
 
   local w, h = layouts.children(node, node.box.content.width)
 
   if node.display == "inline" then
     node.box.content.width = node.width or w
   end
-  node.box.content.height = node.height or h
+  node.box.content.height = layouts.calc_height(node, parent, h)
 end
 
 function layouts.text(node, parent)

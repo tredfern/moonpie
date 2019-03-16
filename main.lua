@@ -92,17 +92,17 @@ local function footer()
 end
 
 local function text_layout()
-  return {
+  return components.body({
     header("Long Text Demo"),
     components.section({
       components.text({ text = lorem, padding = 5 }),
     }),
     footer()
-  }
+  })
 end
 
 local function button_layout()
-  return {
+  return components.body({
     header("Buttons"),
     {
       margin = 5,
@@ -123,11 +123,11 @@ local function button_layout()
       components.button({ style = "button_danger button_small", caption = "Danger" }),
     },
     footer()
-  }
+  })
 end
 
 local function image_layout()
-  return {
+  return components.body({
     header("Images"),
     components.section({
       components.image({ src = "assets/images/cat.jpg" }),
@@ -135,7 +135,7 @@ local function image_layout()
       components.image({ src = "assets/images/big.jpg", width = 300, height = 150 }),
     }),
     footer()
-  }
+  })
 end
 
 local function color_gradient(base_color, gradients)
@@ -159,7 +159,7 @@ local function pulsing_color()
     end
   end
 
-  return {
+  return components.body({
     header("Colors!"),
     components.section({
       components.text({ padding = 10, text = "Black to Cyan",
@@ -174,7 +174,7 @@ local function pulsing_color()
       color_gradient(moonpie.colors.avocado, 20),
     }),
     footer()
-  }
+  })
 end
 
 layouts = moonpie.collections.iterators.cycle({

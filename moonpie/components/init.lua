@@ -12,6 +12,7 @@ Component("root", function()
   }
 end)
 
+require("moonpie.components.body")
 require("moonpie.components.section")
 require("moonpie.components.text")
 require("moonpie.components.headers")
