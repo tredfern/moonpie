@@ -16,6 +16,12 @@ describe("Debug components", function()
   end)
 
   describe("Debug Panel", function()
-
+    it("renders out stats from love", function()
+      local stats = { }
+      mock_love.mock(love.graphics, "getStats", spy.new(function() return stats end))
+      local debug = components.debug_panel()
+      debug:render()
+      assert.spy(love.graphics.getStats).was.called()
+    end)
   end)
 end)

@@ -34,6 +34,7 @@ love = {
     graphics = {
         getFont = function() return font end,
         getHeight = function() return 900 end,
+        getStats = function() return { } end,
         getWidth = function() return 1600 end,
         newCanvas = function() return image end,
         newFont = function() return font end,

@@ -58,7 +58,7 @@ return function(moonpie)
 
   styles.debug_panel = {
     height = "100%",
-    opacity = 0.3,
+    opacity = 0.7,
     background_color = "black",
     padding = 10
   }

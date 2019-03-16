@@ -11,6 +11,6 @@ Component("body", function(props)
   for i, v in ipairs(props) do
     b[i] = v
   end
-  
+
   return b
 end)

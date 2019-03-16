@@ -14,7 +14,7 @@ end)
 
 Component("love_version", function()
   return Component.text({
-    text = "Löve: {{version}}", 
+    text = "Löve: {{version}}",
     version = love.getVersion()
   })
 end)
