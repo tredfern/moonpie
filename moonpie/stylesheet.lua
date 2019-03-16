@@ -57,6 +57,9 @@ return function(moonpie)
   styles["align-middle"] = { vertical_align = "middle" }
 
   styles.debug_panel = {
-    opacity = 0.7
+    height = "100%",
+    opacity = 0.3,
+    background_color = "black",
+    padding = 10
   }
 end

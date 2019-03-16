@@ -30,6 +30,7 @@ love = {
     event = {
       quit = function() end,
     },
+    getVersion = function() return 11 end,
     graphics = {
         getFont = function() return font end,
         getHeight = function() return 900 end,

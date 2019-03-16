@@ -25,6 +25,7 @@ moonpie = {
         layers[v]:paint()
       end
     end
+    debug:update({ stats = love.graphics.getStats() })
   end,
   layers = layers,
   render = function(layer_name, ...)
@@ -34,7 +35,6 @@ moonpie = {
   styles = require("moonpie.styles"),
   tween = require("moonpie.ext.tween"),
   update = function()
-    debug:update({})
     for _, v in ipairs(layer_order) do
       if layers[v] then
         layers[v]:update(mouse)
@@ -54,7 +54,7 @@ require("moonpie.stylesheet")(moonpie)
 
 debug = moonpie.components.debug_panel()
 moonpie.render("debug", debug )
-debug.hidden = true
+debug.hidden = false
 layers["debug"].root.background_color = "transparent"
 layers["debug"].root.color = "background"
 
