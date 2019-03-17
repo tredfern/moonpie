@@ -6,6 +6,7 @@
 
 local RenderEngine = require("moonpie.render_engine")
 local mouse = require("moonpie.mouse")
+local keyboard = require "moonpie.keyboard"
 local layers = {}
 local layer_order = {
   "ui", "debug"
@@ -18,6 +19,7 @@ moonpie = {
   collections = require("moonpie.collections"),
   components = require("moonpie.components"),
   font = require("moonpie.font"),
+  keyboard = keyboard,
   mouse = mouse,
   paint = function()
     for _, v in ipairs(layer_order) do
@@ -35,6 +37,7 @@ moonpie = {
   styles = require("moonpie.styles"),
   tween = require("moonpie.ext.tween"),
   update = function()
+    keyboard:update()
     for _, v in ipairs(layer_order) do
       if layers[v] then
         layers[v]:update(mouse)
@@ -57,5 +60,6 @@ moonpie.render("debug", debug )
 debug.hidden = false
 layers["debug"].root.background_color = "transparent"
 layers["debug"].root.color = "background"
+keyboard:hotkey("`", function() debug.hidden = not debug.hidden end)
 
 return moonpie

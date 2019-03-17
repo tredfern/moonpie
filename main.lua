@@ -148,25 +148,9 @@ local function color_gradient(base_color, gradients)
   return t
 end
 
-local function pulsing_color()
-  local function make_color_change(time, v, e)
-    local clr = v
-    local ctween = moonpie.tween.new(time, clr, e)
-
-    return function()
-      ctween:update(love.timer.getDelta())
-      return v
-    end
-  end
-
+local function colors()
   return components.body({
     header("Colors!"),
-    components.section({
-      components.text({ padding = 10, text = "Black to Cyan",
-        background_color = make_color_change(5, moonpie.colors.black, moonpie.colors.cyan) }),
-      components.text({ padding = 10, text = "Red to Gray",
-        background_color = make_color_change(10, moonpie.colors.red, moonpie.colors.gray) }),
-    }),
     components.h3({ text = "Lighten the things" }),
     components.section({
       color_gradient(moonpie.colors.dark_lava, 20),
@@ -181,5 +165,5 @@ layouts = moonpie.collections.iterators.cycle({
   text_layout,
   button_layout,
   image_layout,
-  pulsing_color
+  colors
 })
