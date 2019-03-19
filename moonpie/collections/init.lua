@@ -12,7 +12,7 @@ return {
   iterators = {
     cycle = require "moonpie.collections.iterators.cycle",
     random = require "moonpie.collections.iterators.random_iterator",
-    reverse = require "moonpie.collections.iterators.reverse_iterator",
+    reverse = require "moonpie.collections.iterators.reverse",
   },
   randomized_queue = require "moonpie.collections.randomized_queue",
   stack = require "moonpie.collections.stack",

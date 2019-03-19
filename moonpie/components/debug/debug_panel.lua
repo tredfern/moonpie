@@ -4,6 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 local Component = require "moonpie.components.component"
+local log = require "moonpie.components.debug.log_entries"
 
 Component("fps_counter", function()
   return Component.text({
@@ -54,7 +55,11 @@ Component("debug_panel", function()
         Component.section({
           Component.fps_counter()
         }),
-        Component.love_stats({ stats = self.stats })
+        Component.love_stats({ stats = self.stats }),
+        Component.section({
+          Component.h2({ text = "Log" }),
+          log()
+        })
       }
     end
   }

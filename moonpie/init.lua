@@ -18,6 +18,7 @@ local moonpie = {
   keyboard = keyboard,
   mouse = mouse,
   layers = layers,
+  logger = require "moonpie.logger",
   styles = require "moonpie.styles",
   tween = require "moonpie.ext.tween",
   themes = {
@@ -27,9 +28,12 @@ local moonpie = {
   }
 }
 
+moonpie.logger.info("Loaded Moonpie modules")
+
 local debug
 
 function moonpie.paint()
+  moonpie.logger.debug("Moonpie Paint")
   for _, v in ipairs(layer_order) do
     if layers[v] then
       layers[v]:paint()
@@ -39,11 +43,13 @@ function moonpie.paint()
 end
 
 function moonpie.render(layer_name, ...)
+  moonpie.logger.debug("Moonpie Render")
   layers[layer_name] = RenderEngine(...)
   return layers[layer_name]
 end
 
 function moonpie.update()
+  moonpie.logger.debug("Moonpie Update")
   keyboard:update()
   for _, v in ipairs(layer_order) do
     if layers[v] then
