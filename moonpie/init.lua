@@ -3,7 +3,6 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-
 local RenderEngine = require("moonpie.render_engine")
 local mouse = require("moonpie.mouse")
 local keyboard = require "moonpie.keyboard"
@@ -33,7 +32,6 @@ moonpie.logger.info("Loaded Moonpie modules")
 local debug
 
 function moonpie.paint()
-  moonpie.logger.debug("Moonpie Paint")
   for _, v in ipairs(layer_order) do
     if layers[v] then
       layers[v]:paint()
@@ -43,13 +41,11 @@ function moonpie.paint()
 end
 
 function moonpie.render(layer_name, ...)
-  moonpie.logger.debug("Moonpie Render")
   layers[layer_name] = RenderEngine(...)
   return layers[layer_name]
 end
 
 function moonpie.update()
-  moonpie.logger.debug("Moonpie Update")
   keyboard:update()
   for _, v in ipairs(layer_order) do
     if layers[v] then
@@ -76,5 +72,7 @@ moonpie.themes.standard(moonpie)
 moonpie.themes.light_mode(moonpie)
 moonpie.load_stylesheet()
 moonpie.load_debug()
+
+moonpie.logger.debug("Moonpie Loading Complete")
 
 return moonpie

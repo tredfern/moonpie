@@ -7,12 +7,23 @@ local copy_keys = require "moonpie.copy_keys"
 local copy_props = {
   "background_color",
   "height",
+  "id",
   "padding",
   "style",
   "width"
 }
 
 local component_factory = {}
+
+local function find_by_id(component, id)
+  for _, v in ipairs(component) do
+    if v.id == id then
+      return v
+    end
+    local out = find_by_id(v, id)
+    if out then return out end
+  end
+end
 
 local function create_component(name, render)
   component_factory[name] = function(props)
@@ -24,6 +35,8 @@ local function create_component(name, render)
       copy_keys(new, self, true)
       self:flag_updates(true)
     end
+
+    c.find_by_id = find_by_id
 
     c.flag_updates = function(_, f) c.updates_available = f end
     c.has_updates = function(_) return c.updates_available end

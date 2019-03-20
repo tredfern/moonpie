@@ -185,6 +185,18 @@ describe("Layouts", function()
       layouts.text(node, parent)
       assert.not_nil(node.image)
     end)
+
+    it("handles when text is by treating it as empty string", function()
+      -- override love.graphics.newText to return this specific object
+      local text_object = love.graphics.newText()
+      text_object.setf = spy.new(function() end)
+      mock_love.mock(love.graphics, "newText", function() return text_object end)
+
+      local node = Node({ text = nil, font = mock_love.font })
+      layouts.text(node, parent)
+      assert.spy(text_object.setf).was.called()
+      assert.spy(text_object.setf).was.called.with(text_object, "", parent.box.content.width, "left")
+    end)
   end)
 
   describe("Image layouts", function()

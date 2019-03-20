@@ -59,7 +59,8 @@ Component("debug_panel", function()
         Component.section({
           Component.h2({ text = "Log" }),
           log()
-        })
+        }),
+        Component.profile_report()
       }
     end
   }

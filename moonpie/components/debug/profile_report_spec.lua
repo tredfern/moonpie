@@ -1,0 +1,38 @@
+-- Copyright (c) 2019 Redfern, Trevor <trevorredfern@gmail.com>
+--
+-- This software is released under the MIT License.
+-- https://opensource.org/licenses/MIT
+
+describe("Profiler Component", function()
+  local components = require "moonpie.components"
+  local profile_report = components.profile_report
+  local profiler = require "moonpie.ext.profile"
+
+  it("can start the profiler", function()
+    profiler.hookall = spy.new(function() end)
+    profiler.start = spy.new(function() end)
+
+    local comp = profile_report()
+    local btn = comp:find_by_id("profile_start")
+    btn:click()
+    assert.spy(profiler.hookall).was.called.with("Lua")
+    assert.spy(profiler.start).was.called()
+  end)
+
+  it("can stop the profiler", function()
+    profiler.stop = spy.new(function() end)
+    local comp = profile_report()
+    local btn = comp:find_by_id("profile_stop")
+    btn:click()
+    assert.spy(profiler.stop).was.called()
+  end)
+
+  it("can generate a report of profiler information", function()
+    profiler.report = spy.new(function() return "REPORT" end)
+    local comp = profile_report()
+    local refresh = comp:find_by_id("profile_refresh")
+    local output = comp:find_by_id("profile_output")
+    refresh:click()
+    assert.equals("REPORT", output.text)
+  end)
+end)
