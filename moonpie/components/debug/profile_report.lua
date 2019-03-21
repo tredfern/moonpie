@@ -45,7 +45,7 @@ Component("profile_report", function()
             id = "profile_refresh",
             caption = "Refresh",
             click = function()
-              report_output = profiler.report()
+              report_output = profiler.report(nil, 15)
               output:update({ text = report_output })
             end
           })
