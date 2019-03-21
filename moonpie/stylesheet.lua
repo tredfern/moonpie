@@ -23,6 +23,7 @@ return function(moonpie)
   styles.root = { }
   styles.body = { background_color = "background", color = "text", height = "100%" }
   styles.image = { color = { 1, 1, 1, 1 } }
+  styles.text = { display = "inline" }
 
   styles.button = {
     font = moonpie.fonts.default.bold(12),
@@ -50,7 +51,7 @@ return function(moonpie)
   button_style("success", "success")
 
   styles.h1 = { margin = 10, color = "primary", font = moonpie.fonts.headline.bold(28) }
-  styles.h2 = { color = "primary", font = moonpie.fonts.headline.bold(24) }
+  styles.h2 = { margin = 10, color = "primary", font = moonpie.fonts.headline.bold(24) }
   styles.h3 = { margin = 10, color = "primary", font = moonpie.fonts.headline.bold(18) }
 
   styles["align-right"] = { align = "right" }

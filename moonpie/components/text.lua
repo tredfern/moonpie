@@ -10,7 +10,6 @@ local template = require "moonpie.template"
 Component("text", function(props)
   return {
     text = template(props.text, props),
-    display = "inline",
     layout = layouts.text
   }
 end)

@@ -43,10 +43,10 @@ as well.
 ## Rendering
 
 Rendering is performed by traversing the tree and then rendering, if appropriate:
- 1. The element background
- 1. The element border
- 1. The elements children
- 1. The elements image
+ 1. The element's background
+ 1. The element's border
+ 1. The element's children
+ 1. The element's image
 
 ## Components
 
@@ -57,11 +57,10 @@ component.
 
 ## Challenges / Changes / Ideas
 
- 1. Nothing should be considered proven until dynamic elements are included in the engine
-  ( An FPS counter is the proof of concept engine needed for dynamic displays. )
  1. Reduce the amount of work by using canvases to handle elements that are not changing
- 1. Allow the rebuilding of only a section of the component tree. For example, just rendering out a new inventory screen
-   without necessarily rerendering the whole UI when an item is sold.
+ 1. Every index lookup into a node is recomputing the styles and then returning the key. 
+  This is because each update the style could have changed (mouse hover for example). But
+  within a frame it should not. Precomputing styles could reduce burden of the engine.
 
 ## Goals
  * 100% Unit Test Coverage

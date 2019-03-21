@@ -42,3 +42,9 @@ luac.out
 *.x86_64
 *.hex
 
+#travis
+input.txt
+travis.log
+
+*.love
+
