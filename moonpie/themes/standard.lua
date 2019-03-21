@@ -29,6 +29,10 @@ return function(moonpie)
     headline = {
       regular = moonpie.font("moonpie/assets/fonts/roboto_slab/Regular.ttf"),
       bold = moonpie.font("moonpie/assets/fonts/roboto_slab/Bold.ttf")
+    },
+    fixed = {
+      regular = moonpie.font("moonpie/assets/fonts/hack/Regular.ttf"),
+      bold = moonpie.font("moonpie/assets/fonts/hack/Bold.ttf")
     }
   }
 

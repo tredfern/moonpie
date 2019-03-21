@@ -22,14 +22,14 @@ end)
 
 Component("love_stats", function(props)
   return Component.section({
-    Component.text({ text = "STATS" }),
+    {
     Component.text({ text = [[
-        Draw Calls: {{drawcalls}}
-        Canvas Switches: {{canvasswitches}}
-        Texture Memory: {{texturememory}}
-        Images: {{images}}
-        Canvases = {{canvases}}
-        Fonts = {{fonts}}
+Draw Calls: {{drawcalls}}
+Canvas Switches: {{canvasswitches}}
+Texture Memory: {{texturememory}}
+Images: {{images}}
+Canvases = {{canvases}}
+Fonts = {{fonts}}
       ]],
       drawcalls = props.stats.drawcalls,
       texturememory = props.stats.texturememory,
@@ -37,7 +37,8 @@ Component("love_stats", function(props)
       images = props.stats.images,
       canvases = props.stats.canvases,
       fonts = props.stats.fonts,
-    })
+    }) },
+    Component.fps_counter()
   })
 end)
 
@@ -46,21 +47,26 @@ Component("debug_panel", function()
   return {
     stats = love.graphics.getStats(),
     style = "debug_panel",
+    version = Component.love_version(),
+    profiler = Component.profile_report(),
+
     render = function(self)
       return {
         Component.text({ text = "Debug Panel" }),
-        Component.section({
-          Component.love_version(),
-        }),
-        Component.section({
-          Component.fps_counter()
-        }),
-        Component.love_stats({ stats = self.stats }),
-        Component.section({
-          Component.h2({ text = "Log" }),
+        {
+          style = "debug_tool",
+          self.version,
+          Component.love_stats({ stats = self.stats }),
+        },
+        {
+          style = "debug_tool",
+          self.profiler,
+        },
+        {
+          style = "debug_tool",
+          Component.h3({ color = "white", text = "Log" }),
           log()
-        }),
-        Component.profile_report()
+        },
       }
     end
   }

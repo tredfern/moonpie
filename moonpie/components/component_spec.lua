@@ -71,6 +71,11 @@ describe("Component", function()
         assert.equals("red", p.background_color)
       end)
 
+      it("color", function()
+        local p = Component.button({ color = "green" })
+        assert.equals("green", p.color)
+      end)
+
       it("width", function()
         local p = Component.button({ width = 250 })
         assert.equals(250, p.width)

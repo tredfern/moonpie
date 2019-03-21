@@ -27,9 +27,9 @@ Component("profile_report", function()
 
   return {
     {
-      Component.h3({ text = "Profiler" }),
+      Component.h3({ color = "white", text = "Profiler" }),
       Component.button_group({
-        align = "right",
+        style = "align-right",
         buttons = {
           Component.button({
             id = "profile_start",

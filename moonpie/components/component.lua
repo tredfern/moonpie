@@ -6,6 +6,7 @@
 local copy_keys = require "moonpie.copy_keys"
 local copy_props = {
   "background_color",
+  "color",
   "height",
   "id",
   "padding",

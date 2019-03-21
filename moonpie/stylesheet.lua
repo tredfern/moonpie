@@ -60,6 +60,14 @@ return function(moonpie)
     height = "100%",
     opacity = 0.7,
     background_color = "black",
-    padding = 10
+    padding = 10,
+    font = moonpie.fonts.fixed.regular(10),
+    color = "white"
+  }
+
+  styles.debug_tool = {
+    background_color = "gray",
+    padding = 4,
+    margin = 2
   }
 end
