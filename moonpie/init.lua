@@ -52,6 +52,8 @@ function moonpie.update()
       layers[v]:update(mouse)
     end
   end
+  -- HACK: Mouse isn't handled smoothly
+  mouse:update_button_states()
 end
 
 function moonpie.load_stylesheet()

@@ -38,9 +38,7 @@ return setmetatable({
   update = function(self, root)
     self.x, self.y = self.getPosition()
     self.over_components = find_by_coordinates(self.x, self.y, root)
-
     self:check_primary_button()
-    self:update_button_states()
   end
 } ,
 {
