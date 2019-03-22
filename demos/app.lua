@@ -83,7 +83,7 @@ end
 --
 function app.header(demo_title)
   return {
-    components.section({
+    {
       -- Some stylistic values
       padding = 10,
       background_color = "invert_background",
@@ -101,11 +101,11 @@ function app.header(demo_title)
           app.quit_button()
         }
       })
-    }),
+    },
     -- A sub header that describes the specific demo
-    components.section({
+    {
       components.h3({ text = demo_title }),
-    })
+    }
   }
 end
 
@@ -114,9 +114,7 @@ end
 --
 function app.footer()
   return {
-    components.section({
-      padding = { left = 10, right = 10, top = 2, bottom = 2 },
-    })
+    padding = { left = 10, right = 10, top = 2, bottom = 2 },
   }
 end
 

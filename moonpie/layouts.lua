@@ -37,11 +37,14 @@ function layouts.children(node, width)
 end
 
 function layouts.max_width(node, p)
-  return node.width or
-    (p.box.content.width
-      - node.box.margin.left - node.box.margin.right
-      - node.box.padding.left - node.box.padding.right
-      - node.box.border.left - node.box.border.right)
+  local boundary = node.box.margin.left + node.box.margin.right
+    + node.box.padding.left + node.box.padding.right
+    + node.box.border.left + node.box.border.right
+
+  if math_ext.is_percent(node.width) then
+    return math_ext.percent_to_number(node.width) * p.box.content.width - boundary
+  end
+  return node.width or (p.box.content.width - boundary)
 end
 
 function layouts.calc_height(node, parent, content)

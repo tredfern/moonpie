@@ -63,7 +63,7 @@ end
 function moonpie.load_debug()
   debug = moonpie.components.debug_panel()
   moonpie.render("debug", debug )
-  debug.hidden = false
+  debug.hidden = true
   layers["debug"].root.background_color = "transparent"
   layers["debug"].root.color = "background"
   keyboard:hotkey("`", function() debug.hidden = not debug.hidden end)

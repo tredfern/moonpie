@@ -21,6 +21,12 @@ describe("Layouts", function()
       assert.equals(152, test.box.content.width)
     end)
 
+    it("can use a percentage of the width of the parent if provided", function()
+      local test = Node({ layout = layouts.standard, width = "50%" }, parent)
+      test:layout()
+      assert.equals(76, test.box.content.width)
+    end)
+
     it("uses it's own width if provided on the node", function()
       local test = Node({  layout = layouts.standard,  width = 120 })
       test:layout(parent)
