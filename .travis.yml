@@ -30,3 +30,5 @@ deploy:
   file: moonpie-$TRAVIS_TAG-$TRAVIS_BUILD_NUMBER.love
   on:
     repo: tredfern/moonpie
+    tags: true  
+      
