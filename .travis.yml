@@ -32,4 +32,5 @@ deploy:
   on:
     repo: tredfern/moonpie
     tags: true  
+    condition: $LUA =~ ^luajit=2.1$
       
