@@ -22,12 +22,12 @@ after_success:
 - echo $TRAVIS_BUILD_DIR/lua_install
 - luacov-coveralls --exclude $TRAVIS_BUILD_DIR/lua_install/share --exclude ./ext
 before_deploy:
-  - zip moonpie-$TRAVIS_TAG-$TRAVIS_BUILD_NUMBER.love $TRAVIS_BUILD_DIR
+- zip -r $TRAVIS_BUILD_DIR/../moonpie-$TRAVIS_TAG-$TRAVIS_BUILD_NUMBER.love $TRAVIS_BUILD_DIR
 deploy:
   provider: releases
   api_key:
     secure: AMh8JkrGF9UzCTp/WR6enhfWXqi+qafOWJHIFsd/J3ccqRAGn5iVtuRB6R1PQ0aCKROeiPfnroB+oU/gKQfz/05xDNBeJCnyWP98w05hfBPIK8pwh32NwW1eIb4qalgGwWjbfPzyWNz9hQ4IW2tOCxkgqqulvwjfjHiByCBuzEgBl47YbczqaLcOcRsjsu0eelHQLi3xYQ6OcTDW0jmjsd8WN09qm37aOBMsv/tHiq16aZdY4xzowuWtb6LTUhWgArOt5uWb6jeW4bAbLQwp2BFx6P9LRm9t1HmhuPtBEb9iEXM49RtASxQcSqQh+nS+cyJE1wuD5oQ5JYdTybnUkzMGsCvifXdg82Cq9xj1HOD5z5qMGVpnGX8sLcGEG5GXqFVaeoiu9TH/MyYBA4CaEhGcPf3Be3fElgwIly0xMq4yrxA97YMChmE0UEX/KUjZDK/KYlZcHZIjLpVWSGIjwkf/WwylaZ6M2Z63t12HoaPLVYekfZ9l+NhJmJEt7VjRc6pXVnjLbm7e22iip2hEJfGr91Uz2LgJBVhWtNSzbCUpCe7QSaFMzTC3xfZ4YuVDj25q085dF1u4+7sLZGQ5iPWkQmeHH4cPHteurs3nTYQbxlIuGkEZoylX8zn2FQDfHvy/M1vRPgpDrjXE7F+bVHSu7whpwBdhnyZSsmUGjB0=
-  file: moonpie-$TRAVIS_TAG-$TRAVIS_BUILD_NUMBER.love
+  file: $TRAVIS_BUILD_DIR/../moonpie-$TRAVIS_TAG-$TRAVIS_BUILD_NUMBER.love
   on:
     repo: tredfern/moonpie
     tags: true  
