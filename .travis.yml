@@ -22,7 +22,7 @@ after_success:
 - echo $TRAVIS_BUILD_DIR/lua_install
 - luacov-coveralls --exclude $TRAVIS_BUILD_DIR/lua_install/share --exclude ./ext
 before_deploy:
-- cd $TRAVIS_BUILD_DIR/moonpie
+- cd $TRAVIS_BUILD_DIR
 - zip -r -x.git/* -xlua_install/* $TRAVIS_BUILD_DIR/../moonpie-$TRAVIS_TAG-$TRAVIS_BUILD_NUMBER.love ./
 deploy:
   provider: releases
