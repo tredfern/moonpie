@@ -80,6 +80,15 @@ describe("RenderEngine", function()
       r:paint()
       assert.spy(r.root.paint).was.called()
     end)
+
+    it("refreshes the style information before painting", function()
+      local c = Component.complex()
+      local r = RenderEngine(c)
+      local n = r:find_by_component(c)
+      n.refresh_style = spy.new(function() end)
+      r:paint(Mouse)
+      assert.spy(n.refresh_style).was.called.with(n)
+    end)
   end)
 
   describe("Complex Components", function()
@@ -116,6 +125,7 @@ describe("RenderEngine", function()
         r:update(Mouse)
         assert.spy(n.layout).was.called()
       end)
+
     end)
 
     describe("Handling Mouse Behavior", function()

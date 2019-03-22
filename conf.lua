@@ -7,5 +7,7 @@ function love.conf(t)
   t.window.title = "Moonpie Demo"
   t.window.height = 768
   t.window.width = 1024
+  t.window.vsync = 1
+  t.window.fullscreen = false
 end
 

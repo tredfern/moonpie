@@ -46,6 +46,7 @@ describe("Node", function()
     local c = { style = "text" }
     local n = Node(c)
     n.hover = function() return true end -- just override the hover check
+    n:refresh_style()
     assert.equals("red", n.color)
   end)
 

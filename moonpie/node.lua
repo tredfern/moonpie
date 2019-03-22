@@ -11,11 +11,11 @@ local styles = require("moonpie.styles")
 return function(component, parent)
   component = component or {}
   parent = parent or {}
+  local cached_style = styles.compute(component, parent, {})
 
   local n = setmetatable({}, {
-    __index = function(self, k)
-      local hover = rawget(self, "hover")
-      return styles.compute(component, parent, { hover = hover and hover(self) })[k]
+    __index = function(_, k)
+      return cached_style[k]
     end
   })
 
@@ -45,6 +45,9 @@ return function(component, parent)
   end
 
   n.paint = component.paint or drawing.standard
+  n.refresh_style = function(self)
+    cached_style = styles.compute(component, parent, { hover = self.hover and self:hover() })
+  end
 
   return n
 end

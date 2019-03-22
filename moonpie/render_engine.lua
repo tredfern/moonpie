@@ -29,7 +29,15 @@ local function render_node(node)
 end
 
 function RenderEngine:paint()
+  self:refresh_style(self.root)
   self.root:paint()
+end
+
+function RenderEngine:refresh_style(node)
+  node:refresh_style()
+  for _, v in ipairs(node.children) do
+    self:refresh_style(v)
+  end
 end
 
 function RenderEngine:find_by_component(c, node)
