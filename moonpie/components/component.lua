@@ -42,6 +42,10 @@ local function create_component(name, render)
     c.flag_updates = function(_, f) c.updates_available = f end
     c.has_updates = function(_) return c.updates_available end
 
+    c.show = function(self) self.hidden = false end
+    c.hide = function(self) self.hidden = true end
+    c.is_hidden = function(self) return self.hidden end
+
     for _, v in ipairs(copy_props) do
       if props[v] then c[v] = props[v] end
     end

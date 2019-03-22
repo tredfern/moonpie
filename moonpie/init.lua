@@ -30,14 +30,20 @@ local moonpie = {
 moonpie.logger.info("Loaded Moonpie modules")
 
 local debug
+local frame_number = 0
 
 function moonpie.paint()
+  frame_number = frame_number + 1
   for _, v in ipairs(layer_order) do
     if layers[v] then
       layers[v]:paint()
     end
   end
-  debug:update({ stats = love.graphics.getStats() })
+
+  -- Debug stats
+  local stats = love.graphics.getStats()
+  stats.frame_number = frame_number
+  debug:update({ stats = stats })
 end
 
 function moonpie.render(layer_name, ...)

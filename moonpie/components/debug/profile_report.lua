@@ -48,6 +48,13 @@ Component("profile_report", function()
               report_output = profiler.report(nil, 15)
               output:update({ text = report_output })
             end
+          }),
+          Component.button({
+            id = "profile_save",
+            caption = "Save",
+            click = function()
+              love.filesystem.write("profile_report.txt", profiler.report())
+            end
           })
         }
       })

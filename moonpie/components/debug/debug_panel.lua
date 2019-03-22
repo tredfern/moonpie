@@ -20,8 +20,15 @@ Component("love_version", function()
   })
 end)
 
+Component("frame_number", function(props)
+  return Component.text({
+    text = "Frame Number: {{frame}}",
+    frame = props.frame_number
+  })
+end)
+
 Component("love_stats", function(props)
-  return Component.section({
+  return {
     {
     Component.text({ text = [[
 Draw Calls: {{drawcalls}}
@@ -38,8 +45,13 @@ Fonts = {{fonts}}
       canvases = props.stats.canvases,
       fonts = props.stats.fonts,
     }) },
-    Component.fps_counter()
-  })
+    {
+      Component.fps_counter(),
+    },
+    {
+      Component.frame_number({ frame_number = props.stats.frame_number })
+    }
+  }
 end)
 
 

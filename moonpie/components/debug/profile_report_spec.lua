@@ -35,4 +35,15 @@ describe("Profiler Component", function()
     refresh:click()
     assert.equals("REPORT", output.text)
   end)
+
+  it("can save the full report to a file", function()
+    local mock_love = require "moonpie.test_helpers.mock_love"
+    mock_love.mock(love.filesystem, "write", spy.new(function() end))
+    profiler.report = spy.new(function() return "REPORT" end)
+    local comp = profile_report()
+    local save = comp:find_by_id("profile_save")
+    save:click()
+    assert.spy(love.filesystem.write).was.called.with("profile_report.txt", "REPORT")
+
+  end)
 end)

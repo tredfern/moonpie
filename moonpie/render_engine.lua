@@ -60,6 +60,7 @@ function RenderEngine:update(mouse)
 end
 
 function RenderEngine:update_nodes(node)
+  if node.is_hidden and node:is_hidden() then return end
   if node.has_updates and node:has_updates() then
     render_node(node)
     node:layout()
@@ -69,7 +70,6 @@ function RenderEngine:update_nodes(node)
       self:update_nodes(v)
     end
   end
-
 end
 
 return function(...)
