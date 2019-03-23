@@ -24,6 +24,9 @@ local moonpie = {
     standard = require "moonpie.themes.standard",
     light_mode = require "moonpie.themes.light_mode",
     dark_mode = require "moonpie.themes.dark_mode"
+  },
+  utility = {
+    timer = require "moonpie.utility.timer"
   }
 }
 
@@ -31,8 +34,11 @@ moonpie.logger.info("Loaded Moonpie modules")
 
 local debug
 local frame_number = 0
+local paint_timer = moonpie.utility.timer:new("UI Paint")
+local update_timer = moonpie.utility.timer:new("UI Update")
 
 function moonpie.paint()
+  paint_timer:start()
   frame_number = frame_number + 1
   for _, v in ipairs(layer_order) do
     if layers[v] then
@@ -43,7 +49,8 @@ function moonpie.paint()
   -- Debug stats
   local stats = love.graphics.getStats()
   stats.frame_number = frame_number
-  debug:update({ stats = stats })
+  paint_timer:stop()
+  debug:update({ stats = stats, paint_timer = paint_timer, update_timer = update_timer })
 end
 
 function moonpie.render(layer_name, ...)
@@ -52,6 +59,7 @@ function moonpie.render(layer_name, ...)
 end
 
 function moonpie.update()
+  update_timer:start()
   keyboard:update()
   for _, v in ipairs(layer_order) do
     if layers[v] then
@@ -60,6 +68,7 @@ function moonpie.update()
   end
   -- HACK: Mouse isn't handled smoothly
   mouse:update_button_states()
+  update_timer:stop()
 end
 
 function moonpie.load_stylesheet()

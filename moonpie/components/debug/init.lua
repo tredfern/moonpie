@@ -5,3 +5,4 @@
 
 require "moonpie.components.debug.profile_report"
 require "moonpie.components.debug.debug_panel"
+require "moonpie.components.debug.timer_display"

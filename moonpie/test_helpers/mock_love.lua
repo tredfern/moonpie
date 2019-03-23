@@ -78,6 +78,7 @@ love = {
     timer = {
       getDelta = function() return 0.03 end,
       getFPS = function() return 29 end,
+      getTime = function() return os.time() end
     },
     handlers = { }
 }

@@ -67,8 +67,18 @@ Component("debug_panel", function()
         Component.text({ text = "Debug Panel" }),
         {
           style = "debug_tool",
-          self.version,
-          Component.love_stats({ stats = self.stats }),
+          {
+            self.version
+          },
+          {
+            width = "40%",
+            Component.love_stats({ stats = self.stats }),
+          },
+          {
+            width = "40%",
+            Component.timer_display({ timer = self.paint_timer }),
+            Component.timer_display({ timer = self.update_timer })
+          }
         },
         {
           style = "debug_tool",
