@@ -10,7 +10,7 @@ components("main_menu", function()
   local main_menu
   main_menu = {
     background_color = "light_accent",
-    border = 4,
+    border = 20,
     border_color = "dark_shade",
     padding = 16,
     width = 300,

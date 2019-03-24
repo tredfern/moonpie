@@ -14,7 +14,6 @@ end)
 
 require("moonpie.components.body")
 require("moonpie.components.section")
-require("moonpie.components.inline")
 require("moonpie.components.text")
 require("moonpie.components.headers")
 require("moonpie.components.images")

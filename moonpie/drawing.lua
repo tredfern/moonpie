@@ -11,8 +11,8 @@ function drawing.standard(node)
   if node.hidden then return end
   love.graphics.push()
   love.graphics.translate(node.box.x, node.box.y)
-  drawing.draw_border(node)
   drawing.draw_background(node)
+  drawing.draw_border(node)
   drawing.image(node)
 
   love.graphics.translate(node.box:content_position())
@@ -38,10 +38,16 @@ end
 function drawing.draw_border(node)
   if node.border then
     love.graphics.push()
-    love.graphics.translate(node.box:border_position())
+    local x, y = node.box:border_position()
+    x = x + node.border / 2
+    y = y + node.border / 2
+
+    love.graphics.translate(x, y)
     love.graphics.setColor(colors(node.border_color))
     love.graphics.setLineWidth(node.border)
     local w, h = node.box:border_size()
+    w = w - node.border
+    h = h - node.border
     love.graphics.rectangle("line", 0, 0, w, h,
       node.corner_radius_x or 0, node.corner_radius_y or 0)
     love.graphics.pop()

@@ -11,7 +11,9 @@ components("color_sample", function(props)
     display = "inline",
     background_color = props.color,
     width = 20,
-    height = 20
+    height = 20,
+    border = 1,
+    border_color = "black"
   }
 end)
 

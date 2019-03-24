@@ -13,7 +13,7 @@ Component("checkbox", function(props)
   return {
     value = props.value or false,
     render = function(self)
-      return Component.inline({
+      return Component.section({
         Component.text{ id = "cb_check", text = get_check(self.value), style = "checkbox_box" },
         Component.text{ id = "cb_label", text = props.caption, style = "checkbox_label" },
       })
