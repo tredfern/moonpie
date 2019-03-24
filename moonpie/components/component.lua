@@ -47,7 +47,7 @@ local function create_component(name, render)
     c.is_hidden = function(self) return self.hidden end
 
     c.add_style = function(self, style)
-      self.style = string.format("%s %s", self.style, style)
+      self.style = string.format("%s %s", self.style or "", style)
     end
 
     c.remove_style = function(self, style)
