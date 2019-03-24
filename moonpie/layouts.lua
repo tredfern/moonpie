@@ -55,6 +55,27 @@ function layouts.calc_height(node, parent, content)
   end
 end
 
+function layouts.calc_width(node, p, content_width)
+  -- specified widths take precedence
+  if node.width then
+    if math_ext.is_percent(node.width) then
+      local boundary = node.box.margin.left + node.box.margin.right
+        + node.box.padding.left + node.box.padding.right
+        + node.box.border.left + node.box.border.right
+      return math_ext.percent_to_number(node.width) * p.box.content.width - boundary
+    end
+    return node.width
+  end
+
+  -- inline elements use content width
+  if node.display == "inline" then
+    return content_width
+  end
+
+  -- Everything else, take as much space as you can
+  return layouts.max_width(node, p)
+end
+
 function layouts.standard(node, parent)
   parent = parent or node.parent
   node.box.content.width = layouts.max_width(node, parent)
@@ -62,9 +83,7 @@ function layouts.standard(node, parent)
 
   local w, h = layouts.children(node, node.box.content.width)
 
-  if node.display == "inline" then
-    node.box.content.width = node.width or w
-  end
+  node.box.content.width = layouts.calc_width(node, parent, w)
   node.box.content.height = layouts.calc_height(node, parent, h)
 end
 

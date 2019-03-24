@@ -7,23 +7,23 @@ Dynamic Layout UI Library with Tests
 
 ## Motivation
 
-After reviewing some other GUI libraries out there for Love2D, I realized I should not write another one. 
-Sadly, I could not resist. After thinking about how browsers and libraries like React and others
-work with UI/UX, I thought that maybe there was an opportunity to design something like that for Love2d.
+Most GUI libraries seem to be focused heavily on framing controls. There is usually some container functionality
+followed by a group of widgets and then it feels left on your own to make them work. There doesn't appear
+to be an intentional design focused on providing an easy and logical way to organize your controls, code
+or to provide unit testing for them. _I have not done an extensive assessment of all libraries out there._
+I could certainly be wrong. However, when I looked at things like Immediate Mode UI's and other libraries
+created, they feel focused on the controls and not on the user.
 
-I loved the idea in immediate mode UI's that state causes problems. But I couldn't overcome building a UI 
-out of conditionals. I did some reading on how browsers work and it just sounded kind of cool.
+Controls just provide the basic twiddles to make something happen, it's the coordination of those controls
+that makes a UI. Moonpie is an attempt to take what I have learned building web applications and apply
+it to a game framework. The component framework is designed to allow it easier to organize, test, and reuse
+widgets of code. The layout engine is designed to make it easy to place them on the screen logically and
+take the burden of worrying about each pixel. The eventing is designed to take advantage of the functional
+language of Lua. The preference to avoid state is to reduce the amount of management needed for the UI.
 
-I have a project that I'd like to apply this library to in order to see whether it actually will work. In
-the meantime, I'm building it up with the foundational function that I think it will need to support before
-I can use it.
-
-## Basic Design Ideas
-
-I tried to break apart rendering, layout, and event logic. I wanted to make it easy for unit testing of
-the UI. I didn't want there to be a burden mocking entities. I also wanted to avoid trying to convert
-Lua into an OOP language. Functions and Tables should provide the core functionality needed. There is
-a Component system to allow better reuse of common functionality.
+The demo provided shows some of the basic controls and widgets, but more importantly it should show that
+writing the code that does some interesting layouts of controls is easy and intuitive. The debug tools
+are built in the same framework and could be extended to support each individual game project.
 
 ## Layouts
 
@@ -55,12 +55,21 @@ more complex components by combining the features of more simple ones. Component
 functions that define the behavior to return the appropriate table element to represent a new version of that
 component.
 
-## Challenges / Changes / Ideas
+## Keyboard
+
+Moonpie supports adding hotkeys that can trigger callbacks.
+
+```
+  moonpie.keyboard:hotkey("escape", function() ... end)
+```
+
+## Challenges / Changes / Ideas / Todo
 
  1. Reduce the amount of work by using canvases to handle elements that are not changing
  1. Every index lookup into a node is recomputing the styles and then returning the key. 
   This is because each update the style could have changed (mouse hover for example). But
   within a frame it should not. Precomputing styles could reduce burden of the engine.
+ 1. Should be able to remove a component completely from the render tree.
 
 ## Goals
  * 100% Unit Test Coverage

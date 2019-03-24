@@ -65,8 +65,10 @@ return function(moonpie)
   styles.h2 = { margin = 10, color = "primary", font = moonpie.fonts.headline.bold(24) }
   styles.h3 = { margin = 10, color = "primary", font = moonpie.fonts.headline.bold(18) }
 
+  styles["align-center"] = { align = "center" }
   styles["align-right"] = { align = "right" }
   styles["align-middle"] = { vertical_align = "middle" }
+  styles["align-bottom"] = { vertical_align = "bottom" }
 
   styles.debug_panel = {
     height = "100%",

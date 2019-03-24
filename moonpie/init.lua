@@ -7,7 +7,7 @@ local RenderEngine = require("moonpie.render_engine")
 local mouse = require("moonpie.mouse")
 local keyboard = require "moonpie.keyboard"
 local layers = {}
-local layer_order = { "ui", "debug" }
+local layer_order = { "ui", "modal", "debug" }
 
 local moonpie = {
   colors = require "moonpie.colors" ,
@@ -83,7 +83,6 @@ function moonpie.load_debug()
   layers["debug"].root.color = "background"
   keyboard:hotkey("`", function() debug.hidden = not debug.hidden end)
 end
-
 
 moonpie.themes.standard(moonpie)
 moonpie.themes.light_mode(moonpie)

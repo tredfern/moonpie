@@ -5,6 +5,7 @@
 
 local moonpie = require "moonpie"
 local components = moonpie.components
+require "demos.popup_menu"
 
 local app = {}
 app.show_light = true
@@ -75,6 +76,7 @@ function app.quit_button()
     end
   })
 end
+
 
 --
 -- The header is a container that handles laying out
