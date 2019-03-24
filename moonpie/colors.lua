@@ -70,6 +70,20 @@ function colors.get_color(self, clr, opacity)
   return nil
 end
 
+function colors.is_color(v)
+  return type(v) == "table" and #v == 4
+end
+
+function colors.all()
+  local out = {}
+  for _, v in pairs(colors) do
+    if colors.is_color(v) then
+      out[#out + 1] = v
+    end
+  end
+  return out
+end
+
 setmetatable(colors, {
   __call = colors.get_color
 })

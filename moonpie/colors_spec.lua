@@ -80,4 +80,16 @@ describe("Colors", function()
     local c = colors("transparent")
     assert.same({0,0,0,0}, c)
   end)
+
+  it("can get a list of only the colors", function()
+    local clrs = colors.all()
+    for _, v in ipairs(clrs) do
+      assert.equals("table", type(v))
+      assert.equals(4, #v)
+      assert.equals("number", type(v[1]))
+      assert.equals("number", type(v[2]))
+      assert.equals("number", type(v[3]))
+      assert.equals("number", type(v[4]))
+    end
+  end)
 end)
