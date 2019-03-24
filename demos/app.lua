@@ -13,7 +13,7 @@ app.show_light = true
 -- cycle is an iterator that continuously loops through a set
 app.layouts = moonpie.collections.iterators.cycle({
   { heading = "Text Demo", layout = require "demos.text_demo" },
-  { heading = "Button Demo", layout = require "demos.buttons_demo" },
+  { heading = "Controls Demo", layout = require "demos.controls_demo" },
   { heading = "Image Demo", layout = require "demos.image_demo" },
   { heading = "Color Demo", layout = require "demos.color_demo" }
 })

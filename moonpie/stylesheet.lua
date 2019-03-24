@@ -44,6 +44,17 @@ return function(moonpie)
     padding = { left = 8, right = 8, top = 4, bottom = 4 }
   }
 
+  styles.checkbox = {
+    padding = 2
+  }
+  styles.checkbox_box = {
+    border = 1,
+    border_color = "text",
+    margin = { left = 0, right = 5, top = 0, bottom = 0 },
+    width = 11, height = 11,
+    color = "text"
+  }
+
   button_style("primary", "primary")
   button_style("info", "info")
   button_style("danger", "danger")

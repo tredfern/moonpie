@@ -7,6 +7,7 @@ local components = require "moonpie.components"
 
 return function()
   return {
+    { components.h2({ text = "Buttons" }) },
     {
       margin = 5,
       components.button({ caption = "Default" }),
@@ -25,5 +26,13 @@ return function()
       components.button({ style = "button_success button_small", caption = "Success" }),
       components.button({ style = "button_danger button_small", caption = "Danger" }),
     },
+    { components.h2({ text = "Toggles" }) },
+    {
+      margin = 5,
+      components.checkbox({ caption = "Option 1" }),
+      components.checkbox({ caption = "Option 2", value = true }),
+      components.checkbox({ caption = "Option 3" })
+    }
   }
+
 end

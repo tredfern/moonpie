@@ -46,6 +46,14 @@ local function create_component(name, render)
     c.hide = function(self) self.hidden = true end
     c.is_hidden = function(self) return self.hidden end
 
+    c.add_style = function(self, style)
+      self.style = string.format("%s %s", self.style, style)
+    end
+
+    c.remove_style = function(self, style)
+      self.style = string.gsub(self.style, style, "")
+    end
+
     for _, v in ipairs(copy_props) do
       if props[v] then c[v] = props[v] end
     end
