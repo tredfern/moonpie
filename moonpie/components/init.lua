@@ -19,6 +19,7 @@ require("moonpie.components.headers")
 require("moonpie.components.images")
 require("moonpie.components.buttons")
 require("moonpie.components.checkbox")
+require("moonpie.components.dropdown")
 require("moonpie.components.debug")
 
 return Component

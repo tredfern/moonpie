@@ -6,8 +6,6 @@
 local RenderEngine = require("moonpie.render_engine")
 local mouse = require("moonpie.mouse")
 local keyboard = require "moonpie.keyboard"
-local layers = {}
-local layer_order = { "ui", "modal", "debug" }
 
 local moonpie = {
   colors = require "moonpie.colors" ,
@@ -16,7 +14,7 @@ local moonpie = {
   font = require "moonpie.font",
   keyboard = keyboard,
   mouse = mouse,
-  layers = layers,
+  layers = require "moonpie.layers",
   logger = require "moonpie.logger",
   styles = require "moonpie.styles",
   tween = require "moonpie.ext.tween",
@@ -40,10 +38,8 @@ local update_timer = moonpie.utility.timer:new("UI Update")
 function moonpie.paint()
   paint_timer:start()
   frame_number = frame_number + 1
-  for _, v in ipairs(layer_order) do
-    if layers[v] then
-      layers[v]:paint()
-    end
+  for _, v in ipairs(moonpie.layers.render_order()) do
+    v:paint()
   end
 
   -- Debug stats
@@ -54,17 +50,15 @@ function moonpie.paint()
 end
 
 function moonpie.render(layer_name, ...)
-  layers[layer_name] = RenderEngine(...)
-  return layers[layer_name]
+  moonpie.layers[layer_name] = RenderEngine(...)
+  return moonpie.layers[layer_name]
 end
 
 function moonpie.update()
   update_timer:start()
   keyboard:update()
-  for _, v in ipairs(layer_order) do
-    if layers[v] then
-      layers[v]:update(mouse)
-    end
+  for _, v in ipairs(moonpie.layers.render_order()) do
+    v:update(mouse)
   end
   -- HACK: Mouse isn't handled smoothly
   mouse:update_button_states()
@@ -79,8 +73,8 @@ function moonpie.load_debug()
   debug = moonpie.components.debug_panel()
   moonpie.render("debug", debug )
   debug.hidden = true
-  layers["debug"].root.background_color = "transparent"
-  layers["debug"].root.color = "background"
+  moonpie.layers.debug.root.background_color = "transparent"
+  moonpie.layers.debug.root.color = "background"
   keyboard:hotkey("`", function() debug.hidden = not debug.hidden end)
 end
 

@@ -55,6 +55,10 @@ return function(moonpie)
     color = "text"
   }
 
+  styles.dropdown = {
+    display = "inline"
+  }
+
   button_style("primary", "primary")
   button_style("info", "info")
   button_style("danger", "danger")

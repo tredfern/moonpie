@@ -11,7 +11,6 @@
  1. Scrollbars
 
 ## Bugs
- 1. Border is messing with content region calculations. As border increases the content area is shrinking at twice the rate
- 1. Alignment operations can cause screwy behavior
+ 1. Alignment operations can cause screwy behavior when dealing with flex sized elements
   1. Should be able to center text on buttons that have flexible sizing
 
