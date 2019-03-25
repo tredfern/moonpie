@@ -9,13 +9,19 @@ local components = moonpie.components
 components("main_menu", function()
   local main_menu
   main_menu = {
-    background_color = "light_accent",
-    border = 20,
+    background_color = "light_shade",
+    border = 4,
     border_color = "dark_shade",
     padding = 16,
     width = 300,
     height = 250,
-    style = "align-center",
+    style = "align-center align-middle",
+    {
+      components.h3({
+        style = "align-center",
+        text = "Main Menu"
+      })
+    },
     {
       components.button({
         width = "100%",

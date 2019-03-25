@@ -8,7 +8,7 @@ local math_ext = require("moonpie.math_ext")
 
 local layouts = {}
 
-function layouts.children(node, width)
+function layouts.children(node, parent, width)
   local x, y = 0, 0
   local line_height, max_width, max_height = 0, 0, 0
 
@@ -23,8 +23,8 @@ function layouts.children(node, width)
     end
 
     local horiz, vert = v.align or "left", v.vertical_align or "top"
-    v.box.x = align(horiz, x, width, v.box:width())
-    v.box.y = align(vert, y, line_height, v.box:height())
+    v.box.x = align(horiz, x, layouts.calc_width(node, parent, max_width), v.box:width())
+    v.box.y = align(vert, y, layouts.calc_height(node, parent, line_height), v.box:height())
     x = v.box.x + v.box:width()
 
     line_height = math.max(v.box:height(), line_height)
@@ -81,7 +81,7 @@ function layouts.standard(node, parent)
   node.box.content.width = layouts.max_width(node, parent)
   node.box.content.height = layouts.calc_height(node, parent, 0)
 
-  local w, h = layouts.children(node, node.box.content.width)
+  local w, h = layouts.children(node, parent, node.box.content.width)
 
   node.box.content.width = layouts.calc_width(node, parent, w)
   node.box.content.height = layouts.calc_height(node, parent, h)
