@@ -7,25 +7,25 @@ local Node = require("moonpie.node")
 local Components = require("moonpie.components")
 local RenderEngine = {}
 
-local function build_node(component, parent)
+function RenderEngine:build_node(component, parent)
   local new_node = Node(component, parent)
 
   if component.render then
     local rendered = component:render()
-    new_node:add(build_node(rendered, new_node))
+    new_node:add(RenderEngine:build_node(rendered, new_node))
   else
     for _, v in ipairs(component) do
-      new_node:add(build_node(v, new_node))
+      new_node:add(RenderEngine:build_node(v, new_node))
     end
   end
 
   return new_node
 end
 
-local function render_node(node)
+function RenderEngine:render_node(node)
   local rendered = node:render()
   node:clear_children()
-  node:add(build_node(rendered, node))
+  node:add(RenderEngine:build_node(rendered, node))
 end
 
 function RenderEngine:paint()
@@ -62,7 +62,7 @@ end
 function RenderEngine:update_nodes(node)
   if node.is_hidden and node:is_hidden() then return end
   if node.has_updates and node:has_updates() then
-    render_node(node)
+    RenderEngine:render_node(node)
     node:layout()
     node:flag_updates(false)
   else
@@ -77,7 +77,7 @@ return function(...)
   renderer.root = Node(Components.root())
 
   for _, v in ipairs({...}) do
-    renderer.root:add(build_node(v, renderer.root))
+    renderer.root:add(renderer:build_node(v, renderer.root))
   end
 
   renderer.root:layout()
