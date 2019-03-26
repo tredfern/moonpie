@@ -5,7 +5,11 @@
 
 local Node = require("moonpie.node")
 local Components = require("moonpie.components")
+local List = require("moonpie.collections.list")
 local RenderEngine = {}
+RenderEngine.layers = {
+  order = { "ui", "modal", "floating", "debug" }
+}
 
 function RenderEngine:build_node(component, parent)
   local new_node = Node(component, parent)
@@ -72,19 +76,33 @@ function RenderEngine:update_nodes(node)
   end
 end
 
-function RenderEngine:render_all(...)
-  local renderer = setmetatable({}, { __index = RenderEngine })
-  renderer.root = Node(Components.root())
+function RenderEngine:ordered_layers()
+  local list = List:new()
 
-  for _, v in ipairs({...}) do
-    renderer.root:add(renderer:build_node(v, renderer.root))
+  for _, v in pairs(self.layers.order) do
+    list:add(self.layers[v])
   end
 
-  renderer.root:layout()
-
-  return renderer
+  return list
 end
 
-setmetatable(RenderEngine, { __call = RenderEngine.render_all })
+function RenderEngine:render_default(...)
+  return self:render_all("ui", ...)
+end
+
+function RenderEngine:render_all(layer_name, ...)
+  local layer = setmetatable({}, { __index = RenderEngine })
+  layer.root = Node(Components.root())
+
+  for _, v in ipairs({...}) do
+    layer.root:add(layer:build_node(v, layer.root))
+  end
+
+  layer.root:layout()
+  RenderEngine.layers[layer_name] = layer
+  return layer
+end
+
+setmetatable(RenderEngine, { __call = RenderEngine.render_default })
 return RenderEngine
 

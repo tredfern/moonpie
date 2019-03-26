@@ -14,7 +14,6 @@ local moonpie = {
   font = require "moonpie.font",
   keyboard = keyboard,
   mouse = mouse,
-  layers = require "moonpie.layers",
   logger = require "moonpie.logger",
   styles = require "moonpie.styles",
   tween = require "moonpie.ext.tween",
@@ -38,7 +37,7 @@ local update_timer = moonpie.utility.timer:new("UI Update")
 function moonpie.paint()
   paint_timer:start()
   frame_number = frame_number + 1
-  for _, v in ipairs(moonpie.layers.render_order()) do
+  for _, v in ipairs(RenderEngine:ordered_layers()) do
     v:paint()
   end
 
@@ -50,14 +49,13 @@ function moonpie.paint()
 end
 
 function moonpie.render(layer_name, ...)
-  moonpie.layers[layer_name] = RenderEngine(...)
-  return moonpie.layers[layer_name]
+  RenderEngine:render_all(layer_name, ...)
 end
 
 function moonpie.update()
   update_timer:start()
   keyboard:update()
-  for _, v in ipairs(moonpie.layers.render_order()) do
+  for _, v in ipairs(RenderEngine:ordered_layers()) do
     v:update(mouse)
   end
   -- HACK: Mouse isn't handled smoothly
@@ -73,8 +71,8 @@ function moonpie.load_debug()
   debug = moonpie.components.debug_panel()
   moonpie.render("debug", debug )
   debug.hidden = true
-  moonpie.layers.debug.root.background_color = "transparent"
-  moonpie.layers.debug.root.color = "background"
+  RenderEngine.layers.debug.root.background_color = "transparent"
+  RenderEngine.layers.debug.root.color = "background"
   keyboard:hotkey("`", function() debug.hidden = not debug.hidden end)
 end
 
