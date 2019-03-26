@@ -72,7 +72,7 @@ function RenderEngine:update_nodes(node)
   end
 end
 
-return function(...)
+function RenderEngine:render_all(...)
   local renderer = setmetatable({}, { __index = RenderEngine })
   renderer.root = Node(Components.root())
 
@@ -84,4 +84,7 @@ return function(...)
 
   return renderer
 end
+
+setmetatable(RenderEngine, { __call = RenderEngine.render_all })
+return RenderEngine
 
