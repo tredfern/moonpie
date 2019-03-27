@@ -96,11 +96,15 @@ function RenderEngine.paint()
   end
 end
 
-function RenderEngine.render_default(...)
-  return RenderEngine.render_all("ui", ...)
+function RenderEngine.validate_layer(layer_name)
+  for _, v in ipairs(RenderEngine.layers.order) do
+    if v == layer_name then return end
+  end
+  error(string.format("Layer %s is not supported", layer_name))
 end
 
 function RenderEngine.render_all(layer_name, ...)
+  RenderEngine.validate_layer(layer_name)
   local layer = setmetatable({}, { __index = Layer })
   layer.root = Node(Components.root())
 
@@ -113,6 +117,5 @@ function RenderEngine.render_all(layer_name, ...)
   return layer
 end
 
-setmetatable(RenderEngine, { __call = function(_, ...) return RenderEngine.render_default(...) end })
+setmetatable(RenderEngine, { __call = function(_, layer, ...) return RenderEngine.render_all(layer, ...) end })
 return RenderEngine
-
