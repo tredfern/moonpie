@@ -96,6 +96,12 @@ function RenderEngine.paint()
   end
 end
 
+function RenderEngine.update(mouse)
+  for _, v in ipairs(RenderEngine.ordered_layers()) do
+    v:update(mouse)
+  end
+end
+
 function RenderEngine.validate_layer(layer_name)
   for _, v in ipairs(RenderEngine.layers.order) do
     if v == layer_name then return end

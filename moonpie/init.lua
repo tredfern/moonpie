@@ -53,9 +53,7 @@ end
 function moonpie.update()
   update_timer:start()
   keyboard:update()
-  for _, v in ipairs(RenderEngine:ordered_layers()) do
-    v:update(mouse)
-  end
+  RenderEngine.update(mouse)
   -- HACK: Mouse isn't handled smoothly
   mouse:update_button_states()
   update_timer:stop()

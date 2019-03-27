@@ -117,6 +117,18 @@ describe("RenderEngine", function()
   end)
 
   describe("Updating", function()
+    it("updates all the layers", function()
+      local ui = RenderEngine("ui", {})
+      local debug = RenderEngine("debug", {})
+      local modal = RenderEngine("modal", {})
+      local mouse = { update = spy.new(function() end) }
+
+      RenderEngine.update(mouse)
+      assert.spy(mouse.update).was.called.with(mouse, ui.root)
+      assert.spy(mouse.update).was.called.with(mouse, debug.root)
+      assert.spy(mouse.update).was.called.with(mouse, modal.root)
+    end)
+
     describe("Refreshing", function()
       it("will rerender child output if the component is flagged for updates and has a render method", function()
         local c = Component.complex()
