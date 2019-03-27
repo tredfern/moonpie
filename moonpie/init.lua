@@ -37,9 +37,7 @@ local update_timer = moonpie.utility.timer:new("UI Update")
 function moonpie.paint()
   paint_timer:start()
   frame_number = frame_number + 1
-  for _, v in ipairs(RenderEngine:ordered_layers()) do
-    v:paint()
-  end
+  RenderEngine.paint()
 
   -- Debug stats
   local stats = love.graphics.getStats()
@@ -49,7 +47,7 @@ function moonpie.paint()
 end
 
 function moonpie.render(layer_name, ...)
-  RenderEngine:render_all(layer_name, ...)
+  RenderEngine.render_all(layer_name, ...)
 end
 
 function moonpie.update()
