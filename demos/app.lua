@@ -54,6 +54,8 @@ function app.choose_mode()
   return components.dropdown({
     caption = "Switch Mode",
     content = {
+      width = 100,
+      height = 100,
       display = "inline",
       background_color = "background",
       border = 1,

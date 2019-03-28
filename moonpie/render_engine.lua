@@ -9,6 +9,22 @@ local List = require("moonpie.collections.list")
 local Layer = {}
 local RenderEngine = {}
 
+function Layer:render_all(...)
+  self.root:clear_children()
+
+  for _, v in ipairs({...}) do
+    self.root:add(RenderEngine.build_node(v, self.root))
+  end
+
+  self.root:layout()
+end
+
+function Layer:add_node(node)
+  node.parent = self.root
+  self.root:add(node)
+  self.root:layout()
+end
+
 function Layer:paint()
   RenderEngine.refresh_style(self.root)
   self.root:paint()
@@ -37,15 +53,23 @@ RenderEngine.layers = {
   order = { "ui", "modal", "floating", "debug" }
 }
 
+function RenderEngine.add_node(node, parent)
+  if node.target_layer then
+    RenderEngine.layers[node.target_layer]:add_node(node)
+  else
+    parent:add(node)
+  end
+end
+
 function RenderEngine.build_node(component, parent)
   local new_node = Node(component, parent)
 
   if component.render then
     local rendered = component:render()
-    new_node:add(RenderEngine.build_node(rendered, new_node))
+    RenderEngine.add_node(RenderEngine.build_node(rendered, new_node), new_node)
   else
     for _, v in ipairs(component) do
-      new_node:add(RenderEngine.build_node(v, new_node))
+      RenderEngine.add_node(RenderEngine.build_node(v, new_node), new_node)
     end
   end
 
@@ -55,7 +79,7 @@ end
 function RenderEngine.render_node(node)
   local rendered = node:render()
   node:clear_children()
-  node:add(RenderEngine.build_node(rendered, node))
+  RenderEngine.add_node(RenderEngine.build_node(rendered, node), node)
 end
 
 
@@ -111,16 +135,16 @@ end
 
 function RenderEngine.render_all(layer_name, ...)
   RenderEngine.validate_layer(layer_name)
+
+  RenderEngine.layers[layer_name]:render_all(...)
+  return RenderEngine.layers[layer_name]
+
+end
+
+for _, v in ipairs(RenderEngine.layers.order) do
   local layer = setmetatable({}, { __index = Layer })
   layer.root = Node(Components.root())
-
-  for _, v in ipairs({...}) do
-    layer.root:add(RenderEngine.build_node(v, layer.root))
-  end
-
-  layer.root:layout()
-  RenderEngine.layers[layer_name] = layer
-  return layer
+  RenderEngine.layers[v] = layer
 end
 
 setmetatable(RenderEngine, { __call = function(_, layer, ...) return RenderEngine.render_all(layer, ...) end })

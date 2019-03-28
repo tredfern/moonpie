@@ -42,7 +42,7 @@ describe("RenderEngine", function()
       end)
     end)
 
-    describe("deep tree", function()
+    it("can build a deep tree", function()
       local r = RenderEngine("ui",
       { id = "1",
         { id = "1.1",
@@ -113,6 +113,28 @@ describe("RenderEngine", function()
       -- nodes should be Root -> Complex (c) -> text = "foo"
       assert.equals("complex", r.root.children[1].text)
       assert.equals("foo", r.root.children[1].children[1].text)
+    end)
+  end)
+
+  describe("Rendering to multiple layers", function()
+    it("when a component specifies a target layer, append to root of that one", function()
+      local float = { target_layer = "floating" }
+      local multi = { float }
+      RenderEngine("ui", multi)
+      assert.is_nil(RenderEngine.layers.ui:find_by_component(float))
+      local n = RenderEngine.layers.floating:find_by_component(float)
+      assert.not_nil(n)
+      assert.equals(float, n.component)
+      assert.equals(RenderEngine.layers.floating.root, n.parent)
+    end)
+
+    it("updates the layout of the root layer after adding a new node", function()
+      local float = { target_layer = "floating" }
+      local multi = { float }
+      local old = RenderEngine.layers.floating.root.layout
+      RenderEngine.layers.floating.root.layout = spy.new(function(...) return old(...) end)
+      RenderEngine("ui", multi)
+      assert.spy(RenderEngine.layers.floating.root.layout).was.called()
     end)
   end)
 

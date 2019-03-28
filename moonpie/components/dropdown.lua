@@ -13,11 +13,11 @@ Component("dropdown", function(props)
   dd.toggle = function() dd:update{ content_visible = not dd.content_visible } end
 
   dd.render = function()
-    local o = dd.content_visible and dd.content or nil
+    local floating_content = dd.content_visible and dd.content or nil
     return Component.section({
       style = "dropdown",
       Component.button({ id = "dropdown_btn", caption = props.caption, click = dd.toggle }),
-      o
+      floating_content
     })
   end
   return dd
