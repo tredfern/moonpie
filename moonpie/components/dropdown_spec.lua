@@ -17,6 +17,7 @@ describe("Components - Dropdown", function()
   it("Renders a floating element if clicked", function()
     local menu = components.text({ id = "content", text = "A thing to show" })
     local d = components.dropdown({ caption = "Drop", content = { menu } })
+    d.box = { region = function() return { left = 3, bottom = 10 } end }
     local out = d:render()
     local btn = out:find_by_id("dropdown_btn")
     btn:click()

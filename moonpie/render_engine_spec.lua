@@ -68,6 +68,13 @@ describe("RenderEngine", function()
       local node = r:find_by_component(c)
       assert.equals(c, node.component)
     end)
+
+    it("can search all the layers to find a node by component", function()
+      local c = Component.complex()
+      RenderEngine("ui", c)
+      local node = RenderEngine.find_by_component(c)
+      assert.equals(c, node.component)
+    end)
   end)
 
   describe("Paint", function()
@@ -135,6 +142,14 @@ describe("RenderEngine", function()
       RenderEngine.layers.floating.root.layout = spy.new(function(...) return old(...) end)
       RenderEngine("ui", multi)
       assert.spy(RenderEngine.layers.floating.root.layout).was.called()
+    end)
+
+    it("makes sure to assign the box parent to the layer root", function()
+      local float = { target_layer = "floating" }
+      local multi = { float }
+      RenderEngine("ui", multi)
+      local n = RenderEngine.find_by_component(float)
+      assert.equals(RenderEngine.layers.floating.root.box, n.box.parent)
     end)
   end)
 

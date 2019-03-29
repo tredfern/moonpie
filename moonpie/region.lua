@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 return function(l, t, r, b)
-  return {
+  return setmetatable({
     left = l,
     right = r,
     top = t,
@@ -14,5 +14,9 @@ return function(l, t, r, b)
       return x >= self.left and x <= self.right and
         y >= self.top and y <= self.bottom
     end
-  }
+  }, {
+    __tostring = function(tbl)
+        return string.format("Region (%d,%d)-(%d,%d)", tbl.left, tbl.top, tbl.right, tbl.bottom)
+    end
+  })
 end

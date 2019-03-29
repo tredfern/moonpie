@@ -21,6 +21,7 @@ end
 
 function Layer:add_node(node)
   node.parent = self.root
+  node.box.parent = self.root.box
   self.root:add(node)
   self.root:layout()
 end
@@ -65,7 +66,7 @@ function RenderEngine.build_node(component, parent)
   local new_node = Node(component, parent)
 
   if component.render then
-    local rendered = component:render()
+    local rendered = new_node:render()
     RenderEngine.add_node(RenderEngine.build_node(rendered, new_node), new_node)
   else
     for _, v in ipairs(component) do
@@ -74,6 +75,13 @@ function RenderEngine.build_node(component, parent)
   end
 
   return new_node
+end
+
+function RenderEngine.find_by_component(component)
+  for _, v in ipairs(RenderEngine.ordered_layers()) do
+    local f = v:find_by_component(component)
+    if f then return f end
+  end
 end
 
 function RenderEngine.render_node(node)

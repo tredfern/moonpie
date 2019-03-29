@@ -5,7 +5,6 @@
 
 local align = require("moonpie.alignment")
 local math_ext = require("moonpie.math_ext")
-
 local layouts = {}
 
 function layouts.children(node, parent, width)
@@ -15,25 +14,35 @@ function layouts.children(node, parent, width)
   for _, v in pairs(node.children) do
     v:layout(node)
 
-    if x > 0 and x + v.box:width() > width then
-      x = 0
-      y = y + line_height
-      max_height = max_height + line_height
-      line_height = 0
+    if v.position == "absolute" then
+      layouts.absolute_position(v)
+    else
+      -- TODO: Getting messy
+      if x > 0 and x + v.box:width() > width then
+        x = 0
+        y = y + line_height
+        max_height = max_height + line_height
+        line_height = 0
+      end
+
+      local horiz, vert = v.align or "left", v.vertical_align or "top"
+      v.box.x = align(horiz, x, layouts.calc_width(node, parent, max_width), v.box:width())
+      v.box.y = align(vert, y, layouts.calc_height(node, parent, line_height), v.box:height())
+      x = v.box.x + v.box:width()
+
+      line_height = math.max(v.box:height(), line_height)
+      max_width = math.max(max_width, x)
     end
-
-    local horiz, vert = v.align or "left", v.vertical_align or "top"
-    v.box.x = align(horiz, x, layouts.calc_width(node, parent, max_width), v.box:width())
-    v.box.y = align(vert, y, layouts.calc_height(node, parent, line_height), v.box:height())
-    x = v.box.x + v.box:width()
-
-    line_height = math.max(v.box:height(), line_height)
-    max_width = math.max(max_width, x)
   end
 
   max_height = max_height + line_height
 
   return max_width, max_height
+end
+
+function layouts.absolute_position(node)
+  node.box.x = node.x
+  node.box.y = node.y
 end
 
 function layouts.max_width(node, p)
