@@ -150,4 +150,20 @@ describe("Component", function()
       assert.matches("style3", s.style)
     end)
   end)
+
+  it("can add component properties to any table", function()
+    local t = { }
+    Component.add_component_methods(t)
+    assert.not_nil(t.is_hidden)
+    assert.equals("function", type(t.is_hidden))
+    assert.is_true(t.has_component_methods)
+  end)
+
+  it("does not replace the methods if the add component methods is called again", function()
+    local t = {}
+    Component.add_component_methods(t)
+    local m = t.is_hidden
+    Component.add_component_methods(t)
+    assert.equals(m, t.is_hidden)
+  end)
 end)

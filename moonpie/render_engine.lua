@@ -104,7 +104,7 @@ function RenderEngine.update_nodes(node)
   if node.has_updates and node:has_updates() then
     RenderEngine.render_node(node)
     node:layout()
-    node:flag_updates(false)
+    node.component:flag_updates(false)
   else
     for _, v in ipairs(node.children) do
       RenderEngine.update_nodes(v)
