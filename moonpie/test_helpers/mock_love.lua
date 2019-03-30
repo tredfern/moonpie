@@ -82,9 +82,17 @@ love = {
     },
     handlers = { }
 }
+
+local original_methods = {}
 return {
   mock = function(tbl, method, replace)
+    original_methods[tostring(tbl) .. method] = tbl[method]
     tbl[method] = replace
+  end,
+  reset = function(tbl, method)
+    if original_methods[tostring(tbl) .. method] then
+      tbl[method] = original_methods[tostring(tbl) .. method]
+    end
   end,
   override_graphics = function(v, r)
     love.graphics[v] = r

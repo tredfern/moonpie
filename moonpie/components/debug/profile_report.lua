@@ -55,6 +55,13 @@ Component("profile_report", function()
             click = function()
               love.filesystem.write("profile_report.txt", profiler.report())
             end
+          }),
+          Component.button({
+            id = "profile_reset",
+            caption = "Clear",
+            click = function()
+              profiler.reset()
+            end
           })
         }
       })

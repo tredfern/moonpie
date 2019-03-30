@@ -49,6 +49,9 @@ Fonts = {{fonts}}
       Component.fps_counter(),
     },
     {
+      Component.memory_stats()
+    },
+    {
       Component.frame_number({ frame_number = props.stats.frame_number })
     }
   }
