@@ -7,6 +7,8 @@ local box_model = require("moonpie.box_model")
 local layouts = require("moonpie.layouts")
 local drawing = require("moonpie.drawing")
 local styles = require("moonpie.styles")
+local List = require ("moonpie.collections.list")
+local safecall = require "moonpie.utility.safe_call"
 
 return function(component, parent)
   component = component or {}
@@ -21,7 +23,7 @@ return function(component, parent)
 
   n.parent = parent
   n.component = component
-  n.children = {}
+  n.children = List:new()
   n.box = box_model(n, parent.box)
 
   n.add = function(self, ...)
@@ -31,7 +33,10 @@ return function(component, parent)
   end
 
   n.clear_children = function(self)
-    self.children = {}
+    for _, v in ipairs(self.children) do
+      safecall(v.destroy, v)
+    end
+    self.children:clear()
   end
 
   n.hover = function(self)
@@ -49,5 +54,17 @@ return function(component, parent)
     cached_style = styles.compute(component, parent, { hover = self.hover and self:hover() })
   end
 
+  n.destroy = function(self)
+    n.component.node = nil
+    n.parent = nil
+    safecall(n.component.unmounted, n.component)
+    n.component = nil
+    for _, v in ipairs(self.children) do
+      v:destroy()
+    end
+  end
+
+  --Assign reference back for component
+  n.component.node = n
   return n
 end

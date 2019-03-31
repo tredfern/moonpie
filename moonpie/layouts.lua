@@ -41,8 +41,8 @@ function layouts.children(node, parent, width)
 end
 
 function layouts.absolute_position(node)
-  node.box.x = node.x
-  node.box.y = node.y
+  node.box.x = node.x or 0
+  node.box.y = node.y or 0
 end
 
 function layouts.max_width(node, p)

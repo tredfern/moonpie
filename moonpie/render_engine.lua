@@ -6,6 +6,7 @@
 local Node = require("moonpie.node")
 local Components = require("moonpie.components")
 local List = require("moonpie.collections.list")
+local safecall = require("moonpie.utility.safe_call")
 local Layer = {}
 local RenderEngine = {}
 
@@ -33,7 +34,9 @@ end
 
 function Layer:update(mouse)
   mouse:update(self.root)
-  RenderEngine.update_nodes(self.root)
+  if RenderEngine.update_nodes(self.root) then
+    self.root:layout()
+  end
 end
 
 function Layer:find_by_component(c, node)
@@ -54,7 +57,20 @@ RenderEngine.layers = {
   order = { "ui", "modal", "floating", "debug" }
 }
 
+function RenderEngine.remove_component_if_exists(component)
+  local n = RenderEngine.find_by_component(component)
+  if n then
+    RenderEngine.remove_node(n)
+  end
+end
+
+function RenderEngine.remove_node(node)
+  node.parent.children:remove(node)
+  node:destroy()
+end
+
 function RenderEngine.add_node(node, parent)
+  RenderEngine.remove_component_if_exists(node.component)
   if node.target_layer then
     RenderEngine.layers[node.target_layer]:add_node(node)
   else
@@ -85,9 +101,11 @@ function RenderEngine.find_by_component(component)
 end
 
 function RenderEngine.render_node(node)
-  local rendered = node:render()
-  node:clear_children()
-  RenderEngine.add_node(RenderEngine.build_node(rendered, node), node)
+  if node.render then
+    local rendered = node:render()
+    node:clear_children()
+    RenderEngine.add_node(RenderEngine.build_node(rendered, node), node)
+  end
 end
 
 
@@ -100,16 +118,27 @@ end
 
 
 function RenderEngine.update_nodes(node)
+  local updates = safecall(node.has_updates, node)
+
+  -- hidden components do nothing
   if node.is_hidden and node:is_hidden() then return end
-  if node.has_updates and node:has_updates() then
-    RenderEngine.render_node(node)
-    node:layout()
-    node.component:flag_updates(false)
+
+  -- Removal gets rid of the entire tree, so take care of that
+  if safecall(node.needs_removal, node) then
+    RenderEngine.remove_node(node)
   else
+    -- perform any updates
+    if safecall(node.has_updates, node) then
+      RenderEngine.render_node(node)
+      node:layout()
+      node.component:flag_updates(false)
+    end
+
     for _, v in ipairs(node.children) do
-      RenderEngine.update_nodes(v)
+      updates = RenderEngine.update_nodes(v) or updates
     end
   end
+  return updates
 end
 
 function RenderEngine.ordered_layers()
@@ -146,14 +175,17 @@ function RenderEngine.render_all(layer_name, ...)
 
   RenderEngine.layers[layer_name]:render_all(...)
   return RenderEngine.layers[layer_name]
-
 end
 
-for _, v in ipairs(RenderEngine.layers.order) do
-  local layer = setmetatable({}, { __index = Layer })
-  layer.root = Node(Components.root())
-  RenderEngine.layers[v] = layer
+function RenderEngine.clear_all()
+  for _, v in ipairs(RenderEngine.layers.order) do
+    local layer = setmetatable({}, { __index = Layer })
+    layer.root = Node(Components.root())
+    RenderEngine.layers[v] = layer
+  end
 end
+
+RenderEngine.clear_all()
 
 setmetatable(RenderEngine, { __call = function(_, layer, ...) return RenderEngine.render_all(layer, ...) end })
 return RenderEngine

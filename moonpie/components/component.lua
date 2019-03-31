@@ -10,11 +10,14 @@ local copy_props = {
   "height",
   "id",
   "padding",
+  "position",
   "style",
+  "target_layer",
   "width"
 }
 
 local ComponentFactory = {}
+local Component_mt = { }
 
 local function find_by_id(component, id)
   for _, v in ipairs(component) do
@@ -27,6 +30,7 @@ local function find_by_id(component, id)
 end
 
 function ComponentFactory.add_component_methods(c)
+  setmetatable(c, Component_mt)
   if c.has_component_methods then return end
 
   c.update = function(self, new)
@@ -38,9 +42,11 @@ function ComponentFactory.add_component_methods(c)
 
   c.flag_updates = function(self, f) self.updates_available = f end
   c.has_updates = function(self) return self.updates_available end
+  c.flag_removal = function(self) self:update({ ready_to_remove = true }) end
+  c.needs_removal = function(self) return self.ready_to_remove end
 
-  c.show = function(self) self.hidden = false end
-  c.hide = function(self) self.hidden = true end
+  c.show = function(self) self:update({ hidden = false}) end
+  c.hide = function(self) self:update({ hidden = true}) end
   c.is_hidden = function(self) return self.hidden end
 
   c.add_style = function(self, style)
@@ -49,6 +55,10 @@ function ComponentFactory.add_component_methods(c)
 
   c.remove_style = function(self, style)
     self.style = string.gsub(self.style, style, "")
+  end
+
+  c.get_node = function()
+    return c.node
   end
 
   c.has_component_methods = true
