@@ -25,10 +25,9 @@ local function get_value(computed, value)
   end
 
   for _, v in ipairs(computed.styles) do
-    if v[value] then
-      if computed._flags.hover and v._hover_ and v._hover_[value] then
-        return v._hover_[value]
-      end
+    if computed._flags.hover and v._hover_ and v._hover_[value] then
+      return v._hover_[value]
+    elseif v[value] then
       return v[value]
     end
   end
@@ -65,9 +64,6 @@ function styles.compute(source, parent_style, flags)
 
   return result
 end
-
-
-
 
 setmetatable(styles, {
   __call = styles.compute

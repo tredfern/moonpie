@@ -9,6 +9,7 @@ local copy_props = {
   "color",
   "height",
   "id",
+  "margin",
   "padding",
   "position",
   "style",

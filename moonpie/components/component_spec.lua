@@ -106,6 +106,11 @@ describe("Component", function()
         assert.equals(652, p.height)
       end)
 
+      it("margin", function()
+        local p = Component.button({ margin = 10 })
+        assert.equals(10, p.margin)
+      end)
+
       it("position", function()
         local p = Component.button({ position = "absolute" })
         assert.equals("absolute", p.position)

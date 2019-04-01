@@ -59,6 +59,26 @@ return function(moonpie)
     display = "inline"
   }
 
+  styles.dropdown_menu = {
+    display = "inline",
+  }
+
+  styles.dropdown_menu_content = {
+    display = "inline",
+    border = 1,
+    border_color = "dark_accent",
+    child_orientation = "vertical",
+    background_color = "background",
+  }
+
+  styles.dropdown_menu_option = {
+    display = "inline",
+    padding = 10,
+    color = "text",
+    _hover_ = { background_color = "accent" }
+  }
+
+
   button_style("primary", "primary")
   button_style("info", "info")
   button_style("danger", "danger")

@@ -51,32 +51,21 @@ end
 -- A button to switch between the light and the dark
 --
 function app.choose_mode()
-  return components.dropdown({
+  return components.dropdown_menu({
     caption = "Switch Mode",
-    content = {
-      width = 100,
-      height = 100,
-      display = "inline",
-      background_color = "background",
-      border = 1,
-      border_color = "text",
+    options = {
       {
-        components.button({
-          caption = "Light Mode",
-          click = function()
-            moonpie.logger.debug("Light Mode Clicked")
-            moonpie.themes.light_mode(moonpie)
-          end
-        })
-      },
-      {
-        components.button({
-          caption = "Dark Mode",
-          click = function()
-            moonpie.logger.debug("Dark Mode Clicked")
-            moonpie.themes.dark_mode(moonpie)
-          end
-        })
+        caption = "Light Mode",
+        click = function()
+          moonpie.logger.debug("Light Mode Clicked")
+          moonpie.themes.light_mode(moonpie)
+        end
+      }, {
+        caption = "Dark Mode",
+        click = function()
+          moonpie.logger.debug("Dark Mode Clicked")
+          moonpie.themes.dark_mode(moonpie)
+        end
       }
     }
   })

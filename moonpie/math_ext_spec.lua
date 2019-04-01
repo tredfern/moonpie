@@ -28,4 +28,14 @@ describe("math_ext", function()
     assert.is_false(math_ext.is_percent("1249"))
     assert.is_false(math_ext.is_percent("Foobar%%"))
   end)
+
+  it("can find the max value from a collection and processing function", function()
+    local list = { 1, 2, 3, 4, 5, 6, 7, 8 }
+    local list2 = { -1, -2, -5, -4, -3}
+
+    local m = math_ext.find_max(list, function(l) return l end)
+    assert.equals(8, m)
+    local m2 = math_ext.find_max(list2, function(l) return l end)
+    assert.equals(-1, m2)
+  end)
 end)

@@ -43,3 +43,25 @@ Component("dropdown", function(props)
   end
   return dd
 end)
+
+Component("dropdown_menu", function(props)
+  local menu = {}
+  for i, v in ipairs(props.options) do
+    menu[i] = Component.dropdown_menu_option(v)
+  end
+  return Component.dropdown({
+    caption = props.caption,
+    content = Component.dropdown_menu_content(menu)
+  })
+end)
+
+Component("dropdown_menu_content", function(props)
+  return props
+end)
+
+Component("dropdown_menu_option", function(props)
+  return {
+    click = props.click,
+    Component.text({ text = props.caption })
+  }
+end)

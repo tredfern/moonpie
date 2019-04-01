@@ -56,4 +56,24 @@ describe("Components - Dropdown", function()
     dd:unmounted()
     assert.is_true(content:needs_removal())
   end)
+
+  describe("DropdownMenu", function()
+    it("can be initialized with a list of options", function()
+      local s = spy.new(function() end)
+      local dm = components.dropdown_menu({
+        caption = "Menu", options = {
+          { id = "opt1", caption = "Option 1", click = s },
+          { id = "opt2", caption = "Option 2", click = s }
+        }
+      })
+
+      local opt1 = dm.content:find_by_id("opt1")
+      local opt2 = dm.content:find_by_id("opt2")
+      assert.equals("dropdown_menu_option", opt1.name)
+      opt1:click()
+      assert.spy(s).was.called.with(opt1)
+      opt2:click()
+      assert.spy(s).was.called.with(opt2)
+    end)
+  end)
 end)

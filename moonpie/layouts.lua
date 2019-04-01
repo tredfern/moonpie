@@ -7,18 +7,18 @@ local align = require("moonpie.alignment")
 local math_ext = require("moonpie.math_ext")
 local layouts = {}
 
-function layouts.children(node, parent, width)
+function layouts.horizontal_orientation(node, parent, width)
   local x, y = 0, 0
   local line_height, max_width, max_height = 0, 0, 0
+  local new_line_width = width
 
   for _, v in pairs(node.children) do
-    v:layout(node)
-
     if v.position == "absolute" then
       layouts.absolute_position(v)
     else
       -- TODO: Getting messy
-      if x > 0 and x + v.box:width() > width then
+      if x > 0 and x + v.box:width() > new_line_width then
+        -- New Line
         x = 0
         y = y + line_height
         max_height = max_height + line_height
@@ -34,10 +34,44 @@ function layouts.children(node, parent, width)
       max_width = math.max(max_width, x)
     end
   end
-
   max_height = max_height + line_height
 
   return max_width, max_height
+end
+
+function layouts.vertical_orientation(node, parent)
+  local x, y = 0, 0
+  local max_width, max_height = 0, 0
+
+  local set_width = math_ext.find_max(node.children, function(n) return n.box.content.width end)
+
+  for _, v in ipairs(node.children) do
+    if v.position == "absolute" then
+      layouts.absolute_position(v)
+    else
+      local horiz, vert = v.align or "left", v.vertical_align or "top"
+      v.box.content.width = set_width
+      v.box.x = align(horiz, x, layouts.calc_width(node, parent, 0), v.box:width())
+      v.box.y = align(vert, y, layouts.calc_height(node, parent, 0), v.box:height())
+      y = v.box.y + v.box:height()
+
+      max_height = max_height + v.box:height()
+      max_width = math.max(max_width, v.box:width())
+    end
+  end
+
+  return max_width, max_height
+end
+
+function layouts.children(node, parent, width)
+  for _, v in pairs(node.children) do
+    v:layout(node)
+  end
+  if node.child_orientation == "vertical" then
+    return layouts.vertical_orientation(node, parent, width)
+  else
+    return layouts.horizontal_orientation(node, parent, width)
+  end
 end
 
 function layouts.absolute_position(node)

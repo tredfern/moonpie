@@ -103,13 +103,22 @@ describe("Styles", function()
 
     describe("conditional styles", function()
       describe("hover", function()
-        styles.text = { color = "blue", _hover_ = { color = "green" } }
-        local item = { style = "text" }
-        local parent = {}
-        local s = styles.compute(item, parent, { hover = false })
-        assert.equals("blue", s.color)
-        s = styles.compute(item, parent, { hover = true })
-        assert.equals("green", s.color)
+        it("overrides an existing value if hover flag is true", function()
+          styles.text = { color = "blue", _hover_ = { color = "green" } }
+          local item = { style = "text" }
+          local parent = {}
+          local s = styles.compute(item, parent, { hover = false })
+          assert.equals("blue", s.color)
+          s = styles.compute(item, parent, { hover = true })
+          assert.equals("green", s.color)
+        end)
+
+        it("can also provide an additional property if hover flag is true", function()
+          styles.hover2 = { _hover_ = { color = "purple" } }
+          local item = { style = "hover2" }
+          local s = styles.compute(item, nil, { hover = true })
+          assert.equals("purple", s.color)
+        end)
       end)
     end)
   end)
