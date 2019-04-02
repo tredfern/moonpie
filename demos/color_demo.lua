@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 local moonpie = require "moonpie"
-local components = moonpie.components
+local components = moonpie.ui.components
 
 components("color_sample", function(props)
   return {
@@ -21,7 +21,7 @@ local function color_gradient(base_color, gradients)
   local t = {}
   for i = 1, gradients do
     t[i] = components.text({ padding = 10, text = tostring(i),
-      background_color = moonpie.colors.lighten(base_color, 1 + ( i / 10))
+      background_color = moonpie.graphics.colors.lighten(base_color, 1 + ( i / 10))
     })
   end
   return t
@@ -29,8 +29,8 @@ end
 
 local function color_display()
   local out = moonpie.collections.list:new()
-  for _, v in ipairs(moonpie.colors.all()) do
-    if moonpie.colors.is_color(v) then
+  for _, v in ipairs(moonpie.graphics.colors.all()) do
+    if moonpie.graphics.colors.is_color(v) then
       out:add(components.color_sample({ color = v }))
     end
   end
@@ -42,9 +42,9 @@ return function()
     {
       components.h3({ text = "Lighten the things" }),
       components.section({
-        color_gradient(moonpie.colors.dark_lava, 20),
-        color_gradient(moonpie.colors.purple, 20),
-        color_gradient(moonpie.colors.avocado, 20),
+        color_gradient(moonpie.graphics.colors.dark_lava, 20),
+        color_gradient(moonpie.graphics.colors.purple, 20),
+        color_gradient(moonpie.graphics.colors.avocado, 20),
       }),
     },
     {

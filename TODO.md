@@ -1,6 +1,9 @@
 # Todo List
+ 1. reorganize namespace
 
 ## Features
+ 1. Better font management
+
 ### Controls
  1. Lists
  1. Tables

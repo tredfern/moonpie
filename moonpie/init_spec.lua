@@ -8,7 +8,7 @@ describe("Initialize Moonpie", function()
   local moonpie = require "moonpie"
 
   it("has an components base", function()
-    assert.not_nil(moonpie.components)
+    assert.not_nil(moonpie.ui.components)
   end)
 
   it("has a paint", function()
@@ -20,12 +20,12 @@ describe("Initialize Moonpie", function()
   end)
 
   it("has colors", function()
-    assert.not_nil(moonpie.colors)
-    assert.not_nil(moonpie.colors.red)
+    assert.not_nil(moonpie.graphics.colors)
+    assert.not_nil(moonpie.graphics.colors.red)
   end)
 
   it("has fonts", function()
-    assert.not_nil(moonpie.font)
+    assert.not_nil(moonpie.graphics.font)
   end)
 
   describe("updating", function()
@@ -57,7 +57,7 @@ describe("Initialize Moonpie", function()
 
   describe("Stylesheets", function()
     it("loads the stylesheet", function()
-      assert.not_nil(moonpie.styles.button)
+      assert.not_nil(moonpie.ui.styles.button)
     end)
   end)
 end)

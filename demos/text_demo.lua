@@ -3,7 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local components = require "moonpie.components"
+local components = require "moonpie.ui.components"
 
 return function()
   local lorem = love.filesystem.read("lorem_ipsum.txt")

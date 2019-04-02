@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 local moonpie = require "moonpie"
-local components = moonpie.components
+local components = moonpie.ui.components
 
 components("main_menu", function()
   local main_menu

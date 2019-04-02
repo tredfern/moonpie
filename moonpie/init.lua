@@ -3,24 +3,28 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local RenderEngine = require("moonpie.render_engine")
+local RenderEngine = require("moonpie.ui.render_engine")
 local mouse = require("moonpie.mouse")
 local keyboard = require "moonpie.keyboard"
 
 local moonpie = {
-  colors = require "moonpie.colors" ,
   collections = require "moonpie.collections",
-  components = require "moonpie.components",
-  font = require "moonpie.font",
+  graphics = {
+    colors = require "moonpie.graphics.colors" ,
+    font = require "moonpie.graphics.font",
+  },
   keyboard = keyboard,
   mouse = mouse,
   logger = require "moonpie.logger",
-  styles = require "moonpie.styles",
   tween = require "moonpie.ext.tween",
-  themes = {
-    standard = require "moonpie.themes.standard",
-    light_mode = require "moonpie.themes.light_mode",
-    dark_mode = require "moonpie.themes.dark_mode"
+  ui = {
+    components = require "moonpie.ui.components",
+    styles = require "moonpie.ui.styles",
+    themes = {
+      standard = require "moonpie.themes.standard",
+      light_mode = require "moonpie.themes.light_mode",
+      dark_mode = require "moonpie.themes.dark_mode"
+    },
   },
   utility = {
     timer = require "moonpie.utility.timer"
@@ -60,11 +64,11 @@ function moonpie.update()
 end
 
 function moonpie.load_stylesheet()
-  require("moonpie.stylesheet")(moonpie)
+  require("moonpie.ui.stylesheet")(moonpie)
 end
 
 function moonpie.load_debug()
-  debug = moonpie.components.debug_panel()
+  debug = moonpie.ui.components.debug_panel()
   moonpie.render("debug", debug )
   debug.hidden = true
   RenderEngine.layers.debug.root.background_color = "transparent"
@@ -72,8 +76,8 @@ function moonpie.load_debug()
   keyboard:hotkey("`", function() debug.hidden = not debug.hidden end)
 end
 
-moonpie.themes.standard(moonpie)
-moonpie.themes.light_mode(moonpie)
+moonpie.ui.themes.standard(moonpie)
+moonpie.ui.themes.light_mode(moonpie)
 moonpie.load_stylesheet()
 moonpie.load_debug()
 

@@ -5,10 +5,10 @@
 --
 
 return function(moonpie)
-  moonpie.colors.background = "light_shade"
-  moonpie.colors.text = "dark_shade"
-  moonpie.colors.accent = "light_accent"
-  moonpie.colors.invert_background = "dark_shade"
-  moonpie.colors.invert_text = "light_shade"
+  moonpie.graphics.colors.background = "light_shade"
+  moonpie.graphics.colors.text = "dark_shade"
+  moonpie.graphics.colors.accent = "light_accent"
+  moonpie.graphics.colors.invert_background = "dark_shade"
+  moonpie.graphics.colors.invert_text = "light_shade"
 end
 

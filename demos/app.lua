@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 local moonpie = require "moonpie"
-local components = moonpie.components
+local components = moonpie.ui.components
 require "demos.popup_menu"
 
 local app = {}
@@ -58,13 +58,13 @@ function app.choose_mode()
         caption = "Light Mode",
         click = function()
           moonpie.logger.debug("Light Mode Clicked")
-          moonpie.themes.light_mode(moonpie)
+          moonpie.ui.themes.light_mode(moonpie)
         end
       }, {
         caption = "Dark Mode",
         click = function()
           moonpie.logger.debug("Dark Mode Clicked")
-          moonpie.themes.dark_mode(moonpie)
+          moonpie.ui.themes.dark_mode(moonpie)
         end
       }
     }

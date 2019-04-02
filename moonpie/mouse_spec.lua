@@ -5,7 +5,7 @@
 
 describe("Mouse", function()
   local mock_love = require "moonpie.test_helpers.mock_love"
-  local node = require "moonpie.node"
+  local node = require "moonpie.ui.node"
   local mouse = require "moonpie.mouse"
 
   describe("initial state", function()
