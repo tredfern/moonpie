@@ -8,6 +8,9 @@ local layouts = require "moonpie.ui.layouts"
 local template = require "moonpie.utility.template"
 
 Component("text", function(props)
+  if type(props) == "string" then
+    props = { text = props }
+  end
   return {
     text = template(props.text, props),
     layout = layouts.text

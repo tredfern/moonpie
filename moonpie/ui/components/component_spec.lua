@@ -76,6 +76,12 @@ describe("Component", function()
         Component("button", function() return {} end)
       end)
 
+      it("border and border_color", function()
+        local s = Component.button({ border = 2, border_color = "green" })
+        assert.equals(2, s.border)
+        assert.equals("green", s.border_color)
+      end)
+
       it("style", function()
         local s = Component.button({ style = "some" })
         assert.equals("some", s.style)

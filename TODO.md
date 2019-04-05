@@ -15,3 +15,4 @@
 ## Bugs
  1. Alignment operations can cause screwy behavior when dealing with flex sized elements
   1. Should be able to center text on buttons that have flexible sizing
+ 1. Percentage Height is not working with child elements

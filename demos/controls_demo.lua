@@ -32,6 +32,22 @@ return function()
       components.checkbox({ caption = "Option 1" }),
       components.checkbox({ caption = "Option 2", value = true }),
       components.checkbox({ caption = "Option 3" })
+    },
+    { components.h2({ text = "Lists" }) },
+    {
+      margin = 5,
+      components.list({ border = 0, border_color = "accent", items = { "one", "two", "three" } }),
+      components.list({ list_item_type = components.image,
+        border = 0, border_color = "accent",
+        items = {
+          { components.image({ src = "assets/images/cat.jpg", width = 20, height = 20 },
+            components.text({ text = "CAT"}))
+          },
+          { components.image({ src = "assets/images/big.jpg", width = 20, height = 20 },
+            components.text({ text = "BIG"}))
+          },
+        }
+      })
     }
   }
 

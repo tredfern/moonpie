@@ -78,6 +78,13 @@ return function(moonpie)
     _hover_ = { background_color = "accent" }
   }
 
+  styles.list = {
+    display = "inline",
+    padding = 3,
+    color = "text",
+    child_orientation = "vertical"
+  }
+
 
   button_style("primary", "primary")
   button_style("info", "info")
