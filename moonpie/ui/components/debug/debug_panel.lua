@@ -74,13 +74,17 @@ Component("debug_panel", function()
             self.version
           },
           {
-            width = "40%",
+            width = "30%",
             Component.love_stats({ stats = self.stats }),
           },
           {
-            width = "40%",
+            width = "30%",
             Component.timer_display({ timer = self.paint_timer }),
             Component.timer_display({ timer = self.update_timer })
+          },
+          {
+            width = "30%",
+            Component.display_settings()
           }
         },
         {

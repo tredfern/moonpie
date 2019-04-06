@@ -5,8 +5,17 @@
 
 local MATCH_PATTERN = "{{(%w+)}}"
 
+local function convert_props_to_string(props)
+  local out = {}
+  for k, v in pairs(props) do
+    out[k] = tostring(v)
+  end
+  return out
+end
+
 return function(template, props)
+  local p = convert_props_to_string(props)
   if template then
-    return string.gsub(template, MATCH_PATTERN, props)
+    return string.gsub(template, MATCH_PATTERN, p)
   end
 end

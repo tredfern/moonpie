@@ -4,18 +4,55 @@
 -- https://opensource.org/licenses/MIT
 
 local Components = require "moonpie.ui.components"
+local List = require "moonpie.collections.list"
 
-Components("folder_tree", function()
+local function get_name(directory, name)
+  return directory.."/"..name
+end
+
+local function get_directories(directory)
+  local items = love.filesystem.getDirectoryItems(directory)
+  local out = List:new()
+  for _, v in ipairs(items) do
+    if love.filesystem.isDirectory(get_name(directory, v)) then
+      out:add(v)
+    end
+  end
+  return out
+end
+
+local function get_files(directory)
+  local items = love.filesystem.getDirectoryItems(directory)
+  local out = List:new()
+  for _, v in ipairs(items) do
+    if love.filesystem.isFile(get_name(directory, v)) then
+      out:add(v)
+    end
+  end
+  return out
+end
+
+Components("folder_tree", function(props)
   return {
+    current_directory = props.current_directory,
     background_color = "invert_background",
     color = "invert_text",
     border_color = "accent",
     border = 1,
-    {
-      border_color = "accent",
-      border = 1,
-      Components.h3({ text = "Folders" })
-    }
+    render = function(self)
+      return {
+        {
+          border_color = "accent",
+          border = 1,
+          Components.h3({ text = "Folders" })
+        }, {
+          Components.list({
+            color = "invert_text",
+            items = get_directories(self.current_directory)
+          })
+        }
+      }
+    end
   }
 end)
 
@@ -35,7 +72,7 @@ Components("file_list", function(props)
         }, {
           Components.list({
             color = "invert_text",
-            items = love.filesystem.getDirectoryItems(self.current_directory)
+            items = get_files(self.current_directory)
           })
         }
       }
@@ -49,7 +86,7 @@ return function()
     padding = 3,
     border_color = "accent",
     border = 1,
-    Components.folder_tree({ width = "20%", height = "100%" }),
+    Components.folder_tree({ width = "20%", height = "100%", current_directory = "" }),
     Components.file_list({ width = "78%", current_directory = "", height = "100%" })
   }
 end

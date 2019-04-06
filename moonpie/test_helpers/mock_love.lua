@@ -80,6 +80,12 @@ love = {
       getFPS = function() return 29 end,
       getTime = function() return os.clock() end
     },
+    window = {
+      getMode = function()
+        return 100, 100, {
+        }
+      end
+    },
     handlers = { }
 }
 

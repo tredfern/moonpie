@@ -6,6 +6,13 @@
 local Component = require "moonpie.ui.components.component"
 local list = require "moonpie.collections.list"
 
+Component("list_item", function(props)
+  return {
+    id = props.id,
+    props.item
+  }
+end)
+
 Component("list", function(props)
   local out_list = list:new()
 
@@ -13,8 +20,9 @@ Component("list", function(props)
     if type(v) == "string" then
       v = Component.text({ text = v })
     end
-    v.id = string.format("list_item_%d", i)
-    out_list:add(v)
+    out_list:add(
+      Component.list_item({ id = string.format("list_item_%d", i), item = v })
+    )
   end
 
   return out_list

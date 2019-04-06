@@ -40,11 +40,15 @@ return function()
       components.list({ list_item_type = components.image,
         border = 0, border_color = "accent",
         items = {
-          { components.image({ src = "assets/images/cat.jpg", width = 20, height = 20 },
-            components.text({ text = "CAT"}))
+          {
+            display = "inline",
+            components.image({ src = "assets/images/cat.jpg", width = 40, height = 40 }),
+            components.text({ text = "CAT", margin = { left = 3 }, style = "align-middle" })
           },
-          { components.image({ src = "assets/images/big.jpg", width = 20, height = 20 },
-            components.text({ text = "BIG"}))
+          {
+            display = "inline",
+            components.image({ src = "assets/images/big.jpg", width = 40, height = 40 }),
+            components.text({ text = "BIG", margin = { left = 3}, style = "align-middle" })
           },
         }
       })

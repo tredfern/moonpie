@@ -81,8 +81,12 @@ return function(moonpie)
   styles.list = {
     display = "inline",
     padding = 3,
-    color = "text",
     child_orientation = "vertical"
+  }
+
+  styles.list_item = {
+    display = "inline",
+    padding = 1
   }
 
 
