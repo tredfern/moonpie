@@ -21,6 +21,7 @@ require("moonpie.ui.components.buttons")
 require("moonpie.ui.components.checkbox")
 require("moonpie.ui.components.list")
 require("moonpie.ui.components.dropdown")
+require("moonpie.ui.components.tree")
 require("moonpie.ui.components.debug")
 
 return Component
