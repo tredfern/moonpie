@@ -4,6 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 return function(source, dest, overwrite)
+  if source == nil then return end
   for k, v in pairs(source) do
     if overwrite or not dest[k] then
       dest[k] = v

@@ -15,4 +15,8 @@ function str.split(text, sep)
   return r
 end
 
+function str.insert(text, index, ins)
+  return string.sub(text, 1, index) .. ins .. string.sub(text, index + 1)
+end
+
 return str

@@ -17,7 +17,8 @@ app.layouts = moonpie.collections.iterators.cycle({
   { heading = "Controls Demo", layout = require "demos.controls_demo" },
   { heading = "Image Demo", layout = require "demos.image_demo" },
   { heading = "Color Demo", layout = require "demos.color_demo" },
-  { heading = "File Explorer", layout = require "demos.file_explorer" }
+  { heading = "File Explorer", layout = require "demos.file_explorer" },
+  { heading = "Textbox", layout = require "demos.textbox_demo" }
 })
 
 --

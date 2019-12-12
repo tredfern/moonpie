@@ -23,4 +23,16 @@ describe("string", function()
     assert.equals("a", sp[3])
     assert.equals("string", sp[4])
   end)
+
+  it("inserts a string at an index", function()
+    local s = "I am a string"
+    local ins = str.insert(s, 4, "-hello-")
+    assert.equals("I am-hello- a string", ins)
+  end)
+
+  it("insert to the start of the string properly", function()
+    local s = "I am string"
+    local ins = str.insert(s, 0, "-hello-")
+    assert.equals("-hello-I am string", ins)
+  end)
 end)

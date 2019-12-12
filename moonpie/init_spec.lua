@@ -41,6 +41,20 @@ describe("Initialize Moonpie", function()
     end)
   end)
 
+  describe("Keyboard integrations", function()
+    it("relays keypressed events", function()
+      moonpie.keyboard.keypressed = spy.new(function() end)
+      moonpie.keypressed("key", "scancode", "isrepeat")
+      assert.spy(moonpie.keyboard.keypressed).was.called_with(moonpie.keyboard, "key", "scancode", "isrepeat")
+    end)
+
+    it("relays keyreleased events", function()
+      moonpie.keyboard.keyreleased = spy.new(function() end)
+      moonpie.keyreleased("key", "scancode")
+      assert.spy(moonpie.keyboard.keyreleased).was.called_with(moonpie.keyboard, "key", "scancode")
+    end)
+  end)
+
   describe("layers", function()
   end)
 

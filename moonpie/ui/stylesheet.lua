@@ -119,4 +119,13 @@ return function(moonpie)
     padding = 4,
     margin = 2
   }
+
+  styles.textbox = {
+    border = 2,
+    border_color = "gray",
+    corner_radius_x = 2,
+    corner_radius_y = 2,
+    display = "inline",
+    padding = 3
+  }
 end

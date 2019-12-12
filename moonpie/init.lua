@@ -56,11 +56,18 @@ end
 
 function moonpie.update()
   update_timer:start()
-  keyboard:update()
   RenderEngine.update(mouse)
   -- HACK: Mouse isn't handled smoothly
   mouse:update_button_states()
   update_timer:stop()
+end
+
+function moonpie.keypressed(key, scancode, isrepeat)
+  keyboard:keypressed(key, scancode, isrepeat)
+end
+
+function moonpie.keyreleased(key, scancode)
+  keyboard:keyreleased(key, scancode)
 end
 
 function moonpie.load_stylesheet()

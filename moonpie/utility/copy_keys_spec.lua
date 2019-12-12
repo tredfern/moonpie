@@ -25,4 +25,8 @@ describe("Copy Keys", function()
     assert.equals("b", dest.b)
     assert.equals("c", dest.c)
   end)
+
+  it("does nothing if source is nil", function()
+    assert.has_no.errors(function() copy_keys(nil, {}, true) end)
+  end)
 end)

@@ -32,3 +32,11 @@ function love.draw()
   -- if that is not the case the debug stats on the panel could be off.
   moonpie.paint()
 end
+
+function love.keypressed(key, scancode, isrepeat)
+  moonpie.keypressed(key, scancode, isrepeat)
+end
+
+function love.keyreleased(key, scancode)
+  moonpie.keyreleased(key, scancode)
+end

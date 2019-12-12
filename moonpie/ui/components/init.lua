@@ -23,5 +23,6 @@ require("moonpie.ui.components.list")
 require("moonpie.ui.components.dropdown")
 require("moonpie.ui.components.tree")
 require("moonpie.ui.components.debug")
+require("moonpie.ui.components.textbox")
 
 return Component
