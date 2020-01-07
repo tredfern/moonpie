@@ -5,6 +5,7 @@
 
 describe("Component", function()
   local Component = require "moonpie.ui.components.component"
+    Component("test", function() return { } end)
 
   describe("Function components", function()
     it("allows you to pass an initialization function to define the component", function()
@@ -126,6 +127,11 @@ describe("Component", function()
         local p = Component.button({ target_layer = "layer" })
         assert.equals("layer", p.target_layer)
       end)
+
+      it("click", function()
+        local p = Component.test({ click = function() return 1 end })
+        assert.equals(1, p.click())
+      end)
     end)
 
     describe("finding children", function()
@@ -158,6 +164,15 @@ describe("Component", function()
         local t4 = b:find_by_id(4)
         assert.equals("4", t4.text)
       end)
+    end)
+  end)
+
+  describe("focus management", function()
+    it("can have it's focus set", function()
+      local UserFocus = require "moonpie.ui.user_focus"
+      local c = Component.test()
+      c:set_focus()
+      assert.equals(c, UserFocus:get_focus())
     end)
   end)
 

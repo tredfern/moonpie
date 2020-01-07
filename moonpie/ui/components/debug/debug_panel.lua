@@ -27,6 +27,18 @@ Component("frame_number", function(props)
   })
 end)
 
+Component("dbg_focused", function()
+  local c = require("moonpie.ui.user_focus"):get_focus()
+  if c then
+    return Component.text({
+      text = "Focused: {{name}}({{id}})",
+      id = c.id,
+      name = c.name
+    })
+  end
+  return Component.text({ text = "Focused: ---"})
+end)
+
 Component("love_stats", function(props)
   return {
     {
@@ -84,7 +96,8 @@ Component("debug_panel", function()
           },
           {
             width = "30%",
-            Component.display_settings()
+            Component.display_settings(),
+            Component.dbg_focused()
           }
         },
         {

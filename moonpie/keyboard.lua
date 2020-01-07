@@ -15,16 +15,19 @@ function Keyboard:reset()
 end
 
 function Keyboard:keypressed(key, scancode, isrepeat)
-  if self.capturing then
-    self.capturing:keypressed(key, scancode, isrepeat)
+  local focused = require("moonpie.ui.user_focus"):get_focus()
+  if focused and focused.keypressed then
+    focused:keypressed(key, scancode, isrepeat)
   end
+
   local hot = self.hot_keys[key]
   if hot then hot() end
 end
 
 function Keyboard:keyreleased(key, scancode)
-  if self.capturing then
-    self.capturing:keyreleased(key, scancode)
+  local focused = require("moonpie.ui.user_focus"):get_focus()
+  if focused and focused.keyreleased then
+    focused:keyreleased(key, scancode)
   end
 end
 

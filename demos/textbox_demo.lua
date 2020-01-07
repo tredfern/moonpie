@@ -8,9 +8,11 @@ local components = require "moonpie.ui.components"
 
 return function()
   return {
-    {
       components.text({ text = "Single Line: "}),
-      components.textbox({ text = "Edit Me", width = 100 })
-    }
+      components.textbox({
+        text = "Edit Me",
+        width = 100,
+        click = function(self) self:set_focus() end }
+      )
   }
 end

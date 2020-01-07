@@ -8,6 +8,7 @@ local copy_props = {
   "background_color",
   "border",
   "border_color",
+  "click",
   "color",
   "height",
   "id",
@@ -47,6 +48,7 @@ function ComponentFactory.add_component_methods(c)
   c.has_updates = function(self) return self.updates_available end
   c.flag_removal = function(self) self:update({ ready_to_remove = true }) end
   c.needs_removal = function(self) return self.ready_to_remove end
+  c.set_focus = function(self) require("moonpie.ui.user_focus"):set_focus(self) end
 
   c.show = function(self) self:update({ hidden = false}) end
   c.hide = function(self) self:update({ hidden = true}) end
