@@ -12,6 +12,8 @@ local copy_props = {
   "color",
   "height",
   "id",
+  "keypressed",
+  "keyreleased",
   "margin",
   "padding",
   "position",

@@ -73,64 +73,30 @@ describe("Component", function()
     end)
 
     describe("Copiable properties", function()
-      before_each(function()
-        Component("button", function() return {} end)
-      end)
+      it("can copy list of properties", function()
+        local values = {
+          background_color = "red",
+          border = 2,
+          border_color = "green",
+          click = spy.new(function() end),
+          color = "blue",
+          height = 624,
+          id = "foo",
+          keypressed = spy.new(function() end),
+          keyreleased = spy.new(function() end),
+          margin = 10,
+          padding = 5,
+          position = "absolute",
+          style = "some",
+          target_layer = "layer",
+          width = 250
+          --do_not_copy = "fail"
+        }
 
-      it("border and border_color", function()
-        local s = Component.button({ border = 2, border_color = "green" })
-        assert.equals(2, s.border)
-        assert.equals("green", s.border_color)
-      end)
-
-      it("style", function()
-        local s = Component.button({ style = "some" })
-        assert.equals("some", s.style)
-      end)
-
-      it("padding", function()
-        local p = Component.button({ padding = 5 })
-        assert.equals(5, p.padding)
-      end)
-
-      it("background_color", function()
-        local p = Component.button({ background_color = "red" })
-        assert.equals("red", p.background_color)
-      end)
-
-      it("color", function()
-        local p = Component.button({ color = "green" })
-        assert.equals("green", p.color)
-      end)
-
-      it("width", function()
-        local p = Component.button({ width = 250 })
-        assert.equals(250, p.width)
-      end)
-
-      it("height", function()
-        local p = Component.button({ height = 652 })
-        assert.equals(652, p.height)
-      end)
-
-      it("margin", function()
-        local p = Component.button({ margin = 10 })
-        assert.equals(10, p.margin)
-      end)
-
-      it("position", function()
-        local p = Component.button({ position = "absolute" })
-        assert.equals("absolute", p.position)
-      end)
-
-      it("target_layer", function()
-        local p = Component.button({ target_layer = "layer" })
-        assert.equals("layer", p.target_layer)
-      end)
-
-      it("click", function()
-        local p = Component.test({ click = function() return 1 end })
-        assert.equals(1, p.click())
+        local c = Component.text(values)
+        for k, v in pairs(values) do
+          assert.equals(v, c[k])
+        end
       end)
     end)
 
