@@ -3,6 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
+local Conf = require "moonpie.conf"
 local csv = require("moonpie.ext.csv")
 local colors = { }
 
@@ -23,7 +24,7 @@ function colors.convert_hex(hex)
 end
 
 -- TODO: Remove hardcoded color directory
-local csv_file = love.filesystem.read("moonpie/assets/colors.csv")
+local csv_file = love.filesystem.read(Conf.assets_path .. "colors.csv")
 local contents = csv.openstring(csv_file)
 for fields in contents:lines() do
     local r,g,b = colors.convert_hex(fields[3])

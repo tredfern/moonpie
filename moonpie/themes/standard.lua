@@ -3,6 +3,8 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
+local Conf = require "moonpie.conf"
+
 return function(moonpie)
   moonpie.graphics.colors.light_shade = moonpie.graphics.colors.pampas
   moonpie.graphics.colors.light_accent = moonpie.graphics.colors.burning_sand
@@ -23,16 +25,16 @@ return function(moonpie)
   --TODO: More elegant solution for this
   moonpie.graphics.fonts = {
     default = {
-      regular = moonpie.graphics.font("moonpie/assets/fonts/roboto/Regular.ttf"),
-      bold = moonpie.graphics.font("moonpie/assets/fonts/roboto/Bold.ttf")
+      regular = moonpie.graphics.font(Conf.assets_path .. "fonts/roboto/Regular.ttf"),
+      bold = moonpie.graphics.font(Conf.assets_path .. "fonts/roboto/Bold.ttf")
     },
     headline = {
-      regular = moonpie.graphics.font("moonpie/assets/fonts/roboto_slab/Regular.ttf"),
-      bold = moonpie.graphics.font("moonpie/assets/fonts/roboto_slab/Bold.ttf")
+      regular = moonpie.graphics.font(Conf.assets_path .. "fonts/roboto_slab/Regular.ttf"),
+      bold = moonpie.graphics.font(Conf.assets_path .. "fonts/roboto_slab/Bold.ttf")
     },
     fixed = {
-      regular = moonpie.graphics.font("moonpie/assets/fonts/hack/Regular.ttf"),
-      bold = moonpie.graphics.font("moonpie/assets/fonts/hack/Bold.ttf")
+      regular = moonpie.graphics.font(Conf.assets_path .. "fonts/hack/Regular.ttf"),
+      bold = moonpie.graphics.font(Conf.assets_path .. "fonts/hack/Bold.ttf")
     }
   }
 
