@@ -3,7 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local Conf = require "moonpie.conf"
+local Conf = require "moonpie.configuration"
 local csv = require("moonpie.ext.csv")
 local colors = { }
 

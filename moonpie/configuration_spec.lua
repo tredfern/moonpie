@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Conf", function()
-  local Conf = require "moonpie.conf"
+  local Conf = require "moonpie.configuration"
 
   it("has an assets directory location", function()
     assert.equals("./moonpie/assets/", Conf.assets_path)
