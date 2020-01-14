@@ -6,6 +6,7 @@
 local RenderEngine = require("moonpie.ui.render_engine")
 local mouse = require("moonpie.mouse")
 local keyboard = require "moonpie.keyboard"
+local Callback = require "moonpie.callback"
 
 local moonpie = {
   collections = require "moonpie.collections",
@@ -32,6 +33,7 @@ local moonpie = {
 }
 
 moonpie.logger.info("Loaded Moonpie modules")
+moonpie.update_callbacks = Callback:new()
 
 local debug
 local frame_number = 0
@@ -59,6 +61,7 @@ function moonpie.update()
   RenderEngine.update(mouse)
   -- HACK: Mouse isn't handled smoothly
   mouse:update_button_states()
+  moonpie.update_callbacks:trigger()
   update_timer:stop()
 end
 

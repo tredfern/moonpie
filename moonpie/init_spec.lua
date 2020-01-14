@@ -39,6 +39,13 @@ describe("Initialize Moonpie", function()
       moonpie.update()
       assert.spy(moonpie.mouse.update).was.called()
     end)
+
+    it("calls registered updates", function()
+      local s = spy.new(function() end)
+      moonpie.update_callbacks:add(spy_to_func(s))
+      moonpie.update()
+      assert.spy(s).was.called()
+    end)
   end)
 
   describe("Keyboard integrations", function()
