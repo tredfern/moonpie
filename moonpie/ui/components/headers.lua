@@ -6,13 +6,13 @@
 local Component = require("moonpie.ui.components.component")
 
 Component("h1", function(props)
-  return Component.text({ text = props.text })
+  return Component.text(props)
 end)
 
 Component("h2", function(props)
-  return Component.text({ text = props.text })
+  return Component.text(props)
 end)
 
 Component("h3", function(props)
-  return Component.text({ text = props.text })
+  return Component.text(props)
 end)
