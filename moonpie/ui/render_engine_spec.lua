@@ -28,6 +28,17 @@ describe("RenderEngine", function()
 
   describe("Building the tree", function()
     describe("adding children", function()
+      it("calls component_mounted on a component if configured", function()
+        local param
+        local c = {
+          component_mounted = spy.new(function(self) param = self end)
+        }
+        RenderEngine("ui", { c })
+
+        assert.spy(c.component_mounted).was.called()
+        assert.equals(param, c)
+      end)
+
       it("sets all the components on the root to children of it", function()
         local ele1, ele2, ele3 = { }, { }, { }
         local r = RenderEngine("ui", ele1, ele2, ele3)

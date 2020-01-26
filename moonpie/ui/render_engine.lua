@@ -81,7 +81,7 @@ end
 function RenderEngine.build_node(component, parent)
   local new_node = Node(component, parent)
 
-  if component.render then
+  if new_node.render then
     local rendered = new_node:render()
     RenderEngine.add_node(RenderEngine.build_node(rendered, new_node), new_node)
   else
@@ -89,6 +89,7 @@ function RenderEngine.build_node(component, parent)
       RenderEngine.add_node(RenderEngine.build_node(v, new_node), new_node)
     end
   end
+  safecall(component.component_mounted, component)
 
   return new_node
 end

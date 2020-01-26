@@ -15,4 +15,12 @@ describe("SafeCall", function()
   it("returns nil if the function is nil", function()
     assert.has_no.errors(function() safecall(nil, 1, 2, 3, 4) end)
   end)
+
+  it("works with calling tables", function()
+    local f = {
+      call = spy.new(function() end)
+    }
+    safecall(f.call, f)
+    assert.spy(f.call).was.called_with(f)
+  end)
 end)
