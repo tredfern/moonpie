@@ -12,12 +12,6 @@ describe("Components - Text", function()
       local t = Components.text({})
       assert.equals(layouts.text, t.layout)
     end)
-
-    it("has a paint geared for text", function()
-      local drawing = require "moonpie.ui.drawing"
-      local t = Components.text({})
-      assert.equals(drawing.text, t.paint)
-    end)
   end)
 
   it("handles static text", function()

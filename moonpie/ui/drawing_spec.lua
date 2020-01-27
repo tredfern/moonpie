@@ -215,4 +215,16 @@ describe("Renderers", function()
       assert.spy(love.graphics.draw).was.called.with(mock_love.image, 0, 0, 0, 1.5, 1.5)
     end)
   end)
+
+  it("will call custom drawing commands if method is available", function()
+    local c = {
+      draw_component = spy.new(function() end),
+      width = 100,
+      height = 100
+    }
+    local node = Node(c)
+    node:layout()
+    node:paint()
+    assert.spy(c.draw_component).was.called_with(node)
+  end)
 end)

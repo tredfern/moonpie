@@ -6,6 +6,7 @@
 local drawing = {}
 local colors = require "moonpie.graphics.colors"
 local image = require "moonpie.graphics.image"
+local safecall = require "moonpie.utility.safe_call"
 
 function drawing.standard(node)
   if node.hidden then return end
@@ -14,6 +15,7 @@ function drawing.standard(node)
   drawing.draw_background(node)
   drawing.draw_border(node)
   drawing.image(node)
+  safecall(node.draw_component, node)
 
   love.graphics.translate(node.box:content_position())
 
