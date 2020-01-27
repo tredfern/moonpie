@@ -16,6 +16,7 @@ local copy_props = {
   "keyreleased",
   "margin",
   "padding",
+  "paint",
   "position",
   "style",
   "target_layer",

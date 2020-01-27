@@ -86,6 +86,7 @@ describe("Component", function()
           keyreleased = spy.new(function() end),
           margin = 10,
           padding = 5,
+          paint = spy.new(function() end),
           position = "absolute",
           style = "some",
           target_layer = "layer",
