@@ -80,6 +80,7 @@ describe("Component", function()
           border_color = "green",
           click = spy.new(function() end),
           color = "blue",
+          draw_component = function() end,
           height = 624,
           id = "foo",
           keypressed = spy.new(function() end),

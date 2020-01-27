@@ -10,6 +10,7 @@ local copy_props = {
   "border_color",
   "click",
   "color",
+  "draw_component",
   "height",
   "id",
   "keypressed",
