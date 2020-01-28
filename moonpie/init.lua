@@ -11,7 +11,8 @@ local Callback = require "moonpie.callback"
 local moonpie = {
   collections = require "moonpie.collections",
   graphics = {
-    colors = require "moonpie.graphics.colors" ,
+    camera = require "moonpie.graphics.camera",
+    colors = require "moonpie.graphics.colors",
     font = require "moonpie.graphics.font",
   },
   keyboard = keyboard,
