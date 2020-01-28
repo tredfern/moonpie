@@ -31,12 +31,14 @@ describe("RenderEngine", function()
       it("calls component_mounted on a component if configured", function()
         local param
         local c = {
-          component_mounted = spy.new(function(self) param = self end)
+          component_mounted = spy.new(function(self) param = self end),
+          id = 12345
         }
         RenderEngine("ui", { c })
 
         assert.spy(c.component_mounted).was.called()
-        assert.equals(param, c)
+        assert.equals(param.id, c.id)
+        assert.not_nil(param.box) -- Validating we are actually getting the node
       end)
 
       it("sets all the components on the root to children of it", function()
