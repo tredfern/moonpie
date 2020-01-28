@@ -227,4 +227,18 @@ describe("Renderers", function()
     node:paint()
     assert.spy(c.draw_component).was.called_with(node)
   end)
+
+  it("translates the custom content properly", function()
+    local c = {
+      draw_component = spy.new(function() end),
+      width = 100,
+      height = 100,
+      padding = 10,
+      margin = 10
+    }
+    local node = Node(c)
+    node:layout()
+    drawing.custom_content(node)
+    assert.spy(love.graphics.translate).was.called_with(20, 20)
+  end)
 end)
