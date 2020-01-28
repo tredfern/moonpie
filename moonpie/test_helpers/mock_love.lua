@@ -47,6 +47,7 @@ love = {
         push = function() end,
         rectangle = function(mode, x, y, w, h) end,
         reset = function() end,
+        scale = function() end,
         setCanvas = function() end,
         setColor = function() end,
         setFont = function() end,
