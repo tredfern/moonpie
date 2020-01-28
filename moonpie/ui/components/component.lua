@@ -10,6 +10,7 @@ local copy_props = {
   "border_color",
   "click",
   "color",
+  "component_mounted",
   "draw_component",
   "height",
   "id",
@@ -21,6 +22,7 @@ local copy_props = {
   "position",
   "style",
   "target_layer",
+  "unmount",
   "width"
 }
 

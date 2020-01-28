@@ -80,6 +80,7 @@ describe("Component", function()
           border_color = "green",
           click = spy.new(function() end),
           color = "blue",
+          component_mounted = function() end,
           draw_component = function() end,
           height = 624,
           id = "foo",
@@ -91,6 +92,7 @@ describe("Component", function()
           position = "absolute",
           style = "some",
           target_layer = "layer",
+          unmount = function() end,
           width = 250
           --do_not_copy = "fail"
         }
