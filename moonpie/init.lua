@@ -10,6 +10,7 @@ local Callback = require "moonpie.callback"
 
 local moonpie = {
   collections = require "moonpie.collections",
+  ecs = require "moonpie.ecs",
   graphics = {
     camera = require "moonpie.graphics.camera",
     colors = require "moonpie.graphics.colors",
