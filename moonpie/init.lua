@@ -9,6 +9,7 @@ local keyboard = require "moonpie.keyboard"
 local Callback = require "moonpie.callback"
 
 local moonpie = {
+  class = require "moonpie.class",
   collections = require "moonpie.collections",
   ecs = require "moonpie.ecs",
   graphics = {

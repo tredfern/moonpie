@@ -28,6 +28,10 @@ describe("Initialize Moonpie", function()
     assert.not_nil(moonpie.graphics.font)
   end)
 
+  it("supports a basic class prototype implementation", function()
+    assert.not_nil(moonpie.class)
+  end)
+
   describe("updating", function()
     it("has an update method", function()
       assert.not_nil(moonpie.update)
