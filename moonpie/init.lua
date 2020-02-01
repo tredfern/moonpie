@@ -30,9 +30,7 @@ local moonpie = {
       dark_mode = require "moonpie.themes.dark_mode"
     },
   },
-  utility = {
-    timer = require "moonpie.utility.timer"
-  }
+  utility = require "moonpie.utility"
 }
 
 moonpie.logger.info("Loaded Moonpie modules")
