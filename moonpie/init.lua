@@ -6,12 +6,12 @@
 local RenderEngine = require("moonpie.ui.render_engine")
 local mouse = require("moonpie.mouse")
 local keyboard = require "moonpie.keyboard"
-local Callback = require "moonpie.callback"
 
 local moonpie = {
   class = require "moonpie.class",
   collections = require "moonpie.collections",
   ecs = require "moonpie.ecs",
+  events = require "moonpie.events",
   graphics = {
     camera = require "moonpie.graphics.camera",
     colors = require "moonpie.graphics.colors",
@@ -34,7 +34,6 @@ local moonpie = {
 }
 
 moonpie.logger.info("Loaded Moonpie modules")
-moonpie.update_callbacks = Callback:new()
 
 local debug
 local frame_number = 0
@@ -44,7 +43,10 @@ local update_timer = moonpie.utility.timer:new("UI Update")
 function moonpie.paint()
   paint_timer:start()
   frame_number = frame_number + 1
+
+  moonpie.events.before_paint:trigger()
   RenderEngine.paint()
+  moonpie.events.after_paint:trigger()
 
   -- Debug stats
   local stats = love.graphics.getStats()
@@ -59,10 +61,12 @@ end
 
 function moonpie.update()
   update_timer:start()
+
+  moonpie.events.before_update:trigger()
   RenderEngine.update(mouse)
   -- HACK: Mouse isn't handled smoothly
   mouse:update_button_states()
-  moonpie.update_callbacks:trigger()
+  moonpie.events.after_update:trigger()
   update_timer:stop()
 end
 
