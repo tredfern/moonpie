@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 local align = require("moonpie.ui.alignment")
-local math_ext = require("moonpie.utility.math_ext")
+local math_ext = require("moonpie.math")
 local layouts = {}
 
 function layouts.horizontal_orientation(node, parent, width)

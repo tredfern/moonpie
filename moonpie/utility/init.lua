@@ -7,7 +7,6 @@ return {
   copy_keys = require "moonpie.utility.copy_keys",
   function_timer = require "moonpie.utility.function_timer",
   has_keys = require "moonpie.utility.has_keys",
-  math = require "moonpie.utility.math_ext",
   merge = require "moonpie.utility.merge",
   safecall = require "moonpie.utility.safe_call",
   script_tools = require "moonpie.utility.script_tools",

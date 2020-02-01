@@ -3,8 +3,8 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-describe("math_ext", function()
-  local math_ext = require "moonpie.utility.math_ext"
+describe("moonpie.math", function()
+  local math_ext = require "moonpie.math"
   it("can clamp a value to a range", function()
     assert.equals(4, math_ext.clamp(4, 1, 10))
     assert.equals(1, math_ext.clamp(0, 1, 10))

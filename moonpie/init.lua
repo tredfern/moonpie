@@ -18,6 +18,7 @@ local moonpie = {
     font = require "moonpie.graphics.font",
   },
   keyboard = keyboard,
+  math = require "moonpie.math",
   mouse = mouse,
   logger = require "moonpie.logger",
   tween = require "moonpie.ext.tween",
