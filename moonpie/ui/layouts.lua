@@ -95,7 +95,10 @@ end
 
 function layouts.calc_height(node, parent, content)
   if math_ext.is_percent(node.height) then
-    return math_ext.percent_to_number(node.height) * parent.box.content.height
+    local boundary = node.box.margin.top + node.box.margin.bottom
+      + node.box.padding.top + node.box.padding.bottom
+      + node.box.border.top + node.box.border.bottom
+    return math_ext.percent_to_number(node.height) * parent.box.content.height - boundary
   else
     return node.height or content
   end
