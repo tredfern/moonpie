@@ -18,9 +18,7 @@ end
 
 function world:add_systems(...)
   for _, v in ipairs({...}) do
-    if v.filter then
-      self:add_filter_group(v.filter)
-    end
+    self:add_filter_group(v.filter)
     self.systems:add(v)
   end
 end
@@ -43,7 +41,12 @@ function world:process(event)
 end
 
 function world:add_filter_group(filter)
+  if not filter then return end
+
   self.filter_groups[filter] = collections.indexed_set:new()
+  for e in collections.iterators.filtered(self.entities, filter) do
+    self.filter_groups[filter]:add(e)
+  end
 end
 
 function world:update_filter_groups()
@@ -55,6 +58,7 @@ function world:update_filter_groups()
     end
     self.entities:add(e)
   end
+  self.queued_entities:clear()
 end
 
 return world

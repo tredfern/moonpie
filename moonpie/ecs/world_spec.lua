@@ -66,4 +66,27 @@ describe("moonpie.ecs.world", function()
     assert.is_true(ent:contains(gg))
     assert.is_false(ent:contains(bg))
   end)
+
+  it("does not process queued entities a second time after process", function()
+    local ent = {}
+    test_world:add_entities(ent)
+    test_world:process("event")
+    test_world:process("event")
+    test_world:process("event")
+    assert.equals(0, #test_world.queued_entities)
+  end)
+
+  it("adds all existing entities through a new filter group if system added", function()
+    local gg = { gg = true }
+    local bg = { bg = true }
+    test_world:add_entities(gg, bg)
+    test_world:process("foo")
+    assert.is_true(test_world.queued_entities:isempty())
+
+    local s = {
+      filter = function(e) return e.bg end
+    }
+    test_world:add_systems(s)
+    assert.equals(1, #test_world.filter_groups[s.filter])
+  end)
 end)
