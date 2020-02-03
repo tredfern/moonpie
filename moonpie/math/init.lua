@@ -32,4 +32,7 @@ function math_ext.find_max(list, func)
   return m
 end
 
+math_ext.vector = require "moonpie.math.vector"
+math_ext.rectangle = require "moonpie.math.rectangle"
+
 return math_ext
