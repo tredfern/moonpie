@@ -28,12 +28,12 @@ describe("moonpie.ecs.world", function()
 
     test_world:add_systems(s1, s2, s3)
     test_world:process("update")
-    assert.spy(s1.update).was.called_with(s1)
+    assert.spy(s1.update).was.called_with(s1, love.timer.getDelta())
     assert.spy(s2.draw).was_not.called()
-    assert.spy(s3.update).was.called_with(s3)
+    assert.spy(s3.update).was.called_with(s3, love.timer.getDelta())
 
     test_world:process("draw")
-    assert.spy(s2.draw).was.called_with(s2)
+    assert.spy(s2.draw).was.called_with(s2, love.timer.getDelta())
   end)
 
   it("queues entities to add to the world", function()
@@ -50,6 +50,19 @@ describe("moonpie.ecs.world", function()
     test_world:process("update")
     assert.is_true(test_world.filter_groups[s.filter]:contains(gg))
     assert.is_false(test_world.filter_groups[s.filter]:contains(bg))
+  end)
+
+  it("provides the delta time to the system for processing", function()
+    local s = {
+      filter = function(e) return e.is_good_guy end,
+      update = spy.new(function() end)
+    }
+    local gg = { is_good_guy = true }
+    local bg = { is_bad_guy = true }
+    test_world:add_systems(s)
+    test_world:add_entities(gg, bg)
+    test_world:process("update")
+    assert.spy(s.update).was.called_with(s, test_world.filter_groups[s.filter], love.timer.getDelta())
   end)
 
   it("process event sets the system entities to ones that pass the filter", function()
@@ -88,5 +101,12 @@ describe("moonpie.ecs.world", function()
     }
     test_world:add_systems(s)
     assert.equals(1, #test_world.filter_groups[s.filter])
+  end)
+
+  it("passes the delta time into each system", function()
+    local s = { update = spy.new(function() end) }
+    test_world:add_systems(s)
+    test_world:process("update")
+    assert.spy(s.update).was.called_with(s, love.timer.getDelta())
   end)
 end)

@@ -33,9 +33,9 @@ function world:process(event)
   local has_event = function(e) return e[event] ~= nil end
   for s in collections.iterators.filtered(self.systems, has_event) do
     if s.filter then
-      s[event](s, self.filter_groups[s.filter])
+      s[event](s, self.filter_groups[s.filter], love.timer.getDelta())
     else
-      s[event](s)
+      s[event](s, love.timer.getDelta())
     end
   end
 end
