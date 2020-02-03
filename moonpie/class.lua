@@ -19,7 +19,7 @@ function class:new(...)
 end
 
 setmetatable(class, {
-  __call = class.new
+  __call = class.subclass
 })
 
 return class

@@ -43,4 +43,13 @@ describe("moonpie.class", function()
     assert.equals(1, instance.x)
     assert.equals(2, instance.y)
   end)
+
+  it("has a default call that subclasses", function()
+    assert.equals(class.subclass, getmetatable(class).__call)
+  end)
+
+  it("sets the subclassed default call to the new method", function()
+    local cls = class({})
+    assert.equals(cls.new, getmetatable(cls).__call)
+  end)
 end)
