@@ -34,4 +34,8 @@ function Camera:scale(sx, sy)
   self.scale_y = sy
 end
 
+function Camera:projection(world_width, world_height, screen_width, screen_height)
+  self:scale(screen_width/world_width, screen_height/world_height)
+end
+
 return Camera

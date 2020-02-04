@@ -45,4 +45,12 @@ describe("Camera", function()
     c:activate()
     assert.spy(love.graphics.scale).was.called_with(10, 11)
   end)
+
+  it("can set the projection based on world based on world coordinates vs resolution available", function()
+    local c = Camera:new()
+    --project a 40x30 coordinate system onto a 1024x768 resolution
+    c:projection(40, 30, 1024, 768)
+    assert.equals(1024/40, c.scale_x)
+    assert.equals(768/30, c.scale_y)
+  end)
 end)

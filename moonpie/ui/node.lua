@@ -45,8 +45,10 @@ return function(component, parent)
   end
 
   n.layout = function(...)
+    if n.before_layout then n:before_layout() end
     local l = component.layout or layouts.standard
     l(...)
+    if n.after_layout then n:after_layout() end
   end
 
   n.paint = component.paint or drawing.standard
