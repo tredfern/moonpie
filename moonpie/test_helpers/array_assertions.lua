@@ -43,7 +43,7 @@ say:set("assertion.array_matches.negative", "Expected %s to not match: %s")
 assert:register("assertion", "array_matches", array_matches, "assertion.array_matches.positive", "assertion.array_matches.negative")
 
 say:set("assertion.array_includes.positive", "Expected %s to be in: %s")
-say:set("assertion.array_includes.negative", "Expected %s to be in: %s")
+say:set("assertion.array_includes.negative", "Expected %s to not be in: %s")
 assert:register("assertion", "array_includes", array_includes, "assertion.array_includes.positive", "assertion.array_includes.negative")
 
 say:set("assertion.empty_array.positive", "Expected %s to be empty")

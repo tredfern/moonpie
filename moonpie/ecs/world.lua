@@ -10,6 +10,7 @@ function world:new()
   local w = {}
   w.systems = collections.list:new()
   w.queued_entities = collections.list:new()
+  w.queued_removal_entities = collections.list:new()
   w.entities = collections.indexed_set:new()
   w.filter_groups = {}
   setmetatable(w, { __index = self })
@@ -25,6 +26,10 @@ end
 
 function world:add_entities(...)
   self.queued_entities:add(...)
+end
+
+function world:remove_entities(...)
+  self.queued_removal_entities:add(...)
 end
 
 function world:process(event)
@@ -54,11 +59,36 @@ function world:update_filter_groups()
     for filter, filter_entities in pairs(self.filter_groups) do
       if filter(e) then
         filter_entities:add(e)
+        self:trigger_system_entity_added(filter, e)
       end
     end
     self.entities:add(e)
   end
+
+  for _, e in ipairs(self.queued_removal_entities) do
+    for filter, filter_entities in pairs(self.filter_groups) do
+      if (filter_entities:contains(e)) then
+        filter_entities:remove(e)
+        self:trigger_system_entity_removed(filter, e)
+      end
+    end
+    self.entities:remove(e)
+  end
   self.queued_entities:clear()
+end
+
+function world:trigger_system_entity_added(filter, entity)
+  local s = self.systems:find(function(l) return l.filter == filter end)
+  if s and s.entity_added then
+    s:entity_added(entity)
+  end
+end
+
+function world:trigger_system_entity_removed(filter, entity)
+  local s = self.systems:find(function(l) return l.filter == filter end)
+  if s and s.entity_removed then
+    s:entity_removed(entity)
+  end
 end
 
 return world
