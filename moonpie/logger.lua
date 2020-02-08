@@ -55,4 +55,20 @@ function logger.track(f, name)
   end
 end
 
+function logger.dump_table(tbl, name)
+  name = name or "table"
+  local str = name .. ": {"
+  for k, v in pairs(tbl) do
+    str = str .. " "
+    if type(v) == "number" then
+      str = str .. string.format("%s=%d", k, v)
+    end
+    if type(v) == "string" then
+      str = str .. string.format('%s="%s"', k, v)
+    end
+  end
+  str = str .. " }"
+  logger.debug(str)
+end
+
 return logger

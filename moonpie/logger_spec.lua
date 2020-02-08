@@ -84,5 +84,11 @@ describe("Logger", function()
       assert.equals("Calling my_func(foo)", logger.entries[3].message)
       assert.equals("Returning my_func = foo", logger.entries[4].message)
     end)
+
+    it("can dump a table", function()
+      local tbl = { a = 1, b = "string" }
+      logger.dump_table(tbl, "name")
+      assert.equals("name: { a=1 b=\"string\" }", logger.entries[1].message)
+    end)
   end)
 end)
