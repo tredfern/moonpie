@@ -3,15 +3,36 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-return function(path)
-  return setmetatable({
-    name = path,
+local files = require "moonpie.utility.files"
+local font = {
+  registered = {}
+}
+
+
+function font:register(path)
+  local name = files.get_name(path)
+  if font.registered[name] then
+    return font.registered[name]
+  end
+
+  local f = setmetatable({
+    path = path,
+    name = name,
   }, {
-    __call = function(self, size)
-      if not self[size] then
-        self[size] = love.graphics.newFont(self.name, size)
+    __call = function(f, size)
+      if not f[size] then
+        f[size] = love.graphics.newFont(f.path, size)
       end
-      return self[size]
+      return f[size]
     end
   })
+  font.registered[f.name] = f
+
+  return f
 end
+
+setmetatable(font, {
+  __call = font.register
+})
+
+return font

@@ -7,9 +7,25 @@ describe("Font", function()
   local mock_love = require "moonpie.test_helpers.mock_love"
   local Font = require "moonpie.graphics.font"
 
+  it("tracks the full path name for the font", function()
+    local f = Font("assets/some/value/path_to_file.ttf")
+    assert.equals("assets/some/value/path_to_file.ttf", f.path)
+  end)
+
   it("is initialized with a font file name", function()
-    local f = Font("path_to_file")
+    local f = Font("assets/some/value/path_to_file.ttf")
     assert.equals("path_to_file", f.name)
+  end)
+
+  it("registers the font for lookup", function()
+    Font("assets/foo/bar/stored.ttf")
+    assert.is_table(Font.registered.stored)
+  end)
+
+  it("returns the same font if an identical path is called", function()
+    local f = Font("assets/some/value/path_to_file.ttf")
+    local f2 = Font("assets/some/value/path_to_file.ttf")
+    assert.equals(f, f2)
   end)
 
   it("loads a font based on the size of the font when called", function()
