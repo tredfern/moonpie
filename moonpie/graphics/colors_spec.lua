@@ -6,21 +6,15 @@
 describe("Colors", function()
   local colors = require "moonpie.graphics.colors"
   it("can convert rgb hex values to integer rgb", function()
-    local r,g,b = colors.convert_hex("#FFFFFF")
-    assert.is.equal(1, r)
-    assert.is.equal(1, g)
-    assert.is.equal(1, b)
+    local c = colors.convert_hex("#FFFFFF")
+    assert.array_matches({1.0, 1.0, 1.0, 1}, c)
 
-    r, g, b = colors.convert_hex("#FFF")
-    assert.is.equal(1, r)
-    assert.is.equal(1, g)
-    assert.is.equal(1, b)
+    c = colors.convert_hex("#FFF")
+    assert.array_matches({1.0, 1.0, 1.0, 1}, c)
 
-    r, g, b = colors.convert_hex("#0D0D0D")
+    c = colors.convert_hex("#0D0D0D")
     local target = tonumber("0x0D")/255
-    assert.is.equal(target, r)
-    assert.is.equal(target, g)
-    assert.is.equal(target, b)
+    assert.array_matches({ target, target, target, 1 }, c)
   end)
 
   it("can process a function to generate a color", function()
