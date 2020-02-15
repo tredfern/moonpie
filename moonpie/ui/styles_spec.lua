@@ -84,6 +84,15 @@ describe("Styles", function()
         assert.equals("font-stuff", s.font)
       end)
 
+      it("pulls font_name and font_size", function()
+        styles.text = { font_name = "default", font_size = 12 }
+        local p = { style = "text" }
+        local c = { }
+        local s = styles.compute(c, styles.compute(p))
+        assert.equals("default", s.font_name)
+        assert.equals(12, s.font_size)
+      end)
+
       it("pulls parent component properties too", function()
         local p = { color = "red" }
         local ps = styles.compute(p)

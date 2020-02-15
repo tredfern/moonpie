@@ -21,12 +21,20 @@ return function(moonpie)
   end
 
   styles.root = { }
-  styles.body = { background_color = "background", color = "text", height = "100%" }
+
+  styles.body = {
+    background_color = "background",
+    color = "text",
+    height = "100%",
+    font_name = "default",
+    font_size = 12
+  }
   styles.image = { color = { 1, 1, 1, 1 } }
   styles.text = { display = "inline" }
 
   styles.button = {
-    font = moonpie.graphics.fonts.default.bold(12),
+    font_name = "default-bold",
+    font_size = 14,
     background_color = "button_default",
     color = "button_text",
     corner_radius_x = 4, corner_radius_y = 4,
@@ -40,7 +48,8 @@ return function(moonpie)
 
   styles.button_small = {
     corner_radius_x = 3, corner_radius_y = 3,
-    font = moonpie.graphics.fonts.default.regular(10),
+    font_name = "default-bold",
+    font_size = 10,
     padding = { left = 8, right = 8, top = 4, bottom = 4 }
   }
 
@@ -96,9 +105,9 @@ return function(moonpie)
   button_style("warning", "warning")
   button_style("success", "success")
 
-  styles.h1 = { margin = 10, color = "primary", font = moonpie.graphics.fonts.headline.bold(28) }
-  styles.h2 = { margin = 10, color = "primary", font = moonpie.graphics.fonts.headline.bold(24) }
-  styles.h3 = { margin = 10, color = "primary", font = moonpie.graphics.fonts.headline.bold(18) }
+  styles.h1 = { margin = 10, color = "primary", font_name = "headline-bold", font_size = 28 }
+  styles.h2 = { margin = 10, color = "primary", font_name = "headline-bold", font_size = 24 }
+  styles.h3 = { margin = 10, color = "primary", font_name = "headline-bold", font_size = 18 }
 
   styles["align-center"] = { align = "center" }
   styles["align-right"] = { align = "right" }
@@ -110,14 +119,15 @@ return function(moonpie)
     opacity = 0.7,
     background_color = "black",
     padding = 10,
-    font = moonpie.graphics.fonts.fixed.regular(10),
+    font_name = "fixed",
+    font_size = 10,
     color = "white"
   }
 
   styles.debug_tool = {
     background_color = "gray",
     padding = 4,
-    margin = 2
+    margin = 2,
   }
 
   styles.textbox = {

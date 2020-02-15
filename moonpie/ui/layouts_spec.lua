@@ -217,13 +217,14 @@ describe("Layouts", function()
   end)
 
   describe("Text Layouts", function()
+
     it("creates an image of the text", function()
       local node = Node({ text = "Foo", font = mock_love.font })
       layouts.text(node, parent)
       assert.not_nil(node.image)
     end)
 
-    it("handles when text is by treating it as empty string", function()
+    it("handles when text is nil by treating it as empty string", function()
       -- override love.graphics.newText to return this specific object
       local text_object = love.graphics.newText()
       text_object.setf = spy.new(function() end)
@@ -233,6 +234,16 @@ describe("Layouts", function()
       layouts.text(node, parent)
       assert.spy(text_object.setf).was.called()
       assert.spy(text_object.setf).was.called.with(text_object, "", parent.box.content.width, "left")
+    end)
+
+    it("gets a font based on size and name if no font specified", function()
+      local font = require "moonpie.graphics.font"
+      local node = Node({ text = "Foo", font_name = "Arial", font_size = 12 })
+      font.get = spy.new(function() end)
+      layouts.text(node, parent)
+
+      assert.not_nil(node.image)
+      assert.spy(font.get).was.called_with(font, "Arial", 12)
     end)
   end)
 

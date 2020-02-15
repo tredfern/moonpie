@@ -137,8 +137,9 @@ function layouts.standard(node, parent)
 end
 
 function layouts.text(node, parent)
+  local Font = require "moonpie.graphics.font"
   local max_width = layouts.max_width(node, parent)
-  local f = node.font or love.graphics.getFont()
+  local f = Font.pick(node)
   node.image = love.graphics.newText(f)
   node.image:setf(node.text or "", max_width, "left")
 

@@ -8,14 +8,8 @@ local font = {
   registered = {}
 }
 
-
-function font:register(path)
-  local name = files.get_name(path)
-  if font.registered[name] then
-    return font.registered[name]
-  end
-
-  local f = setmetatable({
+function font:create(path, name)
+  return setmetatable({
     path = path,
     name = name,
   }, {
@@ -26,13 +20,45 @@ function font:register(path)
       return f[size]
     end
   })
+end
+
+function font:register(path, alias)
+  local name = files.get_name(path)
+  local f = font.registered[name]
+
+  if not f then
+    f = font:create(path, name)
+  end
+
   font.registered[f.name] = f
+  if alias then font.registered[alias] = f end
 
   return f
 end
 
+function font:get(path_name, size)
+  local f = self.registered[path_name] or self:register(path_name)
+  if size == nil then
+    return f
+  end
+
+  return f(size)
+end
+
+function font.pick(tbl)
+  if tbl.font then
+    return tbl.font
+  end
+
+  if tbl.font_name and tbl.font_size then
+    return font:get(tbl.font_name, tbl.font_size)
+  end
+
+  return font:get("not-set", 12)
+end
+
 setmetatable(font, {
-  __call = font.register
+  __call = font.get
 })
 
 return font

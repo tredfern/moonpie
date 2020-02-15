@@ -23,20 +23,14 @@ return function(moonpie)
 
 
   --TODO: More elegant solution for this
-  moonpie.graphics.fonts = {
-    default = {
-      regular = moonpie.graphics.font(Conf.assets_path .. "fonts/roboto/Regular.ttf"),
-      bold = moonpie.graphics.font(Conf.assets_path .. "fonts/roboto/Bold.ttf")
-    },
-    headline = {
-      regular = moonpie.graphics.font(Conf.assets_path .. "fonts/roboto_slab/Regular.ttf"),
-      bold = moonpie.graphics.font(Conf.assets_path .. "fonts/roboto_slab/Bold.ttf")
-    },
-    fixed = {
-      regular = moonpie.graphics.font(Conf.assets_path .. "fonts/hack/Regular.ttf"),
-      bold = moonpie.graphics.font(Conf.assets_path .. "fonts/hack/Bold.ttf")
-    }
-  }
+  local Font = moonpie.graphics.font
+  Font:register(Conf.assets_path .. "/fonts/Roboto-Regular.ttf", "default")
+  Font:register(Conf.assets_path .. "/fonts/Roboto-Bold.ttf", "default-bold")
+  Font:register(Conf.assets_path .. "/fonts/RobotoSlab-Regular.ttf", "headline")
+  Font:register(Conf.assets_path .. "/fonts/RobotoSlab-Bold.ttf", "headline-bold")
+  Font:register(Conf.assets_path .. "/fonts/Hack-Regular.ttf", "fixed")
+  Font:register(Conf.assets_path .. "/fonts/Hack-Bold.ttf", "fixed-bold")
+  Font:register(Conf.assets_path .. "/fonts/uglyhandwriting.ttf", "not-set")
 
   assert(moonpie.graphics.colors.light_shade)
   assert(moonpie.graphics.colors.light_accent)

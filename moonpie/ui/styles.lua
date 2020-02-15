@@ -12,6 +12,8 @@ local styles = {}
 local INHERITABLE = list:new({
   "color",
   "font",
+  "font_name",
+  "font_size",
   "opacity"
 })
 
