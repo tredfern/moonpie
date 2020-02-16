@@ -8,7 +8,7 @@ local Component = require("moonpie.ui.components.component")
 Component("button", function(props)
   return {
     caption = props.caption,
-    Component.text({ text = props.caption })
+    Component.text({ id = "btn_text", text = props.caption, style = "align-center align-middle" })
   }
 end)
 

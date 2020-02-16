@@ -29,13 +29,23 @@ local copy_props = {
 local ComponentFactory = {}
 local Component_mt = { }
 
-local function find_by_id(component, id)
-  for _, v in ipairs(component) do
+local search = {}
+function search.find_by_id_imp(id, list)
+  for _, v in ipairs(list) do
     if v.id == id then
       return v
     end
-    local out = find_by_id(v, id)
+    local out = search.find_by_id(v, id)
     if out then return out end
+  end
+end
+
+function search.find_by_id(component, id)
+  local r = search.find_by_id_imp(id, component)
+  if r then return r end
+  if component.children then
+    r = search.find_by_id_imp(id, component.children)
+    if r then return r end
   end
 end
 
@@ -48,7 +58,7 @@ function ComponentFactory.add_component_methods(c)
     self:flag_updates(true)
   end
 
-  c.find_by_id = find_by_id
+  c.find_by_id = search.find_by_id
 
   c.flag_updates = function(self, f) self.updates_available = f end
   c.has_updates = function(self) return self.updates_available end

@@ -8,4 +8,8 @@ describe("moonpie.test_helpers.string_assertions", function()
     assert.contains("ab", "foo-ab-bar")
     assert.not_contains("ab", "foobar")
   end)
+
+  it("returns true if the whole string matches", function()
+    assert.contains("align%-center", "align-center")
+  end)
 end)

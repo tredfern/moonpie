@@ -12,10 +12,11 @@ describe("RenderEngine", function()
     RenderEngine.clear_all()
     Component("complex", function(props)
       return {
+        id = "top",
         text = "complex",
         value = props.value,
         render = function(self)
-          return { text = "foo", value = self.value }
+          return { id = "child_text", text = "foo", value = self.value }
         end
       }
     end)
@@ -89,6 +90,14 @@ describe("RenderEngine", function()
       local node = RenderEngine.find_by_component(c)
       assert.equals(c, node.component)
     end)
+
+    it("can find a component by it's id", function()
+      local c = Component.complex()
+      assert.equals("top", c.id)
+      RenderEngine("ui", c)
+      assert.equals(c, RenderEngine.find_by_id("top").component)
+      assert.not_nil(RenderEngine.find_by_id("child_text"))
+    end)
   end)
 
   describe("Paint", function()
@@ -115,10 +124,10 @@ describe("RenderEngine", function()
 
     it("refreshes the style information before painting", function()
       local c = Component.complex()
-      local r = RenderEngine("ui", c)
-      local n = r:find_by_component(c)
+      local layer = RenderEngine("ui", c)
+      local n = layer:find_by_component(c)
       n.refresh_style = spy.new(function() end)
-      r:paint(Mouse)
+      layer:paint(Mouse)
       assert.spy(n.refresh_style).was.called.with(n)
     end)
   end)
@@ -192,21 +201,21 @@ describe("RenderEngine", function()
 
       it("updates the layout of the newly rendered children", function()
         local c = Component.complex()
-        local r = RenderEngine("ui", c)
-        local n = r:find_by_component(c)
+        local layer = RenderEngine("ui", c)
+        local n = layer:find_by_component(c)
         n.layout = spy.new(function() end)
         c:update({ value = 10 })
-        r:update(Mouse)
+        layer:update(Mouse)
         assert.spy(n.layout).was.called()
       end)
 
       it("will not render components that are hidden", function()
         local c = Component.complex()
-        local r = RenderEngine("ui", c)
+        local layer = RenderEngine("ui", c)
         c.render = spy.new(function() return {} end)
         c:update({ value = 10 })
         c:hide()
-        r:update(Mouse)
+        layer:update(Mouse)
         assert.not_nil(c.render)
         assert.spy(c.render).was_not.called()
       end)

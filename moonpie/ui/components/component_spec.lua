@@ -109,7 +109,7 @@ describe("Component", function()
         Component("text", function(props) return { text = props.text } end)
         Component("big", function()
           return {
-            Component.text({ id = 1, text = "1" }),
+            Component.text({ id = "1", text = "1" }),
             Component.text({ id = 2, text = "2" }),
             Component.text({ id = 3, text = "3" }),
             {
@@ -121,7 +121,7 @@ describe("Component", function()
 
       it("can find child components if an id is provided", function()
         local b = Component.big()
-        local t1 = b:find_by_id(1)
+        local t1 = b:find_by_id("1")
         local t2 = b:find_by_id(2)
         local t3 = b:find_by_id(3)
         assert.equals("1", t1.text)
@@ -133,6 +133,13 @@ describe("Component", function()
         local b = Component.big()
         local t4 = b:find_by_id(4)
         assert.equals("4", t4.text)
+      end)
+
+      it("searchs the child property if present to find_by_id as well", function()
+        local b = Component.big()
+        local c = { id = "turtles" }
+        b.children = { c }
+        assert.equals(c, b:find_by_id("turtles"))
       end)
     end)
   end)

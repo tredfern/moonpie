@@ -101,6 +101,13 @@ function RenderEngine.find_by_component(component)
   end
 end
 
+function RenderEngine.find_by_id(id)
+  for _, layer in ipairs(RenderEngine.ordered_layers()) do
+    local node = layer.root:find_by_id(id)
+    if node then return node end
+  end
+end
+
 function RenderEngine.render_node(node)
   if node.render then
     local rendered = node:render()

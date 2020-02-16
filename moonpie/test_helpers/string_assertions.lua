@@ -14,6 +14,6 @@ function contains(state, arguments)
 end
 
 
-say:set("assertion.contains.positive", "Expected %s to be contained in: %s")
-say:set("assertion.contains.negative", "Expected %s to not be contained in: %s")
+say:set("assertion.contains.positive", "Expected %s to be contained in: %s . Check for magic characters ().%%+-*?[^$")
+say:set("assertion.contains.negative", "Expected %s to not be contained in: %s . Check for magic characters ().%%+-*?[^$")
 assert:register("assertion", "contains", contains, "assertion.contains.positive", "assertion.contains.negative")
