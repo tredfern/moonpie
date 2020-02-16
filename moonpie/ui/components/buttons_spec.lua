@@ -25,7 +25,6 @@ describe("Components - Button", function()
       local tb = b:find_by_id("btn_text")
       assert.not_nil(tb)
       assert.contains("align%-center", tb.style)
-      assert.contains("align%-middle", tb.style)
     end)
   end)
 
