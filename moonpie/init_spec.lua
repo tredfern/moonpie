@@ -89,7 +89,10 @@ describe("Initialize Moonpie", function()
     end)
   end)
 
-  describe("layers", function()
+  describe("Render Engine / DOM", function()
+    it("has access to the current engine", function()
+      assert.equals(require("moonpie.ui.render_engine"), moonpie.ui.current)
+    end)
   end)
 
   describe("Collections", function()

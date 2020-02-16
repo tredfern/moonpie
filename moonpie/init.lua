@@ -24,6 +24,7 @@ local moonpie = {
   tween = require "moonpie.ext.tween",
   ui = {
     components = require "moonpie.ui.components",
+    current = RenderEngine,
     styles = require "moonpie.ui.styles",
     themes = {
       standard = require "moonpie.themes.standard",
