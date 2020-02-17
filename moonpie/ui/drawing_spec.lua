@@ -73,7 +73,7 @@ describe("Renderers", function()
 
     it("draws an image if available", function()
       spy.on(drawing, "image")
-      local b = Node({ image = {} })
+      local b = Node({ image = mock_love.image })
       drawing.standard(b)
       assert.spy(drawing.image).was.called.with(b)
     end)
@@ -207,8 +207,8 @@ describe("Renderers", function()
       assert.spy(love.graphics.setColor).was.called.with({ 1, 1, 1, 1 })
     end)
 
-    it("will scale the image if scaling property is set to fit", function()
-      local c = { image = mock_love.image, width = 150, height = 150, scaling = "fit" }
+    it("scales the image to the content area", function()
+      local c = { image = mock_love.image, width = 150, height = 150 }
       local node = Node(c)
       node:layout()
       drawing.image(node)
