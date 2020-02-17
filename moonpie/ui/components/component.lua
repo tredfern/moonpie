@@ -12,6 +12,8 @@ local copy_props = {
   "color",
   "component_mounted",
   "draw_component",
+  "font_name",
+  "font_size",
   "height",
   "id",
   "keypressed",

@@ -213,11 +213,9 @@ describe("Layouts", function()
       b:layout(parent)
       assert.equals(2, c2.box.y)
     end)
-
   end)
 
   describe("Text Layouts", function()
-
     it("creates an image of the text", function()
       local node = Node({ text = "Foo", font = mock_love.font })
       layouts.text(node, parent)
@@ -260,6 +258,15 @@ describe("Layouts", function()
       img_node:layout(parent)
       assert.equals(200, img_node.box.content.width)
       assert.equals(250, img_node.box.content.height)
+    end)
+
+    it("supports using percentages for the width and height", function()
+      local p = Node({ height = 200, width = 200 })
+      local img_node = Node({ image = mock_love.image, layout = layouts.image, width = "50%", height = "50%" })
+      p:add(img_node)
+      p:layout()
+      assert.equals(100, img_node.box.content.width)
+      assert.equals(100, img_node.box.content.height)
     end)
   end)
 

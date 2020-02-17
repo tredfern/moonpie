@@ -105,9 +105,9 @@ return function(moonpie)
   button_style("warning", "warning")
   button_style("success", "success")
 
-  styles.h1 = { margin = 10, color = "primary", font_name = "headline-bold", font_size = 28 }
-  styles.h2 = { margin = 10, color = "primary", font_name = "headline-bold", font_size = 24 }
-  styles.h3 = { margin = 10, color = "primary", font_name = "headline-bold", font_size = 18 }
+  styles.h1 = { display = "block", margin = 10, color = "primary", font_name = "headline-bold", font_size = 28 }
+  styles.h2 = { display = "block", margin = 10, color = "primary", font_name = "headline-bold", font_size = 24 }
+  styles.h3 = { display = "block", margin = 10, color = "primary", font_name = "headline-bold", font_size = 18 }
 
   styles["align-center"] = { align = "center" }
   styles["align-right"] = { align = "right" }

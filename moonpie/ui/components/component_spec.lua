@@ -82,6 +82,8 @@ describe("Component", function()
           color = "blue",
           component_mounted = function() end,
           draw_component = function() end,
+          font_name = "Arial",
+          font_size = 18,
           height = 624,
           id = "foo",
           keypressed = spy.new(function() end),

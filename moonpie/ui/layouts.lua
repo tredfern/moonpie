@@ -143,12 +143,21 @@ function layouts.text(node, parent)
   node.image = love.graphics.newText(f)
   node.image:setf(node.text or "", max_width, "left")
 
-  return layouts.image(node)
+  return layouts.image(node, parent)
 end
 
-function layouts.image(node)
+function layouts.image(node, parent)
   local w, h = node.image:getDimensions()
-  node.box.content.width, node.box.content.height = node.width or w, node.height or h
+  if node.width then
+    node.box.content.width = layouts.calc_width(node, parent, w)
+  else
+    node.box.content.width = w
+  end
+  if node.height then
+    node.box.content.height = layouts.calc_height(node, parent, h)
+  else
+    node.box.content.height = h
+  end
 end
 
 return layouts
