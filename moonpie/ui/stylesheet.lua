@@ -3,8 +3,6 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-
-
 return function(moonpie)
   local styles = moonpie.ui.styles
   local color = moonpie.graphics.colors
@@ -137,5 +135,12 @@ return function(moonpie)
     corner_radius_y = 2,
     display = "inline",
     padding = 3
+  }
+
+  styles.hr = {
+    height = 2,
+    width = "98%",
+    background_color = "text",
+    align = "center"
   }
 end

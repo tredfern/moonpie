@@ -26,6 +26,7 @@ return function()
       components.button({ style = "button_success button_small", caption = "Success" }),
       components.button({ style = "button_danger button_small", caption = "Danger" }),
     },
+    components.hr(),
     { components.h2({ text = "Toggles" }) },
     {
       margin = 5,
