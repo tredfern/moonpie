@@ -7,5 +7,6 @@ local ScriptTools = require "moonpie.utility.script_tools"
 local Conf = {}
 
 Conf.assets_path = ScriptTools.get_path() .. "assets/"
+Conf.icons_path = Conf.assets_path .. "icons/"
 
 return Conf

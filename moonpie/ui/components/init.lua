@@ -25,5 +25,6 @@ require("moonpie.ui.components.tree")
 require("moonpie.ui.components.debug")
 require("moonpie.ui.components.textbox")
 require("moonpie.ui.components.hr")
+require("moonpie.ui.components.icon")
 
 return Component

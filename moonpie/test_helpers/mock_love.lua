@@ -55,6 +55,26 @@ love = {
         translate = function() end,
     },
     filesystem = {
+        getDirectoryItems = function(path)
+          local lfs = require "lfs"
+          local results = { }
+
+          for file in lfs.dir(path) do
+            if file ~= "." and file ~= ".." then
+              results[#results + 1] = file
+            end
+          end
+          return results
+        end,
+        getInfo = function(path)
+          local lfs = require "lfs"
+          local results = { }
+          local attr = lfs.attributes(path)
+          if attr then
+            results.type = attr.mode
+          end
+          return results
+        end,
         read = function(path)
             local file = io.open(path, "rb") -- r read mode and b binary mode
             if not file then return nil end

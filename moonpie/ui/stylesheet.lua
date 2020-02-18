@@ -143,4 +143,20 @@ return function(moonpie)
     background_color = "text",
     align = "center"
   }
+
+  styles.icon_xsmall = {
+    width = 16, height = 16
+  }
+  styles.icon_small = {
+    width = 24, height = 24
+  }
+  styles.icon_medium = {
+    width = 32, height = 32
+  }
+  styles.icon_large = {
+    width = 64, height = 64
+  }
+  styles.icon_xlarge = {
+    width = 128, height = 128
+  }
 end

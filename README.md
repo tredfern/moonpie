@@ -80,3 +80,44 @@ Moonpie supports adding hotkeys that can trigger callbacks.
 
 ## Demo
 ![Demo](screenshots/moonpie_progress.gif)
+
+## Acknowledgments 
+### Game Icons
+The entire game icons library has been imported into this project. I attempted to do this in a way that will allow
+it to be easily updated and maintained. Please visit game-icons.net for the complete information about this 
+fantastic project. Specific license for the icons is located in the moonpie/assets/icons folder.
+
+All icons are created by the following authors:
+- Lorc, http://lorcblog.blogspot.com
+- Delapouite, https://delapouite.com
+- John Colburn, http://ninmunanmu.com
+- Felbrigg, http://blackdogofdoom.blogspot.co.uk
+- John Redman, http://www.uniquedicetowers.com
+- Carl Olsen, https://twitter.com/unstoppableCarl
+- Sbed, http://opengameart.org/content/95-game-icons
+- PriorBlue
+- Willdabeast, http://wjbstories.blogspot.com
+- Viscious Speed, http://viscious-speed.deviantart.com - CC0
+- Lord Berandas, http://berandas.deviantart.com
+- Irongamer, http://ecesisllc.wix.com/home
+- HeavenlyDog, http://www.gnomosygoblins.blogspot.com
+- Lucas
+- Faithtoken, http://fungustoken.deviantart.com
+- Skoll
+- Andy Meneely, http://www.se.rit.edu/~andy/
+- Cathelineau
+- Kier Heyl
+- Aussiesim
+- Sparker, http://citizenparker.com
+- Zeromancer - CC0
+- Rihlsul
+- Quoting
+- Guard13007, https://guard13007.com
+- DarkZaitzev, http://darkzaitzev.deviantart.com
+- SpencerDub
+- GeneralAce135
+- Zajkonur
+- Catsu
+- Starseeker
+- Pepijn Poolman
+- Pierre Leducq
