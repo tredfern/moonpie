@@ -144,19 +144,19 @@ return function(moonpie)
     align = "center"
   }
 
-  styles.icon_xsmall = {
+  styles["icon-xsmall"] = {
     width = 16, height = 16
   }
-  styles.icon_small = {
+  styles["icon-small"] = {
     width = 24, height = 24
   }
-  styles.icon_medium = {
+  styles["icon-medium"] = {
     width = 32, height = 32
   }
-  styles.icon_large = {
+  styles["icon-large"] = {
     width = 64, height = 64
   }
-  styles.icon_xlarge = {
+  styles["icon-xlarge"] = {
     width = 128, height = 128
   }
 end

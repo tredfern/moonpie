@@ -4,11 +4,13 @@
 -- https://opensource.org/licenses/MIT
 
 return function(align, min, max, size)
+  local pos 
   if align == "right" or align == "bottom" then
-    return max - size
+    pos = max - size
   elseif align == "center" or align == "middle" then
-    return (max - min - size) / 2
+    pos = (max - min - size) / 2
   else
-    return min
+    pos = min
   end
+  return math.max(pos, min)
 end

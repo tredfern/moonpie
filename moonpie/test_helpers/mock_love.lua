@@ -1,3 +1,4 @@
+local lfs = require "lfs"
 local font = {
   getWidth = function() return 10 end,
   getHeight = function() return 10 end,
@@ -56,7 +57,6 @@ love = {
     },
     filesystem = {
         getDirectoryItems = function(path)
-          local lfs = require "lfs"
           local results = { }
 
           for file in lfs.dir(path) do
@@ -67,7 +67,6 @@ love = {
           return results
         end,
         getInfo = function(path)
-          local lfs = require "lfs"
           local results = { }
           local attr = lfs.attributes(path)
           if attr then

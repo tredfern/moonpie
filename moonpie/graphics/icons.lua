@@ -8,9 +8,8 @@ local Files = require "moonpie.utility.files"
 
 local icons = {}
 
-local list = Files.find(Conf.icons_path)
-
 local function load()
+  local list = Files.find(Conf.icons_path)
   for _, v in ipairs(list) do
     local n = Files.get_name(v)
     icons[n] = v

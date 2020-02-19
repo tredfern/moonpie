@@ -56,11 +56,11 @@ return function()
     },
     {
       margin = 5,
-      components.icon_xsmall({ icon = "acrobatic", color = "blue" }),
-      components.icon_small({ icon = "acrobatic", color = "green" }),
-      components.icon_medium({ icon = "acrobatic", color = "purple" }),
-      components.icon_large({ icon = "acrobatic", color = "pink" }),
-      components.icon_xlarge({ icon = "acrobatic", color = "silver" }),
+      components.icon({ style = "icon-xsmall", icon = "acrobatic", color = "blue" }),
+      components.icon({ style = "icon-small", icon = "acrobatic", color = "green" }),
+      components.icon({ style = "icon-medium", icon = "acrobatic", color = "purple" }),
+      components.icon({ style = "icon-large", icon = "acrobatic", color = "pink" }),
+      components.icon({ style = "icon-xlarge", icon = "acrobatic", color = "silver" }),
     }
   }
 
