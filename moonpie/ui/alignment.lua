@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 return function(align, min, max, size)
-  local pos 
+  local pos
   if align == "right" or align == "bottom" then
     pos = max - size
   elseif align == "center" or align == "middle" then
