@@ -7,18 +7,19 @@ local Conf = require "moonpie.configuration"
 local Files = require "moonpie.utility.files"
 
 local icons = {}
+local loaded = false
 
 local function load()
-  local list = Files.find(Conf.icons_path)
+  local list = Files.find(Conf.icons_path, "%.png")
   for _, v in ipairs(list) do
     local n = Files.get_name(v)
     icons[n] = v
   end
-  icons.loaded = true
+  loaded = true
 end
 
 function icons.get(icon)
-  if not icons.loaded then
+  if not loaded then
     load()
   end
   return icons[icon]

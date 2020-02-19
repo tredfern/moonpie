@@ -16,6 +16,7 @@ local moonpie = {
     camera = require "moonpie.graphics.camera",
     colors = require "moonpie.graphics.colors",
     font = require "moonpie.graphics.font",
+    icons = require "moonpie.graphics.icons",
   },
   keyboard = keyboard,
   math = require "moonpie.math",
