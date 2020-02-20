@@ -28,6 +28,15 @@ describe("Components - Button", function()
     end)
   end)
 
+  describe("Image buttons", function()
+    it("can have icons passed in", function()
+      local b = components.button({
+        components.icon({ icon = "expand", id = "btn_icon" })
+      })
+      assert.not_nil(b:find_by_id("btn_icon"))
+    end)
+  end)
+
   describe("Button Group", function()
     it("adds buttons provided", function()
       local bg = components.button_group({

@@ -1,4 +1,5 @@
 local lfs = require "lfs"
+local screen_width, screen_height, flags = 100, 100, { fullscreen = false }
 local font = {
   getWidth = function() return 10 end,
   getHeight = function() return 10 end,
@@ -102,8 +103,10 @@ love = {
     },
     window = {
       getMode = function()
-        return 100, 100, {
-        }
+        return screen_width, screen_height, flags
+      end,
+      setMode = function(w, h, fs)
+        screen_width, screen_height, flags = w, h, fs
       end
     },
     handlers = { }

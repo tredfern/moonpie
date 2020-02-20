@@ -4,12 +4,17 @@
 -- https://opensource.org/licenses/MIT
 
 local Component = require("moonpie.ui.components.component")
+local unpacker = require "moonpie.utility.unpack"
 
 Component("button", function(props)
-  return {
-    caption = props.caption,
-    Component.text({ id = "btn_text", text = props.caption, style = "align-center" })
+  local btn = {
+    unpacker(props)
   }
+  if props.caption then
+    btn.caption = props.caption
+    btn[#btn + 1] = Component.text({ id = "btn_text", text = props.caption, style = "align-center" })
+  end
+  return btn
 end)
 
 Component("button_group", function(props)
