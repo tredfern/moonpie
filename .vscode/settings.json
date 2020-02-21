@@ -1,3 +1,4 @@
 {
-    "licenser.projectName": "Moonpie"
+    "licenser.projectName": "Moonpie",
+    "restructuredtext.confPath": "${workspaceFolder}\\docs"
 }

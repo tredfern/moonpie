@@ -48,3 +48,4 @@ travis.log
 
 *.love
 
+docs/_build

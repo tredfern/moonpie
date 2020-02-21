@@ -38,6 +38,18 @@
                 "isDefault": true
             },
             "problemMatcher": []
+        },
+        {
+            "label": "Build-Docs",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "html"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/docs"
+            },
+            "problemMatcher": []
         }
     ]
 }

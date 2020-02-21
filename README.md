@@ -1,44 +1,37 @@
+![Read the Docs](https://img.shields.io/readthedocs/moonpie)
 [![Build Status](https://travis-ci.org/tredfern/moonpie.svg?branch=master)](https://travis-ci.org/tredfern/moonpie)
 [![Coverage Status](https://coveralls.io/repos/github/tredfern/moonpie/badge.svg?branch=master)](https://coveralls.io/github/tredfern/moonpie?branch=master)
 [![LOVE](https://img.shields.io/badge/L%C3%96VE-11.2-EA316E.svg)](http://love2d.org/)
 
 # moonpie
-Dynamic Layout UI Library with Tests
+Framework for Game Development in Love2D
 
 ## Motivation
+I love working with [Love2d](http://love2d.org). I like that there was limited structure that allows for 
+different approaches to developing the code. I like that it feels focused on providing a foundation without
+an overly rigid structure.
 
-Most GUI libraries seem to be focused heavily on framing controls. There is usually some container functionality
-followed by a group of widgets and then it feels left on your own to make them work. There doesn't appear
-to be an intentional design focused on providing an easy and logical way to organize your controls, code
-or to provide unit testing for them. _I have not done an extensive assessment of all libraries out there._
-I could certainly be wrong. However, when I looked at things like Immediate Mode UI's and other libraries
-created, they feel focused on the controls and not on the user.
+And, whenever I work in it, I wanted a structure that worked for me. And that is where Moonpie evolved from.
+Primarily it is focused around providing an approach to GUI that is _responsive_ and easy to craft user experiences.
+As the UI matured I found I needed to bring more and more pieces together. Those pieces have evolved into this
+framework.
 
-Controls just provide the basic twiddles to make something happen, it's the coordination of those controls
-that makes a UI. Moonpie is an attempt to take what I have learned building web applications and apply
-it to a game framework. The component framework is designed to allow it easier to organize, test, and reuse
-widgets of code. The layout engine is designed to make it easy to place them on the screen logically and
-take the burden of worrying about each pixel. The eventing is designed to take advantage of the functional
-language of Lua. The preference to avoid state is to reduce the amount of management needed for the UI.
+## UI Components
 
-The demo provided shows some of the basic controls and widgets, but more importantly it should show that
-writing the code that does some interesting layouts of controls is easy and intuitive. The debug tools
-are built in the same framework and could be extended to support each individual game project.
+UI components are reusable blocks of code that represent the controls on the screen. 
 
-## Layouts
+```
+moonpie = require "moonpie"
+moonpie.ui.components("fancy_title", function(props)
+  return {
+    moonpie.ui.components.h1({ text = props.title_text }),
+    moonpie.ui.components.hr()
+  }
 
-Layouts are defined by nested tables. Think of a plain table as representing a DIV tag with no styles.
-This allows common elements to be grouped together easily.
+end)
 
-Width and height can be specified to the element to set it's area, but best is to be like HTML and define
-sizes sparingly. Text elements will calculate their size based on the amount of text and the max width available.
-Images will scale to specified sizes.
-
-The outcome is that each element defined in the layout becomes a node in the layout tree. Style information
-is merged into the style tree to provide reusable properties that should be consistent. Properties specified
-directly onto the table will override style properties. If the element is a reusable Component, then it will
-also include style information that matches the Component name. A few parent element properties are inherited
-as well.
+moonpie.render("ui", moonpie.ui.components.fancy_title({ title_text = "Hello World" }))
+```
 
 ## Rendering
 
@@ -73,6 +66,7 @@ Moonpie supports adding hotkeys that can trigger callbacks.
 
 ## Goals
  * 100% Unit Test Coverage
+ * Game framework that allows rapid development
  * Easy to adjust layout as needed
  * Layout without specifying every pixel
  * Layout is dynamic to different screen sizes
