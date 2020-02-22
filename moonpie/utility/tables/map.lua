@@ -5,8 +5,8 @@
 
 return function(tbl, operation)
   local out = {}
-  for _, v in ipairs(tbl) do
-    out[#out + 1] = operation(v)
+  for i, v in ipairs(tbl) do
+    out[i] = operation(v, i)
   end
   return out
 end
