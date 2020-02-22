@@ -4,15 +4,15 @@
 -- https://opensource.org/licenses/MIT
 
 describe("moonpie.utility.has_keys", function()
-  local has_keys = require "moonpie.utility.has_keys"
+  local tables = require "moonpie.utility.tables"
 
   it("returns true if table contains all keys", function()
     local t = { a = 1, b = 2, c = 3, d = 4 }
-    assert.is_true(has_keys(t, "a", "b", "c", "d"))
+    assert.is_true(tables.has_keys(t, "a", "b", "c", "d"))
   end)
 
   it("returns false if table is missing any key", function()
     local t = { a = 1, b = 2, c = 3 }
-    assert.is_false(has_keys(t, "a", "b", "c", "d"))
+    assert.is_false(tables.has_keys(t, "a", "b", "c", "d"))
   end)
 end)

@@ -3,7 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local copy_keys = require "moonpie.utility.copy_keys"
+local tables = require "moonpie.utility.tables"
 local copy_props = {
   "background_color",
   "border",
@@ -56,7 +56,7 @@ function ComponentFactory.add_component_methods(c)
   if c.has_component_methods then return end
 
   c.update = function(self, new)
-    copy_keys(new, self, true)
+    tables.copy_keys(new, self, true)
     self:flag_updates(true)
   end
 

@@ -4,13 +4,13 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Copy Keys", function()
-  local copy_keys = require "moonpie.utility.copy_keys"
+  local tables = require "moonpie.utility.tables"
 
   it("can copy values from one table into another", function()
     local source = { name = "foo", value = 3, skip = "foo" }
     local dest = { skip = "bar" }
 
-    copy_keys(source, dest)
+    tables.copy_keys(source, dest)
     assert.equals("foo", dest.name)
     assert.equals(3, dest.value)
     assert.equals("bar", dest.skip)
@@ -20,13 +20,13 @@ describe("Copy Keys", function()
     local source = { a = "a", b = "b", c = "c" }
     local dest = { a = 123 }
 
-    copy_keys(source, dest, true)
+    tables.copy_keys(source, dest, true)
     assert.equals("a", dest.a)
     assert.equals("b", dest.b)
     assert.equals("c", dest.c)
   end)
 
   it("does nothing if source is nil", function()
-    assert.has_no.errors(function() copy_keys(nil, {}, true) end)
+    assert.has_no.errors(function() tables.copy_keys(nil, {}, true) end)
   end)
 end)
