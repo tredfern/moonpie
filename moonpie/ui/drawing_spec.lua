@@ -78,6 +78,19 @@ describe("Renderers", function()
       assert.spy(drawing.image).was.called.with(b)
     end)
 
+    it("draws a background image with the background color if provided but not rectangle", function()
+      local b = Node({ background_color = {0, 1, 1, 1 },
+        background_image = mock_love.image,
+        width = mock_love.image.width,
+        height = mock_love.image.height
+      })
+      mock(love)
+      drawing.standard(b)
+      assert.spy(love.graphics.setColor).was.called_with(b.background_color)
+      assert.spy(love.graphics.rectangle).was_not_called()
+      assert.spy(love.graphics.draw).was.called()
+    end)
+
     describe("rectangle tests", function()
 
       it("paints a background.color for it's area if provided", function()

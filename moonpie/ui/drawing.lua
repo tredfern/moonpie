@@ -30,8 +30,14 @@ function drawing.draw_background(node)
     love.graphics.translate(node.box:background_position())
     love.graphics.setColor(colors(node.background_color, node.opacity))
     local w, h = node.box:background_size()
-    love.graphics.rectangle("fill", 0, 0, w, h,
-      node.corner_radius_x or 0, node.corner_radius_y or 0)
+    if node.background_image then
+      local sx = image.scale_width(node.background_image, w)
+      local sy = image.scale_height(node.background_image, h)
+      love.graphics.draw(node.background_image, 0, 0, 0, sx, sy)
+    else
+      love.graphics.rectangle("fill", 0, 0, w, h,
+        node.corner_radius_x or 0, node.corner_radius_y or 0)
+    end
     love.graphics.pop()
   end
 end
