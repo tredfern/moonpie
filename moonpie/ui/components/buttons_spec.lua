@@ -28,6 +28,11 @@ describe("Components - Button", function()
     end)
   end)
 
+  it("can templatize the captions", function()
+    local b = components.button({ caption = "A {{type}} day", type="big" })
+    assert.equals("A big day", b.caption)
+  end)
+
   describe("Image buttons", function()
     it("can have icons passed in", function()
       local b = components.button({
