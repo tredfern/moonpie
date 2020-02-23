@@ -43,7 +43,19 @@ describe("FindByCoordinates", function()
     -- children value is destroyed, this simulates it
     n.children = nil
     assert.has_no.errors(function() find(5, 3, n) end)
+  end)
 
+  it("filters out nodes that are invisible", function()
+    local n = node({ width = 200, height = 200 })
+    local c1 = node({ width = 100, height = 100, hidden = true })
+    local c2 = node({ width = 100, height = 100 })
+    local c1_1 = node({ width = 40, height = 40 })
 
+    n:add(c1, c2)
+    c1:add(c1_1)
+    n:layout()
+    local results = find(5, 8, n)
+    assert.equals(n, results[1])
+    assert.is_nil(results[2])
   end)
 end)

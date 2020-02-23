@@ -42,7 +42,7 @@ end
 --
 function app.next_demo_button()
   return components.button({
-    style = "button_primary",
+    style = "button-primary",
     caption = "Next Demo",
     click = app.render_next
   })
@@ -78,7 +78,7 @@ end
 function app.quit_button()
   return components.button({
     caption = "Quit",
-    style = "button_warning",
+    style = "button-warning",
     click = function()
       love.event.quit()
     end

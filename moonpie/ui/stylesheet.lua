@@ -9,7 +9,7 @@ return function(moonpie)
   local button_lighten = 1.2
 
   local function button_style(name, bg_color)
-    local n = "button_"..name
+    local n = "button-"..name
     styles[n] = {
       background_color = bg_color,
       _hover_ = {
@@ -44,7 +44,7 @@ return function(moonpie)
     }
   }
 
-  styles.button_small = {
+  styles["button-small"] = {
     corner_radius_x = 3, corner_radius_y = 3,
     font_name = "default-bold",
     font_size = 10,

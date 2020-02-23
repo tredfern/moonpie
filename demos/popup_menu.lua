@@ -26,7 +26,7 @@ components("main_menu", function()
       components.button({
         width = "100%",
         caption = "Resume",
-        style = "button_default align-center",
+        style = "button-default align-center",
         click = function()
           main_menu:hide()
         end
@@ -36,7 +36,7 @@ components("main_menu", function()
       components.button({
         width = "100%",
         caption = "Quit",
-        style = "button_danger align-center",
+        style = "button-danger align-center",
         click = function()
           love.event.quit()
         end

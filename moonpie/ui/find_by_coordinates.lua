@@ -4,6 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 local function search_by_coord(x, y, node, results)
+  if node.hidden then return end
   if node.box:region():contains(x, y) then
     results[#results + 1] = node
 

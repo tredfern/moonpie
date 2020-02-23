@@ -19,7 +19,7 @@ describe("Mouse", function()
   end)
 
   describe("update", function()
-    local node_tree, n2, n3
+    local node_tree, n2, n3, hide, hidden_child
 
     before_each(function()
       mock_love.reset_mouse()
@@ -27,9 +27,13 @@ describe("Mouse", function()
       node_tree = node({ name = "root", width = 100, height = 100 })
       n2 = node({ name = "level1", width = 20, height = 20, click = spy.new(function() end) })
       n3 = node({ name = "level2", width = 10, height = 10 })
+      hide = node({ name = "invisible", width = 20, height = 20, hidden = true })
+      hidden_child = node({ name = "invisible", width = 10, height = 10, click = spy.new(function() end) })
 
       node_tree:add(n2)
       n2:add(n3)
+      node_tree:add(hide)
+      hide:add(hidden_child)
       node_tree:layout()
     end)
 
@@ -41,6 +45,16 @@ describe("Mouse", function()
       mock_love.move_mouse(3, 3)
       mouse:update(node_tree)
       assert.same({ node_tree, n2, n3 }, mouse.over_components)
+    end)
+
+    it("only finds elements that are visible under the mouse", function()
+      mock_love.move_mouse(22, 12)
+      mouse:update(node_tree)
+      assert.same({ node_tree }, mouse.over_components)
+
+      mock_love.move_mouse(32, 12)
+      mouse:update(node_tree)
+      assert.same({ node_tree }, mouse.over_components)
     end)
 
     describe("Click Event", function()
