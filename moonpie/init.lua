@@ -17,12 +17,12 @@ local moonpie = {
     colors = require "moonpie.graphics.colors",
     font = require "moonpie.graphics.font",
     icons = require "moonpie.graphics.icons",
+    image = require "moonpie.graphics.image"
   },
   keyboard = keyboard,
   math = require "moonpie.math",
   mouse = mouse,
   logger = require "moonpie.logger",
-  tween = require "moonpie.ext.tween",
   ui = {
     components = require "moonpie.ui.components",
     current = RenderEngine,
