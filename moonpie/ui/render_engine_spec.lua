@@ -278,13 +278,14 @@ describe("RenderEngine", function()
       assert.equals(rend, RenderEngine.layers.debug)
     end)
 
-    it("orders the layers ui, modal, floating, debug", function()
+    it("orders the layers background, ui, modal, floating, debug", function()
+      local background = RenderEngine("background", {})
       local ui = RenderEngine("ui", {})
       local debug = RenderEngine("debug", {})
       local floating = RenderEngine("floating", {})
       local modal = RenderEngine("modal", {})
 
-      assert.same({ ui, modal, floating, debug }, RenderEngine.ordered_layers())
+      assert.same({ background, ui, modal, floating, debug }, RenderEngine.ordered_layers())
     end)
   end)
 
