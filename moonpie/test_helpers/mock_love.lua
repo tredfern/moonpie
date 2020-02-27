@@ -88,6 +88,9 @@ love = {
         return key_down[key] ~= nil
       end
     },
+    math ={
+      random = math.random
+    },
     mouse = {
       getPosition = function()
         return mouse_x, mouse_y
