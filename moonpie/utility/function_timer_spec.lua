@@ -25,12 +25,13 @@ describe("Utility - Function Timer", function()
   end)
 
   it("tracks the results of timed calls", function()
+    -- TODO: Flakey Test
     local f = function() sleep(0.1) end
     local timed = function_timer:new(f)
     timed()
     assert.not_equal(0, timed.timer.max)
     assert.not_equals(0, timed.timer.min)
-    assert.near(0.1, timed.timer.last, 0.01)
+    assert.near(0.1, timed.timer.last, 0.05)
   end)
 
 end)
