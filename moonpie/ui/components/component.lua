@@ -91,6 +91,7 @@ local function create_component(name, render)
   ComponentFactory[name] = function(props)
     props = props or {}
     local c = render(props)
+    if not c then error("Component did not render table") end
     c.name = name
 
     ComponentFactory.add_component_methods(c)
