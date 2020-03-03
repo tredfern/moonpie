@@ -6,8 +6,9 @@
 local function cycle(set, count)
   local index = 0
   local passes = 0
+  local c = {}
 
-  return function()
+  c.next = function()
     index = index + 1
 
     if set[index] == nil then
@@ -20,6 +21,18 @@ local function cycle(set, count)
 
     return set[index]
   end
+
+  c.previous = function()
+    index = index - 1
+    if set[index] == nil then
+      index = #set
+    end
+
+    return set[index]
+  end
+
+  setmetatable(c, { __call = c.next })
+  return c
 end
 
 return cycle

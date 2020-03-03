@@ -29,4 +29,19 @@ describe("Cycle iterator", function()
     assert.equals(3, c())
     assert.is_nil(c())
   end)
+
+  it("can be used like a table with a next method", function()
+    local set = { 1, 2, 3 }
+    local c = cycle(set)
+    assert.equals(1, c.next())
+    assert.equals(2, c.next())
+  end)
+
+  it("can retrieve the previous item of the cycle", function()
+    local set = { 1, 2, 3 }
+    local c = cycle(set)
+    assert.equals(1, c.next())
+    assert.equals(3, c.previous())
+    assert.equals(2, c.previous())
+  end)
 end)
