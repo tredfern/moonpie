@@ -31,8 +31,8 @@ count = the limit of cycles to perform
 
   local set = { 1, 2, 3, 4 }
   
-  for _, v in moonpie.collections.iterators.cycle(set, 2) do
-    print(v)
+  for value, index in moonpie.collections.iterators.cycle(set, 2) do
+    print(value)
   end
 
   --

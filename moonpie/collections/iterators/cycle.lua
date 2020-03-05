@@ -19,7 +19,7 @@ local function cycle(set, count)
       end
     end
 
-    return set[index]
+    return set[index], index
   end
 
   c.previous = function()
@@ -28,7 +28,7 @@ local function cycle(set, count)
       index = #set
     end
 
-    return set[index]
+    return set[index], index
   end
 
   setmetatable(c, { __call = c.next })
