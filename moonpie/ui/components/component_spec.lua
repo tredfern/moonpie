@@ -215,4 +215,15 @@ describe("Component", function()
     Component("bad_component", function() end)
     assert.has_errors(Component.bad_component, "Component did not render table")
   end)
+
+  it("provides easy access to the logger", function()
+    local logger = require "moonpie.logger"
+    logger:clear()
+    Component("logging", function() return { log = function(self) self.logger.debug("Hooray") end } end)
+    local l = Component.logging()
+
+    l:log()
+    assert.equals("Hooray", logger.entries[1].message)
+
+  end)
 end)
