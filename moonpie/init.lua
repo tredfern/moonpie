@@ -85,6 +85,10 @@ function moonpie.load_stylesheet()
   require("moonpie.ui.stylesheet")(moonpie)
 end
 
+function moonpie.resize(width, height)
+  moonpie.events.window_resize:trigger(width, height)
+end
+
 function moonpie.load_debug()
   debug = moonpie.ui.components.debug_panel()
   moonpie.render("debug", debug )

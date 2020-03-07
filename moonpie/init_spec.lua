@@ -77,6 +77,16 @@ describe("Initialize Moonpie", function()
         assert.spy(after_spy).was.called()
       end)
     end)
+
+    describe("resize", function()
+      it("calls registered events with new width and height", function()
+        local evt = spy.new(function() end)
+
+        moonpie.events.window_resize:add(spy_to_func(evt))
+        moonpie.resize(400, 300)
+        assert.spy(evt).was.called_with(400, 300)
+      end)
+    end)
   end)
 
   describe("Keyboard integrations", function()

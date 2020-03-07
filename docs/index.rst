@@ -14,6 +14,7 @@ with libraries for collections, math, entity-component-systems, etc...
    moonpie
    moonpie.collections
    moonpie.ecs
+   moonpie.events
    moonpie.graphics
    moonpie.math
    moonpie.sorts

@@ -1,5 +1,5 @@
 local lfs = require "lfs"
-local screen_width, screen_height, flags = 100, 100, { fullscreen = false }
+local screen_width, screen_height, flags = 1600, 900, { fullscreen = false }
 local font = {
   getWidth = function() return 10 end,
   getHeight = function() return 10 end,
@@ -34,10 +34,11 @@ love = {
     },
     getVersion = function() return 11 end,
     graphics = {
+        getDimensions = function() return screen_width, screen_height end,
         getFont = function() return font end,
-        getHeight = function() return 900 end,
+        getHeight = function() return screen_height end,
         getStats = function() return { } end,
-        getWidth = function() return 1600 end,
+        getWidth = function() return screen_width end,
         newCanvas = function() return image end,
         newFont = function() return font end,
         newQuad = function() return { } end,
