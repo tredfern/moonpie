@@ -6,6 +6,12 @@
 local files = { }
 local unpacker = require "moonpie.utility.unpack"
 
+function files.assert_exists(path)
+  if love.filesystem.getInfo(path) == nil then
+    error("File does not exist: " .. path)
+  end
+end
+
 function files.split_path_components(path)
   return string.match(path, "(.-)([^\\/]-)%.?([^%.\\/]*)$")
 end

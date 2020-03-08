@@ -8,16 +8,16 @@ describe("Image", function()
   local mock_love = require "moonpie.test_helpers.mock_love"
 
   it("returns the same image if the same name is requested", function()
-    local i = image.load("assets/images/cat.jpg")
-    local j = image.load("assets/images/cat.jpg")
+    local i = image.load("./assets/images/cat.jpg")
+    local j = image.load("./assets/images/cat.jpg")
 
     assert.equals(i, j)
   end)
 
   it("fetches the image from love if not available", function()
     mock_love.mock(love.graphics, "newImage", spy.new(function() return mock_love.image end))
-    image.load("assets/images/foo.jpg")
-    assert.spy(love.graphics.newImage).was.called.with("assets/images/foo.jpg")
+    image.load("assets/images/cat.jpg")
+    assert.spy(love.graphics.newImage).was.called.with("assets/images/cat.jpg")
   end)
 
   describe("Scale Calculator", function()
@@ -46,5 +46,11 @@ describe("Image", function()
       local sy = image.scale_height(i, 150)
       assert.equals(1.50, sy)
     end)
+  end)
+
+  it("provides an error if file does not exist", function()
+    assert.has_error(function()
+      image.load("missing-file")
+    end, "File does not exist: missing-file")
   end)
 end)

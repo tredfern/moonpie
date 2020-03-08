@@ -31,4 +31,16 @@ describe("moonpie.utility.files", function()
     assert.equals("assets/foo/bar.ggg", files.merge_path("assets/foo/", "bar.ggg"))
     assert.equals("assets/foo/bar.ggg", files.merge_path("assets/foo", "bar.ggg"))
   end)
+
+  it("provides an assertion that file exists", function()
+    assert.has_errors(function()
+      files.assert_exists("some-path/that-will/not-find-anything")
+    end,
+      "File does not exist: some-path/that-will/not-find-anything"
+    )
+
+    assert.has_no_errors(function()
+      files.assert_exists("assets")
+    end)
+  end)
 end)

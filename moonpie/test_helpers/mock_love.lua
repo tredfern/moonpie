@@ -73,6 +73,8 @@ love = {
           local attr = lfs.attributes(path)
           if attr then
             results.type = attr.mode
+          else
+            results = nil
           end
           return results
         end,
