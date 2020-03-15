@@ -55,4 +55,22 @@ describe("Cycle iterator", function()
     assert.equals("b", v)
     assert.equals(2, i)
   end)
+
+  it("can return the current state and index without advancing", function()
+    local set = { "a", "b", "c" }
+    local c = cycle(set)
+    local v, i = c()
+    local cv, ci = c.current()
+    assert.equals(v, cv)
+    assert.equals(ci, i)
+  end)
+
+  it("can cycle until some state or item", function()
+    local set = { "a", "b", "c", "d" }
+    local c = cycle(set)
+    c.set_current("c")
+    local v, i = c.current()
+    assert.equals("c", v)
+    assert.equals(3, i)
+  end)
 end)

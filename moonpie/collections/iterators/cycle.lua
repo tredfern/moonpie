@@ -31,6 +31,19 @@ local function cycle(set, count)
     return set[index], index
   end
 
+  c.current = function()
+    return set[index], index
+  end
+
+  c.set_current = function(item)
+    local searched = 0
+    local v = c.current()
+    while v ~= item and searched < #set do
+      v = c.next()
+      searched = searched + 1
+    end
+  end
+
   setmetatable(c, { __call = c.next })
   return c
 end
