@@ -126,7 +126,7 @@ end
 
 
 function RenderEngine.update_nodes(node)
-  local updates = safecall(node.has_updates, node)
+  local updates = false
 
   -- hidden components do nothing
   if node.is_hidden and node:is_hidden() then return end
@@ -137,6 +137,7 @@ function RenderEngine.update_nodes(node)
   else
     -- perform any updates
     if safecall(node.has_updates, node) then
+      updates = true
       RenderEngine.render_node(node)
       node:layout()
       node.component:flag_updates(false)
