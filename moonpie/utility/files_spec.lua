@@ -22,6 +22,11 @@ describe("moonpie.utility.files", function()
     assert.equals(4, #list)
   end)
 
+  it("can search a directory and return files that match a pattern and exclude others", function()
+    local list = files.find(config.icons_path, "card%-2", "spade")
+    assert.equals(3, #list)
+  end)
+
   it("property builds the directory when appending the file", function()
     local list = files.find(config.icons_path, "acrobatic")
     assert.equals("./moonpie/assets/icons/darkzaitzev/acrobatic.png", list[1])

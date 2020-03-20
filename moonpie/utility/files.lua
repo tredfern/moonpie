@@ -28,7 +28,7 @@ function files.merge_path(path, name)
   return path .. name
 end
 
-function files.find(path, pattern)
+function files.find(path, include_pattern, exclude_pattern)
   local list = require "moonpie.collections.list"
   local results = list:new()
   local items = love.filesystem.getDirectoryItems(path)
@@ -37,9 +37,11 @@ function files.find(path, pattern)
     local info = love.filesystem.getInfo(p)
 
     if info.type == "directory" then
-      results:add(unpacker(files.find(p, pattern)))
-    elseif pattern == nil or string.find(p, pattern) ~= nil then
-      results:add(p)
+      results:add(unpacker(files.find(p, include_pattern, exclude_pattern)))
+    elseif include_pattern == nil or string.find(p, include_pattern) ~= nil then
+      if exclude_pattern == nil or string.find(p, exclude_pattern) == nil then
+        results:add(p)
+      end
     end
   end
 
