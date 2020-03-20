@@ -5,6 +5,7 @@
 
 return {
   csv = require "moonpie.ext.csv",
+  files = require "moonpie.utility.files",
   function_timer = require "moonpie.utility.function_timer",
   safecall = require "moonpie.utility.safe_call",
   script_tools = require "moonpie.utility.script_tools",
