@@ -51,6 +51,18 @@ function search.find_by_id(component, id)
   end
 end
 
+function search.find_all_by_name(component, name, out)
+  out = out or {}
+  for _, v in ipairs(component) do
+    if v.name == name then
+      out[#out + 1] = v
+    end
+    search.find_all_by_name(v, name, out)
+  end
+
+  return out
+end
+
 function ComponentFactory.add_component_methods(c)
   setmetatable(c, Component_mt)
   if c.has_component_methods then return end
@@ -61,6 +73,7 @@ function ComponentFactory.add_component_methods(c)
   end
 
   c.find_by_id = search.find_by_id
+  c.find_all_by_name = search.find_all_by_name
 
   c.flag_updates = function(self, f) self.updates_available = f end
   c.has_updates = function(self) return self.updates_available end

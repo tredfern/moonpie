@@ -143,6 +143,12 @@ describe("Component", function()
         b.children = { c }
         assert.equals(c, b:find_by_id("turtles"))
       end)
+
+      it("can find all components by name", function()
+        local b = Component.big()
+        local texts = b:find_all_by_name("text")
+        assert.equals(4, #texts)
+      end)
     end)
   end)
 
