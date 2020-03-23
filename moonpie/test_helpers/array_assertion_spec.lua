@@ -16,4 +16,12 @@ describe("array_assertions", function()
     assert.empty_array(empty)
     assert.is_not.empty_array(not_empty)
   end)
+
+  it("can check if an array matches", function()
+    local a1 = { 1, 2, 3 }
+    local a2 = { 1, 2, 3 }
+    local a3 = { 1, 2, 3, 4, 5 }
+    assert.array_matches(a1, a2)
+    assert.not_array_matches(a1, a3)
+  end)
 end)

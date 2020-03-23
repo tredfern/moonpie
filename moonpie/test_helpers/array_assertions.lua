@@ -15,6 +15,10 @@ local function array_matches(state, arguments)
     return false
   end
 
+  if #expected ~= #tested then
+    return false
+  end
+
   for i, v in ipairs(expected) do
     matched = matched and v == tested[i]  
   end
