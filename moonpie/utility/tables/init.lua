@@ -4,6 +4,8 @@
 -- https://opensource.org/licenses/MIT
 
 local tables = {}
+tables.all = require "moonpie.utility.tables.all"
+tables.any = require "moonpie.utility.tables.any"
 tables.copy_keys = require "moonpie.utility.tables.copy_keys"
 tables.has_keys = require "moonpie.utility.tables.has_keys"
 tables.map = require "moonpie.utility.tables.map"
