@@ -15,6 +15,7 @@ local copy_props = {
   "font_name",
   "font_size",
   "height",
+  "hidden",
   "id",
   "keypressed",
   "keyreleased",

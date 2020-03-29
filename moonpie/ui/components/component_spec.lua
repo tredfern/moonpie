@@ -85,6 +85,7 @@ describe("Component", function()
           font_name = "Arial",
           font_size = 18,
           height = 624,
+          hidden = true,
           id = "foo",
           keypressed = spy.new(function() end),
           keyreleased = spy.new(function() end),
