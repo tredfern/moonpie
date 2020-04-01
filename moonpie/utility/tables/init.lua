@@ -10,6 +10,7 @@ tables.copy_keys = require "moonpie.utility.tables.copy_keys"
 tables.has_keys = require "moonpie.utility.tables.has_keys"
 tables.map = require "moonpie.utility.tables.map"
 tables.merge = require "moonpie.utility.tables.merge"
+tables.select = require "moonpie.utility.tables.select"
 
 function tables.pick_random(tbl)
   return tbl[ love.math.random(#tbl) ]
