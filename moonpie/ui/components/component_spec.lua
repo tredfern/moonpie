@@ -95,7 +95,7 @@ describe("Component", function()
           position = "absolute",
           style = "some",
           target_layer = "layer",
-          unmount = function() end,
+          unmounted = function() end,
           width = 250
           --do_not_copy = "fail"
         }

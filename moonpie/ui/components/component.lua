@@ -25,7 +25,7 @@ local copy_props = {
   "position",
   "style",
   "target_layer",
-  "unmount",
+  "unmounted",
   "width"
 }
 
