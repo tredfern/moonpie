@@ -3,16 +3,15 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local Grid = {}
+local class = require "moonpie.class"
+local Grid = class({})
 
-function Grid:new(w, h)
-  local g = {
-    width = w,
-    height = h
-  }
-  self.__index = self
-  setmetatable(g, self)
-  return g
+function Grid:constructor(w, h)
+  self.width = w
+  self.height = h
+
+  local mt = getmetatable(self)
+  mt.__call = Grid.get
 end
 
 function Grid:get_index(x, y)
