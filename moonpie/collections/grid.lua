@@ -26,4 +26,13 @@ function Grid:get(x, y)
   return self[self:get_index(x, y)]
 end
 
+function Grid:neighbors(x, y)
+  return {
+    left = self:get(x - 1, y),
+    up = self:get(x, y - 1),
+    right = self:get(x + 1, y),
+    down = self:get(x, y + 1)
+  }
+end
+
 return Grid
