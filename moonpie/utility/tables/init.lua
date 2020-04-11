@@ -7,6 +7,7 @@ local tables = {}
 tables.all = require "moonpie.utility.tables.all"
 tables.any = require "moonpie.utility.tables.any"
 tables.copy_keys = require "moonpie.utility.tables.copy_keys"
+tables.group_by = require "moonpie.utility.tables.group_by"
 tables.has_keys = require "moonpie.utility.tables.has_keys"
 tables.keys_to_list = require "moonpie.utility.tables.keys_to_list"
 tables.map = require "moonpie.utility.tables.map"
