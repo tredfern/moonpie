@@ -14,16 +14,19 @@ function Grid:constructor(w, h)
   mt.__call = Grid.get
 end
 
-function Grid:get_index(x, y)
-  return x + y * self.width
+function Grid:get_col(x)
+  if not self[x] then
+    self[x] = {}
+  end
+  return self[x]
 end
 
 function Grid:set(x, y, v)
-  self[self:get_index(x, y)] = v
+  self:get_col(x)[y] = v
 end
 
 function Grid:get(x, y)
-  return self[self:get_index(x, y)]
+  return self:get_col(x)[y]
 end
 
 function Grid:neighbors(x, y)
