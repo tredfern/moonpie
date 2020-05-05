@@ -4,6 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 local tables = require "moonpie.utility.tables"
+local template = require "moonpie.utility.template"
 local copy_props = {
   "background_color",
   "border",
@@ -112,7 +113,13 @@ local function create_component(name, render)
     ComponentFactory.add_component_methods(c)
 
     for _, v in ipairs(copy_props) do
-      if props[v] then c[v] = props[v] end
+      if props[v] then
+        if type(props[v]) == "string" then
+          c[v] = template(props[v], props)
+        else
+          c[v] = props[v]
+        end
+      end
     end
     return c
   end

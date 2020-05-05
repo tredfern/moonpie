@@ -105,6 +105,11 @@ describe("Component", function()
           assert.equals(v, c[k])
         end
       end)
+
+      it("can use templating in copy properties to make assigning ids or styles easier", function()
+        local c = Component.text { id = "{{tricky}}_value_id", tricky = 123 }
+        assert.equals("123_value_id", c.id)
+      end)
     end)
 
     describe("finding children", function()
