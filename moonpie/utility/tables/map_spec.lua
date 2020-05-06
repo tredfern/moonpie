@@ -21,4 +21,12 @@ describe("moonpie.utility.tables.map", function()
   it("returns nil if table is nil", function()
     assert.is_nil(tables.map(nil))
   end)
+
+  it("works with keyed sets", function()
+    local key_set = {
+      a = 1, b = 2, c = 3
+    }
+    local mapped = tables.map(key_set, function(n, k) return k .. tostring(n) end)
+    assert.array_includes_all({ "a1", "b2", "c3" }, mapped)
+  end)
 end)

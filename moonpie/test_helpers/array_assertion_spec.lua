@@ -24,4 +24,13 @@ describe("array_assertions", function()
     assert.array_matches(a1, a2)
     assert.not_array_matches(a1, a3)
   end)
+
+  it("can check if sets includes all of a set", function()
+    local a1 = { 1, 2, 3 }
+    local a2 = { 2, 3, 1 }
+    local a3 = { 1, 2, 3, 4, 5 }
+    assert.not_array_matches(a1, a2)
+    assert.array_includes_all(a1, a2)
+    assert.array_includes_all(a1, a3)
+  end)
 end)

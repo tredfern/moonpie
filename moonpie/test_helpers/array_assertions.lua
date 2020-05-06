@@ -42,6 +42,22 @@ local function empty_array(state, arguments)
   return #test == 0
 end
 
+local function array_includes_all(state, arguments)
+  local expected = arguments[1]
+  local tested = arguments[2]
+  local matched_all = true
+
+  for _, v in ipairs(expected) do
+    local f = false
+    for _, tv in ipairs(tested) do
+      f = f or tv == v
+    end
+    matched_all = matched_all and f
+  end
+
+  return matched_all
+end
+
 say:set("assertion.array_matches.positive", "Expected %s to match: %s")
 say:set("assertion.array_matches.negative", "Expected %s to not match: %s")
 assert:register("assertion", "array_matches", array_matches, "assertion.array_matches.positive", "assertion.array_matches.negative")
@@ -53,3 +69,7 @@ assert:register("assertion", "array_includes", array_includes, "assertion.array_
 say:set("assertion.empty_array.positive", "Expected %s to be empty")
 say:set("assertion.empty_array.negative", "Expected %s to not be empty")
 assert:register("assertion", "empty_array", empty_array, "assertion.empty_array.positive", "assertion.empty_array.negative")
+
+say:set("assertion.array_includes_all.positive", "Expected %s to include all: %s")
+say:set("assertion.array_includes_all.negative", "Expected %s to not include all: %s")
+assert:register("assertion", "array_includes_all", array_includes_all, "assertion.array_includes_all.positive", "assertion.array_includes_all.negative")

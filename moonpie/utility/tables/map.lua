@@ -6,8 +6,12 @@
 return function(tbl, operation)
   if not tbl then return end
   local out = {}
-  for i, v in ipairs(tbl) do
-    out[i] = operation(v, i)
+  local index = 1
+
+  for i, v in pairs(tbl) do
+    out[index] = operation(v, i)
+    index = index + 1
   end
+
   return out
 end
