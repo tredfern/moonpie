@@ -33,4 +33,10 @@ describe("array_assertions", function()
     assert.array_includes_all(a1, a2)
     assert.array_includes_all(a1, a3)
   end)
+
+  it("can use a custom function to check if includes_all matches", function()
+    local a1 = { { v = 1 }, { v = 2 }, { v = 3 } }
+    local a2 = { { v = 1 }, { v = 2 }, { v = 3 } }
+    assert.array_includes_all(a1, a2, function(test, val) return test.v == val.v end)
+  end)
 end)

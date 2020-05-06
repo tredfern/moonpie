@@ -45,12 +45,13 @@ end
 local function array_includes_all(state, arguments)
   local expected = arguments[1]
   local tested = arguments[2]
+  local compare = arguments[3] or function(test, val) return test == val end
   local matched_all = true
 
   for _, v in ipairs(expected) do
     local f = false
     for _, tv in ipairs(tested) do
-      f = f or tv == v
+      f = f or compare(v, tv)
     end
     matched_all = matched_all and f
   end
