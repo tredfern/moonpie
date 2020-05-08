@@ -15,6 +15,7 @@ tables.map = require "moonpie.utility.tables.map"
 tables.merge = require "moonpie.utility.tables.merge"
 tables.select = require "moonpie.utility.tables.select"
 tables.sum = require "moonpie.utility.tables.sum"
+tables.to_array = require "moonpie.utility.tables.to_array"
 
 function tables.pick_random(tbl)
   return tbl[ love.math.random(#tbl) ]

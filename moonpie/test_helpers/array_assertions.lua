@@ -48,6 +48,10 @@ local function array_includes_all(state, arguments)
   local compare = arguments[3] or function(test, val) return test == val end
   local matched_all = true
 
+  if type(tested) ~= "table" then
+    return false
+  end
+
   for _, v in ipairs(expected) do
     local f = false
     for _, tv in ipairs(tested) do

@@ -1,5 +1,6 @@
 # Todo List
- 1. reorganize namespace
+ 1. Documentation
+ 1. Text component should support templates that can be refreshed by changing templated values 
 
 ## Features
  1. Better font management

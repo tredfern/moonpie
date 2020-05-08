@@ -39,4 +39,8 @@ describe("array_assertions", function()
     local a2 = { { v = 1 }, { v = 2 }, { v = 3 } }
     assert.array_includes_all(a1, a2, function(test, val) return test.v == val.v end)
   end)
+
+  it("returns false if not a table", function()
+    assert.not_array_includes_all({1, 2, 3 }, 0)
+  end)
 end)
