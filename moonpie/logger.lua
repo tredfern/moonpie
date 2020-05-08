@@ -13,25 +13,25 @@ logger.level = {
 }
 logger.max_entries = 10000
 
-function logger.add_entry(level, msg)
+function logger.add_entry(level, msg, ...)
   logger.entries:add({
     timestamp = os.time(),
     level = level,
-    message = msg
+    message = string.format(msg, ...)
   })
   logger.trim()
 end
 
-function logger.error(msg)
-  logger.add_entry(logger.level.error, msg)
+function logger.error(msg, ...)
+  logger.add_entry(logger.level.error, msg, ...)
 end
 
-function logger.info(msg)
-  logger.add_entry(logger.level.info, msg)
+function logger.info(msg, ...)
+  logger.add_entry(logger.level.info, msg, ...)
 end
 
-function logger.debug(msg)
-  logger.add_entry(logger.level.debug, msg)
+function logger.debug(msg, ...)
+  logger.add_entry(logger.level.debug, msg, ...)
 end
 
 

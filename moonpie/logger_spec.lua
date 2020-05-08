@@ -58,6 +58,11 @@ describe("Logger", function()
       assert.not_nil(logger.entries[1].timestamp)
       assert.near(os.time(), logger.entries[1].timestamp, 1000)
     end)
+
+    it("formats the message with any additional values", function()
+      logger.debug("message %s %d", "foo", 3)
+      assert.equals("message foo 3", logger.entries[1].message)
+    end)
   end)
 
   describe("maximum size", function()
