@@ -54,7 +54,7 @@ function Layer:find_by_component(c, node)
 end
 
 RenderEngine.layers = {
-  order = { "background", "ui", "modal", "floating", "debug" }
+  order = { "background", "ui", "modal", "floating", "debug", "unit_test" }
 }
 
 function RenderEngine.remove_component_if_exists(component)

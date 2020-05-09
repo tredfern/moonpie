@@ -284,8 +284,9 @@ describe("RenderEngine", function()
       local debug = RenderEngine("debug", {})
       local floating = RenderEngine("floating", {})
       local modal = RenderEngine("modal", {})
+      local unit_test = RenderEngine("unit_test", {})
 
-      assert.same({ background, ui, modal, floating, debug }, RenderEngine.ordered_layers())
+      assert.same({ background, ui, modal, floating, debug, unit_test }, RenderEngine.ordered_layers())
     end)
   end)
 

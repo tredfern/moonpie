@@ -135,4 +135,11 @@ describe("Initialize Moonpie", function()
   it("has a module for csv file support", function()
     assert.not_nil(moonpie.utility.csv)
   end)
+
+  it("test_render will return a rendered version of a component", function()
+    local c = moonpie.ui.components.text { id = "foo", component_mounted = spy.new(function() end) }
+    local node = moonpie.test_render(c)
+    assert.not_nil(node:find_by_id("foo"))
+    assert.spy(c.component_mounted).was.called()
+  end)
 end)

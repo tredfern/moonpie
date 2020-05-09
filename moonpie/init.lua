@@ -59,7 +59,7 @@ function moonpie.paint()
 end
 
 function moonpie.render(layer_name, ...)
-  RenderEngine.render_all(layer_name, ...)
+  return RenderEngine.render_all(layer_name, ...)
 end
 
 function moonpie.update()
@@ -96,6 +96,10 @@ function moonpie.load_debug()
   RenderEngine.layers.debug.root.background_color = "transparent"
   RenderEngine.layers.debug.root.color = "background"
   keyboard:hotkey("`", function() debug.hidden = not debug.hidden end)
+end
+
+function moonpie.test_render(c)
+  return moonpie.render("unit_test", c).root
 end
 
 moonpie.ui.themes.standard(moonpie)
