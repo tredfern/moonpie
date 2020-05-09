@@ -102,6 +102,12 @@ function RenderEngine.find_by_component(component)
 end
 
 function RenderEngine.find_by_id(id)
+  if not id then
+    local logger = require "moonpie.logger"
+    logger.info("RenderEngine.find_by_id called with nil")
+    return
+  end
+
   for _, layer in ipairs(RenderEngine.ordered_layers()) do
     local node = layer.root:find_by_id(id)
     if node then return node end
