@@ -4,10 +4,17 @@
 -- https://opensource.org/licenses/MIT
 
 return function(source, dest, overwrite)
-  if source == nil then return end
+  local modified = false
+  if source == nil then return modified end
+
   for k, v in pairs(source) do
     if overwrite or not dest[k] then
-      dest[k] = v
+      if dest[k] ~= v then
+        modified = true
+        dest[k] = v
+      end
     end
   end
+
+  return modified
 end

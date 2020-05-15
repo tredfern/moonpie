@@ -29,4 +29,11 @@ describe("Copy Keys", function()
   it("does nothing if source is nil", function()
     assert.has_no.errors(function() tables.copy_keys(nil, {}, true) end)
   end)
+
+  it("returns true if it modified the destination", function()
+    local s = { a = 1, b = 2 }
+    local dest = { }
+    assert.is_true(tables.copy_keys(s, dest))
+    assert.is_false(tables.copy_keys(s, dest))
+  end)
 end)

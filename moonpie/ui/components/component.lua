@@ -70,8 +70,9 @@ function ComponentFactory.add_component_methods(c)
   if c.has_component_methods then return end
 
   c.update = function(self, new)
-    tables.copy_keys(new, self, true)
-    self:flag_updates(true)
+    if tables.copy_keys(new, self, true) then
+      self:flag_updates(true)
+    end
   end
 
   c.find_by_id = search.find_by_id
