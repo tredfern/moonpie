@@ -3,19 +3,21 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local tables = {}
-tables.all = require "moonpie.utility.tables.all"
-tables.any = require "moonpie.utility.tables.any"
-tables.copy_keys = require "moonpie.utility.tables.copy_keys"
-tables.count_by = require "moonpie.utility.tables.count_by"
-tables.group_by = require "moonpie.utility.tables.group_by"
-tables.has_keys = require "moonpie.utility.tables.has_keys"
-tables.keys_to_list = require "moonpie.utility.tables.keys_to_list"
-tables.map = require "moonpie.utility.tables.map"
-tables.merge = require "moonpie.utility.tables.merge"
-tables.select = require "moonpie.utility.tables.select"
-tables.sum = require "moonpie.utility.tables.sum"
-tables.to_array = require "moonpie.utility.tables.to_array"
+local tables = {
+  all = require "moonpie.utility.tables.all",
+  any = require "moonpie.utility.tables.any",
+  assign = require "moonpie.utility.tables.assign",
+  copy_keys = require "moonpie.utility.tables.copy_keys",
+  count_by = require "moonpie.utility.tables.count_by",
+  group_by = require "moonpie.utility.tables.group_by",
+  has_keys = require "moonpie.utility.tables.has_keys",
+  keys_to_list = require "moonpie.utility.tables.keys_to_list",
+  map = require "moonpie.utility.tables.map",
+  merge = require "moonpie.utility.tables.merge",
+  select = require "moonpie.utility.tables.select",
+  sum = require "moonpie.utility.tables.sum",
+  to_array = require "moonpie.utility.tables.to_array",
+}
 
 function tables.pick_random(tbl)
   return tbl[ love.math.random(#tbl) ]
