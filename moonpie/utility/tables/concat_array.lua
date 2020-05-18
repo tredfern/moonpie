@@ -4,10 +4,13 @@
 -- https://opensource.org/licenses/MIT
 
 return function(...)
+  local args = table.pack(...)
   local out = {}
-  for _, array in ipairs({...}) do
-    for _, v in ipairs(array) do
-      out[#out + 1] = v
+  for i = 1, args.n do
+    if args[i] then
+      for _, v in ipairs(args[i]) do
+        out[#out + 1] = v
+      end
     end
   end
 

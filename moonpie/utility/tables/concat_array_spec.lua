@@ -23,4 +23,11 @@ describe("moonpie.utility.tables.concat_array", function()
     local e = concat_array(a, b, c, d)
     assert.same({ 1, 2, 3, 4, 5, 6, 7, 8 }, e)
   end)
+
+  it("skips nil arrays", function()
+    local a = { 1, 2, 3 }
+    local b = { 4, 5, 6 }
+    local c = concat_array(nil, a, nil, nil, b)
+    assert.same({ 1, 2, 3, 4, 5, 6 }, c)
+  end)
 end)
