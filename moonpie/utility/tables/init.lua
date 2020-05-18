@@ -7,6 +7,7 @@ local tables = {
   all = require "moonpie.utility.tables.all",
   any = require "moonpie.utility.tables.any",
   assign = require "moonpie.utility.tables.assign",
+  concat_array = require "moonpie.utility.tables.concat_array",
   copy_keys = require "moonpie.utility.tables.copy_keys",
   count_by = require "moonpie.utility.tables.count_by",
   group_by = require "moonpie.utility.tables.group_by",
