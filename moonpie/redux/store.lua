@@ -14,8 +14,16 @@ function store:constructor(reducer, initial_state)
 end
 
 function store:dispatch(action)
-  self.state = self.reducer(self.state, action)
-  self:trigger_listeners()
+  -- move to middleware?
+  if type(action) == "function" then
+    action(
+      function(__action) self:dispatch(__action) end,
+      function() return self:get_state() end
+    )
+  else
+    self.state = self.reducer(self.state, action)
+    self:trigger_listeners()
+  end
 end
 
 function store:subscribe(listener)

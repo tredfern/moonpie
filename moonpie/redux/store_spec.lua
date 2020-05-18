@@ -58,4 +58,29 @@ describe("moonpie.redux.store", function()
     s:dispatch(action)
     assert.spy(reducer).was.called_with(action, state)
   end)
+
+  it("functions can be dispatched that can hold multiple dispatches or logic", function()
+    local complex = function()
+      return function(dispatch, get_state)
+        dispatch{ type = "say-hi" }
+        if get_state().in_conversation then
+          dispatch{ type = "say-goodbye" }
+        end
+      end
+    end
+    local reducer = function(state, action)
+      if action.type == "say-hi" then
+        return { in_conversation = true }
+      end
+      if action.type == "say-goodbye" then
+        return { in_conversation = false, nice = true }
+      end
+      return state
+    end
+
+    local s = store:new(reducer)
+    s:dispatch(complex())
+    assert.is_true(s:get_state().nice)
+    assert.is_false(s:get_state().in_conversation)
+  end)
 end)
