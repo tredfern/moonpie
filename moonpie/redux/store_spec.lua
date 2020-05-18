@@ -12,7 +12,7 @@ describe("moonpie.redux.store", function()
 
     local action = {}
     s:dispatch(action)
-    assert.spy(reducer).was.called_with(action, s.state)
+    assert.spy(reducer).was.called_with(s.state, action)
   end)
 
   it("calls listeners when state has changed", function()

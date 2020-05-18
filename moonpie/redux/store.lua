@@ -14,7 +14,7 @@ function store:constructor(reducer, initial_state)
 end
 
 function store:dispatch(action)
-  self.state = self.reducer(action, self.state)
+  self.state = self.reducer(self.state, action)
   self:trigger_listeners()
 end
 
