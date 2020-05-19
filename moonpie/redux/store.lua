@@ -13,16 +13,19 @@ function store:constructor(reducer, initial_state)
   self.state = initial_state
 end
 
-function store:dispatch(action)
+function store:dispatch(action, bypass_trigger)
   -- move to middleware?
   if type(action) == "function" then
     action(
-      function(__action) self:dispatch(__action) end,
+      function(__action) self:dispatch(__action, true) end,
       function() return self:get_state() end
     )
+    self:trigger_listeners()
   else
     self.state = self.reducer(self.state, action)
-    self:trigger_listeners()
+    if not bypass_trigger then
+      self:trigger_listeners()
+    end
   end
 end
 

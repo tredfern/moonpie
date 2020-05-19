@@ -83,4 +83,21 @@ describe("moonpie.redux.store", function()
     assert.is_true(s:get_state().nice)
     assert.is_false(s:get_state().in_conversation)
   end)
+
+  it("dispatches only one listener call when dispatching a function", function()
+    local action_group = function()
+      return function(dispatch)
+        dispatch({})
+        dispatch({})
+        dispatch({})
+      end
+    end
+
+    local reducer = function() return {} end
+    local listener = spy.new(function() end)
+    local s = store:new(reducer)
+    s:subscribe(listener)
+    s:dispatch(action_group())
+    assert.equals(1, #listener.calls)
+  end)
 end)
