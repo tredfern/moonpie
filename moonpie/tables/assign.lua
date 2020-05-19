@@ -3,7 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local copy_keys = require "moonpie.utility.tables.copy_keys"
+local copy_keys = require "moonpie.tables.copy_keys"
 
 return function(dest, ...)
   for _, v in ipairs({...}) do

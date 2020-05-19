@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 describe("moonpie.utility.has_keys", function()
-  local tables = require "moonpie.utility.tables"
+  local tables = require "moonpie.tables"
 
   it("returns true if table contains all keys", function()
     local t = { a = 1, b = 2, c = 3, d = 4 }

@@ -3,8 +3,8 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-describe("moonpie.utility.tables.assign", function()
-  local tables = require "moonpie.utility.tables"
+describe("moonpie.tables.assign", function()
+  local tables = require "moonpie.tables"
 
   it("copies groups of objects in sequence to destination", function()
     local t1 = { a = 2, b = 3, c = "foo" }

@@ -3,8 +3,8 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-describe("moonpie.utility.tables.any", function()
-  local tables = require "moonpie.utility.tables"
+describe("moonpie.tables.any", function()
+  local tables = require "moonpie.tables"
 
   it("returns true if any element passes the test", function()
     local set = { 1, 3, 5, 7, 8 }

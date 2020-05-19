@@ -3,8 +3,9 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
+local pack = require "moonpie.tables.pack"
 return function(...)
-  local args = table.pack(...)
+  local args = pack(...)
   local out = {}
   for i = 1, args.n do
     if args[i] then

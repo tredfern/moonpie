@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 describe("merge", function()
-  local tables = require "moonpie.utility.tables"
+  local tables = require "moonpie.tables"
 
   it("takes properties from two tables and puts them together", function()
     local t = { name = "foxglove", gun = "bigin" }

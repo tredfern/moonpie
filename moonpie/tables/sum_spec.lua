@@ -3,8 +3,8 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-describe("moonpie.utility.tables.sum", function()
-  local tables = require "moonpie.utility.tables"
+describe("moonpie.tables.sum", function()
+  local tables = require "moonpie.tables"
 
 
   it("adds all the elements of an array together", function()

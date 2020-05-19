@@ -3,8 +3,8 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-describe("moonpie.utility.tables", function()
-  local tables = require "moonpie.utility.tables"
+describe("moonpie.tables", function()
+  local tables = require "moonpie.tables"
 
   it("can copy keys", function()
     assert.not_nil(tables.copy_keys)

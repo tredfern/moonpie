@@ -1,7 +1,7 @@
 moonpie.utility
 ===============
 
-moonpie.utility.tables
+moonpie.tables
 ^^^^^^^^^^^^^^^^^^^^^^
 The tables utilities provides various mini-functions for helpful operations.
 

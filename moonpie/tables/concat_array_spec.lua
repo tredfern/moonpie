@@ -3,8 +3,8 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-describe("moonpie.utility.tables.concat_array", function()
-  local concat_array = require "moonpie.utility.tables.concat_array"
+describe("moonpie.tables.concat_array", function()
+  local concat_array = require "moonpie.tables.concat_array"
 
   it("returns a new array with elements in each array", function()
     local a = { 1, 2, 3 }

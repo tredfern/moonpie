@@ -3,8 +3,8 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-describe("moonpie.utility.tables.group_by", function()
-  local tables = require "moonpie.utility.tables"
+describe("moonpie.tables.group_by", function()
+  local tables = require "moonpie.tables"
 
   it("can group bys items with the same value", function()
     local set = { 1, 1, 1, 2, 3, 3, 4 }

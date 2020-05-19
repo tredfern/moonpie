@@ -3,7 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local tables = require "moonpie.utility.tables"
+local tables = require "moonpie.tables"
 local template = require "moonpie.utility.template"
 local copy_props = {
   "background_color",

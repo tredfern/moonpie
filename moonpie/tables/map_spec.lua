@@ -3,8 +3,8 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-describe("moonpie.utility.tables.map", function()
-  local tables = require "moonpie.utility.tables"
+describe("moonpie.tables.map", function()
+  local tables = require "moonpie.tables"
 
   it("can translate one table into another via a function", function()
     local numbers = { 1, 2, 3, 4, 5 }

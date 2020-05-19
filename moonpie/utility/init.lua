@@ -11,7 +11,7 @@ return {
   script_tools = require "moonpie.utility.script_tools",
   sleep = require "moonpie.utility.sleep",
   string = require "moonpie.utility.string",
-  tables = require "moonpie.utility.tables",
+  tables = require "moonpie.tables",
   template = require "moonpie.utility.template",
   timer = require "moonpie.utility.timer"
 }

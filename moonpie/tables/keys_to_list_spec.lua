@@ -3,8 +3,8 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-describe("moonpie.utility.tables.keys_to_list", function()
-  local tables = require "moonpie.utility.tables"
+describe("moonpie.tables.keys_to_list", function()
+  local tables = require "moonpie.tables"
 
   it("takes a list of keys and converts it to a set", function()
     local t = {

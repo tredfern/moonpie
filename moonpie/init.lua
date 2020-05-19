@@ -23,6 +23,7 @@ local moonpie = {
   math = require "moonpie.math",
   mouse = mouse,
   logger = require "moonpie.logger",
+  tables = require "moonpie.tables",
   ui = {
     components = require "moonpie.ui.components",
     current = RenderEngine,

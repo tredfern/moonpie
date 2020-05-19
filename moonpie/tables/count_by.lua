@@ -3,7 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local group_by = require "moonpie.utility.tables.group_by"
+local group_by = require "moonpie.tables.group_by"
 
 return function(set, func)
   local g = group_by(set, func)

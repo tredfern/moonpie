@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Copy Keys", function()
-  local tables = require "moonpie.utility.tables"
+  local tables = require "moonpie.tables"
 
   it("can copy values from one table into another", function()
     local source = { name = "foo", value = 3, skip = "foo" }
