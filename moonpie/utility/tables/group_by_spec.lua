@@ -46,4 +46,10 @@ describe("moonpie.utility.tables.group_by", function()
     assert.equals(3, #result["odd"])
     assert.equals(2, #result["even"])
   end)
+
+  it("ignores any key that returns nil", function()
+    local set = { 1, 1, 2, 2, 3, 3, 3, 3 }
+    local result = tables.group_by(set, function(v) if v ~= 3 then return v end end)
+    assert.is_nil(result[3])
+  end)
 end)

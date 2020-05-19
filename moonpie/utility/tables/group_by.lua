@@ -20,11 +20,13 @@ return function(set, group_by)
 
   for _, v in ipairs(set) do
     local grouping = get_group_by(v, group_by)
-    if not out[grouping] then
-      out[grouping] = {}
+    if grouping then
+      if not out[grouping] then
+        out[grouping] = {}
+      end
+      local group = out[grouping]
+      group[#group + 1] = v
     end
-    local group = out[grouping]
-    group[#group + 1] = v
   end
   return out
 end
