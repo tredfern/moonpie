@@ -124,6 +124,8 @@ local function create_component(name, render)
     end
     return c
   end
+
+  return ComponentFactory[name]
 end
 
 setmetatable(ComponentFactory, { __call =

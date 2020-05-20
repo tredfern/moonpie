@@ -245,4 +245,22 @@ describe("Component", function()
     assert.equals("Hooray", logger.entries[1].message)
 
   end)
+
+  it("returns the function that is used to create component", function()
+    local f = Component("super_cool", function() return {} end)
+    assert.equals(Component.super_cool, f)
+  end)
+
+  describe("new-creation-scheme", function()
+    it("can define component creation function without factory model", function()
+      local funky = Component("funky", function(props)
+        return {
+          a = props.a
+        }
+      end)
+      local instance = funky({ a = "test", color = "green" })
+      assert.equals("test", instance.a)
+      assert.equals("green", instance.color)
+    end)
+  end)
 end)
