@@ -13,6 +13,8 @@ return function(component, map_state_to_props)
       c:update(v)
     end
 
+    c.dispatch = store.dispatch
+
     store.subscribe(c.__listener)
 
     return c
