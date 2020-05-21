@@ -4,9 +4,12 @@
 -- https://opensource.org/licenses/MIT
 
 local copy_keys = require "moonpie.tables.copy_keys"
+local pack = require "moonpie.tables.pack"
 
 return function(dest, ...)
-  for _, v in ipairs({...}) do
+  local values = pack(...)
+  for i = 1,#values do
+    local v = values[i]
     if type(v) == "table" then
       copy_keys(v, dest, true)
     end

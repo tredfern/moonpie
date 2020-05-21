@@ -24,6 +24,13 @@ describe("moonpie.tables.assign", function()
     assert.equals(8, test[2])
     assert.equals(3, test[3])
     assert.equals(4, test[4])
+  end)
+
+  it("handles nil values in the parameter list", function()
+    local t1 = { a = 1, b = 2 }
+    local result = tables.assign({}, nil, t1)
+    assert.equals(1, result.a)
+    assert.equals(2, result.b)
 
   end)
 end)
