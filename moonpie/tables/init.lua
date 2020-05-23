@@ -3,7 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local tables = {
+return {
   all = require "moonpie.tables.all",
   any = require "moonpie.tables.any",
   assign = require "moonpie.tables.assign",
@@ -15,12 +15,8 @@ local tables = {
   keys_to_list = require "moonpie.tables.keys_to_list",
   map = require "moonpie.tables.map",
   merge = require "moonpie.tables.merge",
+  pick_random = require "moonpie.tables.pick_random",
   select = require "moonpie.tables.select",
   sum = require "moonpie.tables.sum",
   to_array = require "moonpie.tables.to_array",
 }
-
-function tables.pick_random(tbl)
-  return tbl[ love.math.random(#tbl) ]
-end
-return tables
