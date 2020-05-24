@@ -4,6 +4,8 @@
 -- https://opensource.org/licenses/MIT
 
 return function(set, test)
+  if not set then return false end
+
   local result = false
   for i, v in ipairs(set) do
     result = test(v, i) or result

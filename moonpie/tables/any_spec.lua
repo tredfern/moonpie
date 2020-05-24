@@ -15,4 +15,8 @@ describe("moonpie.tables.any", function()
     local set = { 1, 3, 5, 7, 9 }
     assert.is_false(tables.any(set, function(nu) return nu % 2 == 0 end))
   end)
+
+  it("returns false if table is nil", function()
+    assert.is_false(tables.any(nil, function() end))
+  end)
 end)
