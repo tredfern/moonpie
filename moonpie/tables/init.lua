@@ -18,6 +18,7 @@ return {
   merge = require "moonpie.tables.merge",
   pick_random = require "moonpie.tables.pick_random",
   select = require "moonpie.tables.select",
+  sort_by = require "moonpie.tables.sort_by",
   sum = require "moonpie.tables.sum",
   to_array = require "moonpie.tables.to_array",
 }
