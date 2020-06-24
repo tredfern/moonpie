@@ -7,6 +7,12 @@ local align = require("moonpie.ui.alignment")
 local math_ext = require("moonpie.math")
 local layouts = {}
 
+function layouts.should_wrap(node, x, line_width)
+  if node.display == "inline-block" then return true end
+
+  return x > 0 and x + node.box:width() > line_width
+end
+
 function layouts.horizontal_orientation(node, parent, width)
   local x, y = 0, 0
   local line_height, max_width, max_height = 0, 0, 0
@@ -16,15 +22,6 @@ function layouts.horizontal_orientation(node, parent, width)
     if v.position == "absolute" then
       layouts.absolute_position(v)
     else
-      -- TODO: Getting messy
-      if x > 0 and x + v.box:width() > new_line_width then
-        -- New Line
-        x = 0
-        y = y + line_height
-        max_height = max_height + line_height
-        line_height = 0
-      end
-
       local horiz, vert = v.align or "left", v.vertical_align or "top"
       v.box.x = align(horiz, x, layouts.calc_width(node, parent, max_width), v.box:width())
       v.box.y = align(vert, y, layouts.calc_height(node, parent, line_height), v.box:height())
@@ -32,6 +29,14 @@ function layouts.horizontal_orientation(node, parent, width)
 
       line_height = math.max(v.box:height(), line_height)
       max_width = math.max(max_width, x)
+
+      if layouts.should_wrap(v, x, new_line_width) then
+        -- New Line
+        x = 0
+        y = y + line_height
+        max_height = max_height + line_height
+        line_height = 0
+      end
     end
   end
   max_height = max_height + line_height
@@ -117,7 +122,7 @@ function layouts.calc_width(node, p, content_width)
   end
 
   -- inline elements use content width
-  if node.display == "inline" then
+  if node.display and string.match(node.display, "^inline") then
     return content_width
   end
 

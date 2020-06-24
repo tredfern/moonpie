@@ -53,6 +53,16 @@ describe("Layouts", function()
       assert.equals(64, b.box.content.width)
     end)
 
+    it("uses the width of its children if display is 'inline-block'", function()
+      local b = Node({ display = "inline-block" })
+      local c1 = Node({ width = 30 })
+      local c2 = Node({ width = 34 })
+      b:add(c1, c2)
+
+      b:layout(parent)
+      assert.equals(64, b.box.content.width)
+    end)
+
     it("shaves off the margin from the width", function()
       local b = Node({ margin = 12 })
       b:layout(parent)
@@ -166,6 +176,21 @@ describe("Layouts", function()
 
         it("calculates it's own height to be the size of all the lines", function()
           assert.equals(71, node.box.content.height)
+        end)
+
+        it("wraps inline-block elements to new lines even though width is not used up", function()
+          local n = Node()
+          local block_one = Node{ width = 50, height = 32, display = "inline-block" }
+          local block_two = Node{ width = 50, height = 32, display = "inline-block" }
+          local basic = Node{ width = 50, height = 32 }
+          n:add(block_one, block_two, basic)
+          n:layout(parent)
+          assert.equals(0, block_one.box.x)
+          assert.equals(0, block_one.box.y)
+          assert.equals(0, block_two.box.x)
+          assert.equals(32, block_two.box.y)
+          assert.equals(0, basic.box.x)
+          assert.equals(64, basic.box.y)
         end)
       end)
 
