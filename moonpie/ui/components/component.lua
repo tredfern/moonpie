@@ -81,6 +81,7 @@ function ComponentFactory.add_component_methods(c)
   c.flag_updates = function(self, f) self.updates_available = f end
   c.has_updates = function(self) return self.updates_available end
   c.flag_removal = function(self) self:update({ ready_to_remove = true }) end
+  c.remove = function(self) self:flag_removal() end
   c.logger = require "moonpie.logger"
   c.needs_removal = function(self) return self.ready_to_remove end
   c.set_focus = function(self) require("moonpie.ui.user_focus"):set_focus(self) end

@@ -230,6 +230,13 @@ describe("Component", function()
     assert.is_true(c:has_updates())
   end)
 
+  it("can use remove component", function()
+    local c = Component.button()
+    c:remove()
+    assert.is_true(c:needs_removal())
+    assert.is_true(c:has_updates())
+  end)
+
   it("returns decipherable error if component render function is not set up properly", function()
     Component("bad_component", function() end)
     assert.has_errors(Component.bad_component, "Component did not render table")
