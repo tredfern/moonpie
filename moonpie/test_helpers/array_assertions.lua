@@ -29,12 +29,11 @@ end
 local function array_includes(state, arguments)
   local expected = arguments[1]
   local tested = arguments[2]
-  local matched = false
 
   for i,v in ipairs(tested) do
-    matched = matched or v == expected
+    if v == expected then return true end
   end
-  return matched
+  return false
 end
 
 local function empty_array(state, arguments)
