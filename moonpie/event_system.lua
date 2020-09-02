@@ -21,6 +21,9 @@ function event_system.subscribe(event_name, handler)
 end
 
 function event_system.dispatch(event)
+  if not events[event.type] then
+    error(string.format("No event registered for %s", event.type))
+  end
   events[event.type]:trigger(event)
 end
 

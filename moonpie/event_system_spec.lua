@@ -25,4 +25,11 @@ describe("moonpie.utility.event_system", function()
     event_system.dispatch(event)
     assert.spy(s).was.called_with(event)
   end)
+
+  it("raises a clear error if the event triggered has no queue", function()
+    assert.has_error(function()
+      event_system.dispatch({ type = "missing_event" })
+    end,
+    "No event registered for missing_event")
+  end)
 end)
