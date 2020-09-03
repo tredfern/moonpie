@@ -15,10 +15,18 @@ function event_system.subscribe(event_name, handler)
   events[event_name]:add(handler)
 end
 
+function event_system.unsubscribe(event_name, handler)
+  events[event_name]:remove(handler)
+end
+
 function event_system.dispatch(event)
   if events[event.type] then
     events[event.type]:trigger(event)
   end
+end
+
+function event_system.clear()
+  events = {}
 end
 
 

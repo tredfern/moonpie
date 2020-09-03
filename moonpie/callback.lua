@@ -21,6 +21,10 @@ function Callback:add(f, m)
   end
 end
 
+function Callback:remove(f)
+  self.items:remove(f)
+end
+
 function Callback:trigger(...)
   for _, v in ipairs(self.items) do
     v(...)
