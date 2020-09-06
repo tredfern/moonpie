@@ -3,6 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
+local logger = require "moonpie.logger"
 local store = { }
 local reducer_handler
 local listeners = setmetatable({}, { __mode = "v" })
@@ -29,6 +30,7 @@ function store.dispatch(action, bypass_trigger)
     )
     trigger_listeners()
   else
+    logger.debug("Store Dispatch: %s", action.type)
     state = reducer_handler(state, action)
     if not bypass_trigger then
       trigger_listeners()
