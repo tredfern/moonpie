@@ -95,6 +95,18 @@ describe("Layouts", function()
       assert.equals(150, b.box:height())
     end)
 
+    it("can expand it's parents height if no limit is set", function()
+      local top = Node{ height = 250, width = 20 }
+      local p = Node({}, top)
+      local child = Node({ name = "Child", height = "100%", width = 20 }, p)
+
+      -- Execute all layouts
+      top:layout()
+      p:layout()
+      child:layout()
+      assert.equals(250, child.box:height())
+    end)
+
     it("figures out padding for the content area height", function()
       local p = Node({ height = 150, width = 10 })
       local b = Node({ height = "100%", padding = 10 })

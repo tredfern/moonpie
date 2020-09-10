@@ -101,12 +101,26 @@ function layouts.max_width(node, p)
   return node.width or (p and p.box.content.width - boundary) or love.graphics.getWidth()
 end
 
+function layouts.calc_max_height(node)
+  if node == nil or node.box == nil then return 0 end
+  local parent = node.parent
+
+  -- If node has height assigned to a value, then use that
+  if node.box.content.height > 0 then
+    return node.box.content.height
+  end
+  return layouts.calc_max_height(parent)
+end
+
 function layouts.calc_height(node, parent, content)
   if math_ext.is_percent(node.height) then
     local boundary = node.box.margin.top + node.box.margin.bottom
       + node.box.padding.top + node.box.padding.bottom
       + node.box.border.top + node.box.border.bottom
-    return math_ext.percent_to_number(node.height) * parent.box.content.height - boundary
+
+    local max_height = layouts.calc_max_height(parent)
+
+    return math_ext.percent_to_number(node.height) * max_height - boundary
   else
     return node.height or content
   end
