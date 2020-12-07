@@ -17,6 +17,29 @@ A number of array helpers are available:
   end)
 
 
+Component Extensions
+~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: lua
+
+  -- Code to test
+  local components = require "moonpie.ui.components"
+  local my_comp = components("my_comp", function()
+    return {
+      components.text(),
+      components.text { id = "12345" }
+    }
+  end)
+
+  it("contains a component", function()
+    assert.contains_component("text", my_comp())
+  end)
+
+  it("contains a component with id", function()
+    assert.contains_component_with_id("12345", my_comp())
+  end)
+
+
 Mock Store
 ^^^^^^^^^^
 

@@ -20,6 +20,7 @@ with libraries for collections, math, entity-component-systems, etc...
    moonpie.sorts
    moonpie.test_helpers
    moonpie.ui
+   moonpie.ui.components
    moonpie.utility
 
 
