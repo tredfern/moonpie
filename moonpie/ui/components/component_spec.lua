@@ -87,7 +87,7 @@ describe("Component", function()
           border_color = "green",
           click = spy.new(function() end),
           color = "blue",
-          component_mounted = function() end,
+          mounted = function() end,
           draw_component = function() end,
           font_name = "Arial",
           font_size = 18,

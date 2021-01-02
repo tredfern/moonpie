@@ -11,7 +11,7 @@ local copy_props = {
   "border_color",
   "click",
   "color",
-  "component_mounted",
+  "mounted",
   "draw_component",
   "font_name",
   "font_size",

@@ -57,10 +57,18 @@ draw_component(self)
   commands should be assumed to start based on the top-left of the content area
   for the component.
 
+mounted(self)
+  A method that is called when a component has been added to the render tree. Layout
+  and other information will not be calculated at this point but the node should be
+  aware of its place in the render tree.
+
 remove
   Flags the component to be removed from the render tree.
 
-
+unmounted(self)
+  A method called when a component is destroyed from the render tree. Used for any
+  kind of global cleanup necessary when the component is removed that would be difficult
+  for the garbage collector to know about. For example, global event handlers or lambdas.
 
 Component Properties
 ^^^^^^^^^^^^^^^^^^^^

@@ -89,7 +89,7 @@ function RenderEngine.build_node(component, parent)
       RenderEngine.add_node(RenderEngine.build_node(v, new_node), new_node)
     end
   end
-  safecall(new_node.component_mounted, new_node)
+  safecall(new_node.mounted, new_node)
 
   return new_node
 end
