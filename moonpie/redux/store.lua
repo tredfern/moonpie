@@ -22,6 +22,8 @@ function store.create_store(reducer, initial_state)
 end
 
 function store.dispatch(action, bypass_trigger)
+  if action == nil then return end
+
   -- move to middleware?
   if type(action) == "function" then
     action(
@@ -30,6 +32,11 @@ function store.dispatch(action, bypass_trigger)
     )
     trigger_listeners()
   else
+    -- validate action
+    if action.validate and not action:validate(state) then
+      return
+    end
+
     logger.debug("Store Dispatch: %s", action.type)
     state = reducer_handler(state, action)
     if not bypass_trigger then

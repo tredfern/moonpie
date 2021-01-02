@@ -6,6 +6,13 @@
 describe("moonpie.redux.store", function()
   local store = require "moonpie.redux.store"
 
+  it("ignores nil actions", function()
+    local reducer = spy.new(function() end)
+    store.create_store(reducer)
+    assert.has_no_errors(function() store.dispatch(nil) end)
+    assert.spy(reducer).was.not_called()
+  end)
+
   it("can have actions dispatched that are called into the reducer", function()
     local reducer = spy.new(function() end)
     store.create_store(reducer)
@@ -100,5 +107,35 @@ describe("moonpie.redux.store", function()
     store.subscribe(listener)
     store.dispatch(action_group())
     assert.equals(1, #listener.calls)
+  end)
+
+
+  describe("validating actions", function()
+    local reducer = spy.new(function() return {} end)
+    local state = {}
+
+    before_each(function()
+      store.create_store(reducer, state)
+      reducer:clear() -- clear spy history
+    end)
+
+    it("will validate actions before passing to the reducer if validate method is provided", function()
+      local an_action = { validate = spy.new(function() end) }
+
+      store.dispatch(an_action)
+      assert.spy(an_action.validate).was.called_with(an_action, store.get_state())
+    end)
+
+    it("does not pass to the reducer if the action is invalid", function()
+      local invalid_action = { validate = spy.new(function() return false end) }
+      store.dispatch(invalid_action)
+      assert.spy(reducer).was_not.called()
+    end)
+
+    it("calls the reducer if the action is valid", function()
+      local valid_action = { validate = spy.new(function() return true end) }
+      store.dispatch(valid_action)
+      assert.spy(reducer).was.called_with(state, valid_action)
+    end)
   end)
 end)

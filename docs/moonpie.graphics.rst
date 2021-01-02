@@ -2,6 +2,14 @@ moonpie.graphics
 ================
 
 
+moonpie.graphics.colors
+-----------------------
+
+Provides access to a color library with hundreds of default colors. Also allows for certain functionality
+such as lightening colors or making gradients.
+
+
+
 moonpie.graphics.image
 ----------------------
 
