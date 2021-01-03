@@ -18,7 +18,7 @@ end
 function store.create_store(reducer, initial_state)
   assert(reducer, "Store requires a reducer function")
   reducer_handler = reducer
-  state = initial_state
+  state = initial_state or {}
 end
 
 function store.dispatch(action, bypass_trigger)

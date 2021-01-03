@@ -67,6 +67,11 @@ describe("moonpie.redux.store", function()
     assert.spy(reducer).was.called_with(action, state)
   end)
 
+  it("uses an empty table if initial_state is nil", function()
+    store.create_store(function() end)
+    assert.same({}, store.get_state())
+  end)
+
   it("functions can be dispatched that can hold multiple dispatches or logic", function()
     local complex = function()
       return function(dispatch, get_state)
