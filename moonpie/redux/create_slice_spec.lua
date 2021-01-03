@@ -9,17 +9,17 @@ describe("moonpie.redux.create_slice", function()
 
   it("takes a table and creates a function for the reducer", function()
     local test = {
-      action_1 = function(state) return { v = (state.v or 0) + 1 } end,
-      action_2 = function(state) return { v = (state.v or 0) + 2 } end
+      action_1 = function(state, action) return { v = state.v + action.payload } end,
+      action_2 = function(state, action) return { v = state.v - action.payload } end
     }
 
-    store.create_store(create_slice(test))
+    store.create_store(create_slice(test), { v = 0 })
 
-    store.dispatch({ type = "action_1" })
+    store.dispatch({ type = "action_1", payload = 1 })
     local s = store.get_state()
     assert.equals(1, s.v)
 
-    store.dispatch { type = "action_2" }
+    store.dispatch { type = "action_2", payload = -2 }
     s = store.get_state()
     assert.equals(3, s.v)
   end)
