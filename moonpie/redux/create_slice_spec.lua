@@ -23,4 +23,14 @@ describe("moonpie.redux.create_slice", function()
     s = store.get_state()
     assert.equals(3, s.v)
   end)
+
+  it("returns the state back if the action is not in the list", function()
+    local state = {}
+    local test = {}
+
+    store.create_store(create_slice(test), state)
+    store.dispatch({ type = "some_action" })
+    assert.equals(state, store.get_state())
+
+  end)
 end)

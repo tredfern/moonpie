@@ -9,6 +9,8 @@ return function(slice_table)
       if self[action.type] then
         return self[action.type](state, action)
       end
+
+      return state
     end
   })
 end
