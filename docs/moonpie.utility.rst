@@ -1,7 +1,7 @@
 moonpie.utility
 ===============
 
-moonpie.tables
-^^^^^^^^^^^^^^^^^^^^^^
-The tables utilities provides various mini-functions for helpful operations.
 
+
+is_callable(val)
+  returns true if the parameter is either a function or a table with a metatable that implements __call.
