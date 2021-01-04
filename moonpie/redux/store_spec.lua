@@ -97,6 +97,17 @@ describe("moonpie.redux.store", function()
     assert.is_false(store.get_state().in_conversation)
   end)
 
+  it("will call a table if callable", function()
+    store.create_store(function() end)
+    local called = false
+    local complex = setmetatable({}, {
+      __call = function() called = true end
+    })
+
+    store.dispatch(complex)
+    assert.is_true(called)
+  end)
+
   it("dispatches only one listener call when dispatching a function", function()
     local action_group = function()
       return function(dispatch)

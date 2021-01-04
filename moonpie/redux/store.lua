@@ -4,6 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 local logger = require "moonpie.logger"
+local is_callable = require "moonpie.utility.is_callable"
 local store = { }
 local reducer_handler
 local listeners = setmetatable({}, { __mode = "v" })
@@ -21,13 +22,17 @@ function store.create_store(reducer, initial_state)
   state = initial_state or {}
 end
 
+function store.inverted_dispatch(action)
+  store.dispatch(action, true)
+end
+
 function store.dispatch(action, bypass_trigger)
   if action == nil then return end
 
   -- move to middleware?
-  if type(action) == "function" then
+  if is_callable(action) then
     action(
-      function(__action) store.dispatch(__action, true) end,
+      store.inverted_dispatch,
       store.get_state
     )
     trigger_listeners()
