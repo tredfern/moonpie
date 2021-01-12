@@ -19,7 +19,7 @@ end
 function store.create_store(reducer, initial_state)
   assert(reducer, "Store requires a reducer function")
   reducer_handler = reducer
-  state = initial_state or {}
+  state = initial_state or reducer(nil, { type = "___INITIALIZE_STORE___" }) or {}
 end
 
 function store.inverted_dispatch(action)

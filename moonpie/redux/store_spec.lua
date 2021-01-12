@@ -8,7 +8,7 @@ describe("moonpie.redux.store", function()
 
   it("ignores nil actions", function()
     local reducer = spy.new(function() end)
-    store.create_store(reducer)
+    store.create_store(reducer, {})
     assert.has_no_errors(function() store.dispatch(nil) end)
     assert.spy(reducer).was.not_called()
   end)
@@ -21,6 +21,13 @@ describe("moonpie.redux.store", function()
     local state = store.get_state()
     store.dispatch(action)
     assert.spy(reducer).was.called_with(state, action)
+  end)
+
+  it("calls the reducer for initial state if non is provided", function()
+    local start_state = {}
+    local reducer = spy.new(function() return start_state end)
+    store.create_store(reducer)
+    assert.equals(start_state, store.get_state())
   end)
 
   it("calls listeners when state has changed", function()
@@ -101,7 +108,10 @@ describe("moonpie.redux.store", function()
     store.create_store(function() end)
     local called = false
     local complex = setmetatable({}, {
-      __call = function() called = true end
+      __call = function(_, dispatch)
+        dispatch({})
+        called = true
+      end
     })
 
     store.dispatch(complex)

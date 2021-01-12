@@ -5,6 +5,7 @@
 
 local Component = require "moonpie.ui.components.component"
 local str = require "moonpie.utility.string"
+local keyboard = require "moonpie.keyboard"
 
 local special_keys = {
   backspace = function(tb)
@@ -13,8 +14,26 @@ local special_keys = {
     local f = string.sub(txt, 1, c - 1)
     local l = string.sub(txt, c + 1)
     tb:set_text(f .. l)
+  end,
+  lshift = function() end,
+  rshift = function() end,
+  space = function(tb)
+    local txt = tb:get_text()
+    tb:set_text(str.insert(
+      txt,
+      tb:cursor_position(),
+      " "
+    ))
   end
 }
+
+local function get_character(key)
+  if keyboard.isDown("lshift") or keyboard.isDown("rshift") then
+    return string.upper(key)
+  else
+    return key
+  end
+end
 
 Component("textbox", function(props)
   local textview = Component.text({ id = "textbox_text", text = props.text or "" })
@@ -33,7 +52,7 @@ Component("textbox", function(props)
 
     -- Append keypressed to the textbox
     if not tb.maxlength or tb.maxlength > string.len(tb.get_text()) then
-      local t = str.insert(textview.text, tb.cursor_position(), key)
+      local t = str.insert(textview.text, tb.cursor_position(), get_character( key ))
       textview:update({ text = t })
     end
   end

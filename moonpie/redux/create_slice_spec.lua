@@ -31,6 +31,37 @@ describe("moonpie.redux.create_slice", function()
     store.create_store(create_slice(test), state)
     store.dispatch({ type = "some_action" })
     assert.equals(state, store.get_state())
+  end)
 
+  it("can specify an initial state and the store is configured with that state", function()
+    local slice = create_slice {
+      initial_state = {
+        v = 1, x = 2, b = "hello"
+      }
+    }
+
+    store.create_store(create_slice(slice))
+    local state = store.get_state()
+    assert.equals(1, state.v)
+    assert.equals(2, state.x)
+    assert.equals("hello", state.b)
+  end)
+
+  it("works with combine reducers to specify complex initial states", function()
+    local combine_reducers = require "moonpie.redux.combine_reducers"
+    local slice1 = create_slice {
+      initial_state = { v = 3 }
+    }
+    local slice2 = create_slice {
+      initial_state = { v = 6 }
+    }
+
+    store.create_store(combine_reducers {
+      slice1 = slice1,
+      slice2 = slice2
+    })
+    local state = store.get_state()
+    assert.equals(3, state.slice1.v)
+    assert.equals(6, state.slice2.v)
   end)
 end)

@@ -10,7 +10,7 @@ return function(slice_table)
         return self[action.type](state, action)
       end
 
-      return state
+      return state or slice_table.initial_state
     end
   })
 end
