@@ -1,5 +1,5 @@
 ![Read the Docs](https://img.shields.io/readthedocs/moonpie)
-[![Build Status](https://travis-ci.org/tredfern/moonpie.svg?branch=master)](https://travis-ci.org/tredfern/moonpie)
+[![Build Status](https://travis-ci.com/tredfern/moonpie.svg?branch=main)](https://travis-ci.com/tredfern/moonpie)
 [![Coverage Status](https://coveralls.io/repos/github/tredfern/moonpie/badge.svg?branch=master)](https://coveralls.io/github/tredfern/moonpie?branch=master)
 [![LOVE](https://img.shields.io/badge/L%C3%96VE-11.2-EA316E.svg)](http://love2d.org/)
 
