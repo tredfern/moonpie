@@ -21,6 +21,7 @@ local image = setmetatable({
 }, { __newindex = function() error("Love does not allow this") end })
 
 local text = {
+  set = function() end,
   setf = function() end,
   getDimensions = function() return 10, 10 end
 }
