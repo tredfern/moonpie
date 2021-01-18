@@ -22,7 +22,6 @@ with libraries for collections, math, entity-component-systems, etc...
    moonpie.tables
    moonpie.test_helpers
    moonpie.ui
-   moonpie.ui.components
    moonpie.utility
 
 

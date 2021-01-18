@@ -280,6 +280,18 @@ describe("Layouts", function()
       assert.not_nil(node.image)
       assert.spy(font.get).was.called_with(font, "Arial", 12)
     end)
+
+    it("if textwrap property is set to 'none' then will not wrap", function()
+      local text_object = love.graphics.newText()
+      text_object.set = spy.new(function() end)
+      text_object.setf = spy.new(function() end)
+      mock_love.mock(love.graphics, "newText", function() return text_object end)
+
+      local node = Node({ text = "sometext", font = mock_love.font, textwrap = "none" })
+      layouts.text(node, parent)
+      assert.spy(text_object.setf).was.not_called()
+      assert.spy(text_object.set).was.called_with(text_object, "sometext")
+    end)
   end)
 
   describe("Image layouts", function()

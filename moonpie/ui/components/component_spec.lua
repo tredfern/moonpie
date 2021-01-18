@@ -102,6 +102,7 @@ describe("Component", function()
           position = "absolute",
           style = "some",
           target_layer = "layer",
+          textwrap = "wrapping",
           unmounted = function() end,
           width = 250
           --do_not_copy = "fail"

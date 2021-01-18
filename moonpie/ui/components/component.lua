@@ -26,6 +26,7 @@ local copy_props = {
   "position",
   "style",
   "target_layer",
+  "textwrap",
   "unmounted",
   "width"
 }

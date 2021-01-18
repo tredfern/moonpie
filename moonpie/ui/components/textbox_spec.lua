@@ -6,10 +6,11 @@
 describe("Components - Textbox", function()
   local Components = require "moonpie.ui.components"
 
-  it("displays text to be edited", function()
+  it("displays text to be edited in nonwrapped form", function()
     local tb = Components.textbox({ text = "foo" })
     local t = tb:find_by_id("textbox_text")
     assert.equals("foo", t.text)
+    assert.equals("none", t.textwrap)
   end)
 
   it("defaults to empty string if no text is passed in", function()
@@ -43,6 +44,22 @@ describe("Components - Textbox", function()
     assert.equals(12, string.len(tb:get_text()))
   end)
 
+  it("draws a cursor at the correct position based on width of text", function()
+    local mock_love = require "moonpie.test_helpers.mock_love"
+    mock_love.mock(love.graphics, "line", spy.new(function() end))
+
+    -- Mock font always returns 10 for width and height
+    local tb = Components.textbox { text = "test" }
+    tb:set_focus()
+    tb.font = mock_love.font
+    tb:draw_component()
+
+    assert.spy(love.graphics.line).was.called_with(10, 0, 10, 10)
+  end)
+
+  it("does not draw the cursor if it does not have focus", function()
+  end)
+
   describe("Special Keys", function()
     it("deletes the character before the cursor when backspace is received", function()
       local tb = Components.textbox({ text = "Sandwich" })
@@ -69,6 +86,28 @@ describe("Components - Textbox", function()
       mock_love.simulate_key_down("rshift")
       tb:keypressed("a")
       assert.equals("TestAA", tb:get_text())
+    end)
+
+    it("changes the cursor position when the left and right arrow keys are pressed", function()
+      local tb = Components.textbox { text = "hello" }
+      tb:keypressed("left")
+      assert.equals(4, tb:cursor_position())
+      tb:keypressed("left")
+      assert.equals(3, tb:cursor_position())
+      tb:keypressed("left")
+      tb:keypressed("left")
+      tb:keypressed("left")
+      tb:keypressed("left")
+      tb:keypressed("left")
+      assert.equals(0, tb:cursor_position())
+      tb:keypressed("right")
+      tb:keypressed("right")
+      tb:keypressed("right")
+      tb:keypressed("right")
+      tb:keypressed("right")
+      tb:keypressed("right")
+      tb:keypressed("right")
+      assert.equals(5, tb:cursor_position())
     end)
   end)
 

@@ -163,7 +163,13 @@ function layouts.text(node, parent)
   local max_width = layouts.max_width(node, parent)
   local f = Font.pick(node)
   node.image = love.graphics.newText(f)
-  node.image:setf(node.text or "", max_width, "left")
+
+  -- handle wrapping behavior
+  if node.textwrap and node.textwrap == "none" then
+    node.image:set(node.text)
+  else
+    node.image:setf(node.text or "", max_width, "left")
+  end
 
   return layouts.image(node, parent)
 end

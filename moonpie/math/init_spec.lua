@@ -11,6 +11,7 @@ describe("moonpie.math", function()
     assert.equals(1, math_ext.clamp(0.9999, 1, 10))
     assert.equals(10, math_ext.clamp(10.000000001, 1, 10))
     assert.equals(10, math_ext.clamp(10, 1, 10))
+    assert.equals(0, math_ext.clamp(-2, 0, 10))
   end)
 
   it("percent to decimal", function()
