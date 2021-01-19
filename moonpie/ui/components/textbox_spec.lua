@@ -13,6 +13,12 @@ describe("Components - Textbox", function()
     assert.equals("none", t.textwrap)
   end)
 
+  it("sets a style to use to change the textbox text", function()
+    local tb = Components.textbox({ text = "foo" })
+    local t = tb:find_by_id("textbox_text")
+    assert.contains("textbox_text", t.style)
+  end)
+
   it("defaults to empty string if no text is passed in", function()
     local tb = Components.textbox()
     assert.equals("", tb:get_text())
@@ -53,12 +59,14 @@ describe("Components - Textbox", function()
   end)
 
   it("draws a cursor at the correct position based on width of text", function()
+    local moonpie = require "moonpie"
     local mock_love = require "moonpie.test_helpers.mock_love"
     mock_love.mock(love.graphics, "line", spy.new(function() end))
 
+
     -- Mock font always returns 10 for width and height
-    local tb = Components.textbox { text = "test" }
-    tb:set_focus()
+    local render = moonpie.test_render(Components.textbox { id = "tb_test", text = "test" })
+    local tb = render:find_by_id("tb_test")
     tb.font = mock_love.font
     tb:draw_component()
 

@@ -5,6 +5,12 @@
 
 
 local components = require "moonpie.ui.components"
+local styles = require "moonpie.ui.styles"
+
+styles.textbox_text = {
+  color = "red",
+  font_size = 28
+}
 
 return function()
   return {
@@ -12,7 +18,7 @@ return function()
       components.textbox({
         text = "Edit Me",
         width = 100,
-        click = function(self) self:set_focus() end }
-      )
+        click = function(self) self:set_focus() end,
+      })
   }
 end

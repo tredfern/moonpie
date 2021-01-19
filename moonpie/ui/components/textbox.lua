@@ -38,7 +38,12 @@ local function get_character(key)
 end
 
 Component("textbox", function(props)
-  local textview = Component.text({ id = "textbox_text", text = props.text or "", textwrap = "none" })
+  local textview = Component.text {
+    id = "textbox_text",
+    text = props.text or "",
+    textwrap = "none",
+    style = "textbox_text"
+  }
   local cursor = string.len(textview.text)
   local tb = {
     textview,
@@ -82,9 +87,9 @@ Component("textbox", function(props)
     cursor = mathext.clamp(cursor, 0, string.len(tb.get_text()))
   end
 
-  tb.draw_component = function(self)
+  tb.draw_component = function()
     local font = require "moonpie.graphics.font"
-    local f = font.pick(self)
+    local f = font.pick(textview:get_node())
     local x = f:getWidth(
       string.sub(textview.text, 1, tb.cursor_position())
     )
