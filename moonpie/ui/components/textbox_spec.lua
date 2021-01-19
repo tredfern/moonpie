@@ -36,6 +36,14 @@ describe("Components - Textbox", function()
     assert.is_true(tb.textview:has_updates())
   end)
 
+  it("puts the cursor at the end when set_text is called", function()
+    local tb = Components.textbox { }
+    tb:set_text("foobar")
+    assert.equals(6, tb:cursor_position())
+    tb:set_text("do not change position", true)
+    assert.equals(6, tb:cursor_position())
+  end)
+
   it("can have a maximum size set", function()
     local tb = Components.textbox({ maxlength = 12 })
     for _=1,15 do
@@ -55,9 +63,6 @@ describe("Components - Textbox", function()
     tb:draw_component()
 
     assert.spy(love.graphics.line).was.called_with(10, 0, 10, 10)
-  end)
-
-  it("does not draw the cursor if it does not have focus", function()
   end)
 
   describe("Special Keys", function()

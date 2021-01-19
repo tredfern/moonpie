@@ -14,7 +14,7 @@ local special_keys = {
     local c = tb:cursor_position()
     local f = string.sub(txt, 1, c - 1)
     local l = string.sub(txt, c + 1)
-    tb:set_text(f .. l)
+    tb:set_text(f .. l, true)
     tb:back_cursor()
   end,
   lshift = function() end,
@@ -62,7 +62,12 @@ Component("textbox", function(props)
   end
 
   tb.get_text = function() return textview.text end
-  tb.set_text = function(_, t) textview:update({ text = t }) end
+  tb.set_text = function(_, t, skip_update)
+    textview:update({ text = t })
+    if not skip_update == true then
+      cursor = string.len(t)
+    end
+  end
 
   tb.cursor_position = function()
     return cursor
