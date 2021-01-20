@@ -24,6 +24,17 @@ robust implementation as much as a lightweight overlay.
     local duck = animal:new("duck")
     print(duck.name)
 
+moonpie.keyboard
+^^^^^^^^^^^^^^^^
+
+Provides access to keyboard routines, including the ability to configure hotkeys that will trigger a function.
+
+.. code-block:: lua
+
+    local keyboard = require "moonpie.keyboard"
+    keyboard:hotkey("a", function() print("Pressed A") end)
+    keyboard:hotkey("shift+a", function() print("Pressed shift(either)+a") end)
+    Keyboard:hotkey("alt+ctrl+shift+8", function() print("alt, ctrl, shift, 8 ... all at the same time") end)
 
 moonpie.event_system
 ^^^^^^^^^^^^^^^^^^^^

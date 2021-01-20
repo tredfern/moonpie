@@ -154,6 +154,9 @@ return {
     mouse_x, mouse_y = 0, 0
     mouse_down = {}
   end,
+  reset_keyboard = function()
+    key_down = {}
+  end,
   font = font,
   image = image,
   text = text

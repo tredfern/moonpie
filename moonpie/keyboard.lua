@@ -20,8 +20,26 @@ function Keyboard:keypressed(key, scancode, isrepeat)
     focused:keypressed(key, scancode, isrepeat)
   end
 
-  local hot = self.hot_keys[key]
+  local hot = self.hot_keys[self:calculate_hotkey(key)]
   if hot then hot() end
+end
+
+function Keyboard:calculate_hotkey(key)
+  local modifiers = ""
+
+  if Keyboard.is_alt_down() then
+    modifiers = modifiers .. "alt+"
+  end
+
+  if Keyboard.is_ctrl_down() then
+    modifiers = modifiers .. "ctrl+"
+  end
+
+  if Keyboard.is_shift_down() then
+    modifiers = modifiers .. "shift+"
+  end
+
+  return modifiers .. key
 end
 
 function Keyboard:keyreleased(key, scancode)
@@ -33,6 +51,18 @@ end
 
 function Keyboard:capture(component)
   self.capturing = component
+end
+
+function Keyboard.is_shift_down()
+  return Keyboard.isDown("lshift") or Keyboard.isDown("rshift")
+end
+
+function Keyboard.is_ctrl_down()
+  return Keyboard.isDown("lctrl") or Keyboard.isDown("rctrl")
+end
+
+function Keyboard.is_alt_down()
+  return Keyboard.isDown("lalt") or Keyboard.isDown("ralt")
 end
 
 return setmetatable(Keyboard, { __index = love.keyboard })
