@@ -5,6 +5,7 @@
 
 local align = require("moonpie.ui.alignment")
 local math_ext = require("moonpie.math")
+local tables = require "moonpie.tables"
 local layouts = {}
 
 function layouts.should_wrap(node, x, line_width)
@@ -51,7 +52,7 @@ function layouts.vertical_orientation(node, parent)
   local x, y = 0, 0
   local max_width, max_height = 0, 0
 
-  local set_width = math_ext.find_max(node.children, function(n) return n.box.content.width end)
+  local set_width = tables.max(node.children, function(n) return n.box.content.width end)
 
   for _, v in ipairs(node.children) do
     if v.position == "absolute" then

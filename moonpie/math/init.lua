@@ -20,18 +20,6 @@ function math_ext.is_percent(str)
   return ns ~= nil
 end
 
-function math_ext.find_max(list, func)
-  local m
-  for _, v in ipairs(list) do
-    if m then
-      m = math.max(m, func(v))
-    else
-      m = func(v)
-    end
-  end
-  return m
-end
-
 function math_ext.between(val, min, max)
   return min <= val and val <= max
 end
