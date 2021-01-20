@@ -17,6 +17,7 @@ return {
   keys_to_list = require "moonpie.tables.keys_to_list",
   map = require "moonpie.tables.map",
   max = require "moonpie.tables.max",
+  min = require "moonpie.tables.min",
   merge = require "moonpie.tables.merge",
   pack = require "moonpie.tables.pack",
   pick_random = require "moonpie.tables.pick_random",
