@@ -32,6 +32,10 @@ function math_ext.find_max(list, func)
   return m
 end
 
+function math_ext.between(val, min, max)
+  return min <= val and val <= max
+end
+
 math_ext.vector = require "moonpie.math.vector"
 math_ext.rectangle = require "moonpie.math.rectangle"
 math_ext.tween = require "moonpie.ext.tween"

@@ -39,4 +39,21 @@ describe("moonpie.math", function()
     local m2 = math_ext.find_max(list2, function(l) return l end)
     assert.equals(-1, m2)
   end)
+
+  describe("between", function()
+    it("returns true if value is between a range", function()
+      local x = 4
+      assert.is_true(math_ext.between(x, 1, 8))
+    end)
+
+    it("returns false if value is out of range", function()
+      local y = 8
+      assert.is_false(math_ext.between(y, 1, 5))
+    end)
+
+    it("returns true if the value is on the boundary", function()
+      assert.is_true(math_ext.between(1, 1, 5))
+      assert.is_true(math_ext.between(5, 1, 5))
+    end)
+  end)
 end)
