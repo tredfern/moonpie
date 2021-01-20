@@ -126,12 +126,6 @@ describe("Initialize Moonpie", function()
     end)
   end)
 
-  describe("ecs", function()
-    it("has the ecs world", function()
-      assert.not_nil(moonpie.ecs.world)
-    end)
-  end)
-
   it("has a module for csv file support", function()
     assert.not_nil(moonpie.utility.csv)
   end)
