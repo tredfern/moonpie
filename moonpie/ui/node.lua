@@ -28,6 +28,8 @@ return function(component, parent)
 
   n.add = function(self, ...)
     for _, v in ipairs({...}) do
+      v.parent = self
+      v.box.parent = self.box
       self.children[#self.children + 1] = v
     end
   end
@@ -53,7 +55,7 @@ return function(component, parent)
 
   n.paint = component.paint or drawing.standard
   n.refresh_style = function(self)
-    cached_style = styles.compute(component, parent, { hover = self.hover and self:hover() })
+    cached_style.update_flags({ hover = self.hover and self:hover() })
   end
 
   n.destroy = function(self)

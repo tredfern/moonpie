@@ -17,15 +17,17 @@ describe("Node", function()
 
   it("can have child nodes", function()
     local b = Node()
-    local c1, c2 = {}, {}
+    local c1, c2 = Node({}), Node({})
     b:add(c1, c2)
     assert.equals(c1, b.children[1])
     assert.equals(c2, b.children[2])
+    assert.equals(b, b.children[1].parent)
+    assert.equals(b.box, b.children[1].box.parent)
   end)
 
   it("can remove children", function()
     local b = Node()
-    local c1, c2 = {}, {}
+    local c1, c2 = Node({}), Node({})
     b:add(c1, c2)
     b:clear_children()
     assert.equals(0, #b.children)

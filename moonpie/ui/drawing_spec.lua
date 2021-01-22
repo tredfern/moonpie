@@ -45,8 +45,8 @@ describe("Renderers", function()
     it("paints each of its children", function()
       local b = Node()
       local spy_paint = spy.new(function() end)
-      local c1 = { paint = spy_paint }
-      local c2 = { paint = spy_paint }
+      local c1 = Node({ paint = spy_paint })
+      local c2 = Node({ paint = spy_paint })
 
       b:add(c1, c2)
       drawing.standard(b)

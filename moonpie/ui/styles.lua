@@ -53,6 +53,10 @@ function styles.compute(source, parent_style, flags)
      __index = get_value
    })
 
+   result.update_flags = function(f)
+    result._flags = f or {}
+   end
+
   if s then
     local style_list = str.split(s)
     for v in reverse(style_list) do

@@ -30,8 +30,6 @@ function RenderEngine.add_node(node, parent)
   RenderEngine.remove_component_if_exists(node.component)
   if node.target_layer then
     local layer = RenderEngine.layers[node.target_layer]
-    node.parent = layer
-    node.box.parent = layer.box
     layer:add(node)
     layer:layout()
   else
@@ -106,7 +104,6 @@ function RenderEngine.update_nodes(node)
     if safecall(node.has_updates, node) then
       updates = true
       RenderEngine.render_node(node)
-      node:layout()
       node.component:flag_updates(false)
     end
 
