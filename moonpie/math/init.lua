@@ -28,6 +28,12 @@ function math_ext.coinflip()
   return math.random(1, 2) == 1
 end
 
+function math_ext.sign(num)
+  if num > 0 then return 1 end
+  if num < 0 then return -1 end
+  return 0
+end
+
 math_ext.vector = require "moonpie.math.vector"
 math_ext.rectangle = require "moonpie.math.rectangle"
 math_ext.tween = require "moonpie.ext.tween"
