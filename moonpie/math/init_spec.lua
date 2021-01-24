@@ -46,4 +46,14 @@ describe("moonpie.math", function()
       assert.is_true(math_ext.between(5, 1, 5))
     end)
   end)
+
+  it("can flip a coin for easy binary choices", function()
+    local got_heads, got_tails
+    for _ = 1, 100 do
+      got_heads = got_heads or math_ext.coinflip()
+      got_tails = got_tails or not math_ext.coinflip()
+    end
+    assert.is_true(got_heads)
+    assert.is_true(got_tails)
+  end)
 end)
