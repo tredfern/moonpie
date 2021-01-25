@@ -16,7 +16,7 @@ function drawing.standard(node)
   drawing.image(node)
   drawing.custom_content(node)
 
-  love.graphics.translate(node.box:content_position())
+  love.graphics.translate(node.box.content_position.x, node.box.content_position.y)
 
   for _, v in ipairs(node.children) do
     v:paint()
@@ -27,9 +27,9 @@ end
 function drawing.draw_background(node)
   if node.background_color then
     love.graphics.push()
-    love.graphics.translate(node.box:background_position())
+    love.graphics.translate(node.box.background_position.x, node.box.background_position.y)
     love.graphics.setColor(colors(node.background_color, node.opacity))
-    local w, h = node.box:background_size()
+    local w, h = node.box.background_position.width, node.box.background_position.height
     if node.background_image then
       local sx = image.scale_width(node.background_image, w)
       local sy = image.scale_height(node.background_image, h)
@@ -45,14 +45,14 @@ end
 function drawing.draw_border(node)
   if node.border then
     love.graphics.push()
-    local x, y = node.box:border_position()
+    local x, y = node.box.border_position.x, node.box.border_position.y
     x = x + node.border / 2
     y = y + node.border / 2
 
     love.graphics.translate(x, y)
     love.graphics.setColor(colors(node.border_color))
     love.graphics.setLineWidth(node.border)
-    local w, h = node.box:border_size()
+    local w, h = node.box.border_position.width, node.box.border_position.height
     w = w - node.border
     h = h - node.border
     love.graphics.rectangle("line", 0, 0, w, h,
@@ -69,7 +69,7 @@ function drawing.image(node)
 
   local clr = node.color or { 1, 1, 1, 1 }
   love.graphics.push()
-  love.graphics.translate(node.box:content_position())
+  love.graphics.translate(node.box.content_position.x, node.box.content_position.y)
   love.graphics.setColor(colors(clr))
   love.graphics.draw(node.image, 0, 0, rot, sx, sy)
   love.graphics.pop()
@@ -78,7 +78,7 @@ end
 function drawing.custom_content(node)
   if not node.draw_component then return end
   love.graphics.push()
-  love.graphics.translate(node.box:content_position())
+  love.graphics.translate(node.box.content_position.x, node.box.content_position.y)
   node:draw_component()
   love.graphics.pop()
 end

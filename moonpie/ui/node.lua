@@ -29,7 +29,7 @@ return function(component, parent)
   n.add = function(self, ...)
     for _, v in ipairs({...}) do
       v.parent = self
-      v.box.parent = self.box
+      v.box:set_parent(self.box)
       self.children[#self.children + 1] = v
     end
   end

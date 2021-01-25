@@ -9,7 +9,7 @@ local tables = require "moonpie.tables"
 local layouts = {}
 
 function layouts.should_wrap(node, x, line_width)
-  return x > 0 and x + node.box:width() > line_width
+  return x > 0 and x + node.box.width > line_width
 end
 
 function layouts.horizontal_orientation(node, parent, width)
@@ -30,11 +30,13 @@ function layouts.horizontal_orientation(node, parent, width)
       end
 
       local horiz, vert = v.align or "left", v.vertical_align or "top"
-      v.box.x = align(horiz, x, layouts.calc_width(node, parent, max_width), v.box:width())
-      v.box.y = align(vert, y, layouts.calc_height(node, parent, line_height), v.box:height())
-      x = v.box.x + v.box:width()
+      v.box:set_position(
+        align(horiz, x, layouts.calc_width(node, parent, max_width), v.box.width),
+        align(vert, y, layouts.calc_height(node, parent, line_height), v.box.height)
+      )
+      x = v.box.x + v.box.width
 
-      line_height = math.max(v.box:height(), line_height)
+      line_height = math.max(v.box.height, line_height)
       max_width = math.max(max_width, x)
 
       if v.display == "inline-block" then
@@ -59,13 +61,16 @@ function layouts.vertical_orientation(node, parent)
       layouts.absolute_position(v)
     else
       local horiz, vert = v.align or "left", v.vertical_align or "top"
-      v.box.content.width = set_width
-      v.box.x = align(horiz, x, layouts.calc_width(node, parent, 0), v.box:width())
-      v.box.y = align(vert, y, layouts.calc_height(node, parent, 0), v.box:height())
-      y = v.box.y + v.box:height()
 
-      max_height = max_height + v.box:height()
-      max_width = math.max(max_width, v.box:width())
+      v.box:set_content_size(set_width, v.box.content.height)
+      v.box:set_position(
+        align(horiz, x, layouts.calc_width(node, parent, 0), v.box.width),
+        align(vert, y, layouts.calc_height(node, parent, 0), v.box.height)
+      )
+      y = v.box.y + v.box.height
+
+      max_height = max_height + v.box.height
+      max_width = math.max(max_width, v.box.width)
     end
   end
 
@@ -150,13 +155,17 @@ end
 
 function layouts.standard(node, parent)
   parent = parent or node.parent
-  node.box.content.width = layouts.max_width(node, parent)
-  node.box.content.height = layouts.calc_height(node, parent, 0)
+  node.box:set_content_size(
+    layouts.max_width(node, parent),
+    layouts.calc_height(node, parent, 0)
+  )
 
   local w, h = layouts.children(node, parent, node.box.content.width)
 
-  node.box.content.width = layouts.calc_width(node, parent, w)
-  node.box.content.height = layouts.calc_height(node, parent, h)
+  node.box:set_content_size(
+    layouts.calc_width(node, parent, w),
+    layouts.calc_height(node, parent, h)
+  )
 end
 
 function layouts.text(node, parent)
@@ -178,15 +187,12 @@ end
 function layouts.image(node, parent)
   local w, h = node.image:getDimensions()
   if node.width then
-    node.box.content.width = layouts.calc_width(node, parent, w)
-  else
-    node.box.content.width = w
+    w = layouts.calc_width(node, parent, w)
   end
   if node.height then
-    node.box.content.height = layouts.calc_height(node, parent, h)
-  else
-    node.box.content.height = h
+    h = layouts.calc_height(node, parent, h)
   end
+  node.box:set_content_size(w, h)
 end
 
 return layouts

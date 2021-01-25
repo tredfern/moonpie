@@ -126,7 +126,7 @@ describe("RenderEngine", function()
       local n = RenderEngine.find_by_component(c)
       n.refresh_style = spy.new(function() end)
       RenderEngine.paint(Mouse)
-      assert.spy(n.refresh_style).was.called.with(n)
+      assert.spy(n.refresh_style).was.called()
     end)
   end)
 
