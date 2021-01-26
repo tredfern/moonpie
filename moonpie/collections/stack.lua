@@ -28,5 +28,11 @@ function Stack:isempty()
   return #self == 0
 end
 
+function Stack:clear()
+  while not self:isempty() do
+    self:pop()
+  end
+end
+
 
 return Stack

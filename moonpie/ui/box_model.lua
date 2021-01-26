@@ -91,13 +91,11 @@ return function(element, parent)
       self.y = y
       self:update()
     end,
-    set_parent = function(self, parent)
-      self.parent = parent
+    set_parent = function(self, p)
+      self.parent = p
       self:update()
     end,
     region = get_region
-
-      
   }
   calculate_values(box)
   return box
