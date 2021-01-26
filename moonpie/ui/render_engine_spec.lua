@@ -245,6 +245,13 @@ describe("RenderEngine", function()
         RenderEngine.update(Mouse)
         assert.is_nil(RenderEngine.find_by_component(c))
       end)
+
+      it("can handle a component being updated that isn't in the node tree", function()
+        Component("simple", function() return {} end)
+        local c = Component.simple()
+        c:update { text = "foo" }
+        assert.has_no_errors(function() RenderEngine.update(Mouse) end)
+      end)
     end)
 
     describe("Handling Mouse Behavior", function()

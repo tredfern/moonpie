@@ -135,9 +135,11 @@ function RenderEngine.update(mouse)
   local changed_layers = {}
   while not update_queue:isempty() do
     local next = update_queue:pop()
-    local layer = get_node_layer(next.node)
-    if RenderEngine.update_node(next.node) then
-      changed_layers[layer] = true
+    if next.node then
+      local layer = get_node_layer(next.node)
+      if RenderEngine.update_node(next.node) then
+        changed_layers[layer] = true
+      end
     end
   end
 
