@@ -18,17 +18,17 @@ describe("Component - timer_display", function()
 
   it("displays the average time for the timer", function()
     local avg = display:find_by_id("timer_average")
-    assert.equals("Avg: " .. test_timer:average(), avg.text)
+    assert.equals("Avg: " .. string.format("%.4f", test_timer:average()), avg.text)
   end)
 
   it("displays the max time for the timer", function()
     local max = display:find_by_id("timer_max")
-    assert.equals("Max: " .. test_timer.max, max.text)
+    assert.equals("Max: " .. string.format("%.4f", test_timer.max), max.text)
   end)
 
   it("displays the min time for the timer", function()
     local min = display:find_by_id("timer_min")
-    assert.equals("Min: " .. test_timer.min, min.text)
+    assert.equals("Min: " .. string.format("%.4f", test_timer.min), min.text)
   end)
 
   it("display the name of the timer", function()

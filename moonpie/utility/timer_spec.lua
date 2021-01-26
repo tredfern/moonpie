@@ -64,4 +64,17 @@ describe("Utility - Timer", function()
     assert.equals("Watch This", t.name)
   end)
 
+  it("can be specified how many events to track for min/max/avg", function()
+    local t = timer:new("Watch", 10)
+    for x = 1, 20 do
+      mock_love.mock(love.timer, "getTime", function() return 0 end)
+      t:start()
+      mock_love.mock(love.timer, "getTime", function() return x end)
+      t:stop()
+    end
+    assert.equals(20, t.max)
+    assert.equals(11, t.min)
+    assert.equals(15.5, t:average())
+  end)
+
 end)
