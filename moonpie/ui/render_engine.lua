@@ -8,6 +8,7 @@ local Components = require "moonpie.ui.components"
 local List = require "moonpie.collections.list"
 local safecall = require "moonpie.utility.safe_call"
 local find_by_component = require "moonpie.ui.find_by_component"
+local update_queue = require "moonpie.ui.update_queue"
 local RenderEngine = {}
 
 RenderEngine.layers = {
@@ -25,6 +26,7 @@ function RenderEngine.remove_node(node)
   node.parent.children:remove(node)
   node:destroy()
 end
+
 
 function RenderEngine.add_node(node, parent)
   RenderEngine.remove_component_if_exists(node.component)
@@ -90,9 +92,7 @@ function RenderEngine.refresh_style(node)
 end
 
 
-function RenderEngine.update_nodes(node)
-  local updates = false
-
+function RenderEngine.update_node(node)
   -- hidden components do nothing
   if node.is_hidden and node:is_hidden() then return end
 
@@ -100,18 +100,10 @@ function RenderEngine.update_nodes(node)
   if safecall(node.needs_removal, node) then
     RenderEngine.remove_node(node)
   else
-    -- perform any updates
-    if safecall(node.has_updates, node) then
-      updates = true
-      RenderEngine.render_node(node)
-      node.component:flag_updates(false)
-    end
-
-    for _, v in ipairs(node.children) do
-      updates = RenderEngine.update_nodes(v) or updates
-    end
+    RenderEngine.render_node(node)
+    node.component:flag_updates(false)
   end
-  return updates
+  return true
 end
 
 function RenderEngine.ordered_layers()
@@ -131,12 +123,29 @@ function RenderEngine.paint()
   end
 end
 
+local function get_node_layer(node)
+  local layer = node.parent
+  while layer.parent ~= nil and layer.parent.parent ~= nil do
+    layer = layer.parent
+  end
+  return layer
+end
+
 function RenderEngine.update(mouse)
+  local changed_layers = {}
+  while not update_queue:isempty() do
+    local next = update_queue:pop()
+    local layer = get_node_layer(next.node)
+    if RenderEngine.update_node(next.node) then
+      changed_layers[layer] = true
+    end
+  end
+
   for _, v in ipairs(RenderEngine.ordered_layers()) do
-    mouse:update(v)
-    if RenderEngine.update_nodes(v) then
+    if changed_layers[v] then
       v:layout()
     end
+    mouse:update(v)
   end
 end
 

@@ -5,6 +5,7 @@
 
 local tables = require "moonpie.tables"
 local template = require "moonpie.utility.template"
+local update_queue = require "moonpie.ui.update_queue"
 local copy_props = {
   "background_color",
   "border",
@@ -73,6 +74,7 @@ function ComponentFactory.add_component_methods(c)
   c.update = function(self, new)
     if tables.copy_keys(new, self, true) then
       self:flag_updates(true)
+      update_queue:push(self)
     end
   end
 

@@ -4,79 +4,99 @@
 -- https://opensource.org/licenses/MIT
 
 local region = require("moonpie.ui.region")
+local rectangle = require "moonpie.math.rectangle"
 
 local function get_rekt(element, property)
+  local rekt
   if type(element[property]) == "table" then
-    return {
+    rekt = {
       left = element[property].left or 0,
       top = element[property].top or 0,
       right = element[property].right or 0,
       bottom = element[property].bottom or 0,
-      landr = function(self) return self.left + self.right end,
-      tandb = function(self) return self.top + self.bottom end
     }
   else
     local v = tonumber(element[property]) or 0
-    return {
+    rekt = {
       left = v, top = v, right = v, bottom = v,
-      landr = function(self) return self.left + self.right end,
-      tandb = function(self) return self.top + self.bottom end
     }
   end
+  rekt.landr = rekt.left + rekt.right
+  rekt.tandb = rekt.top + rekt.bottom
+  return rekt
+end
+
+local function calculate_values(box)
+  box.update_region = true
+  box.width = box.margin.landr + box.border.landr + box.padding.landr + box.content.width
+  box.height = box.margin.tandb + box.border.tandb + box.padding.tandb + box.content.height
+  box.background_position = rectangle.new(
+    box.margin.left + box.border.left,
+    box.margin.top + box.border.top,
+    box.padding.landr + box.content.width,
+    box.padding.tandb + box.content.height)
+  box.border_position = rectangle.new(
+    box.margin.left, box.margin.top,
+    box.border.landr + box.padding.landr + box.content.width,
+    box.border.tandb + box.padding.tandb + box.content.height
+  )
+  box.content_position = rectangle.new(
+    box.margin.left + box.border.left + box.padding.left,
+    box.margin.top + box.border.top + box.padding.top,
+    box.content.width,
+    box.content.height
+  )
+end
+
+local function get_region(box)
+  if box.cached_region and not box.update_region then
+    return box.cached_region
+  end
+
+  local r = { left = 0, top = 0 }
+  local cx, cy = 0, 0
+  if box.parent then
+    r = box.parent:region()
+    cx = box.parent.border_position.x + box.parent.padding.left
+    cy = box.parent.border_position.y + box.parent.padding.top
+  end
+  box.cached_region = region(
+    r.left + cx + box.x + box.border_position.x,
+    r.top + cy + box.y + box.border_position.y,
+    r.left + cx + box.x + box.border_position:right(),
+    r.top + cy + box.y + box.border_position:bottom()
+  )
+
+  box.update_region = false
+  return box.cached_region
 end
 
 return function(element, parent)
   element = element or {}
-  return {
+  local box = {
     x = 0, y = 0,
     content = { width = 0, height = 0 },
     border = get_rekt(element, "border"),
     margin = get_rekt(element, "margin"),
     padding = get_rekt(element, "padding"),
     parent = parent,
-    width = function(self)
-      return self.margin:landr() + self.border:landr() + self.padding:landr() + self.content.width
+    update = calculate_values,
+    set_content_size = function(self, w, h)
+      self.content.width = w
+      self.content.height = h
+      self:update()
     end,
-    height = function(self)
-      return self.margin:tandb() + self.border:tandb() + self.padding:tandb() + self.content.height
+    set_position = function(self, x, y)
+      self.x = x
+      self.y = y
+      self:update()
     end,
-    background_position = function(self)
-      return self.margin.left + self.border.left, self.margin.top + self.border.top
+    set_parent = function(self, p)
+      self.parent = p
+      self:update()
     end,
-    background_size = function(self)
-      return self.padding:landr() + self.content.width,
-        self.padding:tandb() + self.content.height
-    end,
-    border_position = function(self)
-      return self.margin.left, self.margin.top
-    end,
-    border_size = function(self)
-      return self.border:landr() + self.padding:landr() + self.content.width,
-        self.border:tandb() + self.padding:tandb() + self.content.height
-    end,
-    content_position = function(self)
-      return self.margin.left + self.border.left + self.padding.left
-      , self.margin.top + self.border.top + self.padding.top
-    end,
-    region = function(self)
-      local r = { left = 0, top = 0 }
-      local cx, cy = 0, 0
-
-      if self.parent then
-        r = self.parent:region()
-        cx = self.parent.padding.left + self.parent.border.left
-        cy = self.parent.padding.top + self.parent.border.top
-      end
-
-      local bx, by = self:border_position()
-      local bw, bh = self:border_size()
-
-      return region(
-        r.left + cx + self.x + bx,
-        r.top + cy + self.y + by,
-        r.left + cx + self.x + bx + bw,
-        r.top + cy + self.y + by + bh
-      )
-    end
+    region = get_region
   }
+  calculate_values(box)
+  return box
 end

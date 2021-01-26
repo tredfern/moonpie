@@ -154,7 +154,7 @@ describe("Renderers", function()
 
       it("draws a rectangle for the border minus border to account for the line-width", function()
         drawing.standard(bordered)
-        local w, h = bordered.box:border_size()
+        local w, h = bordered.box.border_position.width, bordered.box.border_position.height
         assert.spy(love.graphics.rectangle).was.called.with("line", 0, 0, w - 3, h - 3, 0, 0)
       end)
 
