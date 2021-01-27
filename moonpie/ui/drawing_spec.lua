@@ -50,8 +50,7 @@ describe("Renderers", function()
 
       b:add(c1, c2)
       drawing.standard(b)
-      assert.spy(spy_paint).was.called_with(c1)
-      assert.spy(spy_paint).was.called_with(c2)
+      assert.spy(spy_paint).was.called(2)
     end)
 
     it("translates to where the background is to draw the background", function()

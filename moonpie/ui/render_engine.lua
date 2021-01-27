@@ -83,15 +83,6 @@ function RenderEngine.render_node(node)
   end
 end
 
-
-function RenderEngine.refresh_style(node)
-  node:refresh_style()
-  for _, v in ipairs(node.children) do
-    RenderEngine.refresh_style(v)
-  end
-end
-
-
 function RenderEngine.update_node(node)
   -- hidden components do nothing
   if node.is_hidden and node:is_hidden() then return end
@@ -118,7 +109,6 @@ end
 
 function RenderEngine.paint()
   for _, v in ipairs(RenderEngine.ordered_layers()) do
-    RenderEngine.refresh_style(v)
     v:paint()
   end
 end

@@ -122,9 +122,11 @@ describe("Node", function()
 
   describe("Painting", function()
     it("uses the components paint method if provided", function()
-      local c = { paint = function() end }
+      local c = { paint = spy.new(function() end) }
       local n = Node(c)
-      assert.equals(c.paint, n.paint)
+
+      n:paint()
+      assert.spy(c.paint).was.called_with(n)
     end)
   end)
 

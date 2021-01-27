@@ -53,7 +53,11 @@ return function(component, parent)
     if n.after_layout then n:after_layout() end
   end
 
-  n.paint = component.paint or drawing.standard
+  n.paint = function(self)
+    self:refresh_style()
+    local p = component.paint or drawing.standard
+    p(n)
+  end
   n.refresh_style = function(self)
     cached_style.update_flags({ hover = self.hover and self:hover() })
   end
