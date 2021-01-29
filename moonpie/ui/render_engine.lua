@@ -6,9 +6,10 @@
 local Node = require "moonpie.ui.node"
 local Components = require "moonpie.ui.components"
 local List = require "moonpie.collections.list"
-local safecall = require "moonpie.utility.safe_call"
+local safe_call = require "moonpie.utility.safe_call"
 local find_by_component = require "moonpie.ui.find_by_component"
 local update_queue = require "moonpie.ui.update_queue"
+local tables = require "moonpie.tables"
 local RenderEngine = {}
 
 RenderEngine.layers = {
@@ -50,7 +51,7 @@ function RenderEngine.build_node(component, parent)
       RenderEngine.add_node(RenderEngine.build_node(v, new_node), new_node)
     end
   end
-  safecall(new_node.mounted, new_node)
+  safe_call(new_node.mounted, new_node)
 
   return new_node
 end
@@ -75,6 +76,17 @@ function RenderEngine.find_by_id(id)
   end
 end
 
+function RenderEngine.find_by_position(x, y)
+  local find_by_coordinates = require "moonpie.ui.find_by_coordinates"
+  local out = {}
+
+  for _, v in ipairs(RenderEngine.ordered_layers()) do
+    out = tables.join(out, find_by_coordinates(x, y, v))
+  end
+
+  return out
+end
+
 function RenderEngine.render_node(node)
   if node.render then
     local rendered = node:render()
@@ -88,7 +100,7 @@ function RenderEngine.update_node(node)
   if node.is_hidden and node:is_hidden() then return end
 
   -- Removal gets rid of the entire tree, so take care of that
-  if safecall(node.needs_removal, node) then
+  if safe_call(node.needs_removal, node) then
     RenderEngine.remove_node(node)
   else
     RenderEngine.render_node(node)
@@ -121,7 +133,7 @@ local function get_node_layer(node)
   return layer
 end
 
-function RenderEngine.update(mouse)
+function RenderEngine.update()
   local changed_layers = {}
   while not update_queue:isempty() do
     local next = update_queue:pop()
@@ -137,7 +149,6 @@ function RenderEngine.update(mouse)
     if changed_layers[v] then
       v:layout()
     end
-    mouse:update(v)
   end
 end
 

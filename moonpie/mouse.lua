@@ -3,44 +3,38 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local find_by_coordinates = require("moonpie.ui.find_by_coordinates")
+local callback = require "moonpie.callback"
 
 local BUTTON_COUNT = 4
-
-return setmetatable({
+local mouse = {
   button_states = {},
-  button_down_components = {},
-  button_up_components = {},
+  on_click = callback:new(),
+  on_mousedown = callback:new(),
+  on_mouseup = callback:new(),
+}
 
-  check_primary_button = function(self)
-    -- check primary button state
-    if self.isDown(1) and not self.button_states[1] then
-      self.button_down_components[1] = self.over_components
-    elseif not self.isDown(1) and self.button_states[1] then
-      self.button_up_components[1] = self.over_components
-      self:trigger_click()
-    end
-  end,
-  trigger_click = function(self)
-    -- start in the lowest component and search up
-    for i = #self.button_up_components[1], 1, -1 do
-      if self.button_up_components[1][i].click then
-        self.button_up_components[1][i]:click()
-      end
-    end
-  end,
-  update_button_states = function(self)
-    for i=1,BUTTON_COUNT do
-      self.button_states[i] = self.isDown(i)
-    end
-  end,
-
-  update = function(self, root)
-    self.x, self.y = self.getPosition()
-    self.over_components = find_by_coordinates(self.x, self.y, root)
-    self:check_primary_button()
+function mouse:check_primary_button()
+  if not self.isDown(1) and self.button_states[1] then
+    self.on_click()
   end
-} ,
-{
+end
+
+function mouse:update_button_states()
+  for i=1,BUTTON_COUNT do
+    if not self.button_states[i] and self.isDown(i) then
+      mouse.on_mousedown(i)
+    elseif self.button_states[i] and not self.isDown(i) then
+      mouse.on_mouseup(i)
+    end
+    self.button_states[i] = self.isDown(i)
+  end
+end
+
+function mouse:update()
+  self:check_primary_button()
+  self:update_button_states()
+end
+
+return setmetatable(mouse, {
   __index = love.mouse
 })

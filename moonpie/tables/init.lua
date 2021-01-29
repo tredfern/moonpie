@@ -14,6 +14,7 @@ return {
   group_by = require "moonpie.tables.group_by",
   has_keys = require "moonpie.tables.has_keys",
   indexed = require "moonpie.tables.indexed",
+  join = require "moonpie.tables.join",
   keys_to_list = require "moonpie.tables.keys_to_list",
   map = require "moonpie.tables.map",
   max = require "moonpie.tables.max",

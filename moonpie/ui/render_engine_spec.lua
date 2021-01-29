@@ -103,6 +103,21 @@ describe("RenderEngine", function()
       RenderEngine("ui", {})
       assert.is_nil(RenderEngine.find_by_id(nil))
     end)
+
+    it("can find a component by it's position", function()
+      local c1 = { width = 100, height = 50 }
+      local c2 = { width = 50, height = 25 }
+
+      RenderEngine("ui", {
+        c1,
+        c2
+      })
+
+      local n = RenderEngine.find_by_component(c1)
+      local n2 = RenderEngine.find_by_component(c2)
+      assert.array_includes(n, RenderEngine.find_by_position(38, 22))
+      assert.array_includes(n2, RenderEngine.find_by_position(38, 65))
+    end)
   end)
 
   describe("Paint", function()
@@ -172,18 +187,6 @@ describe("RenderEngine", function()
   end)
 
   describe("Updating", function()
-    it("updates all the layers", function()
-      local ui = RenderEngine("ui", {})
-      local debug = RenderEngine("debug", {})
-      local modal = RenderEngine("modal", {})
-      local mouse = { update = spy.new(function() end) }
-
-      RenderEngine.update(mouse)
-      assert.spy(mouse.update).was.called.with(mouse, ui)
-      assert.spy(mouse.update).was.called.with(mouse, debug)
-      assert.spy(mouse.update).was.called.with(mouse, modal)
-    end)
-
     describe("Refreshing", function()
       it("will rerender child output if the component is flagged for updates and has a render method", function()
         local c = Component.complex()
@@ -251,15 +254,6 @@ describe("RenderEngine", function()
         local c = Component.simple()
         c:update { text = "foo" }
         assert.has_no_errors(function() RenderEngine.update(Mouse) end)
-      end)
-    end)
-
-    describe("Handling Mouse Behavior", function()
-      it("updates the mouse passing in it's root node", function()
-        local r = RenderEngine("ui", {})
-        local mouse = { update = spy.new(function() end) }
-        RenderEngine.update(mouse)
-        assert.spy(mouse.update).was.called.with(mouse, r)
       end)
     end)
   end)

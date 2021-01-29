@@ -15,6 +15,17 @@ describe("Node", function()
     assert.equals(p.box, c.box.parent)
   end)
 
+  it("updates statistics when nodes are created and destroyed", function()
+    local stats = require "moonpie.statistics"
+    local start = stats.nodes or 0
+    local n = Node({})
+    local n2 = Node({})
+    local n3 = Node({})
+    assert.equals(start + 3, stats.nodes)
+    n:destroy()
+    assert.equals(start + 2, stats.nodes)
+  end)
+
   it("can have child nodes", function()
     local b = Node()
     local c1, c2 = Node({}), Node({})
@@ -110,12 +121,12 @@ describe("Node", function()
     b:layout()
 
     it("can flag that the mouse is hovering", function()
-      mock_love.mock(love.mouse, "getPosition", function() return 3, 5 end)
+      mock_love.move_mouse(3, 5)
       assert.is_true(b:hover())
     end)
 
     it("returns false for hover if mouse is outside the region", function()
-      mock_love.mock(love.mouse, "getPosition", function() return 300, 500 end)
+      mock_love.move_mouse(300, 500)
       assert.is_false(b:hover())
     end)
   end)

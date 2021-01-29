@@ -5,6 +5,7 @@
 
 local Component = require "moonpie.ui.components.component"
 local log = require "moonpie.ui.components.debug.log_entries"
+local statistics = require "moonpie.statistics"
 
 Component("fps_counter", function()
   return Component.text({
@@ -49,6 +50,7 @@ Texture Memory: {{texturememory}}
 Images: {{images}}
 Canvases = {{canvases}}
 Fonts = {{fonts}}
+Nodes = {{nodes}}
       ]],
       drawcalls = props.stats.drawcalls,
       texturememory = props.stats.texturememory,
@@ -56,6 +58,7 @@ Fonts = {{fonts}}
       images = props.stats.images,
       canvases = props.stats.canvases,
       fonts = props.stats.fonts,
+      nodes = statistics.nodes
     }) },
     {
       Component.fps_counter(),

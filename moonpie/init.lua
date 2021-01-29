@@ -18,6 +18,7 @@ local moonpie = {
     icons = require "moonpie.graphics.icons",
     image = require "moonpie.graphics.image"
   },
+  input_handler = require "moonpie.ui.input_handler",
   keyboard = keyboard,
   math = require "moonpie.math",
   mouse = mouse,
@@ -68,7 +69,7 @@ function moonpie.update()
   moonpie.events.before_update:trigger()
   RenderEngine.update(mouse)
   -- HACK: Mouse isn't handled smoothly
-  mouse:update_button_states()
+  mouse:update()
   moonpie.events.after_update:trigger()
   update_timer:stop()
 end

@@ -9,6 +9,7 @@ local drawing = require("moonpie.ui.drawing")
 local styles = require("moonpie.ui.styles")
 local List = require ("moonpie.collections.list")
 local safecall = require "moonpie.utility.safe_call"
+local statistics = require "moonpie.statistics"
 
 return function(component, parent)
   component = component or {}
@@ -70,8 +71,17 @@ return function(component, parent)
     for _, v in ipairs(self.children) do
       v:destroy()
     end
+    statistics.update("nodes", -1)
   end
 
+  n.handle_click = function()
+    local mx, my = mouse.getPosition()
+    if n.box:region():contains(mx, my) then
+      n:click()
+    end
+  end
+
+  statistics.update("nodes", 1)
   --Assign reference back for component
   n.component.node = n
   return n
