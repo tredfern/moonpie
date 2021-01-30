@@ -56,6 +56,10 @@ return function()
     },
     {
       margin = 5,
+      components.progress_bar { maximum = 100, current = 28 }
+    },
+    {
+      margin = 5,
       components.icon({ style = "icon-xsmall", icon = "acrobatic", color = "blue" }),
       components.icon({ style = "icon-small", icon = "acrobatic", color = "green" }),
       components.icon({ style = "icon-medium", icon = "acrobatic", color = "purple" }),

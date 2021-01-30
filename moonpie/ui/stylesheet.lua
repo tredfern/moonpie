@@ -112,6 +112,13 @@ return function(moonpie)
   styles["align-middle"] = { vertical_align = "middle" }
   styles["align-bottom"] = { vertical_align = "bottom" }
 
+  styles.progress_bar = {
+    border = 1,
+    border_color = "dark_accent",
+    width = "100%",
+    height = 25
+  }
+
   styles.debug_panel = {
     height = "100%",
     opacity = 0.7,
