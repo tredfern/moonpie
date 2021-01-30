@@ -6,7 +6,7 @@
 describe("moonpie.ui.input_handler", function()
   local mock_love = require "moonpie.test_helpers.mock_love"
   local mouse = require "moonpie.mouse"
-  local input_handler = require "moonpie.ui.input_handler"
+  require "moonpie.ui.input_handler"
   local render_engine = require "moonpie.ui.render_engine"
 
   it("dispatches mouse events to the appropriate nodes", function()

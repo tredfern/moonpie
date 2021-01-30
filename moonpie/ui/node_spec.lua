@@ -19,8 +19,8 @@ describe("Node", function()
     local stats = require "moonpie.statistics"
     local start = stats.nodes or 0
     local n = Node({})
-    local n2 = Node({})
-    local n3 = Node({})
+    Node({})
+    Node({})
     assert.equals(start + 3, stats.nodes)
     n:destroy()
     assert.equals(start + 2, stats.nodes)

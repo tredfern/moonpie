@@ -12,5 +12,5 @@ return function(...)
     end
   end
 
-  return joined 
+  return joined
 end

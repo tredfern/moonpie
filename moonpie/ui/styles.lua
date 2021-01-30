@@ -9,13 +9,13 @@ local list = require "moonpie.collections.list"
 
 local styles = {}
 
-local INHERITABLE = list:new({
-  "color",
-  "font",
-  "font_name",
-  "font_size",
-  "opacity"
-})
+local INHERITABLE = {
+  color = true,
+  font = true,
+  font_name = true,
+  font_size = true,
+  opacity = true
+}
 
 local function get_value(computed, value)
   if value == "_parent" or value == "_source" then
@@ -34,7 +34,7 @@ local function get_value(computed, value)
     end
   end
 
-  if computed._parent and INHERITABLE:contains(value) then
+  if computed._parent and INHERITABLE[value] then
     return computed._parent[value]
   end
 end

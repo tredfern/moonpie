@@ -10,6 +10,7 @@ local styles = require("moonpie.ui.styles")
 local List = require ("moonpie.collections.list")
 local safecall = require "moonpie.utility.safe_call"
 local statistics = require "moonpie.statistics"
+local mouse = require "moonpie.mouse"
 
 return function(component, parent)
   component = component or {}
