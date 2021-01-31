@@ -37,13 +37,13 @@ describe("Image", function()
 
     it("can scale width", function()
       local i = mock_love.image
-      local sx = image.scale_width(i, 50)
+      local sx = image.scaleWidth(i, 50)
       assert.equals(0.50, sx)
     end)
 
     it("can scale height", function()
       local i = mock_love.image
-      local sy = image.scale_height(i, 150)
+      local sy = image.scaleHeight(i, 150)
       assert.equals(1.50, sy)
     end)
   end)

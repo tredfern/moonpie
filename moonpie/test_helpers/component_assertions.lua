@@ -15,13 +15,13 @@ end
 local function contains_component(state, arguments)
   local find_name = arguments[1]
   local component = arguments[2]
-  return #component:find_all_by_name(find_name) > 0
+  return #component:findAllByName(find_name) > 0
 end
 
 local function contains_component_with_id(state, arguments)
   local find_id = arguments[1]
   local component = arguments[2]
-  return component:find_by_id(find_id) ~= nil
+  return component:findByID(find_id) ~= nil
 end
 
 

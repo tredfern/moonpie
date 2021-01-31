@@ -7,7 +7,7 @@ local Node = require "moonpie.ui.node"
 local Components = require "moonpie.ui.components"
 local List = require "moonpie.collections.list"
 local safe_call = require "moonpie.utility.safe_call"
-local find_by_component = require "moonpie.ui.find_by_component"
+local findByComponent = require "moonpie.ui.find_by_component"
 local update_queue = require "moonpie.ui.update_queue"
 local tables = require "moonpie.tables"
 local RenderEngine = {}
@@ -16,23 +16,23 @@ RenderEngine.layers = {
   order = { "background", "ui", "modal", "floating", "debug", "unit_test" }
 }
 
-function RenderEngine.remove_component_if_exists(component)
-  local n = RenderEngine.find_by_component(component)
+function RenderEngine.removeComponentIfExists(component)
+  local n = RenderEngine.findByComponent(component)
   if n then
-    RenderEngine.remove_node(n)
+    RenderEngine.removeNode(n)
   end
 end
 
-function RenderEngine.remove_node(node)
+function RenderEngine.removeNode(node)
   node.parent.children:remove(node)
   node:destroy()
 end
 
 
-function RenderEngine.add_node(node, parent)
-  RenderEngine.remove_component_if_exists(node.component)
-  if node.target_layer then
-    local layer = RenderEngine.layers[node.target_layer]
+function RenderEngine.addNode(node, parent)
+  RenderEngine.removeComponentIfExists(node.component)
+  if node.targetLayer then
+    local layer = RenderEngine.layers[node.targetLayer]
     layer:add(node)
     layer:layout()
   else
@@ -40,15 +40,15 @@ function RenderEngine.add_node(node, parent)
   end
 end
 
-function RenderEngine.build_node(component, parent)
+function RenderEngine.buildNode(component, parent)
   local new_node = Node(component, parent)
 
   if new_node.render then
     local rendered = new_node:render()
-    RenderEngine.add_node(RenderEngine.build_node(rendered, new_node), new_node)
+    RenderEngine.addNode(RenderEngine.buildNode(rendered, new_node), new_node)
   else
     for _, v in ipairs(component) do
-      RenderEngine.add_node(RenderEngine.build_node(v, new_node), new_node)
+      RenderEngine.addNode(RenderEngine.buildNode(v, new_node), new_node)
     end
   end
   safe_call(new_node.mounted, new_node)
@@ -56,60 +56,60 @@ function RenderEngine.build_node(component, parent)
   return new_node
 end
 
-function RenderEngine.find_by_component(component)
-  for _, v in ipairs(RenderEngine.ordered_layers()) do
-    local f = find_by_component(v, component)
+function RenderEngine.findByComponent(component)
+  for _, v in ipairs(RenderEngine.orderedLayers()) do
+    local f = findByComponent(v, component)
     if f then return f end
   end
 end
 
-function RenderEngine.find_by_id(id)
+function RenderEngine.findByID(id)
   if not id then
     local logger = require "moonpie.logger"
-    logger.info("RenderEngine.find_by_id called with nil")
+    logger.info("RenderEngine.findByID called with nil")
     return
   end
 
-  for _, layer in ipairs(RenderEngine.ordered_layers()) do
-    local node = layer:find_by_id(id)
+  for _, layer in ipairs(RenderEngine.orderedLayers()) do
+    local node = layer:findByID(id)
     if node then return node end
   end
 end
 
-function RenderEngine.find_by_position(x, y)
-  local find_by_coordinates = require "moonpie.ui.find_by_coordinates"
+function RenderEngine.findByPosition(x, y)
+  local findByCoordinates = require "moonpie.ui.find_by_coordinates"
   local out = {}
 
-  for _, v in ipairs(RenderEngine.ordered_layers()) do
-    out = tables.join(out, find_by_coordinates(x, y, v))
+  for _, v in ipairs(RenderEngine.orderedLayers()) do
+    out = tables.join(out, findByCoordinates(x, y, v))
   end
 
   return out
 end
 
-function RenderEngine.render_node(node)
+function RenderEngine.renderNode(node)
   if node.render then
     local rendered = node:render()
     node:clear_children()
-    RenderEngine.add_node(RenderEngine.build_node(rendered, node), node)
+    RenderEngine.addNode(RenderEngine.buildNode(rendered, node), node)
   end
 end
 
-function RenderEngine.update_node(node)
+function RenderEngine.updateNode(node)
   -- hidden components do nothing
-  if node.is_hidden and node:is_hidden() then return end
+  if node.isHidden and node:isHidden() then return end
 
   -- Removal gets rid of the entire tree, so take care of that
-  if safe_call(node.needs_removal, node) then
-    RenderEngine.remove_node(node)
+  if safe_call(node.needsRemoval, node) then
+    RenderEngine.removeNode(node)
   else
-    RenderEngine.render_node(node)
-    node.component:flag_updates(false)
+    RenderEngine.renderNode(node)
+    node.component:flagUpdates(false)
   end
   return true
 end
 
-function RenderEngine.ordered_layers()
+function RenderEngine.orderedLayers()
   local list = List:new()
 
   for _, v in pairs(RenderEngine.layers.order) do
@@ -120,12 +120,12 @@ function RenderEngine.ordered_layers()
 end
 
 function RenderEngine.paint()
-  for _, v in ipairs(RenderEngine.ordered_layers()) do
+  for _, v in ipairs(RenderEngine.orderedLayers()) do
     v:paint()
   end
 end
 
-local function get_node_layer(node)
+local function getNodeLayer(node)
   local layer = node.parent
   while layer.parent ~= nil and layer.parent.parent ~= nil do
     layer = layer.parent
@@ -138,48 +138,48 @@ function RenderEngine.update()
   while not update_queue:isempty() do
     local next = update_queue:pop()
     if next.node then
-      local layer = get_node_layer(next.node)
-      if RenderEngine.update_node(next.node) then
+      local layer = getNodeLayer(next.node)
+      if RenderEngine.updateNode(next.node) then
         changed_layers[layer] = true
       end
     end
   end
 
-  for _, v in ipairs(RenderEngine.ordered_layers()) do
+  for _, v in ipairs(RenderEngine.orderedLayers()) do
     if changed_layers[v] then
       v:layout()
     end
   end
 end
 
-function RenderEngine.validate_layer(layer_name)
+function RenderEngine.validateLayer(layer_name)
   for _, v in ipairs(RenderEngine.layers.order) do
     if v == layer_name then return end
   end
   error(string.format("Layer %s is not supported", layer_name))
 end
 
-function RenderEngine.render_all(layer_name, ...)
-  RenderEngine.validate_layer(layer_name)
+function RenderEngine.renderAll(layer_name, ...)
+  RenderEngine.validateLayer(layer_name)
 
   local layer = RenderEngine.layers[layer_name]
   layer:clear_children()
 
   for _, v in ipairs({...}) do
-    layer:add(RenderEngine.build_node(v, layer))
+    layer:add(RenderEngine.buildNode(v, layer))
   end
 
   layer:layout()
   return layer
 end
 
-function RenderEngine.clear_all()
+function RenderEngine.clearAll()
   for _, v in ipairs(RenderEngine.layers.order) do
     RenderEngine.layers[v] = Node(Components.root())
   end
 end
 
-RenderEngine.clear_all()
+RenderEngine.clearAll()
 
-setmetatable(RenderEngine, { __call = function(_, layer, ...) return RenderEngine.render_all(layer, ...) end })
+setmetatable(RenderEngine, { __call = function(_, layer, ...) return RenderEngine.renderAll(layer, ...) end })
 return RenderEngine

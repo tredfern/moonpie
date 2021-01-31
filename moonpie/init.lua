@@ -60,7 +60,7 @@ function moonpie.paint()
 end
 
 function moonpie.render(layer_name, ...)
-  return RenderEngine.render_all(layer_name, ...)
+  return RenderEngine.renderAll(layer_name, ...)
 end
 
 function moonpie.update()
@@ -74,12 +74,12 @@ function moonpie.update()
   update_timer:stop()
 end
 
-function moonpie.keypressed(key, scancode, isrepeat)
-  keyboard:keypressed(key, scancode, isrepeat)
+function moonpie.keyPressed(key, scancode, isrepeat)
+  keyboard:keyPressed(key, scancode, isrepeat)
 end
 
-function moonpie.keyreleased(key, scancode)
-  keyboard:keyreleased(key, scancode)
+function moonpie.keyReleased(key, scancode)
+  keyboard:keyReleased(key, scancode)
 end
 
 function moonpie.load_stylesheet()
@@ -94,7 +94,7 @@ function moonpie.load_debug()
   debug = moonpie.ui.components.debug_panel()
   moonpie.render("debug", debug )
   debug.hidden = true
-  RenderEngine.layers.debug.background_color = "transparent"
+  RenderEngine.layers.debug.backgroundColor = "transparent"
   RenderEngine.layers.debug.color = "background"
   keyboard:hotkey("`", function() debug.hidden = not debug.hidden end)
 end

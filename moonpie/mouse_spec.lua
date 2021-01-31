@@ -34,7 +34,7 @@ describe("Mouse", function()
 
       it("triggers the click event that can be registered", function()
         local handler = spy.new(function() end)
-        mouse.on_click:add(spy_to_func(handler))
+        mouse.onClick:add(spy_to_func(handler))
         mock_love.simulate_button_down(1)
         mouse:update()
         mock_love.simulate_button_up(1)

@@ -11,12 +11,12 @@ function drawing.standard(node)
   if node.hidden then return end
   love.graphics.push()
   love.graphics.translate(node.box.x, node.box.y)
-  drawing.draw_background(node)
-  drawing.draw_border(node)
+  drawing.drawBackground(node)
+  drawing.drawBorder(node)
   drawing.image(node)
-  drawing.custom_content(node)
+  drawing.customContent(node)
 
-  love.graphics.translate(node.box.content_position.x, node.box.content_position.y)
+  love.graphics.translate(node.box.contentPosition.x, node.box.contentPosition.y)
 
   for _, v in ipairs(node.children) do
     v:paint()
@@ -24,39 +24,39 @@ function drawing.standard(node)
   love.graphics.pop()
 end
 
-function drawing.draw_background(node)
-  if node.background_color then
+function drawing.drawBackground(node)
+  if node.backgroundColor then
     love.graphics.push()
-    love.graphics.translate(node.box.background_position.x, node.box.background_position.y)
-    love.graphics.setColor(colors(node.background_color, node.opacity))
-    local w, h = node.box.background_position.width, node.box.background_position.height
-    if node.background_image then
-      local sx = image.scale_width(node.background_image, w)
-      local sy = image.scale_height(node.background_image, h)
-      love.graphics.draw(node.background_image, 0, 0, 0, sx, sy)
+    love.graphics.translate(node.box.backgroundPosition.x, node.box.backgroundPosition.y)
+    love.graphics.setColor(colors(node.backgroundColor, node.opacity))
+    local w, h = node.box.backgroundPosition.width, node.box.backgroundPosition.height
+    if node.backgroundImage then
+      local sx = image.scaleWidth(node.backgroundImage, w)
+      local sy = image.scaleHeight(node.backgroundImage, h)
+      love.graphics.draw(node.backgroundImage, 0, 0, 0, sx, sy)
     else
       love.graphics.rectangle("fill", 0, 0, w, h,
-        node.corner_radius_x or 0, node.corner_radius_y or 0)
+        node.cornerRadiusX or 0, node.cornerRadiusY or 0)
     end
     love.graphics.pop()
   end
 end
 
-function drawing.draw_border(node)
+function drawing.drawBorder(node)
   if node.border then
     love.graphics.push()
-    local x, y = node.box.border_position.x, node.box.border_position.y
+    local x, y = node.box.borderPosition.x, node.box.borderPosition.y
     x = x + node.border / 2
     y = y + node.border / 2
 
     love.graphics.translate(x, y)
-    love.graphics.setColor(colors(node.border_color))
+    love.graphics.setColor(colors(node.borderColor))
     love.graphics.setLineWidth(node.border)
-    local w, h = node.box.border_position.width, node.box.border_position.height
+    local w, h = node.box.borderPosition.width, node.box.borderPosition.height
     w = w - node.border
     h = h - node.border
     love.graphics.rectangle("line", 0, 0, w, h,
-      node.corner_radius_x or 0, node.corner_radius_y or 0)
+      node.cornerRadiusX or 0, node.cornerRadiusY or 0)
     love.graphics.pop()
   end
 end
@@ -64,22 +64,22 @@ end
 function drawing.image(node)
   if not node.image then return end
   local rot = 0
-  local sx = image.scale_width(node.image, node.box.content.width)
-  local sy = image.scale_height(node.image, node.box.content.height)
+  local sx = image.scaleWidth(node.image, node.box.content.width)
+  local sy = image.scaleHeight(node.image, node.box.content.height)
 
   local clr = node.color or { 1, 1, 1, 1 }
   love.graphics.push()
-  love.graphics.translate(node.box.content_position.x, node.box.content_position.y)
+  love.graphics.translate(node.box.contentPosition.x, node.box.contentPosition.y)
   love.graphics.setColor(colors(clr))
   love.graphics.draw(node.image, 0, 0, rot, sx, sy)
   love.graphics.pop()
 end
 
-function drawing.custom_content(node)
-  if not node.draw_component then return end
+function drawing.customContent(node)
+  if not node.drawComponent then return end
   love.graphics.push()
-  love.graphics.translate(node.box.content_position.x, node.box.content_position.y)
-  node:draw_component()
+  love.graphics.translate(node.box.contentPosition.x, node.box.contentPosition.y)
+  node:drawComponent()
   love.graphics.pop()
 end
 

@@ -20,7 +20,7 @@ describe("Renderers", function()
   end)
 
   it("does nothing if flagged as hidden", function()
-    local b = Node({ hidden = true, width = 100, height = 100, background_color = "red" })
+    local b = Node({ hidden = true, width = 100, height = 100, backgroundColor = "red" })
     drawing.standard(b)
     assert.spy(love.graphics.push).was.not_called()
     assert.spy(love.graphics.translate).was.not_called()
@@ -54,7 +54,7 @@ describe("Renderers", function()
     end)
 
     it("translates to where the background is to draw the background", function()
-      local b = Node{ margin = 5, padding = 4, background_color = {1, 1, 1, 1 } }
+      local b = Node{ margin = 5, padding = 4, backgroundColor = {1, 1, 1, 1 } }
 
       drawing.standard(b)
       assert.spy(love.graphics.push).was.called()
@@ -78,14 +78,14 @@ describe("Renderers", function()
     end)
 
     it("draws a background image with the background color if provided but not rectangle", function()
-      local b = Node({ background_color = {0, 1, 1, 1 },
-        background_image = mock_love.image,
+      local b = Node({ backgroundColor = {0, 1, 1, 1 },
+        backgroundImage = mock_love.image,
         width = mock_love.image.width,
         height = mock_love.image.height
       })
       mock(love)
       drawing.standard(b)
-      assert.spy(love.graphics.setColor).was.called_with(b.background_color)
+      assert.spy(love.graphics.setColor).was.called_with(b.backgroundColor)
       assert.spy(love.graphics.rectangle).was_not_called()
       assert.spy(love.graphics.draw).was.called()
     end)
@@ -93,19 +93,19 @@ describe("Renderers", function()
     describe("rectangle tests", function()
 
       it("paints a background.color for it's area if provided", function()
-        local node = { padding = 4, background_color = { 1, 1, 1, 1 }, width = 120, height = 483 }
+        local node = { padding = 4, backgroundColor = { 1, 1, 1, 1 }, width = 120, height = 483 }
         local b = Node(node)
         b:layout()
 
         drawing.standard(b)
 
-        assert.spy(love.graphics.setColor).was.called_with(node.background_color)
+        assert.spy(love.graphics.setColor).was.called_with(node.backgroundColor)
         assert.spy(love.graphics.rectangle).was.called_with("fill", 0, 0, 128, 491, 0, 0)
       end)
 
       it("provides rounded corners if provided", function()
-        local node = { background_color = {1, 1, 1, 1}, width = 120, height = 40,
-          corner_radius_x = 2, corner_radius_y = 3 }
+        local node = { backgroundColor = {1, 1, 1, 1}, width = 120, height = 40,
+          cornerRadiusX = 2, cornerRadiusY = 3 }
         local b = Node(node)
         b:layout()
 
@@ -116,7 +116,7 @@ describe("Renderers", function()
 
     it("can lookup the color if specified as a string", function()
       local colors = require "moonpie.graphics.colors"
-      local comp = { background_color = "red", width = 120, height = 483 }
+      local comp = { backgroundColor = "red", width = 120, height = 483 }
       local b = Node(comp)
       b:layout()
 
@@ -125,7 +125,7 @@ describe("Renderers", function()
     end)
 
     it("sets the opacity of the background color if specified", function()
-      local comp = { background_color = { 1, 1, 1, 1 }, opacity = 0.5, width = 120, height = 485 }
+      local comp = { backgroundColor = { 1, 1, 1, 1 }, opacity = 0.5, width = 120, height = 485 }
       local n = Node(comp)
       n:layout()
       drawing.standard(n)
@@ -133,7 +133,7 @@ describe("Renderers", function()
     end)
 
     describe("border", function()
-      local bordered = Node{ margin = 2, border = 3, width = 20, height = 25, border_color = { 1, 0, 1, 1 }  }
+      local bordered = Node{ margin = 2, border = 3, width = 20, height = 25, borderColor = { 1, 0, 1, 1 }  }
       bordered:layout()
 
       it("sets the line width to the border size", function()
@@ -143,7 +143,7 @@ describe("Renderers", function()
 
       it("sets the border color", function()
         drawing.standard(bordered)
-        assert.spy(love.graphics.setColor).was.called.with(bordered.border_color)
+        assert.spy(love.graphics.setColor).was.called.with(bordered.borderColor)
       end)
 
       it("translates away the margin and half the border for line width", function()
@@ -153,13 +153,13 @@ describe("Renderers", function()
 
       it("draws a rectangle for the border minus border to account for the line-width", function()
         drawing.standard(bordered)
-        local w, h = bordered.box.border_position.width, bordered.box.border_position.height
+        local w, h = bordered.box.borderPosition.width, bordered.box.borderPosition.height
         assert.spy(love.graphics.rectangle).was.called.with("line", 0, 0, w - 3, h - 3, 0, 0)
       end)
 
       it("can lookup the color if specified as a string", function()
         local colors = require "moonpie.graphics.colors"
-        local comp = { border_color = "red", border = 2, width = 120, height = 483 }
+        local comp = { borderColor = "red", border = 2, width = 120, height = 483 }
         local b = Node(comp)
         b:layout()
         drawing.standard(b)
@@ -167,8 +167,8 @@ describe("Renderers", function()
       end)
 
       it("provides rounded corners if provided", function()
-        local node = { border = 1, border_color = {1, 1, 1, 1}, width = 120, height = 40,
-          corner_radius_x = 2, corner_radius_y = 3 }
+        local node = { border = 1, borderColor = {1, 1, 1, 1}, width = 120, height = 40,
+          cornerRadiusX = 2, cornerRadiusY = 3 }
         local b = Node(node)
         b:layout()
         drawing.standard(b)
@@ -230,19 +230,19 @@ describe("Renderers", function()
 
   it("will call custom drawing commands if method is available", function()
     local c = {
-      draw_component = spy.new(function() end),
+      drawComponent = spy.new(function() end),
       width = 100,
       height = 100
     }
     local node = Node(c)
     node:layout()
     node:paint()
-    assert.spy(c.draw_component).was.called_with(node)
+    assert.spy(c.drawComponent).was.called_with(node)
   end)
 
   it("translates the custom content properly", function()
     local c = {
-      draw_component = spy.new(function() end),
+      drawComponent = spy.new(function() end),
       width = 100,
       height = 100,
       padding = 10,
@@ -250,7 +250,7 @@ describe("Renderers", function()
     }
     local node = Node(c)
     node:layout()
-    drawing.custom_content(node)
+    drawing.customContent(node)
     assert.spy(love.graphics.translate).was.called_with(20, 20)
   end)
 end)

@@ -64,7 +64,7 @@ describe("Font", function()
     end)
 
     it("loads from registered fonts based on name and size", function()
-      local tbl = { font_name = "arial", font_size = 12 }
+      local tbl = { fontName = "arial", fontSize = 12 }
       local b = Font("arial", 12)
       assert.equals(b, Font.pick(tbl))
     end)

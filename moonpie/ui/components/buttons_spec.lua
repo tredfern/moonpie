@@ -22,7 +22,7 @@ describe("Components - Button", function()
 
     it("centers the text element", function()
       local b = components.button({ caption = "foo" })
-      local tb = b:find_by_id("btn_text")
+      local tb = b:findByID("btn_text")
       assert.not_nil(tb)
       assert.contains("align%-center", tb.style)
     end)
@@ -38,7 +38,7 @@ describe("Components - Button", function()
       local b = components.button({
         components.icon({ icon = "expand", id = "btn_icon" })
       })
-      assert.not_nil(b:find_by_id("btn_icon"))
+      assert.not_nil(b:findByID("btn_icon"))
     end)
   end)
 

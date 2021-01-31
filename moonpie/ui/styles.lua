@@ -12,12 +12,12 @@ local styles = {}
 local INHERITABLE = {
   color = true,
   font = true,
-  font_name = true,
-  font_size = true,
+  fontName = true,
+  fontSize = true,
   opacity = true
 }
 
-local function get_value(computed, value)
+local function getValue(computed, value)
   if value == "_parent" or value == "_source" then
     return nil
   end
@@ -43,17 +43,17 @@ function styles.add(name, values)
   styles[name] = values
 end
 
-function styles.compute(source, parent_style, flags)
+function styles.compute(source, parentStyle, flags)
   local s = source.style
   local result = setmetatable({
     _source = source,
-    _parent = parent_style,
+    _parent = parentStyle,
     _flags = flags or {},
     styles = list:new() }, {
-     __index = get_value
+     __index = getValue
    })
 
-   result.update_flags = function(f)
+   result.updateFlags = function(f)
     result._flags = f or {}
    end
 

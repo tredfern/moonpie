@@ -19,11 +19,11 @@ describe("moonpie.ui.components.progress_bar", function()
     local color = { 1, 1, 1, 1 }
     local pb = progress_bar { id = "pb", width = 100, height = 50, color = color }
     local out = moonpie.test_render(pb)
-    local node = out:find_by_id("pb")
+    local node = out:findByID("pb")
     pb.current = 25
     mock_love.mock(love.graphics, "setColor", spy.new(function() end))
     mock_love.mock(love.graphics, "rectangle", spy.new(function() end))
-    node:draw_component()
+    node:drawComponent()
 
     assert.spy(love.graphics.setColor).was.called_with(color)
     assert.spy(love.graphics.rectangle).was.called_with("fill", 0, 0, 25, 50)

@@ -7,15 +7,15 @@ local function default_value(item)
   return item
 end
 
-return function(array, get_value)
-  get_value = get_value or default_value
+return function(array, getValue)
+  getValue = getValue or default_value
   local m
 
   for _, v in ipairs(array) do
     if m then
-      m = math.max(m, get_value(v))
+      m = math.max(m, getValue(v))
     else
-      m = get_value(v)
+      m = getValue(v)
     end
   end
 

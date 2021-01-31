@@ -14,7 +14,7 @@ function Camera:new()
   return c
 end
 
-function Camera:set_position(x, y)
+function Camera:setPosition(x, y)
   self.x = x
   self.y = y
 end

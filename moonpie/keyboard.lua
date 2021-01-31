@@ -14,10 +14,10 @@ function Keyboard:reset()
     self.hot_keys = {}
 end
 
-function Keyboard:keypressed(key, scancode, isrepeat)
-  local focused = require("moonpie.ui.user_focus"):get_focus()
-  if focused and focused.keypressed then
-    focused:keypressed(key, scancode, isrepeat)
+function Keyboard:keyPressed(key, scancode, isrepeat)
+  local focused = require("moonpie.ui.user_focus"):getFocus()
+  if focused and focused.keyPressed then
+    focused:keyPressed(key, scancode, isrepeat)
   end
 
   local hot = self.hot_keys[self:calculate_hotkey(key)]
@@ -42,10 +42,10 @@ function Keyboard:calculate_hotkey(key)
   return modifiers .. key
 end
 
-function Keyboard:keyreleased(key, scancode)
-  local focused = require("moonpie.ui.user_focus"):get_focus()
-  if focused and focused.keyreleased then
-    focused:keyreleased(key, scancode)
+function Keyboard:keyReleased(key, scancode)
+  local focused = require("moonpie.ui.user_focus"):getFocus()
+  if focused and focused.keyReleased then
+    focused:keyReleased(key, scancode)
   end
 end
 

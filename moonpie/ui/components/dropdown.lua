@@ -10,7 +10,7 @@ Component("dropdown_content", function(props)
   return Component.section({
     id = "dropdown_content",
     position = "absolute",
-    target_layer = "floating",
+    targetLayer = "floating",
     props.content or {}
   })
 end)
@@ -20,8 +20,8 @@ Component("dropdown", function(props)
   dd.content = Component.dropdown_content(props)
   dd.content:hide()
   dd.toggle = function()
-    if dd.content:is_hidden() then
-      local r = dd:get_node().box:region()
+    if dd.content:isHidden() then
+      local r = dd:getNode().box:region()
       dd.content:update({x = r.left, y = r.bottom})
       dd.content:show()
     else
@@ -39,7 +39,7 @@ Component("dropdown", function(props)
 
   dd.unmounted = function()
     Logger.debug("Dropdown unmounted")
-    dd.content:flag_removal()
+    dd.content:flagRemoval()
   end
   return dd
 end)

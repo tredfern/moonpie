@@ -4,10 +4,10 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Region", function()
-  local region = require "moonpie.ui.region"
+  local Region = require "moonpie.ui.region"
 
   it("is initialized with left, top, right, bottom", function()
-    local r = region(1, 2, 3, 4)
+    local r = Region(1, 2, 3, 4)
     assert.equals(1, r.left)
     assert.equals(2, r.top)
     assert.equals(3, r.right)
@@ -15,7 +15,7 @@ describe("Region", function()
   end)
 
   it("can return whether coordinates are contained within the region", function()
-    local r = region(10, 10, 30, 30)
+    local r = Region(10, 10, 30, 30)
     assert.is_true(r:contains(12, 12))
     assert.is_true(r:contains(29, 29))
     assert.is_true(r:contains(10, 10))
@@ -27,7 +27,7 @@ describe("Region", function()
   end)
 
   it("has a readable string representation", function()
-    local r = region(1, 2, 3, 4)
+    local r = Region(1, 2, 3, 4)
     assert.equals("Region (1,2)-(3,4)", tostring(r))
   end)
 end)

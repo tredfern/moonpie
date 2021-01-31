@@ -4,17 +4,17 @@
 -- https://opensource.org/licenses/MIT
 
 describe("moonpie.ui.find_by_component", function()
-  local find_by_component = require "moonpie.ui.find_by_component"
-  local node = require "moonpie.ui.node"
+  local findByComponent = require "moonpie.ui.find_by_component"
+  local Node = require "moonpie.ui.node"
 
   it("finds a node in the tree that contains this component", function()
     local find_me = {}
-    local n1 = node({})
-    local c1 = node({})
-    local c2 = node(find_me)
+    local n1 = Node({})
+    local c1 = Node({})
+    local c2 = Node(find_me)
     n1:add(c1, c2)
 
-    assert.equals(c2, find_by_component(n1, find_me))
+    assert.equals(c2, findByComponent(n1, find_me))
   end)
 
 end)

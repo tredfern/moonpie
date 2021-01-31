@@ -3,12 +3,12 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local mouse = require "moonpie.mouse"
-local render_engine = require "moonpie.ui.render_engine"
-local input_handler = {}
+local Mouse = require "moonpie.mouse"
+local RenderEngine = require "moonpie.ui.render_engine"
+local InputHandler = {}
 
-function input_handler.click()
-  local nodes = render_engine.find_by_position(mouse.getPosition())
+function InputHandler.click()
+  local nodes = RenderEngine.findByPosition(Mouse.getPosition())
   for _, v in ipairs(nodes) do
     if v.click then
       v:click()
@@ -17,5 +17,5 @@ function input_handler.click()
 end
 
 
-mouse.on_click:add(input_handler.click)
-return input_handler
+Mouse.onClick:add(InputHandler.click)
+return InputHandler

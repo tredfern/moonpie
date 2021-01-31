@@ -11,7 +11,7 @@ return component("progress_bar", function(props)
     maximum = props.maximum or 100,
     current = props.current or 0,
 
-    draw_component = function(self)
+    drawComponent = function(self)
       local completed = self.current / self.maximum
       love.graphics.setColor(colors(self.color))
       love.graphics.rectangle("fill", 0, 0, self.box.content.width * completed, self.box.content.height)

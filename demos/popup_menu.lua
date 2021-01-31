@@ -9,9 +9,9 @@ local components = moonpie.ui.components
 components("main_menu", function()
   local main_menu
   main_menu = {
-    background_color = "light_shade",
+    backgroundColor = "light_shade",
     border = 4,
-    border_color = "dark_shade",
+    borderColor = "dark_shade",
     padding = 16,
     width = 300,
     height = 250,

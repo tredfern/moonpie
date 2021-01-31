@@ -29,7 +29,7 @@ Component("frame_number", function(props)
 end)
 
 Component("dbg_focused", function()
-  local c = require("moonpie.ui.user_focus"):get_focus()
+  local c = require("moonpie.ui.user_focus"):getFocus()
   if c then
     return Component.text({
       text = "Focused: {{name}}({{id}})",

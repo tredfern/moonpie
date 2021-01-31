@@ -4,9 +4,9 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Node", function()
-  local mock_love = require "moonpie.test_helpers.mock_love"
+  local MockLove = require "moonpie.test_helpers.mock_love"
   local Node = require "moonpie.ui.node"
-  local styles = require "moonpie.ui.styles"
+  local Styles = require "moonpie.ui.styles"
 
   it("can be initialized with a parent node", function()
     local p = Node({})
@@ -56,7 +56,7 @@ describe("Node", function()
   end)
 
   it("looks like the component plus any styles", function()
-    styles.add("test1", { padding = 10 })
+    Styles.add("test1", { padding = 10 })
     local c = { style = "test1", width = 100, click = spy.new(function() end) }
     local n = Node(c)
     assert.equals(10, n.padding)
@@ -66,11 +66,11 @@ describe("Node", function()
   end)
 
   it("passes the hover flag to the computed styles", function()
-    styles.add("text", { color = "green", _hover_ = { color = "red" } })
+    Styles.add("text", { color = "green", _hover_ = { color = "red" } })
     local c = { style = "text" }
     local n = Node(c)
     n.hover = function() return true end -- just override the hover check
-    n:refresh_style()
+    n:refreshStyle()
     assert.equals("red", n.color)
   end)
 
@@ -82,7 +82,7 @@ describe("Node", function()
 
   describe("Initializing the box", function()
     it("uses styles for box definition", function()
-      styles.add("box_test", { padding = 10, margin = 20, width = 100 })
+      Styles.add("box_test", { padding = 10, margin = 20, width = 100 })
       local b = Node({ style = "box_test" })
       assert.equals(20, b.box.margin.left)
       assert.equals(20, b.box.margin.top)
@@ -121,12 +121,12 @@ describe("Node", function()
     b:layout()
 
     it("can flag that the mouse is hovering", function()
-      mock_love.move_mouse(3, 5)
+      MockLove.moveMouse(3, 5)
       assert.is_true(b:hover())
     end)
 
     it("returns false for hover if mouse is outside the region", function()
-      mock_love.move_mouse(300, 500)
+      MockLove.moveMouse(300, 500)
       assert.is_false(b:hover())
     end)
   end)

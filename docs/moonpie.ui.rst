@@ -54,7 +54,7 @@ Component Methods
 These are methods that can be used or overridden to provide additional
 behavior for the UI
 
-draw_component(self)
+drawComponent(self)
   A method for executing custom drawing commands. Love will already be configured
   to translate to the appropriate x/y coordinates on the screen so all drawing
   commands should be assumed to start based on the top-left of the content area

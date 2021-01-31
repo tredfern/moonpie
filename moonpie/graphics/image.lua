@@ -19,15 +19,15 @@ function image.load(name)
 end
 
 function image.scale(i, target_width, target_height)
-  return image.scale_width(i, target_width),
-    image.scale_height(i, target_height)
+  return image.scaleWidth(i, target_width),
+    image.scaleHeight(i, target_height)
 end
 
-function image.scale_width(i, target_width)
+function image.scaleWidth(i, target_width)
   return target_width / i:getWidth()
 end
 
-function image.scale_height(i, target_height)
+function image.scaleHeight(i, target_height)
   return target_height / i:getHeight()
 end
 

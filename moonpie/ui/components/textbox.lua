@@ -51,14 +51,14 @@ Component("textbox", function(props)
   tb.textview = textview
   tb.maxlength = props.maxlength
 
-  tb.keypressed = function(_, key)
+  tb.keyPressed = function(_, key)
     -- Handle special keyboard functionality
     if (special_keys[key]) then
       special_keys[key](tb)
       return
     end
 
-    -- Append keypressed to the textbox
+    -- Append keyPressed to the textbox
     if not tb.maxlength or tb.maxlength > string.len(tb.get_text()) then
       local t = str.insert(textview.text, tb.cursor_position(), get_character( key ))
       textview:update({ text = t })
@@ -87,9 +87,9 @@ Component("textbox", function(props)
     cursor = mathext.clamp(cursor, 0, string.len(tb.get_text()))
   end
 
-  tb.draw_component = function()
+  tb.drawComponent = function()
     local font = require "moonpie.graphics.font"
-    local f = font.pick(textview:get_node())
+    local f = font.pick(textview:getNode())
     local x = f:getWidth(
       string.sub(textview.text, 1, tb.cursor_position())
     )

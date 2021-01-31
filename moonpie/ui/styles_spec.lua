@@ -29,28 +29,28 @@ describe("Styles", function()
 
   describe("computing styles", function()
     before_each(function()
-      styles.add("button", { font_size = 10, color = "red" })
+      styles.add("button", { fontSize = 10, color = "red" })
       styles.add("button-primary", { color = "green" })
     end)
 
     it("single style just uses that style", function()
       local c = { style = "button" }
       local s = styles.compute(c)
-      assert.equals(10, s.font_size)
+      assert.equals(10, s.fontSize)
       assert.equals("red", s.color)
     end)
 
     it("figures out style right to left in the style property", function()
       local c = { style = "button button-primary" }
       local s = styles.compute(c)
-      assert.equals(10, s.font_size)
+      assert.equals(10, s.fontSize)
       assert.equals("green", s.color)
     end)
 
     it("favors the component's property above any styles", function()
-      local c = { style = "button button-primary", color = "blue", font_size = 5, width = 100 }
+      local c = { style = "button button-primary", color = "blue", fontSize = 5, width = 100 }
       local s = styles.compute(c)
-      assert.equals(5, s.font_size)
+      assert.equals(5, s.fontSize)
       assert.equals("blue", s.color)
       assert.equals(100, s.width)
     end)
@@ -63,7 +63,7 @@ describe("Styles", function()
     it("looks for a style matching the name if component has a name", function()
       local c = { name = "button", style = "button-primary" }
       local s = styles.compute(c)
-      assert.equals(10, s.font_size)
+      assert.equals(10, s.fontSize)
       assert.equals("green", s.color)
     end)
 
@@ -84,13 +84,13 @@ describe("Styles", function()
         assert.equals("font-stuff", s.font)
       end)
 
-      it("pulls font_name and font_size", function()
-        styles.text = { font_name = "default", font_size = 12 }
+      it("pulls fontName and fontSize", function()
+        styles.text = { fontName = "default", fontSize = 12 }
         local p = { style = "text" }
         local c = { }
         local s = styles.compute(c, styles.compute(p))
-        assert.equals("default", s.font_name)
-        assert.equals(12, s.font_size)
+        assert.equals("default", s.fontName)
+        assert.equals(12, s.fontSize)
       end)
 
       it("pulls parent component properties too", function()

@@ -6,7 +6,7 @@
 describe("Layouts", function()
   local layouts = require "moonpie.ui.layouts"
   local Node = require "moonpie.ui.node"
-  local mock_love = require "moonpie.test_helpers.mock_love"
+  local MockLove = require "moonpie.test_helpers.mock_love"
 
   local parent
   before_each(function()
@@ -16,12 +16,12 @@ describe("Layouts", function()
 
   it("when call perform layout it triggers a pre and post layout event if registered", function()
     local test = Node({
-      before_layout = spy.new(function() end),
-      after_layout = spy.new(function() end)
+      beforeLayout = spy.new(function() end),
+      afterLayout = spy.new(function() end)
     }, parent)
     test:layout()
-    assert.spy(test.before_layout).was.called()
-    assert.spy(test.after_layout).was.called()
+    assert.spy(test.beforeLayout).was.called()
+    assert.spy(test.afterLayout).was.called()
   end)
 
   describe("standard layout", function()
@@ -174,16 +174,16 @@ describe("Layouts", function()
 
       describe("Wrapping", function()
         local node = Node()
-        local big_child = Node({ width = 500, height = 39})
-        local little_child = Node({ width = 43, height = 32})
-        node:add(big_child, little_child)
+        local bigChild = Node({ width = 500, height = 39})
+        local littleChild = Node({ width = 43, height = 32})
+        node:add(bigChild, littleChild)
         node:layout(parent)
 
         it("puts a node onto another line if the next node cannot fit onto the line", function()
-          assert.equals(0, big_child.box.x)
-          assert.equals(0, big_child.box.y)
-          assert.equals(0, little_child.box.x)
-          assert.equals(39, little_child.box.y)
+          assert.equals(0, bigChild.box.x)
+          assert.equals(0, bigChild.box.y)
+          assert.equals(0, littleChild.box.x)
+          assert.equals(39, littleChild.box.y)
         end)
 
         it("calculates it's own height to be the size of all the lines", function()
@@ -213,8 +213,8 @@ describe("Layouts", function()
         node:layout(parent)
 
         it("starts the content based on the margin", function()
-          assert.equals(5, node.box.content_position.x)
-          assert.equals(5, node.box.content_position.y)
+          assert.equals(5, node.box.contentPosition.x)
+          assert.equals(5, node.box.contentPosition.y)
         end)
 
         it("content area includes the margins of the child", function()
@@ -244,7 +244,7 @@ describe("Layouts", function()
     it("can middle align children", function()
       local b = Node()
       local c1 = Node({ width = 10, height = 10})
-      local c2 = Node({ width = 10, height = 6, vertical_align = "middle" })
+      local c2 = Node({ width = 10, height = 6, verticalAlign = "middle" })
       b:add(c1, c2)
       b:layout(parent)
       assert.equals(2, c2.box.y)
@@ -253,7 +253,7 @@ describe("Layouts", function()
 
   describe("Text Layouts", function()
     it("creates an image of the text", function()
-      local node = Node({ text = "Foo", font = mock_love.font })
+      local node = Node({ text = "Foo", font = MockLove.font })
       layouts.text(node, parent)
       assert.not_nil(node.image)
     end)
@@ -262,9 +262,9 @@ describe("Layouts", function()
       -- override love.graphics.newText to return this specific object
       local text_object = love.graphics.newText()
       text_object.setf = spy.new(function() end)
-      mock_love.mock(love.graphics, "newText", function() return text_object end)
+      MockLove.mock(love.graphics, "newText", function() return text_object end)
 
-      local node = Node({ text = nil, font = mock_love.font })
+      local node = Node({ text = nil, font = MockLove.font })
       layouts.text(node, parent)
       assert.spy(text_object.setf).was.called()
       assert.spy(text_object.setf).was.called.with(text_object, "", parent.box.content.width, "left")
@@ -272,7 +272,7 @@ describe("Layouts", function()
 
     it("gets a font based on size and name if no font specified", function()
       local font = require "moonpie.graphics.font"
-      local node = Node({ text = "Foo", font_name = "Arial", font_size = 12 })
+      local node = Node({ text = "Foo", fontName = "Arial", fontSize = 12 })
       font.get = spy.new(function() end)
       layouts.text(node, parent)
 
@@ -284,9 +284,9 @@ describe("Layouts", function()
       local text_object = love.graphics.newText()
       text_object.set = spy.new(function() end)
       text_object.setf = spy.new(function() end)
-      mock_love.mock(love.graphics, "newText", function() return text_object end)
+      MockLove.mock(love.graphics, "newText", function() return text_object end)
 
-      local node = Node({ text = "sometext", font = mock_love.font, textwrap = "none" })
+      local node = Node({ text = "sometext", font = MockLove.font, textwrap = "none" })
       layouts.text(node, parent)
       assert.spy(text_object.setf).was.not_called()
       assert.spy(text_object.set).was.called_with(text_object, "sometext")
@@ -295,14 +295,14 @@ describe("Layouts", function()
 
   describe("Image layouts", function()
     it("calculates it's layout width and height based on the size of the image", function()
-      local img_node = Node({ image = mock_love.image, layout = layouts.image })
+      local img_node = Node({ image = MockLove.image, layout = layouts.image })
       img_node:layout(parent)
       assert.equals(100, img_node.box.content.width)
       assert.equals(100, img_node.box.content.height)
     end)
 
     it("does uses the specified width or height instead of image if specified", function()
-      local img_node = Node({ image = mock_love.image, layout = layouts.image, width = 200, height = 250 })
+      local img_node = Node({ image = MockLove.image, layout = layouts.image, width = 200, height = 250 })
       img_node:layout(parent)
       assert.equals(200, img_node.box.content.width)
       assert.equals(250, img_node.box.content.height)
@@ -310,7 +310,7 @@ describe("Layouts", function()
 
     it("supports using percentages for the width and height", function()
       local p = Node({ height = 200, width = 200 })
-      local img_node = Node({ image = mock_love.image, layout = layouts.image, width = "50%", height = "50%" })
+      local img_node = Node({ image = MockLove.image, layout = layouts.image, width = "50%", height = "50%" })
       p:add(img_node)
       p:layout()
       assert.equals(100, img_node.box.content.width)

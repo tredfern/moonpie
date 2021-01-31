@@ -5,28 +5,28 @@
 
 local tables = require "moonpie.tables"
 local template = require "moonpie.utility.template"
-local update_queue = require "moonpie.ui.update_queue"
+local updateQueue = require "moonpie.ui.update_queue"
 local copy_props = {
-  "background_color",
+  "backgroundColor",
   "border",
-  "border_color",
+  "borderColor",
   "click",
   "color",
   "mounted",
-  "draw_component",
-  "font_name",
-  "font_size",
+  "drawComponent",
+  "fontName",
+  "fontSize",
   "height",
   "hidden",
   "id",
-  "keypressed",
-  "keyreleased",
+  "keyPressed",
+  "keyReleased",
   "margin",
   "padding",
   "paint",
   "position",
   "style",
-  "target_layer",
+  "targetLayer",
   "textwrap",
   "unmounted",
   "width"
@@ -36,86 +36,86 @@ local ComponentFactory = {}
 local Component_mt = { }
 
 local search = {}
-function search.find_by_id_imp(id, list)
+function search.findByID_imp(id, list)
   for _, v in ipairs(list) do
     if v.id == id then
       return v
     end
-    local out = search.find_by_id(v, id)
+    local out = search.findByID(v, id)
     if out then return out end
   end
 end
 
-function search.find_by_id(component, id)
-  local r = search.find_by_id_imp(id, component)
+function search.findByID(component, id)
+  local r = search.findByID_imp(id, component)
   if r then return r end
   if component.children then
-    r = search.find_by_id_imp(id, component.children)
+    r = search.findByID_imp(id, component.children)
     if r then return r end
   end
 end
 
-function search.find_all_by_name(component, name, out)
+function search.findAllByName(component, name, out)
   out = out or {}
   for _, v in ipairs(component) do
     if v.name == name then
       out[#out + 1] = v
     end
-    search.find_all_by_name(v, name, out)
+    search.findAllByName(v, name, out)
   end
 
   return out
 end
 
-function ComponentFactory.add_component_methods(c)
+function ComponentFactory.addComponentMethods(c)
   setmetatable(c, Component_mt)
-  if c.has_component_methods then return end
+  if c.hasComponentMethods then return end
 
   c.update = function(self, new)
     if tables.copy_keys(new, self, true) then
-      self:flag_updates(true)
-      update_queue:push(self)
+      self:flagUpdates(true)
+      updateQueue:push(self)
     end
   end
 
-  c.find_by_id = search.find_by_id
-  c.find_all_by_name = search.find_all_by_name
+  c.findByID = search.findByID
+  c.findAllByName = search.findAllByName
 
-  c.flag_updates = function(self, f) self.updates_available = f end
-  c.has_updates = function(self) return self.updates_available end
-  c.flag_removal = function(self) self:update({ ready_to_remove = true }) end
-  c.remove = function(self) self:flag_removal() end
+  c.flagUpdates = function(self, f) self.updates_available = f end
+  c.hasUpdates = function(self) return self.updates_available end
+  c.flagRemoval = function(self) self:update({ ready_to_remove = true }) end
+  c.remove = function(self) self:flagRemoval() end
   c.logger = require "moonpie.logger"
-  c.needs_removal = function(self) return self.ready_to_remove end
-  c.set_focus = function(self) require("moonpie.ui.user_focus"):set_focus(self) end
+  c.needsRemoval = function(self) return self.ready_to_remove end
+  c.setFocus = function(self) require("moonpie.ui.user_focus"):setFocus(self) end
 
   c.show = function(self) self:update({ hidden = false}) end
   c.hide = function(self) self:update({ hidden = true}) end
-  c.is_hidden = function(self) return self.hidden end
+  c.isHidden = function(self) return self.hidden end
 
-  c.add_style = function(self, style)
+  c.addStyle = function(self, style)
     self.style = string.format("%s %s", self.style or "", style)
   end
 
-  c.remove_style = function(self, style)
+  c.removeStyle = function(self, style)
     self.style = string.gsub(self.style, style, "")
   end
 
-  c.get_node = function()
+  c.getNode = function()
     return c.node
   end
 
-  c.has_component_methods = true
+  c.hasComponentMethods = true
 end
 
-local function create_component(name, render)
+local function createComponent(name, render)
   ComponentFactory[name] = function(props)
     props = props or {}
     local c = render(props)
     if not c then error("Component did not render table") end
     c.name = name
 
-    ComponentFactory.add_component_methods(c)
+    ComponentFactory.addComponentMethods(c)
 
     for _, v in ipairs(copy_props) do
       if props[v] then
@@ -134,7 +134,7 @@ end
 
 setmetatable(ComponentFactory, { __call =
   function(_, name, render)
-    return create_component(name, render)
+    return createComponent(name, render)
   end
 })
 

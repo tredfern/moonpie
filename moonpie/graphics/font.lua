@@ -50,8 +50,8 @@ function font.pick(tbl)
     return tbl.font
   end
 
-  if tbl.font_name and tbl.font_size then
-    return font:get(tbl.font_name, tbl.font_size)
+  if tbl.fontName and tbl.fontSize then
+    return font:get(tbl.fontName, tbl.fontSize)
   end
 
   return font:get("not-set", 12)

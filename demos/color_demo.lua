@@ -9,11 +9,11 @@ local components = moonpie.ui.components
 components("color_sample", function(props)
   return {
     display = "inline",
-    background_color = props.color,
+    backgroundColor = props.color,
     width = 20,
     height = 20,
     border = 1,
-    border_color = "black"
+    borderColor = "black"
   }
 end)
 
@@ -21,7 +21,7 @@ local function color_gradient(base_color, gradients)
   local t = {}
   for i = 1, gradients do
     t[i] = components.text({ padding = 10, text = tostring(i),
-      background_color = moonpie.graphics.colors.lighten(base_color, 1 + ( i / 10))
+      backgroundColor = moonpie.graphics.colors.lighten(base_color, 1 + ( i / 10))
     })
   end
   return t

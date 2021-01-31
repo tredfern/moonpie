@@ -3,58 +3,58 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-describe("FindByCoordinates", function()
-  local find = require "moonpie.ui.find_by_coordinates"
-  local node = require "moonpie.ui.node"
+describe("findByCoordinates", function()
+  local findByCoordinates = require "moonpie.ui.find_by_coordinates"
+  local Node = require "moonpie.ui.node"
 
-  it("returns a node if it's box area contains the coordinates", function()
-    local n = node({ width = 100, height = 100 })
+  it("returns a Node if it's box area contains the coordinates", function()
+    local n = Node({ width = 100, height = 100 })
     n:layout()
-    local results = find(5, 8, n)
+    local results = findByCoordinates(5, 8, n)
     assert.equals(n, results[1])
   end)
 
   it("returns an empty table if no results are found", function()
-    local n = node({ width = 100, height = 100 })
+    local n = Node({ width = 100, height = 100 })
     n:layout()
-    local results = find(106, 54, n)
+    local results = findByCoordinates(106, 54, n)
     assert.equals(0, #results)
   end)
 
   it("returns all that match the coordinates in order of top, left, down", function()
-    local n = node({ width = 200, height = 200 })
-    local c1 = node({ width = 100, height = 100 })
-    local c2 = node({ width = 100, height = 100 })
-    local c1_1 = node({ width = 40, height = 40 })
+    local n = Node({ width = 200, height = 200 })
+    local c1 = Node({ width = 100, height = 100 })
+    local c2 = Node({ width = 100, height = 100 })
+    local c1_1 = Node({ width = 40, height = 40 })
     n:add(c1, c2)
     c1:add(c1_1)
     n:layout()
 
-    local results = find(5, 8, n)
+    local results = findByCoordinates(5, 8, n)
     assert.equals(n, results[1])
     assert.equals(c1, results[2])
     assert.equals(c1_1, results[3])
   end)
 
   it("if no children element just skip", function()
-    local n = node({ width = 200, height = 200 })
+    local n = Node({ width = 200, height = 200 })
     n:layout()
-    -- kind of breaking change but if there are nodes where
+    -- kind of breaking change but if there are Nodes where
     -- children value is destroyed, this simulates it
     n.children = nil
-    assert.has_no.errors(function() find(5, 3, n) end)
+    assert.has_no.errors(function() findByCoordinates(5, 3, n) end)
   end)
 
-  it("filters out nodes that are invisible", function()
-    local n = node({ width = 200, height = 200 })
-    local c1 = node({ width = 100, height = 100, hidden = true })
-    local c2 = node({ width = 100, height = 100 })
-    local c1_1 = node({ width = 40, height = 40 })
+  it("filters out Nodes that are invisible", function()
+    local n = Node({ width = 200, height = 200 })
+    local c1 = Node({ width = 100, height = 100, hidden = true })
+    local c2 = Node({ width = 100, height = 100 })
+    local c1_1 = Node({ width = 40, height = 40 })
 
     n:add(c1, c2)
     c1:add(c1_1)
     n:layout()
-    local results = find(5, 8, n)
+    local results = findByCoordinates(5, 8, n)
     assert.equals(n, results[1])
     assert.is_nil(results[2])
   end)

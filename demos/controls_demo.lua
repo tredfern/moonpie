@@ -37,9 +37,9 @@ return function()
     { components.h2({ text = "Lists" }) },
     {
       margin = 5,
-      components.list({ border = 0, border_color = "accent", items = { "one", "two", "three" } }),
+      components.list({ border = 0, borderColor = "accent", items = { "one", "two", "three" } }),
       components.list({ list_item_type = components.image,
-        border = 0, border_color = "accent",
+        border = 0, borderColor = "accent",
         items = {
           {
             display = "inline",

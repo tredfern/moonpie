@@ -8,14 +8,14 @@ local callback = require "moonpie.callback"
 local BUTTON_COUNT = 4
 local mouse = {
   button_states = {},
-  on_click = callback:new(),
+  onClick = callback:new(),
   on_mousedown = callback:new(),
   on_mouseup = callback:new(),
 }
 
 function mouse:check_primary_button()
   if not self.isDown(1) and self.button_states[1] then
-    self.on_click()
+    self.onClick()
   end
 end
 

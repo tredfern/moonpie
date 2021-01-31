@@ -35,14 +35,14 @@ end
 Components("folder_tree", function(props)
   return {
     current_directory = props.current_directory,
-    background_color = "invert_background",
+    backgroundColor = "invert_background",
     color = "invert_text",
-    border_color = "accent",
+    borderColor = "accent",
     border = 1,
     render = function(self)
       return {
         {
-          border_color = "accent",
+          borderColor = "accent",
           border = 1,
           Components.h3({ text = "Folders" })
         }, {
@@ -59,14 +59,14 @@ end)
 Components("file_list", function(props)
   return {
     current_directory = props.current_directory,
-    background_color = "invert_background",
+    backgroundColor = "invert_background",
     color = "invert_text",
-    border_color = "accent",
+    borderColor = "accent",
     border = 1,
     render = function(self)
       return {
         {
-          border_color = "accent",
+          borderColor = "accent",
           border = 1,
           Components.h3({ text = "Files" })
         }, {
@@ -84,7 +84,7 @@ return function()
   return {
     height = "70%",
     padding = 3,
-    border_color = "accent",
+    borderColor = "accent",
     border = 1,
     Components.folder_tree({ width = "20%", height = "100%", current_directory = "" }),
     Components.file_list({ width = "78%", current_directory = "", height = "100%" })

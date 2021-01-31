@@ -10,7 +10,7 @@ local function get_icons()
   local out = moonpie.collections.list:new()
   for k, v in pairs(moonpie.graphics.icons) do
     if type(v) == "string" then
-      out:add(components.icon({ style = "icon-small", color = "white", background_color = "black", icon = k }))
+      out:add(components.icon({ style = "icon-small", color = "white", backgroundColor = "black", icon = k }))
     end
   end
   return out

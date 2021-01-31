@@ -34,9 +34,9 @@ function love.draw()
 end
 
 function love.keypressed(key, scancode, isrepeat)
-  moonpie.keypressed(key, scancode, isrepeat)
+  moonpie.keyPressed(key, scancode, isrepeat)
 end
 
 function love.keyreleased(key, scancode)
-  moonpie.keyreleased(key, scancode)
+  moonpie.keyReleased(key, scancode)
 end

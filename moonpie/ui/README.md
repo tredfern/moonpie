@@ -13,7 +13,7 @@ foreach layer
   layer.update(mouse)
     - mouse.update(layer.root)
 
-    if renderengine.update_node(layer.root) then
+    if renderengine.updateNode(layer.root) then
       root.layout()
 ```
 

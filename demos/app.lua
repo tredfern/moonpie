@@ -96,7 +96,7 @@ function app.header(demo_title)
     {
       -- Some stylistic values
       padding = 10,
-      background_color = "invert_background",
+      backgroundColor = "invert_background",
 
       -- The title
       components.h1({ text = "Moonpie for Love2D" }),

@@ -12,7 +12,7 @@ return function()
       components.textbox({
         text = "Edit Me",
         width = 200,
-        click = function(self) self:set_focus() end,
+        click = function(self) self:setFocus() end,
       })
   }
 end

@@ -147,7 +147,7 @@ return {
   simulate_button_up = function(button)
     mouse_down[button] = nil
   end,
-  move_mouse = function(x, y)
+  moveMouse = function(x, y)
     mouse_x, mouse_y = x, y
   end,
   reset_mouse = function()

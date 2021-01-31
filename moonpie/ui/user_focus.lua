@@ -5,11 +5,11 @@
 
 local UserFocus = {}
 
-function UserFocus:set_focus(component)
+function UserFocus:setFocus(component)
   self.focus_component = component
 end
 
-function UserFocus:get_focus()
+function UserFocus:getFocus()
   return self.focus_component
 end
 

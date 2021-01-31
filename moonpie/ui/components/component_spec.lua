@@ -40,15 +40,15 @@ describe("Component", function()
       it("can show and hide the component", function()
         local s = Component.show_hide()
         s:hide()
-        assert.is_true(s:is_hidden())
+        assert.is_true(s:isHidden())
         s:show()
-        assert.is_false(s:is_hidden())
+        assert.is_false(s:isHidden())
       end)
 
       it("flags it's been updated", function()
         local s = Component.show_hide()
         s:hide()
-        assert.is_true(s:has_updates())
+        assert.is_true(s:hasUpdates())
       end)
     end)
 
@@ -68,14 +68,14 @@ describe("Component", function()
         assert.equals("b", c.b)
         assert.equals("c", c.c)
         c:update({ a = "abcd" })
-        assert.is_true(c:has_updates())
+        assert.is_true(c:hasUpdates())
         assert.equals("abcd", c.a)
       end)
 
       it("does not flag it's been updated if all the properties are the same", function()
         local c = Component.updates()
         c:update{ a = "a", b = "b", c = "c" }
-        assert.is_falsy(c:has_updates())
+        assert.is_falsy(c:hasUpdates())
       end)
 
       it("adds to the update queue after updating", function()
@@ -90,26 +90,26 @@ describe("Component", function()
     describe("Copiable properties", function()
       it("can copy list of properties", function()
         local values = {
-          background_color = "red",
+          backgroundColor = "red",
           border = 2,
-          border_color = "green",
+          borderColor = "green",
           click = spy.new(function() end),
           color = "blue",
           mounted = function() end,
-          draw_component = function() end,
-          font_name = "Arial",
-          font_size = 18,
+          drawComponent = function() end,
+          fontName = "Arial",
+          fontSize = 18,
           height = 624,
           hidden = true,
           id = "foo",
-          keypressed = spy.new(function() end),
-          keyreleased = spy.new(function() end),
+          keyPressed = spy.new(function() end),
+          keyReleased = spy.new(function() end),
           margin = 10,
           padding = 5,
           paint = spy.new(function() end),
           position = "absolute",
           style = "some",
-          target_layer = "layer",
+          targetLayer = "layer",
           textwrap = "wrapping",
           unmounted = function() end,
           width = 250
@@ -145,9 +145,9 @@ describe("Component", function()
 
       it("can find child components if an id is provided", function()
         local b = Component.big()
-        local t1 = b:find_by_id("1")
-        local t2 = b:find_by_id(2)
-        local t3 = b:find_by_id(3)
+        local t1 = b:findByID("1")
+        local t2 = b:findByID(2)
+        local t3 = b:findByID(3)
         assert.equals("1", t1.text)
         assert.equals("2", t2.text)
         assert.equals("3", t3.text)
@@ -155,20 +155,20 @@ describe("Component", function()
 
       it("can search it's entire tree that it created", function()
         local b = Component.big()
-        local t4 = b:find_by_id(4)
+        local t4 = b:findByID(4)
         assert.equals("4", t4.text)
       end)
 
-      it("searchs the child property if present to find_by_id as well", function()
+      it("searchs the child property if present to findByID as well", function()
         local b = Component.big()
         local c = { id = "turtles" }
         b.children = { c }
-        assert.equals(c, b:find_by_id("turtles"))
+        assert.equals(c, b:findByID("turtles"))
       end)
 
       it("can find all components by name", function()
         local b = Component.big()
-        local texts = b:find_all_by_name("text")
+        local texts = b:findAllByName("text")
         assert.equals(4, #texts)
       end)
     end)
@@ -178,8 +178,8 @@ describe("Component", function()
     it("can have it's focus set", function()
       local UserFocus = require "moonpie.ui.user_focus"
       local c = Component.test()
-      c:set_focus()
-      assert.equals(c, UserFocus:get_focus())
+      c:setFocus()
+      assert.equals(c, UserFocus:getFocus())
     end)
   end)
 
@@ -188,7 +188,7 @@ describe("Component", function()
 
     it("can add styles", function()
       local s = Component.style_test()
-      s:add_style("new_style")
+      s:addStyle("new_style")
       assert.matches("new_style", s.style)
     end)
 
@@ -198,7 +198,7 @@ describe("Component", function()
       assert.matches("style2", s.style)
       assert.matches("style3", s.style)
 
-      s:remove_style("style2")
+      s:removeStyle("style2")
       assert.matches("style1", s.style)
       assert.not_matches("style2", s.style)
       assert.matches("style3", s.style)
@@ -207,18 +207,18 @@ describe("Component", function()
 
   it("can add component properties to any table", function()
     local t = { }
-    Component.add_component_methods(t)
-    assert.not_nil(t.is_hidden)
-    assert.equals("function", type(t.is_hidden))
-    assert.is_true(t.has_component_methods)
+    Component.addComponentMethods(t)
+    assert.not_nil(t.isHidden)
+    assert.equals("function", type(t.isHidden))
+    assert.is_true(t.hasComponentMethods)
   end)
 
   it("does not replace the methods if the add component methods is called again", function()
     local t = {}
-    Component.add_component_methods(t)
-    local m = t.is_hidden
-    Component.add_component_methods(t)
-    assert.equals(m, t.is_hidden)
+    Component.addComponentMethods(t)
+    local m = t.isHidden
+    Component.addComponentMethods(t)
+    assert.equals(m, t.isHidden)
   end)
 
   it("can get it's node from the render engine", function()
@@ -226,24 +226,24 @@ describe("Component", function()
     local comp = Component.button({})
     RenderEngine("ui", comp)
 
-    local node = RenderEngine.find_by_component(comp)
+    local node = RenderEngine.findByComponent(comp)
     assert.not_nil(node)
-    assert.equals(node, comp:get_node())
-    assert.not_nil(comp:get_node())
+    assert.equals(node, comp:getNode())
+    assert.not_nil(comp:getNode())
   end)
 
   it("can be flagged for removal", function()
     local c = Component.button()
-    c:flag_removal()
-    assert.is_true(c:needs_removal())
-    assert.is_true(c:has_updates())
+    c:flagRemoval()
+    assert.is_true(c:needsRemoval())
+    assert.is_true(c:hasUpdates())
   end)
 
   it("can use remove component", function()
     local c = Component.button()
     c:remove()
-    assert.is_true(c:needs_removal())
-    assert.is_true(c:has_updates())
+    assert.is_true(c:needsRemoval())
+    assert.is_true(c:hasUpdates())
   end)
 
   it("returns decipherable error if component render function is not set up properly", function()

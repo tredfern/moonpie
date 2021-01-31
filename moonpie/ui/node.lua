@@ -3,7 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local box_model = require("moonpie.ui.box_model")
+local BoxModel = require("moonpie.ui.box_model")
 local layouts = require("moonpie.ui.layouts")
 local drawing = require("moonpie.ui.drawing")
 local styles = require("moonpie.ui.styles")
@@ -15,23 +15,23 @@ local mouse = require "moonpie.mouse"
 return function(component, parent)
   component = component or {}
   parent = parent or {}
-  local cached_style = styles.compute(component, parent, {})
+  local cachedStyle = styles.compute(component, parent, {})
 
   local n = setmetatable({}, {
     __index = function(_, k)
-      return cached_style[k]
+      return cachedStyle[k]
     end
   })
 
   n.parent = parent
   n.component = component
   n.children = List:new()
-  n.box = box_model(n, parent.box)
+  n.box = BoxModel(n, parent.box)
 
   n.add = function(self, ...)
     for _, v in ipairs({...}) do
       v.parent = self
-      v.box:set_parent(self.box)
+      v.box:setParent(self.box)
       self.children[#self.children + 1] = v
     end
   end
@@ -49,19 +49,19 @@ return function(component, parent)
   end
 
   n.layout = function(...)
-    if n.before_layout then n:before_layout() end
+    if n.beforeLayout then n:beforeLayout() end
     local l = component.layout or layouts.standard
     l(...)
-    if n.after_layout then n:after_layout() end
+    if n.afterLayout then n:afterLayout() end
   end
 
   n.paint = function(self)
-    self:refresh_style()
+    self:refreshStyle()
     local p = component.paint or drawing.standard
     p(n)
   end
-  n.refresh_style = function(self)
-    cached_style.update_flags({ hover = self.hover and self:hover() })
+  n.refreshStyle = function(self)
+    cachedStyle.updateFlags({ hover = self.hover and self:hover() })
   end
 
   n.destroy = function(self)
