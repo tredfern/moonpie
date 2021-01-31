@@ -72,7 +72,7 @@ function ComponentFactory.addComponentMethods(c)
   if c.hasComponentMethods then return end
 
   c.update = function(self, new)
-    if tables.copy_keys(new, self, true) then
+    if tables.copyKeys(new, self, true) then
       self:flagUpdates(true)
       updateQueue:push(self)
     end

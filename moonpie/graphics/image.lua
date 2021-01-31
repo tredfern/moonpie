@@ -9,7 +9,7 @@ local files = require "moonpie.utility.files"
 
 function image.load(name)
   if not image_store[name] then
-    files.assert_exists(name)
+    files.assertExists(name)
 
     local loaded = love.graphics.newImage(name)
     image_store[name] = loaded

@@ -4,11 +4,11 @@
 -- https://opensource.org/licenses/MIT
 
 local files = require "moonpie.utility.files"
-local font = {
+local Font = {
   registered = {}
 }
 
-function font:create(path, name)
+function Font:create(path, name)
   return setmetatable({
     path = path,
     name = name,
@@ -22,21 +22,21 @@ function font:create(path, name)
   })
 end
 
-function font:register(path, alias)
-  local name = files.get_name(path)
-  local f = font.registered[name]
+function Font:register(path, alias)
+  local name = files.getName(path)
+  local f = Font.registered[name]
 
   if not f then
-    f = font:create(path, name)
+    f = Font:create(path, name)
   end
 
-  font.registered[f.name] = f
-  if alias then font.registered[alias] = f end
+  Font.registered[f.name] = f
+  if alias then Font.registered[alias] = f end
 
   return f
 end
 
-function font:get(path_name, size)
+function Font:get(path_name, size)
   local f = self.registered[path_name] or self:register(path_name)
   if size == nil then
     return f
@@ -45,20 +45,20 @@ function font:get(path_name, size)
   return f(size)
 end
 
-function font.pick(tbl)
+function Font.pick(tbl)
   if tbl.font then
     return tbl.font
   end
 
   if tbl.fontName and tbl.fontSize then
-    return font:get(tbl.fontName, tbl.fontSize)
+    return Font:get(tbl.fontName, tbl.fontSize)
   end
 
-  return font:get("not-set", 12)
+  return Font:get("not-set", 12)
 end
 
-setmetatable(font, {
-  __call = font.get
+setmetatable(Font, {
+  __call = Font.get
 })
 
-return font
+return Font

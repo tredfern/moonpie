@@ -16,7 +16,7 @@ function RandomizedQueue:new(t)
   return rq
 end
 
-function RandomizedQueue:isempty()
+function RandomizedQueue:isEmpty()
   return #self == 0
 end
 

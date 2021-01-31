@@ -14,7 +14,7 @@ local function setreturnvalues(o)
 end
 
 local function nextresult(...)
-  if results:isempty() then
+  if results:isEmpty() then
     return oldrandom(...)
   end
 

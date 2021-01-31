@@ -48,9 +48,9 @@ function moonpie.paint()
   paint_timer:start()
   frame_number = frame_number + 1
 
-  moonpie.events.before_paint:trigger()
+  moonpie.events.beforePaint:trigger()
   RenderEngine.paint()
-  moonpie.events.after_paint:trigger()
+  moonpie.events.afterPaint:trigger()
 
   -- Debug stats
   local stats = love.graphics.getStats()
@@ -66,11 +66,11 @@ end
 function moonpie.update()
   update_timer:start()
 
-  moonpie.events.before_update:trigger()
+  moonpie.events.beforeUpdate:trigger()
   RenderEngine.update(mouse)
   -- HACK: Mouse isn't handled smoothly
   mouse:update()
-  moonpie.events.after_update:trigger()
+  moonpie.events.afterUpdate:trigger()
   update_timer:stop()
 end
 
@@ -87,7 +87,7 @@ function moonpie.load_stylesheet()
 end
 
 function moonpie.resize(width, height)
-  moonpie.events.window_resize:trigger(width, height)
+  moonpie.events.windowResize:trigger(width, height)
 end
 
 function moonpie.load_debug()

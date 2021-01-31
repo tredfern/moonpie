@@ -10,7 +10,7 @@ describe("Copy Keys", function()
     local source = { name = "foo", value = 3, skip = "foo" }
     local dest = { skip = "bar" }
 
-    tables.copy_keys(source, dest)
+    tables.copyKeys(source, dest)
     assert.equals("foo", dest.name)
     assert.equals(3, dest.value)
     assert.equals("bar", dest.skip)
@@ -20,20 +20,20 @@ describe("Copy Keys", function()
     local source = { a = "a", b = "b", c = "c" }
     local dest = { a = 123 }
 
-    tables.copy_keys(source, dest, true)
+    tables.copyKeys(source, dest, true)
     assert.equals("a", dest.a)
     assert.equals("b", dest.b)
     assert.equals("c", dest.c)
   end)
 
   it("does nothing if source is nil", function()
-    assert.has_no.errors(function() tables.copy_keys(nil, {}, true) end)
+    assert.has_no.errors(function() tables.copyKeys(nil, {}, true) end)
   end)
 
   it("returns true if it modified the destination", function()
     local s = { a = 1, b = 2 }
     local dest = { }
-    assert.is_true(tables.copy_keys(s, dest))
-    assert.is_false(tables.copy_keys(s, dest))
+    assert.is_true(tables.copyKeys(s, dest))
+    assert.is_false(tables.copyKeys(s, dest))
   end)
 end)

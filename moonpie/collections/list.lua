@@ -90,7 +90,7 @@ function list:where(filter)
   return result
 end
 
-function list:isempty()
+function list:isEmpty()
   return #self == 0
 end
 

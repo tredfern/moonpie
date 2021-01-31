@@ -13,10 +13,10 @@ describe("moonpie.ui.components.root", function()
     assert.equals(h, r.height)
   end)
 
-  it("registers and handles window_resize event", function()
+  it("registers and handles windowResize event", function()
     local r = components.root()
     local events = require "moonpie.events"
-    events.window_resize:trigger(800, 600)
+    events.windowResize:trigger(800, 600)
     assert.is_true(r:hasUpdates())
     assert.equals(800, r.width)
     assert.equals(600, r.height)

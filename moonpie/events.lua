@@ -5,9 +5,9 @@
 
 local callback = require "moonpie.callback"
 return {
-  before_paint = callback:new(),
-  after_paint = callback:new(),
-  before_update = callback:new(),
-  after_update = callback:new(),
-  window_resize = callback:new(),
+  beforePaint = callback:new(),
+  afterPaint = callback:new(),
+  beforeUpdate = callback:new(),
+  afterUpdate = callback:new(),
+  windowResize = callback:new(),
 }

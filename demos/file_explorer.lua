@@ -6,7 +6,7 @@
 local Components = require "moonpie.ui.components"
 local List = require "moonpie.collections.list"
 
-local function get_name(directory, name)
+local function getName(directory, name)
   return directory.."/"..name
 end
 
@@ -14,7 +14,7 @@ local function get_directories(directory)
   local items = love.filesystem.getDirectoryItems(directory)
   local out = List:new()
   for _, v in ipairs(items) do
-    if love.filesystem.isDirectory(get_name(directory, v)) then
+    if love.filesystem.isDirectory(getName(directory, v)) then
       out:add(v)
     end
   end
@@ -25,7 +25,7 @@ local function get_files(directory)
   local items = love.filesystem.getDirectoryItems(directory)
   local out = List:new()
   for _, v in ipairs(items) do
-    if love.filesystem.isFile(get_name(directory, v)) then
+    if love.filesystem.isFile(getName(directory, v)) then
       out:add(v)
     end
   end

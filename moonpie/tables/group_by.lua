@@ -3,7 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local function get_group_by(value, func)
+local function get_groupBy(value, func)
   if func == nil then
     return value
   end
@@ -15,11 +15,11 @@ local function get_group_by(value, func)
   return func(value)
 end
 
-return function(set, group_by)
+return function(set, groupBy)
   local out = {}
 
   for _, v in ipairs(set) do
-    local grouping = get_group_by(v, group_by)
+    local grouping = get_groupBy(v, groupBy)
     if grouping then
       if not out[grouping] then
         out[grouping] = {}

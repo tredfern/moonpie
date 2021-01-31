@@ -27,7 +27,7 @@ function Queue:front()
   return self[1]
 end
 
-function Queue:isempty()
+function Queue:isEmpty()
   return #self == 0
 end
 

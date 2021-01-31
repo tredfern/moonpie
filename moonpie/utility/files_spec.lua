@@ -8,7 +8,7 @@ describe("moonpie.utility.files", function()
   local config = require "moonpie.configuration"
 
   it("can split out the file name from a path and extension", function()
-    local name = files.get_name("path/dir/file.foo")
+    local name = files.getName("path/dir/file.foo")
     assert.equals("file", name)
   end)
 
@@ -33,19 +33,19 @@ describe("moonpie.utility.files", function()
   end)
 
   it("can merge path intelligently", function()
-    assert.equals("assets/foo/bar.ggg", files.merge_path("assets/foo/", "bar.ggg"))
-    assert.equals("assets/foo/bar.ggg", files.merge_path("assets/foo", "bar.ggg"))
+    assert.equals("assets/foo/bar.ggg", files.mergePath("assets/foo/", "bar.ggg"))
+    assert.equals("assets/foo/bar.ggg", files.mergePath("assets/foo", "bar.ggg"))
   end)
 
   it("provides an assertion that file exists", function()
     assert.has_errors(function()
-      files.assert_exists("some-path/that-will/not-find-anything")
+      files.assertExists("some-path/that-will/not-find-anything")
     end,
       "File does not exist: some-path/that-will/not-find-anything"
     )
 
     assert.has_no_errors(function()
-      files.assert_exists("assets")
+      files.assertExists("assets")
     end)
   end)
 end)

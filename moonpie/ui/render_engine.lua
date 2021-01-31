@@ -135,7 +135,7 @@ end
 
 function RenderEngine.update()
   local changed_layers = {}
-  while not update_queue:isempty() do
+  while not update_queue:isEmpty() do
     local next = update_queue:pop()
     if next.node then
       local layer = getNodeLayer(next.node)

@@ -20,22 +20,22 @@ function Keyboard:keyPressed(key, scancode, isrepeat)
     focused:keyPressed(key, scancode, isrepeat)
   end
 
-  local hot = self.hot_keys[self:calculate_hotkey(key)]
+  local hot = self.hot_keys[self:calculateHotkey(key)]
   if hot then hot() end
 end
 
-function Keyboard:calculate_hotkey(key)
+function Keyboard:calculateHotkey(key)
   local modifiers = ""
 
-  if Keyboard.is_alt_down() then
+  if Keyboard.isAltDown() then
     modifiers = modifiers .. "alt+"
   end
 
-  if Keyboard.is_ctrl_down() then
+  if Keyboard.isCtrlDown() then
     modifiers = modifiers .. "ctrl+"
   end
 
-  if Keyboard.is_shift_down() then
+  if Keyboard.isShiftDown() then
     modifiers = modifiers .. "shift+"
   end
 
@@ -53,15 +53,15 @@ function Keyboard:capture(component)
   self.capturing = component
 end
 
-function Keyboard.is_shift_down()
+function Keyboard.isShiftDown()
   return Keyboard.isDown("lshift") or Keyboard.isDown("rshift")
 end
 
-function Keyboard.is_ctrl_down()
+function Keyboard.isCtrlDown()
   return Keyboard.isDown("lctrl") or Keyboard.isDown("rctrl")
 end
 
-function Keyboard.is_alt_down()
+function Keyboard.isAltDown()
   return Keyboard.isDown("lalt") or Keyboard.isDown("ralt")
 end
 

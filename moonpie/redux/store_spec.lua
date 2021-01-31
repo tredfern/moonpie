@@ -8,17 +8,17 @@ describe("moonpie.redux.store", function()
 
   it("ignores nil actions", function()
     local reducer = spy.new(function() end)
-    store.create_store(reducer, {})
+    store.createStore(reducer, {})
     assert.has_no_errors(function() store.dispatch(nil) end)
     assert.spy(reducer).was.not_called()
   end)
 
   it("can have actions dispatched that are called into the reducer", function()
     local reducer = spy.new(function() end)
-    store.create_store(reducer)
+    store.createStore(reducer)
 
     local action = {}
-    local state = store.get_state()
+    local state = store.getState()
     store.dispatch(action)
     assert.spy(reducer).was.called_with(state, action)
   end)
@@ -26,8 +26,8 @@ describe("moonpie.redux.store", function()
   it("calls the reducer for initial state if non is provided", function()
     local start_state = {}
     local reducer = spy.new(function() return start_state end)
-    store.create_store(reducer)
-    assert.equals(start_state, store.get_state())
+    store.createStore(reducer)
+    assert.equals(start_state, store.getState())
   end)
 
   it("calls listeners when state has changed", function()
@@ -35,7 +35,7 @@ describe("moonpie.redux.store", function()
     local listener = spy.new(function() end)
     local listener2 = spy.new(function() end)
 
-    store.create_store(reducer)
+    store.createStore(reducer)
     store.subscribe(listener)
     store.subscribe(listener2)
     store.dispatch({})
@@ -44,46 +44,46 @@ describe("moonpie.redux.store", function()
   end)
 
   it("listeners are weak values and allow garbage collection to occur", function()
-    store.create_store(function() end)
+    store.createStore(function() end)
     local listener = function() end
     store.subscribe(listener)
     listener = nil
     assert.is_nil(listener) -- kind of annoying workaround for luacheck error
     collectgarbage()
-    assert.equals(0, #store.get_listeners())
+    assert.equals(0, #store.getListeners())
   end)
 
   it("provides access to the current version of state", function()
     local reduce_state = {}
     local initial_state = {}
-    store.create_store(function() return reduce_state end, initial_state)
-    assert.equals(initial_state, store.get_state())
+    store.createStore(function() return reduce_state end, initial_state)
+    assert.equals(initial_state, store.getState())
     store.dispatch({})
-    assert.equals(reduce_state, store.get_state())
+    assert.equals(reduce_state, store.getState())
   end)
 
   it("passes the current state into the reducer", function()
     local state = {}
     local reducer = spy.new(function() return {} end)
-    store.create_store(reducer, state)
+    store.createStore(reducer, state)
     local action = {}
     store.dispatch(action)
     assert.spy(reducer).was.called_with(action, state)
-    state = store.get_state()
+    state = store.getState()
     store.dispatch(action)
     assert.spy(reducer).was.called_with(action, state)
   end)
 
   it("uses an empty table if initial_state is nil", function()
-    store.create_store(function() end)
-    assert.same({}, store.get_state())
+    store.createStore(function() end)
+    assert.same({}, store.getState())
   end)
 
   it("functions can be dispatched that can hold multiple dispatches or logic", function()
     local complex = function()
-      return function(dispatch, get_state)
+      return function(dispatch, getState)
         dispatch{ type = "say-hi" }
-        if get_state().in_conversation then
+        if getState().in_conversation then
           dispatch{ type = "say-goodbye" }
         end
       end
@@ -98,14 +98,14 @@ describe("moonpie.redux.store", function()
       return state
     end
 
-    store.create_store(reducer)
+    store.createStore(reducer)
     store.dispatch(complex())
-    assert.is_true(store.get_state().nice)
-    assert.is_false(store.get_state().in_conversation)
+    assert.is_true(store.getState().nice)
+    assert.is_false(store.getState().in_conversation)
   end)
 
   it("will call a table if callable", function()
-    store.create_store(function() end)
+    store.createStore(function() end)
     local called = false
     local complex = setmetatable({}, {
       __call = function(_, dispatch)
@@ -129,7 +129,7 @@ describe("moonpie.redux.store", function()
 
     local reducer = function() return {} end
     local listener = spy.new(function() end)
-    store.create_store(reducer)
+    store.createStore(reducer)
     store.subscribe(listener)
     store.dispatch(action_group())
     assert.equals(1, #listener.calls)
@@ -141,7 +141,7 @@ describe("moonpie.redux.store", function()
     local state = {}
 
     before_each(function()
-      store.create_store(reducer, state)
+      store.createStore(reducer, state)
       reducer:clear() -- clear spy history
     end)
 
@@ -149,7 +149,7 @@ describe("moonpie.redux.store", function()
       local an_action = { validate = spy.new(function() end) }
 
       store.dispatch(an_action)
-      assert.spy(an_action.validate).was.called_with(an_action, store.get_state())
+      assert.spy(an_action.validate).was.called_with(an_action, store.getState())
     end)
 
     it("does not pass to the reducer if the action is invalid", function()

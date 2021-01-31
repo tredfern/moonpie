@@ -17,13 +17,13 @@ local mock_reducer = function(state, action)
   end
 
   return tables.assign({}, state, {
-    actions = tables.concat_array(state.actions, { action })
+    actions = tables.concatArray(state.actions, { action })
   })
 end
 
 function store.get_action_groups()
-  local actions = store.get_state().actions or {}
-  return tables.group_by(actions, function(a) return a.type end)
+  local actions = store.getState().actions or {}
+  return tables.groupBy(actions, function(a) return a.type end)
 end
 
 function store.get_actions(type)
@@ -37,6 +37,6 @@ end
 
 return function(stub_state)
   stub_state = stub_state or {}
-  store.create_store(mock_reducer, stub_state)
+  store.createStore(mock_reducer, stub_state)
   return store
 end

@@ -50,8 +50,8 @@ describe("moonpie.math", function()
   it("can flip a coin for easy binary choices", function()
     local got_heads, got_tails
     for _ = 1, 100 do
-      got_heads = got_heads or math_ext.coinflip()
-      got_tails = got_tails or not math_ext.coinflip()
+      got_heads = got_heads or math_ext.coinFlip()
+      got_tails = got_tails or not math_ext.coinFlip()
     end
     assert.is_true(got_heads)
     assert.is_true(got_tails)

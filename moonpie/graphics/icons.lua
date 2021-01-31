@@ -12,7 +12,7 @@ local loaded = false
 local function load()
   local list = Files.find(Conf.icons_path, "%.png")
   for _, v in ipairs(list) do
-    local n = Files.get_name(v)
+    local n = Files.getName(v)
     icons[n] = v
   end
   loaded = true

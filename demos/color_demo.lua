@@ -30,7 +30,7 @@ end
 local function color_display()
   local out = moonpie.collections.list:new()
   for _, v in ipairs(moonpie.graphics.colors.all()) do
-    if moonpie.graphics.colors.is_color(v) then
+    if moonpie.graphics.colors.isColor(v) then
       out:add(components.color_sample({ color = v }))
     end
   end

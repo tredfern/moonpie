@@ -5,7 +5,7 @@
 
 local ScriptTools = {}
 
-function ScriptTools.get_path()
+function ScriptTools.getPath()
   local str = debug.getinfo(2, "S").source:sub(2)
   str = string.gsub(str, "\\", "/")
   return str:match("(.*/)")

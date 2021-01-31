@@ -6,23 +6,23 @@
 local logger = require "moonpie.logger"
 local is_callable = require "moonpie.utility.is_callable"
 local store = { }
-local reducer_handler
+local reducerHandler
 local listeners = setmetatable({}, { __mode = "v" })
 local state = {}
 
-local function trigger_listeners()
+local function triggerListeners()
   for _, v in ipairs(listeners) do
     v()
   end
 end
 
-function store.create_store(reducer, initial_state)
+function store.createStore(reducer, initial_state)
   assert(reducer, "Store requires a reducer function")
-  reducer_handler = reducer
+  reducerHandler = reducer
   state = initial_state or reducer(nil, { type = "___INITIALIZE_STORE___" }) or {}
 end
 
-function store.inverted_dispatch(action)
+function store.invertedDispatch(action)
   store.dispatch(action, true)
 end
 
@@ -32,10 +32,10 @@ function store.dispatch(action, bypass_trigger)
   -- move to middleware?
   if is_callable(action) then
     action(
-      store.inverted_dispatch,
-      store.get_state
+      store.invertedDispatch,
+      store.getState
     )
-    trigger_listeners()
+    triggerListeners()
   else
     -- validate action
     if action.validate and not action:validate(state) then
@@ -43,9 +43,9 @@ function store.dispatch(action, bypass_trigger)
     end
 
     logger.debug("Store Dispatch: %s", action.type)
-    state = reducer_handler(state, action)
+    state = reducerHandler(state, action)
     if not bypass_trigger then
-      trigger_listeners()
+      triggerListeners()
     end
   end
 end
@@ -54,11 +54,11 @@ function store.subscribe(listener)
   listeners[#listeners + 1] = listener
 end
 
-function store.get_state()
+function store.getState()
   return state
 end
 
-function store.get_listeners()
+function store.getListeners()
   return listeners
 end
 

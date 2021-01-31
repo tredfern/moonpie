@@ -3,12 +3,12 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-describe("moonpie.tables.count_by", function()
+describe("moonpie.tables.countBy", function()
   local tables = require "moonpie.tables"
 
   it("returns a list of values that match a certain grouping", function()
     local set = { 1, 2, 3, 4, 5 }
-    local counts = tables.count_by(set,
+    local counts = tables.countBy(set,
       function(v)
         if v % 2 == 0 then
           return "even"

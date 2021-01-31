@@ -3,10 +3,10 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local group_by = require "moonpie.tables.group_by"
+local groupBy = require "moonpie.tables.group_by"
 
 return function(set, func)
-  local g = group_by(set, func)
+  local g = groupBy(set, func)
   local out = {}
   for k, v in pairs(g) do
     out[k] = #v

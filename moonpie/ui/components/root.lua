@@ -16,7 +16,7 @@ Component("root", function()
   end
 
   local events = require "moonpie.events"
-  events.window_resize:add(rt.resize)
+  events.windowResize:add(rt.resize)
 
   return rt
 end)

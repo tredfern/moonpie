@@ -12,7 +12,7 @@ function PriorityQueue:new(q)
   return pq
 end
 
-function PriorityQueue:isempty()
+function PriorityQueue:isEmpty()
   return #self == 0
 end
 

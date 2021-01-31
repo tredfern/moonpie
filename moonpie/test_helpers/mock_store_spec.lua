@@ -14,7 +14,7 @@ describe("moonpie.test_helpers.mock_store", function()
   it("can be stubbed out to a starting state", function()
     local state = {1, 2,3, 4}
     local s = mock_store(state)
-    assert.equals(state, s.get_state())
+    assert.equals(state, s.getState())
   end)
 
   it("returns what actions were dispatched to the store", function()
@@ -32,7 +32,7 @@ describe("moonpie.test_helpers.mock_store", function()
     store.subscribe(listener)
     
     store.simulate_change({ new_state = true })
-    assert.is_true(store.get_state().new_state)
+    assert.is_true(store.getState().new_state)
     assert.spy(listener).was.called()
   end)
 end)

@@ -24,12 +24,12 @@ function Stack:top()
   return self[#self]
 end
 
-function Stack:isempty()
+function Stack:isEmpty()
   return #self == 0
 end
 
 function Stack:clear()
-  while not self:isempty() do
+  while not self:isEmpty() do
     self:pop()
   end
 end

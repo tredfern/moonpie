@@ -3,12 +3,12 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-describe("moonpie.tables.group_by", function()
+describe("moonpie.tables.groupBy", function()
   local tables = require "moonpie.tables"
 
   it("can group bys items with the same value", function()
     local set = { 1, 1, 1, 2, 3, 3, 4 }
-    local result = tables.group_by(set)
+    local result = tables.groupBy(set)
     assert.equals(4, #result)
     assert.equals(3, #result[1])
     assert.equals(1, #result[2])
@@ -25,7 +25,7 @@ describe("moonpie.tables.group_by", function()
       { value = "c" },
     }
 
-    local result = tables.group_by(set, "value")
+    local result = tables.groupBy(set, "value")
     assert.equals(2, #result["a"])
     assert.equals(1, #result["b"])
     assert.equals(2, #result["c"])
@@ -33,7 +33,7 @@ describe("moonpie.tables.group_by", function()
 
   it("can take a function to group by", function()
     local set = { 1, 2, 3, 4, 5 }
-    local result = tables.group_by(
+    local result = tables.groupBy(
       set,
       function(v)
         if v % 2 == 0 then
@@ -49,7 +49,7 @@ describe("moonpie.tables.group_by", function()
 
   it("ignores any key that returns nil", function()
     local set = { 1, 1, 2, 2, 3, 3, 3, 3 }
-    local result = tables.group_by(set, function(v) if v ~= 3 then return v end end)
+    local result = tables.groupBy(set, function(v) if v ~= 3 then return v end end)
     assert.is_nil(result[3])
   end)
 end)

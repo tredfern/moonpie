@@ -9,8 +9,8 @@ local BUTTON_COUNT = 4
 local mouse = {
   button_states = {},
   onClick = callback:new(),
-  on_mousedown = callback:new(),
-  on_mouseup = callback:new(),
+  onMouseDown = callback:new(),
+  onMouseUp = callback:new(),
 }
 
 function mouse:check_primary_button()
@@ -22,9 +22,9 @@ end
 function mouse:update_button_states()
   for i=1,BUTTON_COUNT do
     if not self.button_states[i] and self.isDown(i) then
-      mouse.on_mousedown(i)
+      mouse.onMouseDown(i)
     elseif self.button_states[i] and not self.isDown(i) then
-      mouse.on_mouseup(i)
+      mouse.onMouseUp(i)
     end
     self.button_states[i] = self.isDown(i)
   end

@@ -8,11 +8,11 @@ local assign = require "moonpie.tables.assign"
 
 return function(component, map_state_to_props)
   return function(props)
-    local initial_state = map_state_to_props(store.get_state())
+    local initial_state = map_state_to_props(store.getState())
     local p = assign({}, initial_state, props)
     local c = component(p)
     c.__listener = function()
-      local v = map_state_to_props(store.get_state())
+      local v = map_state_to_props(store.getState())
       c:update(v)
     end
 

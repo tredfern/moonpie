@@ -59,7 +59,7 @@ function colors.lighten(clr, multiplier)
   })
 end
 
-function colors.get_color(self, clr, opacity)
+function colors.getColor(self, clr, opacity)
   if type(clr) == "table" then
     return { clr[1], clr[2], clr[3], opacity or clr[4] }
   elseif type(clr) == "string" then
@@ -70,14 +70,14 @@ function colors.get_color(self, clr, opacity)
   return nil
 end
 
-function colors.is_color(v)
+function colors.isColor(v)
   return type(v) == "table" and #v == 4
 end
 
 function colors.all()
   local out = {}
   for _, v in pairs(colors) do
-    if colors.is_color(v) then
+    if colors.isColor(v) then
       out[#out + 1] = v
     end
   end
@@ -85,7 +85,7 @@ function colors.all()
 end
 
 setmetatable(colors, {
-  __call = colors.get_color
+  __call = colors.getColor
 })
 
 return colors

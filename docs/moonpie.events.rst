@@ -20,7 +20,7 @@ Available Events
     print("called")
   end
 
-  moonpie.events.before_update:add(my_callback)
+  moonpie.events.beforeUpdate:add(my_callback)
   
   function love.update()
     moonpie.update()

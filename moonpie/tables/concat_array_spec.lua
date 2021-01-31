@@ -4,13 +4,13 @@
 -- https://opensource.org/licenses/MIT
 
 describe("moonpie.tables.concat_array", function()
-  local concat_array = require "moonpie.tables.concat_array"
+  local concatArray = require "moonpie.tables.concat_array"
 
   it("returns a new array with elements in each array", function()
     local a = { 1, 2, 3 }
     local b = { 4, 5, 6 }
 
-    local c = concat_array(a, b)
+    local c = concatArray(a, b)
     assert.same( { 1, 2, 3, 4, 5, 6 }, c)
   end)
 
@@ -20,14 +20,14 @@ describe("moonpie.tables.concat_array", function()
     local c = { 5, 6 }
     local d = { 7, 8 }
 
-    local e = concat_array(a, b, c, d)
+    local e = concatArray(a, b, c, d)
     assert.same({ 1, 2, 3, 4, 5, 6, 7, 8 }, e)
   end)
 
   it("skips nil arrays", function()
     local a = { 1, 2, 3 }
     local b = { 4, 5, 6 }
-    local c = concat_array(nil, a, nil, nil, b)
+    local c = concatArray(nil, a, nil, nil, b)
     assert.same({ 1, 2, 3, 4, 5, 6 }, c)
   end)
 end)

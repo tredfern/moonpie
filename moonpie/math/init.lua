@@ -24,7 +24,7 @@ function math_ext.between(val, min, max)
   return min <= val and val <= max
 end
 
-function math_ext.coinflip()
+function math_ext.coinFlip()
   return math.random(1, 2) == 1
 end
 

@@ -12,7 +12,7 @@ function Deque:new()
   return dq
 end
 
-function Deque:isempty()
+function Deque:isEmpty()
   return #self == 0
 end
 

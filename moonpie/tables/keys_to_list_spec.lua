@@ -3,7 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-describe("moonpie.tables.keys_to_list", function()
+describe("moonpie.tables.keysToList", function()
   local tables = require "moonpie.tables"
 
   it("takes a list of keys and converts it to a set", function()
@@ -13,7 +13,7 @@ describe("moonpie.tables.keys_to_list", function()
       c = 3
     }
 
-    local s = tables.keys_to_list(t)
+    local s = tables.keysToList(t)
     assert.equals(3, #s)
     assert.array_includes(1, s)
     assert.array_includes(2, s)

@@ -9,7 +9,7 @@ describe("Randomized Queue", function()
 
   it("Knows when it is empty", function()
     local r = RandomizedQueue:new()
-    assert.is_true(r:isempty())
+    assert.is_true(r:isEmpty())
   end)
 
   it("can queue items up", function()
@@ -41,16 +41,16 @@ describe("Randomized Queue", function()
     r:enqueue("item 2")
     r:enqueue("item 3")
 
-    assert.is_false(r:isempty())
+    assert.is_false(r:isEmpty())
     assert.equals("item 2", r:dequeue())
     assert.equals("item 3", r:dequeue())
     assert.equals("item 1", r:dequeue())
-    assert.is_true(r:isempty())
+    assert.is_true(r:isEmpty())
   end)
 
   it("can be initialized with a table of values", function()
     local r = RandomizedQueue:new{1, 2, 3, 4}
-    assert.is_false(r:isempty())
+    assert.is_false(r:isEmpty())
     assert.equals(4, #r)
     assert.equals(1, r[1])
     assert.equals(3, r[3])

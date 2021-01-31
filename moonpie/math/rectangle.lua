@@ -3,39 +3,39 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local rectangle = {}
+local Rectangle = {}
 
-function rectangle.new(x, y, width, height)
+function Rectangle.new(x, y, width, height)
   local r = {
     x = x, y = y,
     width = width, height = height
   }
 
-  setmetatable(r, { __index = rectangle })
+  setmetatable(r, { __index = Rectangle })
   return r
 end
 
-function rectangle:left()
+function Rectangle:left()
   return self.x
 end
 
-function rectangle:right()
+function Rectangle:right()
   return self.x + self.width
 end
 
-function rectangle:top()
+function Rectangle:top()
   return self.y
 end
 
-function rectangle:bottom()
+function Rectangle:bottom()
   return self.y + self.height
 end
 
-function rectangle:intersects(rect)
+function Rectangle:intersects(rect)
   return self:left() < rect:right() and
     rect:left() < self:right() and
     self:top() < rect:bottom() and
     rect:top() < self:bottom()
 end
 
-return rectangle
+return Rectangle

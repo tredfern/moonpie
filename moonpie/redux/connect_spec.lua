@@ -17,7 +17,7 @@ describe("moonpie.redux.connect", function()
   )
 
   before_each(function()
-    store.create_store(function(_, action)
+    store.createStore(function(_, action)
       return {
         a = action.a,
         b = action.b,
@@ -42,7 +42,7 @@ describe("moonpie.redux.connect", function()
   it("can dispatch actions to the store", function()
     local c = connected({ click = function(self) self.dispatch(action_creator({ a = "foo" })) end })
     c:click()
-    assert.equals("connected_action", store.get_state().last_action.type)
+    assert.equals("connected_action", store.getState().last_action.type)
   end)
 
   it("passes in initial state", function()

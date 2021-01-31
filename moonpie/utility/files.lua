@@ -6,22 +6,22 @@
 local files = { }
 local unpacker = require "moonpie.utility.unpack"
 
-function files.assert_exists(path)
+function files.assertExists(path)
   if love.filesystem.getInfo(path) == nil then
     error("File does not exist: " .. path)
   end
 end
 
-function files.split_path_components(path)
+function files.splitPathComponents(path)
   return string.match(path, "(.-)([^\\/]-)%.?([^%.\\/]*)$")
 end
 
-function files.get_name(path)
-  local _, file, _ = files.split_path_components(path)
+function files.getName(path)
+  local _, file, _ = files.splitPathComponents(path)
   return file
 end
 
-function files.merge_path(path, name)
+function files.mergePath(path, name)
   if string.sub(path, -1) ~= "/" then
     return path .. "/" .. name
   end
@@ -33,7 +33,7 @@ function files.find(path, include_pattern, exclude_pattern)
   local results = list:new()
   local items = love.filesystem.getDirectoryItems(path)
   for _, v in ipairs(items) do
-    local p = files.merge_path(path, v)
+    local p = files.mergePath(path, v)
     local info = love.filesystem.getInfo(p)
 
     if info.type == "directory" then
