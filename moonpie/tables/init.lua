@@ -23,8 +23,9 @@ return {
   pack = require "moonpie.tables.pack",
   pickRandom = require "moonpie.tables.pick_random",
   select = require "moonpie.tables.select",
-  sortBy = require "moonpie.tables.sort_by",
+  shuffle = require "moonpie.tables.shuffle",
   slice = require "moonpie.tables.slice",
+  sortBy = require "moonpie.tables.sort_by",
   sum = require "moonpie.tables.sum",
   toArray = require "moonpie.tables.to_array",
 }
