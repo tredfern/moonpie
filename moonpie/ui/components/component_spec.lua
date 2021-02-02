@@ -105,6 +105,8 @@ describe("Component", function()
           keyPressed = spy.new(function() end),
           keyReleased = spy.new(function() end),
           margin = 10,
+          mouseDown = spy.new(function() end),
+          mouseUp = spy.new(function() end),
           padding = 5,
           paint = spy.new(function() end),
           position = "absolute",

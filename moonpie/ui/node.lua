@@ -44,7 +44,7 @@ return function(component, parent)
   end
 
   n.hover = function(self)
-    local mx, my = love.mouse.getPosition()
+    local mx, my = mouse.getPosition()
     return self.box:region():contains(mx, my)
   end
 
@@ -73,13 +73,6 @@ return function(component, parent)
       v:destroy()
     end
     statistics.update("nodes", -1)
-  end
-
-  n.handle_click = function()
-    local mx, my = mouse.getPosition()
-    if n.box:region():contains(mx, my) then
-      n:click()
-    end
   end
 
   statistics.update("nodes", 1)

@@ -16,6 +16,26 @@ function InputHandler.click()
   end
 end
 
+function InputHandler.mouseUp(mouseButton)
+  local nodes = RenderEngine.findByPosition(Mouse.getPosition())
+  for _, v in ipairs(nodes) do
+    if v.mouseUp then
+      v:mouseUp(mouseButton)
+    end
+  end
+end
+
+function InputHandler.mouseDown(mouseButton)
+  local nodes = RenderEngine.findByPosition(Mouse.getPosition())
+  for _, v in ipairs(nodes) do
+    if v.mouseDown then
+      v:mouseDown(mouseButton)
+    end
+  end
+end
+
 
 Mouse.onClick:add(InputHandler.click)
+Mouse.onMouseDown:add(InputHandler.mouseDown)
+Mouse.onMouseUp:add(InputHandler.mouseUp)
 return InputHandler

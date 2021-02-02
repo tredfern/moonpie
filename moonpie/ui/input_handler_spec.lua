@@ -19,4 +19,26 @@ describe("moonpie.ui.input_handler", function()
     Mouse.onClick()
     assert.spy(component.click).was.called()
   end)
+
+  it("dispatches mouse down events to the appropriate nodes", function()
+    local component = {
+      mouseDown = spy.new(function() end),
+      width = 100, height = 100
+    }
+    RenderEngine("ui", component)
+    MockLove.moveMouse(5, 10)
+    Mouse.onMouseDown(1)
+    assert.spy(component.mouseDown).was.called()
+  end)
+
+  it("dispatches mouse up events to the appropriate nodes", function()
+    local component = {
+      mouseUp = spy.new(function() end),
+      width = 100, height = 100
+    }
+    RenderEngine("ui", component)
+    MockLove.moveMouse(5, 10)
+    Mouse.onMouseUp(2)
+    assert.spy(component.mouseUp).was.called()
+  end)
 end)
