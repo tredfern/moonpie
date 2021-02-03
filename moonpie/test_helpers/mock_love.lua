@@ -111,6 +111,13 @@ love = {
       getTime = function() return os.clock() end
     },
     window = {
+      getFullscreenModes = function()
+        return {
+          { width = 320, height = 240 },
+          { width = 640, height = 480 },
+          { width = 800, height = 600 },
+        }
+      end,
       getMode = function()
         return screen_width, screen_height, flags
       end,
