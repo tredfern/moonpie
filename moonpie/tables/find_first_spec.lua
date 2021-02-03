@@ -11,4 +11,11 @@ describe("moonpie.tables.find_first", function()
     local out = findFirst(set, function(v) return v == 4 end)
     assert.equals(4, out)
   end)
+
+  it("returns the index of the found entity as the second result", function()
+    local set = { 5, 4, 3, 2, 1 }
+    local out, index = findFirst(set, function(v) return v == 4 end)
+    assert.equals(4, out)
+    assert.equals(2, index)
+  end)
 end)
