@@ -20,6 +20,10 @@ local image = setmetatable({
   getDimensions = function(self) return self:getWidth(), self:getHeight() end,
 }, { __newindex = function() error("Love does not allow this") end })
 
+local audioClip = setmetatable({
+
+}, { __newindex = function() error("Love does not allow this") end })
+
 local text = {
   set = function() end,
   setf = function() end,
@@ -30,102 +34,106 @@ local mouse_down = {}
 local mouse_x, mouse_y = 0, 0
 
 love = {
-    event = {
-      quit = function() end,
-    },
-    getVersion = function() return 11 end,
-    graphics = {
-        getDimensions = function() return screen_width, screen_height end,
-        getFont = function() return font end,
-        getHeight = function() return screen_height end,
-        getStats = function() return { } end,
-        getWidth = function() return screen_width end,
-        line = function() end,
-        newCanvas = function() return image end,
-        newFont = function() return font end,
-        newQuad = function() return { } end,
-        newImage = function() return image end,
-        newText = function() return setmetatable({}, { __index = text }) end,
-        origin = function() end,
-        pop = function() end,
-        print = function() end,
-        push = function() end,
-        rectangle = function(mode, x, y, w, h) end,
-        reset = function() end,
-        scale = function() end,
-        setCanvas = function() end,
-        setColor = function() end,
-        setFont = function() end,
-        setLineWidth = function() end,
-        setScissor = function() end,
-        translate = function() end,
-    },
-    filesystem = {
-        getDirectoryItems = function(path)
-          local results = { }
+  audio = {
+    newSource = function() return audioClip end,
+    play = function() end,
+  },
+  event = {
+    quit = function() end,
+  },
+  getVersion = function() return 11 end,
+  graphics = {
+    getDimensions = function() return screen_width, screen_height end,
+    getFont = function() return font end,
+    getHeight = function() return screen_height end,
+    getStats = function() return { } end,
+    getWidth = function() return screen_width end,
+    line = function() end,
+    newCanvas = function() return image end,
+    newFont = function() return font end,
+    newQuad = function() return { } end,
+    newImage = function() return image end,
+    newText = function() return setmetatable({}, { __index = text }) end,
+    origin = function() end,
+    pop = function() end,
+    print = function() end,
+    push = function() end,
+    rectangle = function(mode, x, y, w, h) end,
+    reset = function() end,
+    scale = function() end,
+    setCanvas = function() end,
+    setColor = function() end,
+    setFont = function() end,
+    setLineWidth = function() end,
+    setScissor = function() end,
+    translate = function() end,
+},
+filesystem = {
+  getDirectoryItems = function(path)
+    local results = { }
 
-          for file in lfs.dir(path) do
-            if file ~= "." and file ~= ".." then
-              results[#results + 1] = file
-            end
-          end
-          return results
-        end,
-        getInfo = function(path)
-          local results = { }
-          local attr = lfs.attributes(path)
-          if attr then
-            results.type = attr.mode
-          else
-            results = nil
-          end
-          return results
-        end,
-        read = function(path)
-            local file = io.open(path, "rb") -- r read mode and b binary mode
-            if not file then return nil end
-            local content = file:read "*a" -- *a or *all reads the whole file
-            file:close()
-            return content
-        end
-    },
-    keyboard = {
-      isDown = function(key)
-        return key_down[key] ~= nil
+    for file in lfs.dir(path) do
+      if file ~= "." and file ~= ".." then
+        results[#results + 1] = file
       end
-    },
-    math ={
-      random = math.random
-    },
-    mouse = {
-      getPosition = function()
-        return mouse_x, mouse_y
-      end,
-      isDown = function(button)
-        return mouse_down[button] ~= nil
-      end,
-    },
-    timer = {
-      getDelta = function() return 0.03 end,
-      getFPS = function() return 29 end,
-      getTime = function() return os.clock() end
-    },
-    window = {
-      getFullscreenModes = function()
-        return {
-          { width = 320, height = 240 },
-          { width = 640, height = 480 },
-          { width = 800, height = 600 },
-        }
-      end,
-      getMode = function()
-        return screen_width, screen_height, flags
-      end,
-      setMode = function(w, h, fs)
-        screen_width, screen_height, flags = w, h, fs
-      end
-    },
-    handlers = { }
+    end
+    return results
+  end,
+  getInfo = function(path)
+    local results = { }
+    local attr = lfs.attributes(path)
+    if attr then
+      results.type = attr.mode
+    else
+      results = nil
+    end
+    return results
+  end,
+  read = function(path)
+    local file = io.open(path, "rb") -- r read mode and b binary mode
+    if not file then return nil end
+      local content = file:read "*a" -- *a or *all reads the whole file
+      file:close()
+      return content
+    end
+  },
+  keyboard = {
+    isDown = function(key)
+      return key_down[key] ~= nil
+    end
+  },
+  math ={
+    random = math.random
+  },
+  mouse = {
+    getPosition = function()
+      return mouse_x, mouse_y
+    end,
+    isDown = function(button)
+      return mouse_down[button] ~= nil
+    end,
+  },
+  timer = {
+    getDelta = function() return 0.03 end,
+    getFPS = function() return 29 end,
+    getTime = function() return os.clock() end
+  },
+  window = {
+    getFullscreenModes = function()
+      return {
+        { width = 320, height = 240 },
+        { width = 640, height = 480 },
+        { width = 800, height = 600 },
+      }
+    end,
+    getMode = function()
+      return screen_width, screen_height, flags
+    end,
+    setMode = function(w, h, fs)
+      screen_width, screen_height, flags = w, h, fs
+    end
+  },
+  handlers = { }
 }
 
 local original_methods = {}

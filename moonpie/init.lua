@@ -8,6 +8,7 @@ local mouse = require("moonpie.mouse")
 local keyboard = require "moonpie.keyboard"
 
 local moonpie = {
+  audio = require "moonpie.audio",
   class = require "moonpie.class",
   collections = require "moonpie.collections",
   events = require "moonpie.events",
