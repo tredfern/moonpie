@@ -15,7 +15,7 @@ return function(t)
       return nil
     end
 
-    local i = math.random(size)
+    local i = love.math.random(size)
     local item = replaced[i] or t[i]
     replaced[i] = replaced[size] or t[size]
     size = size - 1

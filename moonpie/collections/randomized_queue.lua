@@ -25,7 +25,7 @@ function RandomizedQueue:enqueue(o)
 end
 
 function RandomizedQueue:dequeue()
-  local i = math.random(#self)
+  local i = love.math.random(#self)
   local r = self[i]
   self[i] = self[#self]
   self[#self] = nil
@@ -33,7 +33,7 @@ function RandomizedQueue:dequeue()
 end
 
 function RandomizedQueue:sample()
-  return self[math.random(#self)]
+  return self[love.math.random(#self)]
 end
 
 return RandomizedQueue

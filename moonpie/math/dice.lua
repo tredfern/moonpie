@@ -22,7 +22,7 @@ function die.new(sides)
 end
 
 function die.roll(self)
-  return math.random(1, self.sides)
+  return love.math.random(1, self.sides)
 end
 
 function die.string(self)

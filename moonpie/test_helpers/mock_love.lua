@@ -103,7 +103,7 @@ filesystem = {
     end
   },
   math ={
-    random = math.random
+    random = function(...) return math.random(...) end
   },
   mouse = {
     getPosition = function()

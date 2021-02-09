@@ -25,7 +25,7 @@ function math_ext.between(val, min, max)
 end
 
 function math_ext.coinFlip()
-  return math.random(1, 2) == 1
+  return love.math.random(1, 2) == 1
 end
 
 function math_ext.sign(num)
