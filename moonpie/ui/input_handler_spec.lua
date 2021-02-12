@@ -41,4 +41,16 @@ describe("moonpie.ui.input_handler", function()
     Mouse.onMouseUp(2)
     assert.spy(component.mouseUp).was.called()
   end)
+
+  it("triggers an audio sound on click", function()
+    local component = {
+      clickSound = { play = spy.new(function() end) },
+      width = 100, height = 100
+    }
+
+    RenderEngine("ui", component)
+    MockLove.moveMouse(5, 10)
+    Mouse.onClick()
+    assert.spy(component.clickSound.play).was.called_with(component.clickSound)
+  end)
 end)

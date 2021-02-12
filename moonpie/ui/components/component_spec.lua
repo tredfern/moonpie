@@ -94,6 +94,7 @@ describe("Component", function()
           border = 2,
           borderColor = "green",
           click = spy.new(function() end),
+          clickSound = {},
           color = "blue",
           mounted = function() end,
           drawComponent = function() end,

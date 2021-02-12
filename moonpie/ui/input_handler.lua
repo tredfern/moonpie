@@ -10,6 +10,9 @@ local InputHandler = {}
 function InputHandler.click()
   local nodes = RenderEngine.findByPosition(Mouse.getPosition())
   for _, v in ipairs(nodes) do
+    if v.clickSound then
+      v.clickSound:play()
+    end
     if v.click then
       v:click()
     end
