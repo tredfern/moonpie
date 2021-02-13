@@ -21,7 +21,10 @@ local image = setmetatable({
 }, { __newindex = function() error("Love does not allow this") end })
 
 local audioClip = setmetatable({
-
+  pause = function() end,
+  play = function() end,
+  setVolume = function() end,
+  stop = function() end,
 }, { __newindex = function() error("Love does not allow this") end })
 
 local text = {
