@@ -117,8 +117,12 @@ describe("Node", function()
   end)
 
   describe("Status Checks", function()
-    local b = Node({ width = 20, height = 30 })
-    b:layout()
+    local b
+
+    before_each(function()
+      b = Node({ width = 20, height = 30 })
+      b:layout()
+    end)
 
     it("can flag that the mouse is hovering", function()
       MockLove.moveMouse(3, 5)
@@ -128,6 +132,21 @@ describe("Node", function()
     it("returns false for hover if mouse is outside the region", function()
       MockLove.moveMouse(300, 500)
       assert.is_false(b:hover())
+    end)
+
+    it("triggers the hover sound if this is the first time hovering", function()
+      MockLove.moveMouse(3, 5)
+      b.hoverSound = { play = spy.new(function() end)}
+      b:hover()
+      assert.spy(b.hoverSound.play).was.called(1)
+      b:hover()
+      assert.spy(b.hoverSound.play).was.called(1)
+      MockLove.moveMouse(300, 500)
+      b:hover()
+      assert.spy(b.hoverSound.play).was.called(1)
+      MockLove.moveMouse(3, 5)
+      b:hover()
+      assert.spy(b.hoverSound.play).was.called(2)
     end)
   end)
 

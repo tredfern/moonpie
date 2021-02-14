@@ -10,16 +10,17 @@ local mouse = {
   button_states = {},
   onClick = callback:new(),
   onMouseDown = callback:new(),
+  onMouseMove = callback:new(),
   onMouseUp = callback:new(),
 }
 
-function mouse:check_primary_button()
+function mouse:checkPrimaryButton()
   if not self.isDown(1) and self.button_states[1] then
     self.onClick()
   end
 end
 
-function mouse:update_button_states()
+function mouse:updateButtonStates()
   for i=1,BUTTON_COUNT do
     if not self.button_states[i] and self.isDown(i) then
       mouse.onMouseDown(i)
@@ -31,8 +32,18 @@ function mouse:update_button_states()
 end
 
 function mouse:update()
-  self:check_primary_button()
-  self:update_button_states()
+  self:checkPosition()
+  self:checkPrimaryButton()
+  self:updateButtonStates()
+end
+
+function mouse:checkPosition()
+  local x, y = mouse:getPosition()
+  if self.previousX ~= x or self.previousY ~= y then
+    mouse.onMouseMove(x, y)
+    self.previousX = x
+    self.previousY = y
+  end
 end
 
 return setmetatable(mouse, {

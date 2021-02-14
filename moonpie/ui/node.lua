@@ -45,7 +45,13 @@ return function(component, parent)
 
   n.hover = function(self)
     local mx, my = mouse.getPosition()
-    return self.box:region():contains(mx, my)
+    local nowHovering = self.box:region():contains(mx, my)
+
+    if self.hoverSound and not self.hovering and nowHovering then
+      self.hoverSound:play()
+    end
+    self.hovering = nowHovering
+    return self.hovering
   end
 
   n.layout = function(...)
