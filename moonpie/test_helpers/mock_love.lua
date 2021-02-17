@@ -27,6 +27,20 @@ local audioClip = setmetatable({
   stop = function() end,
 }, { __newindex = function() error("Love does not allow this") end })
 
+local particleSystem = setmetatable({
+  setColors = function() end,
+  setEmissionArea = function() end,
+  setEmissionRate = function() end,
+  setLinearAcceleration = function() end,
+  setParticleLifetime = function() end,
+  setSizes = function() end,
+  setSizeVariation = function() end,
+  setTangentialAcceleration = function() end,
+
+  update = function() end,
+
+}, { __newindex = function() error("Love does not allow this") end })
+
 local text = {
   set = function() end,
   setf = function() end,
@@ -54,6 +68,7 @@ love = {
     line = function() end,
     newCanvas = function() return image end,
     newFont = function() return font end,
+    newParticleSystem = function() return particleSystem end,
     newQuad = function() return { } end,
     newImage = function() return image end,
     newText = function() return setmetatable({}, { __index = text }) end,
