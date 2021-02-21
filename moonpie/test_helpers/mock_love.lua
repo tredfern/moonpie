@@ -23,6 +23,7 @@ local image = setmetatable({
 local audioClip = setmetatable({
   pause = function() end,
   play = function() end,
+  setLooping = function() end,
   setVolume = function() end,
   stop = function() end,
 }, { __newindex = function() error("Love does not allow this") end })
