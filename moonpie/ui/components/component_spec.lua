@@ -85,6 +85,15 @@ describe("Component", function()
         c:update { a = "abcd" }
         assert.equals(c, update_queue[1])
       end)
+
+      it("can force an update if necessary", function()
+        local updateQueue = require "moonpie.ui.update_queue"
+        updateQueue:clear()
+        local c= Component.updates()
+        c:forceRefresh()
+        assert.equals(c, updateQueue[1])
+        assert.is_true(c:hasUpdates())
+      end)
     end)
 
     describe("Copiable properties", function()

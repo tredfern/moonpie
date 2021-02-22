@@ -81,6 +81,11 @@ function ComponentFactory.addComponentMethods(c)
     end
   end
 
+  c.forceRefresh = function(self)
+    self:flagUpdates(true)
+    updateQueue:push(self)
+  end
+
   c.findByID = search.findByID
   c.findAllByName = search.findAllByName
 
