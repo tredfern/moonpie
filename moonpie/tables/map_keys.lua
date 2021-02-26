@@ -1,4 +1,4 @@
--- Copyright (c) 2020 Trevor Redfern
+-- Copyright (c) 2021 Trevor Redfern
 --
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
@@ -8,8 +8,8 @@ return function(tbl, operation)
   local out = {}
   local index = 1
 
-  for i, v in ipairs(tbl) do
-    out[index] = operation(v, i)
+  for k, v in pairs(tbl) do
+    out[index] = operation(v, k)
     index = index + 1
   end
 

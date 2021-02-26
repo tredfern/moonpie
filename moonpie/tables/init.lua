@@ -17,6 +17,7 @@ return {
   join = require "moonpie.tables.join",
   keysToList = require "moonpie.tables.keys_to_list",
   map = require "moonpie.tables.map",
+  mapKeys = require "moonpie.tables.map_keys",
   max = require "moonpie.tables.max",
   min = require "moonpie.tables.min",
   merge = require "moonpie.tables.merge",
