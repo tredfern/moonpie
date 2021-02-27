@@ -3,6 +3,8 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
+local safeCall = require "moonpie.utility.safe_call"
+
 return function(slice_table)
   return setmetatable(slice_table, {
     __call = function(self, state, action)
@@ -10,7 +12,7 @@ return function(slice_table)
         return self[action.type](state, action)
       end
 
-      return state or slice_table.initial_state
+      return state or safeCall(slice_table.initialState) or {}
     end
   })
 end
