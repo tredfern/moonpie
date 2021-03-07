@@ -1,59 +1,69 @@
 local lfs = require "lfs"
 local screen_width, screen_height, flags = 1600, 900, { fullscreen = false }
-local font = {
-  getWidth = function() return 10 end,
-  getHeight = function() return 10 end,
-  getWrap = function(_, text) 
-    local t={}
-    for str in string.gmatch(text, "([^:]+)") do
-      table.insert(t, str)
+local newFont = function()
+  return {
+    getWidth = function() return 10 end,
+    getHeight = function() return 10 end,
+    getWrap = function(_, text) 
+      local t={}
+      for str in string.gmatch(text, "([^:]+)") do
+        table.insert(t, str)
+      end
+      return 10, t
     end
-    return 10, t
-  end
-}
+  }
+end
 
-local image = setmetatable({
-  width = 100,
-  height = 100,
-  getWidth = function(self) return self.width end,
-  getHeight = function(self) return self.height end,
-  getDimensions = function(self) return self:getWidth(), self:getHeight() end,
-}, { __newindex = function() error("Love does not allow this") end })
+local newImage = function()
+  return setmetatable({
+    width = 100,
+    height = 100,
+    getWidth = function(self) return self.width end,
+    getHeight = function(self) return self.height end,
+    getDimensions = function(self) return self:getWidth(), self:getHeight() end,
+  }, { __newindex = function() error("Love does not allow this") end })
+end
 
-local audioClip = setmetatable({
-  pause = function() end,
-  play = function() end,
-  setLooping = function() end,
-  setVolume = function() end,
-  stop = function() end,
-}, { __newindex = function() error("Love does not allow this") end })
+local newAudioClip = function()
+  return setmetatable({
+    pause = function() end,
+    play = function() end,
+    setLooping = function() end,
+    setVolume = function() end,
+    stop = function() end,
+  }, { __newindex = function() error("Love does not allow this") end })
+end
 
-local particleSystem = setmetatable({
-  setColors = function() end,
-  setEmissionArea = function() end,
-  setEmissionRate = function() end,
-  setLinearAcceleration = function() end,
-  setParticleLifetime = function() end,
-  setSizes = function() end,
-  setSizeVariation = function() end,
-  setTangentialAcceleration = function() end,
+local newParticleSystem = function()
+  return setmetatable({
+    setColors = function() end,
+    setEmissionArea = function() end,
+    setEmissionRate = function() end,
+    setLinearAcceleration = function() end,
+    setParticleLifetime = function() end,
+    setSizes = function() end,
+    setSizeVariation = function() end,
+    setTangentialAcceleration = function() end,
 
-  update = function() end,
+    update = function() end,
 
-}, { __newindex = function() error("Love does not allow this") end })
+  }, { __newindex = function() error("Love does not allow this") end })
+end
 
-local text = {
-  set = function() end,
-  setf = function() end,
-  getDimensions = function() return 10, 10 end
-}
+local newText = function()
+  return {
+    set = function() end,
+    setf = function() end,
+    getDimensions = function() return 10, 10 end
+  }
+end
 local key_down = {}
 local mouse_down = {}
 local mouse_x, mouse_y = 0, 0
 
 love = {
   audio = {
-    newSource = function() return audioClip end,
+    newSource = function() return newAudioClip() end,
     play = function() end,
   },
   event = {
@@ -62,17 +72,17 @@ love = {
   getVersion = function() return 11 end,
   graphics = {
     getDimensions = function() return screen_width, screen_height end,
-    getFont = function() return font end,
+    getFont = function() return newFont() end,
     getHeight = function() return screen_height end,
     getStats = function() return { } end,
     getWidth = function() return screen_width end,
     line = function() end,
-    newCanvas = function() return image end,
-    newFont = function() return font end,
+    newCanvas = function() return newImage() end,
+    newFont = function() return newFont() end,
     newParticleSystem = function() return particleSystem end,
     newQuad = function() return { } end,
-    newImage = function() return image end,
-    newText = function() return setmetatable({}, { __index = text }) end,
+    newImage = newImage,
+    newText = function() return newText() end,
     origin = function() end,
     pop = function() end,
     print = function() end,
@@ -191,7 +201,7 @@ return {
   reset_keyboard = function()
     key_down = {}
   end,
-  font = font,
-  image = image,
-  text = text
+  newImage = newImage,
+  newText = newText,
+  newFont = newFont
 }

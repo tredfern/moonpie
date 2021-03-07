@@ -78,10 +78,11 @@ describe("Renderers", function()
     end)
 
     it("draws a background image with the background color if provided but not rectangle", function()
+      local image = mock_love.newImage()
       local b = Node({ backgroundColor = {0, 1, 1, 1 },
-        backgroundImage = mock_love.image,
-        width = mock_love.image.width,
-        height = mock_love.image.height
+        backgroundImage = image,
+        width = image.width,
+        height = image.height
       })
       mock(love)
       drawing.standard(b)
@@ -178,8 +179,9 @@ describe("Renderers", function()
   end)
 
   describe("Image", function()
+    local image = mock_love.newImage()
     before_each(function()
-      local c = { image = mock_love.image, width = 100, height = 100, color = { 1, 1, 0, 1 } }
+      local c = { image = image, width = 100, height = 100, color = { 1, 1, 0, 1 } }
       local node = Node(c)
       node:layout()
       drawing.image(node)
@@ -208,11 +210,11 @@ describe("Renderers", function()
     end)
 
     it("draws the image at the content position", function()
-      assert.spy(love.graphics.draw).was.called.with(mock_love.image, 0, 0, 0, 1, 1)
+      assert.spy(love.graphics.draw).was.called.with(image, 0, 0, 0, 1, 1)
     end)
 
     it("if no color is set just use white", function()
-      local c = { image = mock_love.image, width = 100, height = 100 }
+      local c = { image = mock_love.newImage(), width = 100, height = 100 }
       local node = Node(c)
       node:layout()
       drawing.image(node)
@@ -220,11 +222,12 @@ describe("Renderers", function()
     end)
 
     it("scales the image to the content area", function()
-      local c = { image = mock_love.image, width = 150, height = 150 }
+      local img = mock_love.newImage()
+      local c = { image = img, width = 150, height = 150 }
       local node = Node(c)
       node:layout()
       drawing.image(node)
-      assert.spy(love.graphics.draw).was.called.with(mock_love.image, 0, 0, 0, 1.5, 1.5)
+      assert.spy(love.graphics.draw).was.called.with(img, 0, 0, 0, 1.5, 1.5)
     end)
   end)
 
