@@ -31,4 +31,6 @@ function image.scaleHeight(i, target_height)
   return target_height / i:getHeight()
 end
 
+image.store = image_store
+
 return image
