@@ -13,7 +13,7 @@ describe("moonpie.redux.connect", function()
   local test_component = component("test_connect", function(props) return { a = props.a, b = props.b } end)
   local connected = connect(
     test_component,
-    function(state) return { a = state.a, b = state.b } end
+    function(state, c) return { a = state.a, b = state.b, comp = c } end
   )
 
   before_each(function()
@@ -49,5 +49,11 @@ describe("moonpie.redux.connect", function()
     local c = connected()
     assert.equals("a", c.a)
     assert.equals("b", c.b)
+  end)
+
+  it("passes the component to map state to props", function()
+    local c = connected()
+    store.dispatch({ a = "v", b = "g" })
+    assert.equals(c, c.comp)
   end)
 end)

@@ -12,7 +12,7 @@ return function(component, map_state_to_props)
     local p = assign({}, initial_state, props)
     local c = component(p)
     c.__listener = function()
-      local v = map_state_to_props(store.getState())
+      local v = map_state_to_props(store.getState(), c)
       c:update(v)
     end
 
