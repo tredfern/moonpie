@@ -28,7 +28,9 @@ local newAudioClip = function()
   return setmetatable({
     pause = function() end,
     play = function() end,
+    seek = function() end,
     setLooping = function() end,
+    setPitch = function() end,
     setVolume = function() end,
     stop = function() end,
   }, { __newindex = function() error("Love does not allow this") end })
