@@ -53,6 +53,19 @@ describe("moonpie.redux.store", function()
     assert.equals(0, #store.getListeners())
   end)
 
+  it("properly handles when the listener that is garbage collected still calls other listeners", function()
+    store.createStore(function() end)
+    local listener = function() end
+    local listener2 = spy.new(function() end)
+    store.subscribe(listener)
+    store.subscribe(listener2)
+    listener = nil
+    assert.is_nil(listener) -- kind of annoying workaround for luacheck error
+    collectgarbage()
+    store.dispatch({})
+    assert.spy(listener2).was.called()
+  end)
+
   it("provides access to the current version of state", function()
     local reduce_state = {}
     local initial_state = {}

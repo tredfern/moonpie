@@ -11,7 +11,7 @@ local listeners = setmetatable({}, { __mode = "v" })
 local state = {}
 
 local function triggerListeners()
-  for _, v in ipairs(listeners) do
+  for _, v in pairs(listeners) do
     v()
   end
 end
