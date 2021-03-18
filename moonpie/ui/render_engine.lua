@@ -125,6 +125,23 @@ function RenderEngine.paint()
   end
 end
 
+local function drawRegion(node)
+  if node.hidden then return end
+  local box = node.box:region()
+  love.graphics.setColor(1, 0, 1, 1)
+  love.graphics.rectangle("line", box.left, box.top, box.right - box.left, box.bottom - box.top)
+
+  for _, c in ipairs(node.children) do
+    drawRegion(c)
+  end
+end
+
+function RenderEngine.paintRegions()
+  for _, v in ipairs(RenderEngine.orderedLayers()) do
+    drawRegion(v)
+  end
+end
+
 local function getNodeLayer(node)
   local layer = node.parent
   while layer.parent ~= nil and layer.parent.parent ~= nil do

@@ -57,14 +57,15 @@ local function getRegion(box)
   local cx, cy = 0, 0
   if box.parent then
     r = box.parent:region()
-    cx = box.parent.borderPosition.x + box.parent.padding.left
-    cy = box.parent.borderPosition.y + box.parent.padding.top
+    cx = box.parent.border.left + box.parent.padding.left
+    cy = box.parent.border.top + box.parent.padding.top
   end
+
   box.cachedRegion = region(
-    r.left + cx + box.x + box.borderPosition.x,
-    r.top + cy + box.y + box.borderPosition.y,
-    r.left + cx + box.x + box.borderPosition:right(),
-    r.top + cy + box.y + box.borderPosition:bottom()
+    r.left + cx + box.x + box.margin.left,
+    r.top + cy + box.y + box.margin.top,
+    r.left + cx + box.x + box.width - box.margin.right,
+    r.top + cy + box.y + box.height - box.margin.bottom
   )
 
   box.updateRegion = false
