@@ -24,15 +24,20 @@ local newImage = function()
   }, { __newindex = function() error("Love does not allow this") end })
 end
 
-local newAudioClip = function()
+local function newAudioClip()
   return setmetatable({
-    pause = function() end,
-    play = function() end,
+    _isPlaying = false, _isPaused = false, _isLooping = false,
+    clone = function() return newAudioClip() end,
+    isLooping = function(self) return self._isLooping end,
+    isPaused = function(self) return self._isPaused end,
+    isPlaying = function(self) return self._isPlaying end,
+    pause = function(self) self._isPaused = true end,
+    play = function(self) self._isPlaying = true end,
     seek = function() end,
-    setLooping = function() end,
+    setLooping = function(self) self._isLooping = true end,
     setPitch = function() end,
     setVolume = function() end,
-    stop = function() end,
+    stop = function(self) self._isPlaying = false end,
   }, { __newindex = function() error("Love does not allow this") end })
 end
 
@@ -203,6 +208,7 @@ return {
   reset_keyboard = function()
     key_down = {}
   end,
+  newAudioClip = newAudioClip,
   newImage = newImage,
   newText = newText,
   newFont = newFont

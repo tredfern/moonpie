@@ -12,7 +12,7 @@ describe("moonpie.audio", function()
     MockLove.mock(love.audio, "newSource", spy.new(function() return audioFile end))
 
     local sound = audio.getStatic("assets/sound/file")
-    assert.equals(audioFile, sound)
+    assert.equals(audioFile, sound.source)
     assert.spy(love.audio.newSource).was.called_with("assets/sound/file", "static")
   end)
 
@@ -21,7 +21,7 @@ describe("moonpie.audio", function()
     MockLove.mock(love.audio, "newSource", spy.new(function() return audioFile end))
 
     local sound = audio.getStreaming("assets/sound/file")
-    assert.equals(audioFile, sound)
+    assert.equals(audioFile, sound.source)
     assert.spy(love.audio.newSource).was.called_with("assets/sound/file", "stream")
   end)
 

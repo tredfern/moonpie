@@ -3,6 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
+local SourceHandler = require "moonpie.audio.source_handler"
 local Audio = { }
 
 local resourcePool = {
@@ -13,7 +14,7 @@ local resourcePool = {
 local function getSoundData(fileName, mode)
   resourcePool[mode][fileName] =
     resourcePool[mode][fileName]
-      or love.audio.newSource(fileName, mode)
+      or SourceHandler:new(love.audio.newSource(fileName, mode))
   return resourcePool[mode][fileName]
 end
 
