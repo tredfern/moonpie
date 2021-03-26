@@ -66,4 +66,10 @@ describe("moonpie.math", function()
     assert.equals(-1, math_ext.sign(-1))
     assert.equals(-1, math_ext.sign(-283))
   end)
+
+  it("can return a random float value in range", function()
+    for _ = 1,100 do
+      assert.in_range(1.2, 2.7, math_ext.prandom(1.2, 2.7))
+    end
+  end)
 end)
