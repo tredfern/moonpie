@@ -32,4 +32,10 @@ function SourceHandler:play(setupSound)
   return instance
 end
 
+function SourceHandler:stop()
+  for _, v in ipairs(self.instances) do
+    v:stop()
+  end
+end
+
 return class(SourceHandler)
