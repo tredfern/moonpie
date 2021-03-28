@@ -10,6 +10,7 @@ return {
   concatArray = require "moonpie.tables.concat_array",
   copyKeys = require "moonpie.tables.copy_keys",
   countBy = require "moonpie.tables.count_by",
+  countKeys = require "moonpie.tables.count_keys",
   findFirst = require "moonpie.tables.find_first",
   groupBy = require "moonpie.tables.group_by",
   hasKeys = require "moonpie.tables.has_keys",
