@@ -21,8 +21,13 @@ local function nextresult(...)
   return results:dequeue()
 end
 
+local function reset()
+  results:clear()
+end
+
 math.random = nextresult
 
 return {
-  setreturnvalues = setreturnvalues
+  setreturnvalues = setreturnvalues,
+  reset = reset
 }
