@@ -30,9 +30,8 @@ function store.dispatch(action, bypass_trigger)
   if action == nil then return end
 
   -- move to middleware?
-  if is_callable(action) or is_callable(action.payload) then
-    local f = is_callable(action) and action or action.payload
-    f(
+  if is_callable(action) then
+    action(
       store.invertedDispatch,
       store.getState
     )

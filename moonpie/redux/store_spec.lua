@@ -117,17 +117,6 @@ describe("moonpie.redux.store", function()
     assert.is_false(store.getState().in_conversation)
   end)
 
-  it("treats any action with payload as a function like a dispatchable action", function()
-    local payload = spy.new(function() end)
-    local action = {
-      type = "SOME_TYPE",
-      payload = payload
-    }
-
-    store.dispatch(action)
-    assert.spy(payload).was.called()
-  end)
-
   it("will call a table if callable", function()
     store.createStore(function() end)
     local called = false
