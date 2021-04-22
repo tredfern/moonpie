@@ -38,4 +38,14 @@ function Rectangle:intersects(rect)
     rect:top() < self:bottom()
 end
 
+function Rectangle:overlap(rect)
+  if self:intersects(rect) then
+    local x = math.max(self:left(), rect:left())
+    local y = math.max(self:top(), rect:top())
+    local w = math.min(self:right(), rect:right()) - x
+    local h = math.min(self:bottom(), rect:bottom()) - y
+    return Rectangle.new(x,y,w,h)
+  end
+end
+
 return Rectangle
