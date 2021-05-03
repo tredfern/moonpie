@@ -177,4 +177,17 @@ describe("moonpie.redux.store", function()
       assert.spy(reducer).was.called_with(state, valid_action)
     end)
   end)
+
+  it("can filter logging for certain action types", function()
+    local logger = require "moonpie.logger"
+    spy.on(logger, "debug")
+
+    store.logFilterFor("ACTION_B")
+    store.dispatch({ type = "ACTION_A" })
+    store.dispatch({ type = "ACTION_B" })
+    store.dispatch({ type = "ACTION_C" })
+
+    assert.spy(logger.debug).was.called(1)
+
+  end)
 end)

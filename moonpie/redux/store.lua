@@ -4,11 +4,14 @@
 -- https://opensource.org/licenses/MIT
 
 local logger = require "moonpie.logger"
+local tables = require "moonpie.tables"
 local is_callable = require "moonpie.utility.is_callable"
+
 local store = { }
 local reducerHandler
 local listeners = setmetatable({}, { __mode = "v" })
 local state = {}
+local logFilter = { }
 
 local function triggerListeners()
   for _, v in pairs(listeners) do
@@ -42,7 +45,9 @@ function store.dispatch(action, bypass_trigger)
       return
     end
 
-    logger.debug("Store Dispatch: %s", action.type)
+    if not tables.isEmpty(logFilter) and tables.any(logFilter, function(f) return f == action.type end) then
+      logger.debug("Store Dispatch: %s", action.type)
+    end
     state = reducerHandler(state, action)
     if not bypass_trigger then
       triggerListeners()
@@ -60,6 +65,13 @@ end
 
 function store.getListeners()
   return listeners
+end
+
+function store.logFilterFor(...)
+  local items = tables.pack(...)
+  for _, filter in ipairs(items) do
+    table.insert(logFilter, filter)
+  end
 end
 
 return store
