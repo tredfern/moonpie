@@ -5,7 +5,6 @@
 
 local str = require "moonpie.utility.string"
 local reverse = require "moonpie.collections.iterators.reverse"
-local list = require "moonpie.collections.list"
 
 local styles = {}
 
@@ -49,7 +48,7 @@ function styles.compute(source, parentStyle, flags)
     _source = source,
     _parent = parentStyle,
     _flags = flags or {},
-    styles = list:new() }, {
+    styles = {} }, {
      __index = getValue
    })
 
@@ -60,12 +59,12 @@ function styles.compute(source, parentStyle, flags)
   if s then
     local style_list = str.split(s)
     for v in reverse(style_list) do
-      result.styles:add(styles[v])
+      table.insert(result.styles, styles[v])
     end
   end
 
   if source.name and styles[source.name] then
-    result.styles:add(styles[source.name])
+    table.insert(result.styles, styles[source.name])
   end
 
   return result

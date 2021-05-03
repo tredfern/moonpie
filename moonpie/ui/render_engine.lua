@@ -24,7 +24,7 @@ function RenderEngine.removeComponentIfExists(component)
 end
 
 function RenderEngine.removeNode(node)
-  node.parent.children:remove(node)
+  tables.removeItem(node.parent.children, node)
   node:destroy()
 end
 

@@ -7,7 +7,6 @@ local BoxModel = require("moonpie.ui.box_model")
 local layouts = require("moonpie.ui.layouts")
 local drawing = require("moonpie.ui.drawing")
 local styles = require("moonpie.ui.styles")
-local List = require ("moonpie.collections.list")
 local safecall = require "moonpie.utility.safe_call"
 local statistics = require "moonpie.statistics"
 local mouse = require "moonpie.mouse"
@@ -25,14 +24,14 @@ return function(component, parent)
 
   n.parent = parent
   n.component = component
-  n.children = List:new()
+  n.children = {}
   n.box = BoxModel(n, parent.box)
 
   n.add = function(self, ...)
     for _, v in ipairs({...}) do
       v.parent = self
       v.box:setParent(self.box)
-      self.children[#self.children + 1] = v
+      table.insert(self.children, v)
     end
   end
 
@@ -40,7 +39,7 @@ return function(component, parent)
     for _, v in ipairs(self.children) do
       safecall(v.destroy, v)
     end
-    self.children:clear()
+    self.children = {}
   end
 
   n.hover = function(self)
