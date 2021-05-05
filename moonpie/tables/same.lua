@@ -4,6 +4,8 @@
 -- https://opensource.org/licenses/MIT
 
 return function(t1, t2)
+  if t1 == nil and t2 == nil then return true end
+  if t1 == nil or t2 == nil then return false end
   if #t1 ~= #t2 then return false end
 
   for i, v in ipairs(t1) do

@@ -17,4 +17,13 @@ describe("moonpie.tables.same", function()
     assert.is_false(same(t1, t4))
   end)
 
+  it("returns true if both are nil", function()
+    assert.is_true(same(nil, nil))
+  end)
+
+  it("returns false if one of them is nil", function()
+    assert.is_false(same({}, nil))
+    assert.is_false(same(nil, {}))
+  end)
+
 end)
