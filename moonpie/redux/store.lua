@@ -83,10 +83,17 @@ function store.logFilterFor(...)
   end
 end
 
-function store.listenFor(action, callback)
+function store.subscribeTo(action, callback)
   actionListeners[action] = actionListeners[action] or {}
   local cbs = actionListeners[action]
   cbs[#cbs + 1] = callback
+end
+
+function store.unsubscribe(callback)
+  tables.removeItem(listeners, callback)
+  for _, actions in pairs(actionListeners) do
+    tables.removeItem(actions, callback)
+  end
 end
 
 return store

@@ -194,9 +194,21 @@ describe("moonpie.redux.store", function()
   it("can trigger callbacks for specific actions", function()
     local action = { type = "TRIGGER_CALLBACK" }
     local cb = spy.new(function() end)
-    store.listenFor("TRIGGER_CALLBACK", cb)
+    store.subscribeTo("TRIGGER_CALLBACK", cb)
 
     store.dispatch(action)
     assert.spy(cb).was.called_with(action, match.is_function(), match.is_function())
+  end)
+
+  it("can unsubscribe from callbacks and removes from any listener", function()
+    local cb = spy.new(function() end)
+    store.subscribeTo("TRIGGER_CALLBACK", cb)
+    store.subscribe(cb)
+
+    store.unsubscribe(cb)
+    -- No listen events should occur
+    local action = { type = "TRIGGER_CALLBACK" }
+    store.dispatch(action)
+    assert.spy(cb).was.not_called()
   end)
 end)
