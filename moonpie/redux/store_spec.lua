@@ -190,4 +190,13 @@ describe("moonpie.redux.store", function()
     assert.spy(logger.debug).was.called(1)
 
   end)
+
+  it("can trigger callbacks for specific actions", function()
+    local action = { type = "TRIGGER_CALLBACK" }
+    local cb = spy.new(function() end)
+    store.listenFor("TRIGGER_CALLBACK", cb)
+
+    store.dispatch(action)
+    assert.spy(cb).was.called_with(action, match.is_function(), match.is_function())
+  end)
 end)

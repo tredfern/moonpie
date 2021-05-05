@@ -10,12 +10,21 @@ local is_callable = require "moonpie.utility.is_callable"
 local store = { }
 local reducerHandler
 local listeners = setmetatable({}, { __mode = "v" })
+local actionListeners = setmetatable({}, { __mode = "v" })
 local state = {}
 local logFilter = { }
 
-local function triggerListeners()
+local function triggerListeners(action)
   for _, v in pairs(listeners) do
     v()
+  end
+
+  if type(action) == "table" and action.type then
+    if actionListeners[action.type] then
+      for _, v in pairs(actionListeners[action.type]) do
+        v(action, store.invertedDispatch, store.getState)
+      end
+    end
   end
 end
 
@@ -38,7 +47,7 @@ function store.dispatch(action, bypass_trigger)
       store.invertedDispatch,
       store.getState
     )
-    triggerListeners()
+    triggerListeners(action)
   else
     -- validate action
     if action.validate and not action:validate(state) then
@@ -50,7 +59,7 @@ function store.dispatch(action, bypass_trigger)
     end
     state = reducerHandler(state, action)
     if not bypass_trigger then
-      triggerListeners()
+      triggerListeners(action)
     end
   end
 end
@@ -72,6 +81,12 @@ function store.logFilterFor(...)
   for _, filter in ipairs(items) do
     table.insert(logFilter, filter)
   end
+end
+
+function store.listenFor(action, callback)
+  actionListeners[action] = actionListeners[action] or {}
+  local cbs = actionListeners[action]
+  cbs[#cbs + 1] = callback
 end
 
 return store
