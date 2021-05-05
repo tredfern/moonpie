@@ -27,6 +27,7 @@ return {
   pack = require "moonpie.tables.pack",
   pickRandom = require "moonpie.tables.pick_random",
   removeItem = require "moonpie.tables.remove_item",
+  same = require "moonpie.tables.same",
   select = require "moonpie.tables.select",
   shuffle = require "moonpie.tables.shuffle",
   slice = require "moonpie.tables.slice",
