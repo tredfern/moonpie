@@ -84,7 +84,8 @@ function store.logFilterFor(...)
 end
 
 function store.subscribeTo(action, callback)
-  actionListeners[action] = actionListeners[action] or {}
+  -- Callbacks should drop if they aren't held on to
+  actionListeners[action] = actionListeners[action] or setmetatable({}, { __mode = "v" })
   local cbs = actionListeners[action]
   cbs[#cbs + 1] = callback
 end
