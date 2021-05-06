@@ -14,9 +14,11 @@ local actionListeners = setmetatable({}, { __mode = "v" })
 local state = {}
 local logFilter = { }
 
-local function triggerListeners(action)
-  for _, v in pairs(listeners) do
-    v()
+local function triggerListeners(action, skipGlobal)
+  if not skipGlobal then
+    for _, v in pairs(listeners) do
+      v()
+    end
   end
 
   if type(action) == "table" and action.type then
@@ -38,7 +40,7 @@ function store.invertedDispatch(action)
   store.dispatch(action, true)
 end
 
-function store.dispatch(action, bypass_trigger)
+function store.dispatch(action, bypassGlobalTrigger)
   if action == nil then return end
 
   -- move to middleware?
@@ -58,9 +60,7 @@ function store.dispatch(action, bypass_trigger)
       logger.debug("Store Dispatch: %s", action.type)
     end
     state = reducerHandler(state, action)
-    if not bypass_trigger then
-      triggerListeners(action)
-    end
+    triggerListeners(action, bypassGlobalTrigger)
   end
 end
 
