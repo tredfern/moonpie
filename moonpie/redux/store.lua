@@ -10,7 +10,7 @@ local is_callable = require "moonpie.utility.is_callable"
 local store = { }
 local reducerHandler
 local listeners = setmetatable({}, { __mode = "v" })
-local actionListeners = setmetatable({}, { __mode = "v" })
+local actionListeners = {}
 local state = {}
 local logFilter = { }
 
