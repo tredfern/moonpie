@@ -19,8 +19,12 @@ jobs:
       run: |
         luarocks install luacheck
         luarocks install busted
+        luarocks install luacov
+        luarocks install luacov-coveralls
+        luarocks install luafilesystem
 
     - name: test
       run: |
         luacheck main.lua ./moonpie
         busted --run=travis
+        luacov-coveralls --exclude ./ext
