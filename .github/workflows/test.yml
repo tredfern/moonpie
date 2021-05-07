@@ -1,0 +1,25 @@
+name: test
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: leafo/gh-actions-lua@v8.0.0
+      with:
+        luaVersion: "luajit-2.1.0-beta3"
+
+    - uses: leafo/gh-actions-luarocks@v4.0.0
+
+    - name: build
+      run: |
+        luarocks install luacheck
+        luarocks install busted
+        luarocks make
+
+    - name: test
+      run: |
+        luacheck main.lua ./moonpie
+        busted --run=travis
