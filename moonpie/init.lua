@@ -60,8 +60,9 @@ function moonpie.paint()
   debug:update({ stats = stats, paint_timer = paint_timer, update_timer = update_timer })
 end
 
-function moonpie.render(layer_name, ...)
-  return RenderEngine.renderAll(layer_name, ...)
+function moonpie.render(node, layer_name)
+  layer_name = layer_name or "ui"
+  return RenderEngine.renderAll(layer_name, node)
 end
 
 function moonpie.update()
@@ -93,7 +94,7 @@ end
 
 function moonpie.load_debug()
   debug = moonpie.ui.components.debug_panel()
-  moonpie.render("debug", debug )
+  moonpie.render(debug, "debug")
   debug.hidden = true
   RenderEngine.layers.debug.backgroundColor = "transparent"
   RenderEngine.layers.debug.color = "background"
@@ -101,7 +102,7 @@ function moonpie.load_debug()
 end
 
 function moonpie.test_render(c)
-  return moonpie.render("unit_test", c)
+  return moonpie.render(c, "unit_test")
 end
 
 moonpie.ui.themes.standard(moonpie)

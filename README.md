@@ -1,68 +1,132 @@
 ![Read the Docs](https://img.shields.io/readthedocs/moonpie)
 [![Build Status](https://travis-ci.com/tredfern/moonpie.svg?branch=main)](https://travis-ci.com/tredfern/moonpie)
 [![Coverage Status](https://coveralls.io/repos/github/tredfern/moonpie/badge.svg?branch=master)](https://coveralls.io/github/tredfern/moonpie?branch=master)
-[![LOVE](https://img.shields.io/badge/L%C3%96VE-11.2-EA316E.svg)](http://love2d.org/)
+[![LOVE](https://img.shields.io/badge/L%C3%96VE-11.3-EA316E.svg)](http://love2d.org/)
 
-# moonpie
-Framework for Game Development in Love2D
+# Moonpie - A Comprehensive Framework for Love2D
+Moonpie is a closely knit collections of tools created for Love2D. It features a _React-style UI framework,_
+_Redux-style store/state management system, and suite of utilities_ to assist in common tasks.
 
-## Motivation
-I love working with [Love2d](http://love2d.org). I like that there was limited structure that allows for 
-different approaches to developing the code. I like that it feels focused on providing a foundation without
-an overly rigid structure.
+## Why?
+[Love2D](http://love2d.org) allows for a lot of flexibility in how you approach development. And this is wonderful. It allows for the organization of the code to match the game.
 
-And, whenever I work in it, I wanted a structure that worked for me. And that is where Moonpie evolved from.
-Primarily it is focused around providing an approach to GUI that is _responsive_ and easy to craft user experiences.
-As the UI matured I found I needed to bring more and more pieces together. Those pieces have evolved into this
-framework.
+That opens up possibilities. 
+* Could games be developed with a different approach than Unity or other game libraries have traditionally organized around? 
+* Could we take approaches from other software to help organize our games?
 
-## UI Components
+Moonpie is an attempt to answer those questions by:
+* Providing a UI framework that allows for responsive-style modular components
+* A state management system with events
+* Utilities that allow for expressive coding
+
+### But will it blend?
+I cannot say Moonpie is ready for large-scale projects. At this time, I'm actively using it in my own personal project and I am not disappointed. 
+
+It can demonstrate some very interesting approaches that at least for complex-rule intensive games provides the structure necessary to manage the code.
+
+---
+## Features
+### UI Components
 
 UI components are reusable blocks of code that represent the controls on the screen. 
 
+```lua
+local moonpie = require "moonpie"
+
+-- Define a new component
+local title = moonpie.ui.components(
+  "title", -- Name for the component
+  function(props) -- Render function that defines what the component displays
+    -- Returns a table that represents the component
+    return { 
+      -- Index elements inside the table define what to render
+      moonpie.ui.components.h1({ text = props.title_text }),
+      moonpie.ui.components.hr()
+    }
+  end
+)
+
+-- Tell moonpie to render this out with the text being "Hello World"
+moonpie.render(title({ title_text = "Hello World" }))
 ```
-moonpie = require "moonpie"
-moonpie.ui.components("fancy_title", function(props)
-  return {
-    moonpie.ui.components.h1({ text = props.title_text }),
-    moonpie.ui.components.hr()
+### Additional Features
+
+**Styling** 
+
+There are two main ways that you can style a component and it is modeled after HTML's implementation. Styles can be configured in a stylesheet to provide access globally or specific style properties can be passed to a component on construction.
+
+```lua
+local styles = require "moonpie.ui.styles"
+styles.title = {
+  margin = 5, -- will add margin of 5 pixels on all sides
+  padding = { left = 2, right = 10, top = 3, bottom = 5 }, -- padding and margin can be specified on each side
+  backgroundColor = { 1, 1, 1, 1 },
+}
+
+styles.custom = {
+  color = { 0, 0, 0, 1 }
+}
+
+moonpie.render(title({ styles = "custom", title_text = "Styled!" }))
+-- Will first pull the custom style
+-- And then pull the "title" style since the name of the component matches
+```
+
+### Store
+
+The store is modeled after Redux.
+1. Actions that are basic tables define how state should change
+2. Actions are dispatched to the store
+3. Store calls the reducer to handle the action
+4. Reducer returns an updated state
+
+
+```lua
+local action = {
+  type = "TODO_ADD",
+  payload = {
+    todo = "Write more code"
   }
+}
 
-end)
+local reducer = function(state, action)
+  if action.type == "TODO_ADD" then
+    table.insert(state.todos, action.payload.todo)
+  end
+end
 
-moonpie.render("ui", moonpie.ui.components.fancy_title({ title_text = "Hello World" }))
+local store = require "moonpie.redux.store"
+store.createStore(reducer, { todos = {} })
+store.dispatch(action)
+local state = store.getState()
+print(state.todos[1])
+-- "Write more code"
 ```
 
-## Rendering
+### Additional Functionality
 
-Rendering is performed by traversing the tree and then rendering, if appropriate:
- 1. The element's background
- 1. The element's border
- 1. The element's children
- 1. The element's image
+**Slices** - To help segment state, reducers can be combined. A routine for creating slices helps handle the basic logic to process actions.
 
-## Components
+**Thunks** - Dispatching callable tables or functions can be used to handle complex actions. When a function is dispatched it will be called by the store with a dispatch parameter to process complex action sequences.
 
-Components are the reusable bits of logic. All the controls are based on components. The idea is to compose
-more complex components by combining the features of more simple ones. Components are defined by creating
-functions that define the behavior to return the appropriate table element to represent a new version of that
-component.
+**Subscribing** - Whenever the state is updated it will trigger event listeners. It is possible to listen for specific actions as well as general updates whenever the state changes.
 
-## Keyboard
+**Connect to UI** - There is a helper to connect the UI to changes in state. This makes it possible to update UI components in response to UI changes.
 
-Moonpie supports adding hotkeys that can trigger callbacks.
+## Advanced Uses
 
-```
-  moonpie.keyboard:hotkey("escape", function() ... end)
-```
+* Components should be broken down like React Components
+* Components will not refresh unless specified to update
+* Consider what level components should update, what is the
+  appropriate place to manage state?
 
-## Challenges / Changes / Ideas / Todo
+## What about IMGUI, or other options?
 
- 1. Reduce the amount of work by using canvases to handle elements that are not changing
- 1. Every index lookup into a node is recomputing the styles and then returning the key. 
-  This is because each update the style could have changed (mouse hover for example). But
-  within a frame it should not. Precomputing styles could reduce burden of the engine.
- 1. Should be able to remove a component completely from the render tree.
+**IMGUI** - Any implementation for UI or Framework needs to make tradeoffs. IMGUI's are great for eliminating the need to track state within components. Moonpie doesn't try to compete in that style of implementation. Moonpie does provide the ability to create highly-modular, reusable bits of UI logic with state properly managed and encapsulated in a store. This makes it testable and the responsive layout behavior can be a great win for quick prototyping projects.
+
+**Window Style** - Another common pattern in game GUI libraries is an implementation like Windows with different GUI elements in a hierarchy that can be moved around. I have written several implementations of this kind of UI in the past and I find them to be problematic when using new resolutions. I also felt there was a lot of code to configure these properly. Moonpie tries to keep that configuration logic to a minimum. And by removing the window style implementation it frees up thinking about what components are displaying/doing as opposed to how they should look.
+
+
 
 ## Goals
  * 100% Unit Test Coverage
@@ -71,6 +135,7 @@ Moonpie supports adding hotkeys that can trigger callbacks.
  * Layout without specifying every pixel
  * Layout is dynamic to different screen sizes
  * Handling user input is intuitive and testable
+ * Organize code that allows separation of concerns
 
 ## Demo
 ![Demo](screenshots/moonpie_progress.gif)

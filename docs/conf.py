@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'Moonpie'
-copyright = '2020, Trevor Redfern'
+copyright = '2021, Trevor Redfern'
 author = 'Trevor Redfern'
 
 
