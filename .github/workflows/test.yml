@@ -27,4 +27,8 @@ jobs:
       run: |
         luacheck main.lua ./moonpie
         busted --run=travis
-        luacov-coveralls --exclude ./ext
+
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
