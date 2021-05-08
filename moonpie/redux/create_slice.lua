@@ -8,11 +8,12 @@ local safeCall = require "moonpie.utility.safe_call"
 return function(slice_table)
   return setmetatable(slice_table, {
     __call = function(self, state, action)
+      state = state or safeCall(slice_table.initialState) or {}
       if self[action.type] then
         return self[action.type](state, action)
       end
 
-      return state or safeCall(slice_table.initialState) or {}
+      return state
     end
   })
 end
