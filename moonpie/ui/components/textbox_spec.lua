@@ -65,7 +65,7 @@ describe("Components - Textbox", function()
 
 
     -- Mock font always returns 10 for width and height
-    local render = moonpie.test_render(Components.textbox { id = "tb_test", text = "test" })
+    local render = moonpie.testRender(Components.textbox { id = "tb_test", text = "test" })
     local tb = render:findByID("tb_test")
     tb.font = mock_love.newFont()
     tb:drawComponent()

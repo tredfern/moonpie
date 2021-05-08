@@ -101,7 +101,7 @@ function moonpie.load_debug()
   keyboard:hotkey("`", function() debug.hidden = not debug.hidden end)
 end
 
-function moonpie.test_render(c)
+function moonpie.testRender(c)
   return moonpie.render(c, "unit_test")
 end
 

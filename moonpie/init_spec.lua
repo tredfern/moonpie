@@ -129,9 +129,9 @@ describe("Initialize Moonpie", function()
     assert.not_nil(moonpie.utility.csv)
   end)
 
-  it("test_render will return a rendered version of a component", function()
+  it("testRender will return a rendered version of a component", function()
     local c = moonpie.ui.components.text { id = "foo", mounted = spy.new(function() end) }
-    local node = moonpie.test_render(c)
+    local node = moonpie.testRender(c)
     assert.not_nil(node:findByID("foo"))
     assert.spy(c.mounted).was.called()
   end)

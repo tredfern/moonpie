@@ -18,7 +18,7 @@ describe("moonpie.ui.components.progress_bar", function()
   it("draws a rectangle based on the current progress to the maximum", function()
     local color = { 1, 1, 1, 1 }
     local pb = progress_bar { id = "pb", width = 100, height = 50, color = color }
-    local out = moonpie.test_render(pb)
+    local out = moonpie.testRender(pb)
     local node = out:findByID("pb")
     pb.current = 25
     mock_love.mock(love.graphics, "setColor", spy.new(function() end))
