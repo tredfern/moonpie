@@ -3,8 +3,10 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
+local isCallable = require "moonpie.utility.is_callable"
+
 return function(f, ...)
-  if f then
+  if isCallable(f) then
     return f(...)
   end
 end
