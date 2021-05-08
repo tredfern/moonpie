@@ -23,6 +23,12 @@ describe("Colors", function()
     assert.is_true(light_red[1] > 0)
   end)
 
+  it("will lookup the color if necessary to lighten it", function()
+    colors.lightenTest = "red"
+    local clr = colors.lighten(colors.lightenTest, 1.2)
+    assert.is_true(clr[1] > 0)
+  end)
+
   it("can decipher whether the passed in value is a color or a lookup", function()
     colors.some_color = {1, 1, 1, 1}
     assert.same(colors.some_color, colors("some_color"))

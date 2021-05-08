@@ -4,20 +4,20 @@
 [![LOVE](https://img.shields.io/badge/L%C3%96VE-11.3-EA316E.svg)](http://love2d.org/)
 
 # Moonpie - A Comprehensive Framework for Love2D
-Moonpie is a closely knit collections of tools created for Love2D. It features a _React-style UI framework,_
-_Redux-style store/state management system, and suite of utilities_ to assist in common tasks.
+Moonpie combines a _React-style Component UI,_
+_Redux-style store/state management system, and robust suite of utilities_ to assist in building Love2D games.
 
 ## Why?
-[Love2D](http://love2d.org) allows for a lot of flexibility in how you approach development. And this is wonderful. It allows for the organization of the code to match the game.
+[Love2D](http://love2d.org) is _FANTASTIC_!. It allows for a lot of flexibility in how you approach development. Combined with the focus on Lua, a language the grants a lot of power to programmers to define their structure, there are limitless ways to build and organize your Love2D projects.
 
-That opens up possibilities. 
-* Could games be developed with a different approach than Unity or other game libraries have traditionally organized around? 
-* Could we take approaches from other software to help organize our games?
+That flexibility opened the possibility to explore the question, _could game applications be structured similar to traditional enterprise applications?_
 
-Moonpie is an attempt to answer those questions by:
+Moonpie is an attempt to answer that by:
 * Providing a UI framework that allows for responsive-style modular components
 * A state management system with events
 * Utilities that allow for expressive coding
+* An emphasis on unit-testable components
+* 
 
 ### But will it blend?
 I cannot say Moonpie is ready for large-scale projects. At this time, I'm actively using it in my own personal project and I am not disappointed. 

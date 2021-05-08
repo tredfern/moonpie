@@ -51,11 +51,12 @@ function colors.redistribute_rgb(clr)
 end
 
 function colors.lighten(clr, multiplier)
+  local c = colors(clr)
   return colors.redistribute_rgb({
-    clr[1] * multiplier,
-    clr[2] * multiplier,
-    clr[3] * multiplier,
-    clr[4]
+    c[1] * multiplier,
+    c[2] * multiplier,
+    c[3] * multiplier,
+    c[4]
   })
 end
 
