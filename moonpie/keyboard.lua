@@ -20,7 +20,7 @@ function Keyboard:keyPressed(key, scancode, isrepeat)
     focused:keyPressed(key, scancode, isrepeat)
   end
 
-  local hot = self.hot_keys[self:calculateHotkey(key)]
+  local hot = self.hot_keys[self:calculateHotkey(key)] or self.hot_keys.any
   if hot then hot() end
 end
 

@@ -63,6 +63,19 @@ describe("Keyboard", function()
       assert.spy(cb).was.called()
     end)
 
+    it("calls the any function if any key is pressed", function()
+      local cb = spy.new(function() end)
+
+      keyboard:hotkey("any", cb)
+      keyboard:keyPressed("z")
+      keyboard:keyPressed("`")
+      keyboard:keyPressed("9")
+      keyboard:keyPressed("space")
+      keyboard:keyPressed("[")
+
+      assert.spy(cb).was.called(5)
+    end)
+
     describe("modifier keys", function()
       it("supports shift", function()
         local cb = spy.new(function() end)
