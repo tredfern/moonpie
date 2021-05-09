@@ -8,11 +8,13 @@ local image = require "moonpie.graphics.image"
 local layouts = require "moonpie.ui.layouts"
 
 Component("image", function(props)
+  local source = props.source
+
   local i = {
     layout = layouts.image,
-    src = props.src
+    source = source
   }
 
-  i.image = image.load(props.src)
+  i.image = image.load(source)
   return i
 end)

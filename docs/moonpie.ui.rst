@@ -94,10 +94,10 @@ textwrap
 : specifies that whether text should wrap. Default behavior if nil is to wrap text. If set to 'none' will disable wrapping
 
 Default Styles
---------------
+~~~~~~~~~~~~~~
 
 Buttons
-~~~~~~~
+-------
 
 button-small
   Makes a smaller button for those tinier button needs
@@ -110,3 +110,14 @@ button-warning
 
 button-danger
   A style that uses a red/fuschia background color
+
+
+Built In Components
+~~~~~~~~~~~~~~~~~~~
+
+image
+-----
+
+source
+  The path to the image to be loaded
+

@@ -43,12 +43,12 @@ return function()
         items = {
           {
             display = "inline",
-            components.image({ src = "assets/images/cat.jpg", width = 40, height = 40 }),
+            components.image({ source = "assets/images/cat.jpg", width = 40, height = 40 }),
             components.text({ text = "CAT", margin = { left = 3 }, style = "align-middle" })
           },
           {
             display = "inline",
-            components.image({ src = "assets/images/big.jpg", width = 40, height = 40 }),
+            components.image({ source = "assets/images/big.jpg", width = 40, height = 40 }),
             components.text({ text = "BIG", margin = { left = 3}, style = "align-middle" })
           },
         }
