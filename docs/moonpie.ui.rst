@@ -115,8 +115,36 @@ button-danger
 Built In Components
 ~~~~~~~~~~~~~~~~~~~
 
+body
+~~~~
+
+The *body* component defaults to a full screen component that uses the *background* color by default. This will
+create a clean empty background for the rest of the components to render upon. The only custom parameter takes
+the contents to render.
+
+Properties
+----------
+
+contents
+  A table that will be rendered out within the body
+
+**Example**
+
+.. code-block:: lua
+
+  local Components = require "moonpie.ui.components"
+
+  local body = Components.body {
+    content = {
+      -- custom screen elements
+    }
+  }
+
 image
------
+~~~~~
+
+Properties
+----------
 
 source
   The path to the image to be loaded

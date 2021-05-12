@@ -6,16 +6,17 @@
 describe("Body Component", function()
   local components = require "moonpie.ui.components"
 
-  it("will take any number of components passed in as props and render them out", function()
-    local b = components.body({
-      { text = "comp1" },
-      { text = "comp2" },
-      { text = "comp3" }
-    })
+  it("takes contents and renders them out", function()
+    local b = components.body {
+      content = {
+        { id = "comp1" },
+        { id = "comp2" },
+        { id = "comp3" }
+      }
+    }
 
-    assert.equals(3, #b)
-    assert.equals("comp1", b[1].text)
-    assert.equals("comp2", b[2].text)
-    assert.equals("comp3", b[3].text)
+    assert.not_nil(b:findByID("comp1"))
+    assert.not_nil(b:findByID("comp2"))
+    assert.not_nil(b:findByID("comp3"))
   end)
 end)

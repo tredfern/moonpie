@@ -6,11 +6,7 @@
 local Component = require "moonpie.ui.components.component"
 
 Component("body", function(props)
-  local b = {}
-
-  for i, v in ipairs(props) do
-    b[i] = v
-  end
-
-  return b
+  return {
+    props.content
+  }
 end)
