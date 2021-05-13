@@ -30,11 +30,15 @@ app.layouts = moonpie.collections.iterators.cycle({
 --
 function app.render_next()
   local l = app.layouts()
-  moonpie.render(components.body({
-    app.header(l.heading),
-    l.layout(),
-    app.footer()
-  }))
+  moonpie.render(
+    components.body {
+      content = {
+        app.header(l.heading),
+        l.layout(),
+        app.footer()
+      }
+    }
+  )
 end
 
 --
