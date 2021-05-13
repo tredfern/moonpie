@@ -79,6 +79,19 @@ Component Properties
 logger
   Easy access to the logger library
 
+Component Events
+^^^^^^^^^^^^^^^^
+
+eventUpdated(component, changes)
+  Called whenever the component receives an update call.
+
+.. code-block:: lua
+
+  local callbackRoutine = function(component, changes) print(changes.newValue) end
+  local c = component { eventUpdated = callbackRoutine }
+  c:update({ newValue = "foo" }) 
+  -- prints "foo"
+
 moonpie.ui.styles
 ~~~~~~~~~~~~~~~~~
 

@@ -94,6 +94,14 @@ describe("Component", function()
         assert.equals(c, updateQueue[1])
         assert.is_true(c:hasUpdates())
       end)
+
+      it("can trigger a callback when it's been updated", function()
+        local cb = spy.new(function() end)
+        local c = Component.updates { eventUpdated = cb }
+        local change = { a = "abcd" }
+        c:update(change)
+        assert.spy(cb).was.called_with(c, change)
+      end)
     end)
 
     describe("Copiable properties", function()

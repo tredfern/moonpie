@@ -14,6 +14,7 @@ local copy_props = {
   "clickSound",
   "color",
   "drawComponent",
+  "eventUpdated",
   "fontName",
   "fontSize",
   "height",
@@ -78,6 +79,9 @@ function ComponentFactory.addComponentMethods(c)
     if tables.copyKeys(new, self, true) then
       self:flagUpdates(true)
       updateQueue:push(self)
+      if self.eventUpdated then
+        self:eventUpdated(new)
+      end
     end
   end
 
