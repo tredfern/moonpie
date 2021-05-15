@@ -5,13 +5,16 @@
 
 
 
-return function(type, handler)
+return function(type, handler, validate)
   return setmetatable({
     type = type,
-    handler = handler
+    handler = handler,
+    validate = validate
   }, {
     __call = function(self, dispatch, getState)
-      return self.handler(dispatch, getState)
+      if not self.validate or self.validate(getState) then
+        return self.handler(dispatch, getState)
+      end
     end
   })
 end
