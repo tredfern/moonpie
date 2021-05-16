@@ -37,6 +37,7 @@ end
 
 return function(stub_state)
   stub_state = stub_state or {}
+  store.clearSubscribers()
   store.createStore(mock_reducer, stub_state)
   return store
 end

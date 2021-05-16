@@ -211,4 +211,13 @@ describe("moonpie.redux.store", function()
     store.dispatch(action)
     assert.spy(cb).was.not_called()
   end)
+
+  it("can clear all subscribers", function()
+    local cb = spy.new(function() end)
+    store.subscribe(cb)
+    store.clearSubscribers()
+
+    store.dispatch({ type = "ACTION" })
+    assert.spy(cb).was.not_called()
+  end)
 end)

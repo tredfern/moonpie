@@ -97,4 +97,9 @@ function store.unsubscribe(callback)
   end
 end
 
+function store.clearSubscribers()
+  listeners = {}
+  actionListeners = {}
+end
+
 return store
