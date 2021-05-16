@@ -39,6 +39,13 @@ Component Extensions
     assert.contains_component_with_id("12345", my_comp())
   end)
 
+Matchers
+^^^^^^^^
+Matchers are used when validating arguments to spies.
+
+matches.in_range(low, high)
+  Returns true if the value is in the range specified. Automatically sorts the low/high values by size when passed in.
+
 
 Mock Store
 ^^^^^^^^^^
