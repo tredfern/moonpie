@@ -3,6 +3,18 @@ moonpie.tables
 
 The tables utilities provides various mini-functions for helpful operations.
 
+tables.count(set, func)
+  Returns the count of items that match the comparison function passed in.
+
+.. code-block:: lua
+
+  local set = { 1, 2, 3, 4, 5, 6 }
+  local compare = function(v) return v % 2 == 0 end
+
+  print(tables.count(set, compare))
+  -- 3
+
+
 tables.deepCompare(tbl1, tbl2, ignoreMT)
   Tests the values in the the 2 tables to see if they look the same without having to be the same table instance.
 

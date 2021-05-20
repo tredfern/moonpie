@@ -9,6 +9,7 @@ return {
   assign = require "moonpie.tables.assign",
   concatArray = require "moonpie.tables.concat_array",
   copyKeys = require "moonpie.tables.copy_keys",
+  count = require "moonpie.tables.count",
   countBy = require "moonpie.tables.count_by",
   countKeys = require "moonpie.tables.count_keys",
   deepCompare = require "moonpie.tables.deep_compare",
