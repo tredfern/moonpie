@@ -8,4 +8,12 @@ describe("moonpie.test_helpers.custom_assertions", function()
     assert.is_not.fail()
   end)
 
+  it("can detect if a callable table or function is in a value", function()
+    assert.callable(function() end)
+    local ct = setmetatable({}, { __call = function() end })
+    assert.callable(ct)
+    assert.not_callable({})
+    assert.not_callable(31832)
+  end)
+
 end)

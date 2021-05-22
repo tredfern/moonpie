@@ -3,11 +3,23 @@ moonpie.test_helpers
 
 Test helpers and extra assertions are provided for the Busted <http://olivinelabs.com/busted/> testing framework.
 
+New Assertions
+~~~~~~~~~~~~~~
+
+callable(expectedCallable)
+  Returns true if the value passed in is a callable table or a function.
+
+.. code-block:: lua
+
+  assert.callable(function() end) -- true
+  assert.callable({}) -- false
+  assert.callable(setmetatable({}, { __call = function() end })) -- true
 
 Array Extensions
 ~~~~~~~~~~~~~~~~
 
-A number of array helpers are available:
+array_includes(value, table, compare)
+  Checks whether the value exists in the table. A custom comparison function can be provide to search for the value
 
 .. code-block:: lua
 
