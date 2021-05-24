@@ -5,8 +5,11 @@
 
 return {
   csv = require "moonpie.ext.csv",
+  ensureKey = require "moonpie.utility.ensure_key",
   files = require "moonpie.utility.files",
   function_timer = require "moonpie.utility.function_timer",
+  isCallable = require "moonpie.utility.is_callable",
+  readOnlyTable = require "moonpie.utility.read_only_table",
   safecall = require "moonpie.utility.safe_call",
   script_tools = require "moonpie.utility.script_tools",
   sleep = require "moonpie.utility.sleep",

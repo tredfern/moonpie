@@ -60,6 +60,13 @@ drawComponent(self)
   commands should be assumed to start based on the top-left of the content area
   for the component.
 
+findByID(self, id)
+  Searches the component's child hierarchy to find the first matching identifier.
+
+.. code-block:: lua
+
+  local found = component:findByID("sampleComponentID")
+
 mounted(self)
   A method that is called when a component has been added to the render tree. Layout
   and other information will not be calculated at this point but the node should be
