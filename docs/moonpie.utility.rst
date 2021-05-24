@@ -15,3 +15,15 @@ isCallable(val)
   utility.isCallable(function() end) -- true
   utility.isCallable({}) -- false
   utility.isCallable(setmetatable({}, { __call = function() end })) -- true
+
+swapFunction(tbl, functionName, override)
+  Replaces a table function with a new routine. This is most useful for testing scenarios to mock an API. ``:revert()``
+  can be used to unwind the swapped function.
+
+.. code-block:: lua
+
+  local utility = require "moonpie.utility
+  local tbl = { f = function() end }
+  local new = function() end
+  utility.swapFunction(tbl, "f", new)
+  tbl:f() -- calls new(tbl)
