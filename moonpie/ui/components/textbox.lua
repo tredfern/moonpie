@@ -10,20 +10,20 @@ local mathext = require "moonpie.math"
 
 local special_keys = {
   backspace = function(tb)
-    local txt = tb:get_text()
-    local c = tb:cursor_position()
+    local txt = tb:getText()
+    local c = tb:cursorPosition()
     local f = string.sub(txt, 1, c - 1)
     local l = string.sub(txt, c + 1)
-    tb:set_text(f .. l, true)
-    tb:back_cursor()
+    tb:setText(f .. l, true)
+    tb:backCursor()
   end,
   lshift = function() end,
   rshift = function() end,
   left = function(tb)
-    tb:back_cursor()
+    tb:backCursor()
   end,
   right = function(tb)
-    tb:advance_cursor()
+    tb:advanceCursor()
   end
 }
 
@@ -59,39 +59,40 @@ Component("textbox", function(props)
     end
 
     -- Append keyPressed to the textbox
-    if not tb.maxlength or tb.maxlength > string.len(tb.get_text()) then
-      local t = str.insert(textview.text, tb.cursor_position(), get_character( key ))
+    if not tb.maxlength or tb.maxlength > string.len(tb.getText()) then
+      local t = str.insert(textview.text, tb.cursorPosition(), get_character( key ))
       textview:update({ text = t })
-      tb.advance_cursor()
+      tb.advanceCursor()
     end
   end
 
-  tb.get_text = function() return textview.text end
-  tb.set_text = function(_, t, skip_update)
+  tb.getText = function() return textview.text end
+  tb.setText = function(_, t, skip_update)
+    t = t or ""
     textview:update({ text = t })
     if not skip_update == true then
       cursor = string.len(t)
     end
   end
 
-  tb.cursor_position = function()
+  tb.cursorPosition = function()
     return cursor
   end
-  tb.back_cursor = function()
+  tb.backCursor = function()
     cursor = cursor - 1
-    cursor = mathext.clamp(cursor, 0, string.len(tb.get_text()))
+    cursor = mathext.clamp(cursor, 0, string.len(tb.getText()))
   end
 
-  tb.advance_cursor = function()
+  tb.advanceCursor = function()
     cursor = cursor + 1
-    cursor = mathext.clamp(cursor, 0, string.len(tb.get_text()))
+    cursor = mathext.clamp(cursor, 0, string.len(tb.getText()))
   end
 
   tb.drawComponent = function()
     local font = require "moonpie.graphics.font"
     local f = font.pick(textview:getNode())
     local x = f:getWidth(
-      string.sub(textview.text, 1, tb.cursor_position())
+      string.sub(textview.text, 1, tb.cursorPosition())
     )
     love.graphics.setLineWidth(2)
     love.graphics.line(x, 0, x, f:getHeight())

@@ -54,6 +54,9 @@ Component Methods
 These are methods that can be used or overridden to provide additional
 behavior for the UI
 
+addStyle(self, style)
+  Adds a new style tag to the component.
+
 drawComponent(self)
   A method for executing custom drawing commands. Love will already be configured
   to translate to the appropriate x/y coordinates on the screen so all drawing
@@ -72,8 +75,11 @@ mounted(self)
   and other information will not be calculated at this point but the node should be
   aware of its place in the render tree.
 
-remove
+remove(self)
   Flags the component to be removed from the render tree.
+
+removeStyle(self, style)
+  Removes a style tag from the component.
 
 unmounted(self)
   A method called when a component is destroyed from the render tree. Used for any
@@ -110,8 +116,13 @@ fonts to be defaulted through.
 Style Properties
 ----------------
 
+display [inline, inline-block, block]
+  Describes how the component should calculate its width. The main ones to use our ``inline`` and ``block``.
+  ``block`` is the default display setting, this will expand the component to the maximum width available. Determined
+  by the parent. ``inline`` will size the component based on the width of the children.
+
 textwrap
-: specifies that whether text should wrap. Default behavior if nil is to wrap text. If set to 'none' will disable wrapping
+  specifies that whether text should wrap. Default behavior if nil is to wrap text. If set to 'none' will disable wrapping
 
 Default Styles
 ~~~~~~~~~~~~~~
@@ -168,4 +179,18 @@ Properties
 
 source
   The path to the image to be loaded
+
+
+textbox
+~~~~~~~
+
+Methods
+-------
+
+getText(self)
+  Returns the text currently in the text box
+
+setText(self, value, skipUpdateCursor)
+  Sets the text within the textbox to the specific value. By default, the cursor will move to the end of the string,
+  passing true to skipUpdateCursor will bypass this.
 
