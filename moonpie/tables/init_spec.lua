@@ -49,6 +49,8 @@ describe("moonpie.tables", function()
     assert.is_function(tables.slice)
     assert.is_function(tables.sortBy)
     assert.is_function(tables.sum)
+    assert.is_function(tables.swap)
+    assert.is_function(tables.take)
     assert.is_function(tables.toArray)
   end)
 

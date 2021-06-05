@@ -20,3 +20,11 @@ tables.deepCompare(tbl1, tbl2, ignoreMT)
 
 tables.keysToList(tbl)
   Returns a table in array form where all the entries from tbl are outputted into a list formats.
+
+
+tables.swap(tbl, i, j)
+  Swaps two elements positions in the table
+
+tables.take(tbl, count)
+  Takes the specified count of elements from the front of the table. Because of the reshuffle of the table performance
+  is not optimal for many operations during critical cycles.

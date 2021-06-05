@@ -35,5 +35,7 @@ return {
   slice = require "moonpie.tables.slice",
   sortBy = require "moonpie.tables.sort_by",
   sum = require "moonpie.tables.sum",
+  swap = require "moonpie.tables.swap",
+  take = require "moonpie.tables.take",
   toArray = require "moonpie.tables.to_array",
 }
