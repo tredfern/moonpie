@@ -21,6 +21,8 @@ tables.deepCompare(tbl1, tbl2, ignoreMT)
 tables.keysToList(tbl)
   Returns a table in array form where all the entries from tbl are outputted into a list formats.
 
+tables.popRandom(list)
+  Selects a random item out of the list, removes it and returns the selected item.
 
 tables.swap(tbl, i, j)
   Swaps two elements positions in the table

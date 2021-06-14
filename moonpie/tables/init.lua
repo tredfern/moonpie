@@ -28,6 +28,7 @@ return {
   merge = require "moonpie.tables.merge",
   pack = require "moonpie.tables.pack",
   pickRandom = require "moonpie.tables.pick_random",
+  popRandom = require "moonpie.tables.pop_random",
   removeItem = require "moonpie.tables.remove_item",
   same = require "moonpie.tables.same",
   select = require "moonpie.tables.select",
