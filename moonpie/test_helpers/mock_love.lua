@@ -24,6 +24,17 @@ local newImage = function()
   }, { __newindex = function() error("Love does not allow this") end })
 end
 
+local newQuad = function(x, y, w, h, sw, sh)
+  return {
+    getViewport = function()
+      return x, y, w, h
+    end,
+    getTextureDimensions = function()
+      return sw, sh
+    end
+  }
+end
+
 local function newAudioClip()
   return setmetatable({
     _isPlaying = false, _isPaused = false, _isLooping = false,
@@ -87,7 +98,7 @@ love = {
     newCanvas = function() return newImage() end,
     newFont = function() return newFont() end,
     newParticleSystem = function() return newParticleSystem() end,
-    newQuad = function() return { } end,
+    newQuad = newQuad,
     newImage = newImage,
     newText = function() return newText() end,
     origin = function() end,
