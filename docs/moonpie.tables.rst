@@ -30,3 +30,6 @@ tables.swap(tbl, i, j)
 tables.take(tbl, count)
   Takes the specified count of elements from the front of the table. Because of the reshuffle of the table performance
   is not optimal for many operations during critical cycles.
+
+tables.toString(tbl)
+  Outputs a human readable form of the table. Useful for debugging purposes.

@@ -39,4 +39,5 @@ return {
   swap = require "moonpie.tables.swap",
   take = require "moonpie.tables.take",
   toArray = require "moonpie.tables.to_array",
+  toString = require "moonpie.tables.to_string"
 }
