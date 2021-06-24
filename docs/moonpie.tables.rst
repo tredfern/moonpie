@@ -33,3 +33,7 @@ tables.take(tbl, count)
 
 tables.toString(tbl)
   Outputs a human readable form of the table. Useful for debugging purposes.
+
+tables.unpack(tbl)
+  The Lua unpack routine provided by the library but because sometimes it's based on table and sometimes global
+  this just simplifies tracking it.
