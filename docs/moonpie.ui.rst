@@ -70,6 +70,12 @@ findByID(self, id)
 
   local found = component:findByID("sampleComponentID")
 
+hide(self)
+  Marks a component as hidden and removes from layout and rendering
+
+isHidden(self)
+  Returns true if a component is marked as hidden.
+
 mounted(self)
   A method that is called when a component has been added to the render tree. Layout
   and other information will not be calculated at this point but the node should be
@@ -80,6 +86,9 @@ remove(self)
 
 removeStyle(self, style)
   Removes a style tag from the component.
+
+show(self)
+  Marks a component as visible and will show up in layouts and rendering.
 
 unmounted(self)
   A method called when a component is destroyed from the render tree. Used for any

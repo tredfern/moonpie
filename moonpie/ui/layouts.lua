@@ -8,6 +8,10 @@ local math_ext = require("moonpie.math")
 local tables = require "moonpie.tables"
 local layouts = {}
 
+function layouts.visibleChildren(node)
+  return tables.select(node.children, function(n) return not n.hidden end)
+end
+
 function layouts.shouldWrap(node, x, line_width)
   return x > 0 and x + node.box.width > line_width
 end
@@ -17,7 +21,7 @@ function layouts.horizontalOrientation(node, parent, width)
   local lineHeight, maxWidth, maxHeight = 0, 0, 0
   local newLineWidth = width
 
-  for _, v in pairs(node.children) do
+  for _, v in pairs(layouts.visibleChildren(node)) do
     if v.position == "absolute" then
       layouts.absolutePosition(v)
     else
@@ -54,9 +58,10 @@ function layouts.verticalOrientation(node, parent)
   local x, y = 0, 0
   local maxWidth, maxHeight = 0, 0
 
-  local set_width = tables.max(node.children, function(n) return n.box.content.width end)
+  local set_width = tables.max(layouts.visibleChildren(node),
+    function(n) return n.box.content.width end)
 
-  for _, v in ipairs(node.children) do
+  for _, v in ipairs(layouts.visibleChildren(node)) do
     if v.position == "absolute" then
       layouts.absolutePosition(v)
     else
@@ -78,7 +83,7 @@ function layouts.verticalOrientation(node, parent)
 end
 
 function layouts.children(node, parent, width)
-  for _, v in pairs(node.children) do
+  for _, v in pairs(layouts.visibleChildren(node)) do
     v:layout(node)
   end
   if node.child_orientation == "vertical" then
