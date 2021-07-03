@@ -10,7 +10,10 @@ describe("moonpie.redux.connect", function()
 
   local action_creator = function(props) return { type = "connected_action", payload = props } end
 
-  local test_component = component("test_connect", function(props) return { a = props.a, b = props.b } end)
+  local test_component = component("test_connect", function(props) return {
+    a = props.a, b = props.b, initProp = props.comp }
+  end)
+
   local connected = connect(
     test_component,
     function(state, c) return { a = state.a, b = state.b, comp = c } end
@@ -46,7 +49,7 @@ describe("moonpie.redux.connect", function()
   end)
 
   it("passes in initial state", function()
-    local c = connected()
+    local c = connected({})
     assert.equals("a", c.a)
     assert.equals("b", c.b)
   end)
@@ -55,5 +58,11 @@ describe("moonpie.redux.connect", function()
     local c = connected()
     store.dispatch({ a = "v", b = "g" })
     assert.equals(c, c.comp)
+  end)
+
+  it("passes the initial properties to the map state routine", function()
+    local p = {}
+    local c = connected (p)
+    assert.equals(p, c.initProp)
   end)
 end)

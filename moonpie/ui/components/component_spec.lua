@@ -97,7 +97,7 @@ describe("Component", function()
 
       it("can trigger a callback when it's been updated", function()
         local cb = spy.new(function() end)
-        local c = Component.updates { eventUpdated = cb }
+        local c = Component.updates { onUpdate = cb }
         local change = { a = "abcd" }
         c:update(change)
         assert.spy(cb).was.called_with(c, change)

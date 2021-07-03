@@ -104,13 +104,13 @@ logger
 Component Events
 ^^^^^^^^^^^^^^^^
 
-eventUpdated(component, changes)
+onUpdate(component, changes)
   Called whenever the component receives an update call.
 
 .. code-block:: lua
 
   local callbackRoutine = function(component, changes) print(changes.newValue) end
-  local c = component { eventUpdated = callbackRoutine }
+  local c = component { onUpdate = callbackRoutine }
   c:update({ newValue = "foo" }) 
   -- prints "foo"
 
