@@ -129,4 +129,11 @@ describe("Components - Textbox", function()
     assert.has_no_errors(function() tb:setText(nil) end)
   end)
 
+  it("triggers on update when setText is called", function()
+    local cb = spy.new(function() end)
+    local tb = Components.textbox { onUpdate = cb }
+    tb:setText("Foobar")
+    assert.spy(cb).was.called_with(tb, { text = "Foobar" })
+  end)
+
 end)

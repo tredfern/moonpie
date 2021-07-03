@@ -73,6 +73,9 @@ Component("textbox", function(props)
     if not skip_update == true then
       cursor = string.len(t)
     end
+    if tb.onUpdate then
+      tb:onUpdate({ text = t})
+    end
   end
 
   tb.cursorPosition = function()
