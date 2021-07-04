@@ -5,6 +5,11 @@
 
 describe("Components - Textbox", function()
   local Components = require "moonpie.ui.components"
+  local mock_love = require "moonpie.test_helpers.mock_love"
+
+  before_each(function()
+    mock_love.reset_keyboard()
+  end)
 
   it("displays text to be edited in nonwrapped form", function()
     local tb = Components.textbox({ text = "foo" })
@@ -60,7 +65,6 @@ describe("Components - Textbox", function()
 
   it("draws a cursor at the correct position based on width of text", function()
     local moonpie = require "moonpie"
-    local mock_love = require "moonpie.test_helpers.mock_love"
     mock_love.mock(love.graphics, "line", spy.new(function() end))
 
 
@@ -90,7 +94,6 @@ describe("Components - Textbox", function()
     end)
 
     it("can capitalize characters", function()
-      local mock_love = require "moonpie.test_helpers.mock_love"
       local tb = Components.textbox { text = "Test" }
       mock_love.simulate_key_down("lshift")
       tb:keyPressed("a")
@@ -134,6 +137,17 @@ describe("Components - Textbox", function()
     local tb = Components.textbox { onUpdate = cb }
     tb:setText("Foobar")
     assert.spy(cb).was.called_with(tb, { text = "Foobar" })
+  end)
+
+  it("Triggers onUpdate when keys are pressed", function()
+    local cb = spy.new(function() end)
+    local tb = Components.textbox { onUpdate = cb }
+    tb:keyPressed("a")
+    tb:keyPressed("b")
+    tb:keyPressed("c")
+    tb:keyPressed("d")
+    assert.spy(cb).was.called(4)
+    assert.spy(cb).was.called_with(tb, { text = "abcd" })
   end)
 
 end)

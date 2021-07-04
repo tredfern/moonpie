@@ -63,6 +63,7 @@ Component("textbox", function(props)
       local t = str.insert(textview.text, tb.cursorPosition(), get_character( key ))
       textview:update({ text = t })
       tb.advanceCursor()
+      tb.triggerUpdate()
     end
   end
 
@@ -73,9 +74,7 @@ Component("textbox", function(props)
     if not skip_update == true then
       cursor = string.len(t)
     end
-    if tb.onUpdate then
-      tb:onUpdate({ text = t})
-    end
+    tb.triggerUpdate()
   end
 
   tb.cursorPosition = function()
@@ -99,7 +98,12 @@ Component("textbox", function(props)
     )
     love.graphics.setLineWidth(2)
     love.graphics.line(x, 0, x, f:getHeight())
+  end
 
+  tb.triggerUpdate = function()
+    if tb.onUpdate then
+      tb:onUpdate({ text = tb:getText() })
+    end
   end
 
   return tb
