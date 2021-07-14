@@ -98,6 +98,15 @@ unmounted(self)
 Component Properties
 ^^^^^^^^^^^^^^^^^^^^
 
+data
+  This can be used to pass in customized initialization data that will be stored in the component. 
+
+.. code-block:: lua
+
+  local c = Components.h1 { data = { a = "a", b = 3 } }
+  print(c.data.a) -- "a"
+  print(c.data.b) -- 3
+
 logger
   Easy access to the logger library
 

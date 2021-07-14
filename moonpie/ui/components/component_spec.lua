@@ -113,6 +113,7 @@ describe("Component", function()
           click = spy.new(function() end),
           clickSound = {},
           color = "blue",
+          data = {},
           mounted = function() end,
           drawComponent = function() end,
           fontName = "Arial",

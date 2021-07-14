@@ -13,6 +13,7 @@ local copy_props = {
   "click",
   "clickSound",
   "color",
+  "data",
   "drawComponent",
   "onUpdate",
   "fontName",
