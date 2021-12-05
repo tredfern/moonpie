@@ -16,7 +16,7 @@ describe("moonpie.ui.components.icon", function()
   it("uses the icon property to set find the source for the image component returned", function()
     mock(image)
     components.icon({ icon = "card-jack-spades" })
-    assert.spy(image.load).was.called_with("./moonpie/assets/icons/aussiesim/card-jack-spades.png")
+    assert.spy(image.load).was.called_with("./moonpie/assets/icons/card-jack-spades.png")
   end)
 
   it("creates some basic icon components for setting different sizes", function()

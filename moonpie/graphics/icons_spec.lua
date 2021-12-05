@@ -8,7 +8,7 @@ describe("moonpie.graphics.icons", function()
 
   it("it loads the icon directory at tracks the file and icon-name", function()
     local i = icons.get("abstract-108")
-    assert.equals("./moonpie/assets/icons/viscious-speed/abstract-108.png", i)
+    assert.equals("./moonpie/assets/icons/abstract-108.png", i)
   end)
 
   it("loaded these icons", function()

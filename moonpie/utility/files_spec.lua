@@ -29,7 +29,7 @@ describe("moonpie.utility.files", function()
 
   it("property builds the directory when appending the file", function()
     local list = files.find(config.icons_path, "acrobatic")
-    assert.equals("./moonpie/assets/icons/darkzaitzev/acrobatic.png", list[1])
+    assert.equals("./moonpie/assets/icons/acrobatic.png", list[1])
   end)
 
   it("can merge path intelligently", function()
