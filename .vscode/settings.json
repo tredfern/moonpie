@@ -2,5 +2,15 @@
     "licenser.projectName": "Moonpie",
     "restructuredtext.confPath": "${workspaceFolder}\\docs",
     "python.linting.pylintEnabled": true,
-    "python.linting.enabled": true
+    "python.linting.enabled": true,
+    "Lua.diagnostics.globals": [
+        "it",
+        "describe",
+        "mock",
+        "spy",
+        "before_each",
+        "match",
+        "after_each",
+        "teardown"
+    ]
 }

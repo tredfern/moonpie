@@ -6,11 +6,11 @@
         {
             "label": "Run Love",
             "type": "shell",
-            "command": "/mnt/c/Program Files/LOVE/love.exe",
+            "command": "love", //Symlink love or make sure it's in path
             "args": [
                 "."
             ],
-            "problemMatcher": []
+            "problemMatcher": [],
         },
         {
             "label": "Tests",
