@@ -3,10 +3,10 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-describe("moonpie.redux.connect", function()
+describe("moonpie.state.connect", function()
   local component = require "moonpie.ui.components.component"
-  local connect = require "moonpie.redux.connect"
-  local store = require "moonpie.redux.store"
+  local connect = require "moonpie.state.connect"
+  local store = require "moonpie.state.store"
 
   local action_creator = function(props) return { type = "connected_action", payload = props } end
 

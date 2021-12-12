@@ -3,8 +3,8 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-describe("moonpie.redux.combine_reducers", function()
-  local combine_reducers = require "moonpie.redux.combine_reducers"
+describe("moonpie.state.combine_reducers", function()
+  local combine_reducers = require "moonpie.state.combine_reducers"
 
   it("merges state results from multiple reducers into a single state based on keys", function()
     local r1 = function() return { v = "r1" } end

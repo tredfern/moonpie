@@ -95,7 +95,7 @@ local reducer = function(state, action)
   end
 end
 
-local store = require "moonpie.redux.store"
+local store = require "moonpie.state.store"
 store.createStore(reducer, { todos = {} })
 store.dispatch(action)
 local state = store.getState()

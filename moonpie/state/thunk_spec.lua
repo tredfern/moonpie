@@ -3,8 +3,8 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-describe("moonpie.redux.thunk", function()
-  local thunk = require "moonpie.redux.thunk"
+describe("moonpie.state.thunk", function()
+  local thunk = require "moonpie.state.thunk"
 
   it("takes a type and function for the thunk", function()
     local f = function() end

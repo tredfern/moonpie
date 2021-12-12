@@ -3,7 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local store = require "moonpie.redux.store"
+local store = require "moonpie.state.store"
 local assign = require "moonpie.tables.assign"
 
 return function(component, map_state_to_props)

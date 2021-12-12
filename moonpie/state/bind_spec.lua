@@ -3,10 +3,10 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-describe("moonpie.redux.bind", function()
-  local bind = require "moonpie.redux.bind"
+describe("moonpie.state.bind", function()
+  local bind = require "moonpie.state.bind"
   local Components = require "moonpie.ui.components"
-  local store = require "moonpie.redux.store"
+  local store = require "moonpie.state.store"
 
   before_each(function()
     store.createStore(function(_, action)

@@ -3,8 +3,8 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-describe("moonpie.redux.add_action_validator", function()
-  local addActionValidator = require "moonpie.redux.add_action_validator"
+describe("moonpie.state.add_action_validator", function()
+  local addActionValidator = require "moonpie.state.add_action_validator"
 
   it("adds a new validator to action if none exists", function()
     local action = {}

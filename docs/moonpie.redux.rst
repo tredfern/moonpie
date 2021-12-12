@@ -1,4 +1,4 @@
-moonpie.redux
+moonpie.state
 =============
 
 An implementation of a concept similar to redux that is used in react and javascript implementations.

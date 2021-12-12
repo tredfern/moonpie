@@ -3,9 +3,9 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-describe("moonpie.redux.createSlice", function()
-  local store = require "moonpie.redux.store"
-  local createSlice = require "moonpie.redux.create_slice"
+describe("moonpie.state.createSlice", function()
+  local store = require "moonpie.state.store"
+  local createSlice = require "moonpie.state.create_slice"
 
   it("takes a table and creates a function for the reducer", function()
     local test = {
@@ -50,7 +50,7 @@ describe("moonpie.redux.createSlice", function()
   end)
 
   it("works with combine reducers to specify complex initial states", function()
-    local combine_reducers = require "moonpie.redux.combine_reducers"
+    local combine_reducers = require "moonpie.state.combine_reducers"
     local slice1 = createSlice {
       initialState = function() return { v = 3 } end
     }
@@ -68,7 +68,7 @@ describe("moonpie.redux.createSlice", function()
   end)
 
   it("uses an empty table for initial state if nothing is specified for state", function()
-    local combineReducers = require "moonpie.redux.combine_reducers"
+    local combineReducers = require "moonpie.state.combine_reducers"
     local slice = createSlice {}
     store.createStore(combineReducers { slice = slice })
     assert.same({}, store.getState().slice)

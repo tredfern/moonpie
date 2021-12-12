@@ -8,7 +8,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local store = require "moonpie.redux.store"
+local store = require "moonpie.state.store"
 local tables = require "moonpie.tables"
 
 local mock_reducer = function(state, action)

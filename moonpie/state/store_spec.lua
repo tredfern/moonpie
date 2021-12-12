@@ -3,8 +3,8 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-describe("moonpie.redux.store", function()
-  local store = require "moonpie.redux.store"
+describe("moonpie.state.store", function()
+  local store = require "moonpie.state.store"
 
   it("ignores nil actions", function()
     local reducer = spy.new(function() end)
