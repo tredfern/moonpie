@@ -26,4 +26,26 @@ describe("moonpie.entities.reducer", function()
 
     assert.not_array_includes(e, state)
   end)
+
+  it("can update property values", function()
+    local e = { name = "Henry" }
+    local state = { e }
+    reducer(state, {
+      type = "ENTITIES_UPDATE_PROPERTY",
+      payload = { entity = e, property = "name", value = "boobear" }
+    })
+
+    assert.equals("boobear", e.name)
+  end)
+
+  it("can update complex property values", function()
+    local e = { position = { x = 4, y = 3 }}
+    local state = { e }
+    reducer(state, {
+      type = "ENTITIES_UPDATE_PROPERTY",
+      payload = { entity = e, property = "position", value = { x = 84 } }
+    })
+
+    assert.equals(84, e.position.x)
+  end)
 end)
