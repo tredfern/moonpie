@@ -6,9 +6,10 @@
 local class = require "moonpie.class"
 local Grid = class({})
 
-function Grid:constructor(w, h)
+function Grid:constructor(w, h, default)
   self.width = w
   self.height = h
+  self.default = default
 
   local mt = getmetatable(self)
   mt.__call = Grid.get
@@ -26,7 +27,7 @@ function Grid:set(x, y, v)
 end
 
 function Grid:get(x, y)
-  return self:get_col(x)[y]
+  return self:get_col(x)[y] or self.default
 end
 
 function Grid:neighbors(x, y)

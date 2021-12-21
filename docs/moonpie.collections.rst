@@ -11,6 +11,19 @@ Various collections and structures to help provide functionality to lua tables.
       print "It does!"
     end
 
+Grid
+----
+
+Provides a 2D array element that makes it easier to track and assign elements for 2D lists.
+Initialized to a specific size and can handle default values when the value has not been set.
+
+.. code-block:: lua
+
+  local Grid = require "moonpie.collections.grid"
+  local g = Grid:new(10, 10, "default")
+  g:set(3, 2, "hello")
+  print(g:get(3, 2)) -- "hello"
+  print(g:get(8, 2)) -- "default"
 
 moonpie.collections.iterators
 -----------------------------

@@ -22,6 +22,12 @@ describe("Grid", function()
     assert.equals(nil, g:get(38, 43))
   end)
 
+  it("can specify a default value if no value set", function()
+    local def = {}
+    local g = Grid:new(231, 248, def)
+    assert.equals(def, g:get(39, 22))
+  end)
+
   it("can provide an easy way to access the array", function()
     local g = Grid:new(10, 10)
     g:set(2, 2, "value")
