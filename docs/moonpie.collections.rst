@@ -25,6 +25,26 @@ Initialized to a specific size and can handle default values when the value has 
   print(g:get(3, 2)) -- "hello"
   print(g:get(8, 2)) -- "default"
 
+Properties & Methods
+`````````````````````
+
+default
+  The default returned if the location requested is empty
+
+get(x, y)
+  Retrieves the value at the specified location. If empty, return default or nil
+
+height
+  The height of the grid data
+
+set(x, y, value)
+  Sets the value at the specified location, overriding any previous value assigned there.
+
+width
+  The width of the grid data
+
+
+
 moonpie.collections.iterators
 -----------------------------
 
