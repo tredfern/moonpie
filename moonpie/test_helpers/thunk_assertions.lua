@@ -20,7 +20,7 @@ local function createDispatcher()
 end
 
 local function thunk_dispatches(_, arguments)
-  local store = require "moonpie.redux.store"
+  local store = require "moonpie.state.store"
   local expectedAction = arguments[1]
   local thunk = arguments[2]
 
@@ -37,7 +37,7 @@ local function thunk_dispatches(_, arguments)
 end
 
 local function thunk_dispatches_type(_, arguments)
-  local store = require "moonpie.redux.store"
+  local store = require "moonpie.state.store"
   local expectedType = arguments[1]
   local expectedCount = arguments[3]
   local thunk = arguments[2]
