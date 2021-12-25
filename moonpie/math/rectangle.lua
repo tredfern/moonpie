@@ -48,4 +48,8 @@ function Rectangle:overlap(rect)
   end
 end
 
+function Rectangle:center()
+  return (self:left() + self:right()) / 2, (self:top() + self:bottom()) / 2
+end
+
 return Rectangle

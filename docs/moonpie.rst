@@ -36,6 +36,12 @@ Provides access to keyboard routines, including the ability to configure hotkeys
     keyboard:hotkey("shift+a", function() print("Pressed shift(either)+a") end)
     Keyboard:hotkey("alt+ctrl+shift+8", function() print("alt, ctrl, shift, 8 ... all at the same time") end)
 
+hotkey(keycode, function)
+  Maps a function that will be triggered on keypress. Only one function can be mapped to the callback.
+  _keycode_ can be formatted with context keys separated by a plus: alt, ctrl, shift **In that order**
+  Examples: "a", "ctrl+a", "ctrl+shift+a", "alt+a"
+
+
 moonpie.event_system
 ^^^^^^^^^^^^^^^^^^^^
 

@@ -17,3 +17,32 @@ Provides a basic implementation of a deck of cards with a Fisher-Yates shuffler 
   local hand = deck:deal(3)
   -- hand == { 4, 9, 2 }
   -- deck == { 5, 1, 3, 7, 6, 8 }
+
+moonpie.math.rectangle
+----------------------
+
+Provides a basic implementation for rectangles with additional helpers
+
+new(x,y,width,height)
+  Returns a new rectangle with the specified dimensions
+
+left(self)
+  Returns the leftmost coordinate (x)
+
+right(self)
+  Returns the rightmost coordinate (x+width)
+
+top(self)
+  Returns the topmost coordinate (y)
+
+bottom(self)
+  Returns the bottommost coordinate (y+height)
+
+[true] intersects(self, rect)
+  Returns true if the two rectangles intersects
+
+[rect] overlap(self, rect)
+  Returns a new rectangle that is the overlapping region between 2 rectangles
+
+[x,y] center(self)
+  Returns the coordinates in the middle of the rectangle
