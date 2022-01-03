@@ -72,4 +72,13 @@ describe("moonpie.math", function()
       assert.in_range(1.2, 2.7, math_ext.prandom(1.2, 2.7))
     end
   end)
+
+  it("can floor multiple values", function()
+    -- Useful for flooring functions that return multiple values
+    local x, y, z = math_ext.floor(2.1, 2.9, 42.3)
+
+    assert.equals(2, x)
+    assert.equals(2, y)
+    assert.equals(42, z)
+  end)
 end)

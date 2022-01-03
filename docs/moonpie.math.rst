@@ -3,6 +3,11 @@ moonpie.math
 
 A basic library for some math functions. 
 
+Functions
+---------
+
+floor(...)
+  Returns the floor value for a list of values. Useful for flooring return values from a function
 
 moonpie.math.cards
 ------------------

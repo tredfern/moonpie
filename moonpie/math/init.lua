@@ -38,6 +38,17 @@ function math_ext.sign(num)
   return 0
 end
 
+function math_ext.floor(...)
+  local pack = require "moonpie.tables.pack"
+  local unpack = require "moonpie.utility.unpack"
+  local values = pack(...)
+  for i = 1, #values do
+    values[i] = math.floor(values[i])
+  end
+
+  return unpack(values)
+end
+
 math_ext.vector = require "moonpie.math.vector"
 math_ext.rectangle = require "moonpie.math.rectangle"
 math_ext.tween = require "moonpie.ext.tween"
