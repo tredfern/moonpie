@@ -9,6 +9,18 @@ Functions
 floor(...)
   Returns the floor value for a list of values. Useful for flooring return values from a function
 
+line(x0, y0, x1, y1)
+  Returns an iterator that will plot lines along the requested points.
+
+.. code-block:: lua
+
+  local maths = require "moonpie.math"
+
+  for x, y in maths.line(1, 3, 8, 18) do
+    print(x, y)  -- Output each x, y coordinate
+  end
+
+
 moonpie.math.cards
 ------------------
 

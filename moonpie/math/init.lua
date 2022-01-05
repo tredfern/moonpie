@@ -52,5 +52,6 @@ end
 math_ext.vector = require "moonpie.math.vector"
 math_ext.rectangle = require "moonpie.math.rectangle"
 math_ext.tween = require "moonpie.ext.tween"
+math_ext.line = require "moonpie.math.bresenham"
 
 return math_ext
