@@ -35,6 +35,13 @@ Provides a basic implementation of a deck of cards with a Fisher-Yates shuffler 
   -- hand == { 4, 9, 2 }
   -- deck == { 5, 1, 3, 7, 6, 8 }
 
+
+moonpie.math.ipoint
+-------------------
+
+iPoint is a simple 3d coordinate point that locks to integer based coordinates. It attempts to be efficient by only 
+having 
+
 moonpie.math.rectangle
 ----------------------
 

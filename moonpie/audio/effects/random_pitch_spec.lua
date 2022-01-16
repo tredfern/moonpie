@@ -9,7 +9,7 @@ describe("moonpie.audio.effects.random_pitch", function()
   local mockLove = require "moonpie.test_helpers.mock_love"
 
   it("takes a range to pitch shift and then applies that each play through", function()
-    local source = sourceHandler(mockLove.newAudioClip())
+    local source = sourceHandler:new(mockLove.newAudioClip())
     local pitch = randomPitch(source, 0.9, 1.3)
 
     pitch:play()

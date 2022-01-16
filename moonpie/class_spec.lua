@@ -11,7 +11,7 @@ describe("moonpie.class", function()
       f = spy.new(function() end),
       v = 123
     })
-    local instance = sample()
+    local instance = sample:new()
     instance:f()
     assert.spy(sample.f).was.called_with(instance)
     assert.equals(123, instance.v)
@@ -23,8 +23,8 @@ describe("moonpie.class", function()
       f = function(self, add) return self.v + add end
     })
 
-    local instance1 = sample()
-    local instance2 = sample()
+    local instance1 = sample:new()
+    local instance2 = sample:new()
     instance1.v = 13
     instance2.v = 39
     assert.equals(17, instance1:f(4))
@@ -39,17 +39,12 @@ describe("moonpie.class", function()
       end
     })
 
-    local instance = sample(1, 2)
+    local instance = sample:new(1, 2)
     assert.equals(1, instance.x)
     assert.equals(2, instance.y)
   end)
 
   it("has a default call that subclasses", function()
     assert.equals(class.subclass, getmetatable(class).__call)
-  end)
-
-  it("sets the subclassed default call to the new method", function()
-    local cls = class({})
-    assert.equals(cls.new, getmetatable(cls).__call)
   end)
 end)

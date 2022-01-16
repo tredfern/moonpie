@@ -11,6 +11,23 @@ Various collections and structures to help provide functionality to lua tables.
       print "It does!"
     end
 
+
+Array
+-----
+
+Provides an easy way to manage multidimensional arrays without knowing the bounds ahead of time. The
+Array is more of an "Array Bag", where you can place values based on multidimensional coordinates, but 
+iterating over the values isn't really supported at this time. Grid is a better implementation for 2D
+Arrays that have known dimensions.
+
+
+.. code-block:: lua
+
+  local Array = require "moonpie.collections.array"
+  local a = Array:new(3) -- Define a 3-dimensional array
+  a(3, 2, 1, "bar")
+  print(a(3, 2, 1)) -- # bar
+
 Grid
 ----
 
