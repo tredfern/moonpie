@@ -19,4 +19,15 @@ describe("moonpie.entities.selectors", function()
     local results = selectors.getAllWithComponents(state, "position", "image")
     assert.equals(3, #results)
   end)
+
+  it("can return the first entity with matching components", function()
+    local state = {
+      entities = {
+        { name = "foo", position = {}, specialProp = true }
+      }
+    }
+
+    local f = selectors.getFirstWithComponents(state, "specialProp")
+    assert.equals(state.entities[1], f)
+  end)
 end)

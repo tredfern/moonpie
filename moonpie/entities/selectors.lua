@@ -6,16 +6,26 @@
 local tables = require "moonpie.tables"
 local Selectors = {}
 
-function Selectors.getAllWithComponents(state, ...)
-  local entities = state.entities
-
+local function compareComponents(...)
   local components = tables.pack(...)
 
-  local comparison = function(entity)
+  return function(entity)
     return tables.all(components, function(c) return entity[c] end)
   end
+end
+
+function Selectors.getAllWithComponents(state, ...)
+  local entities = state.entities
+  local comparison = compareComponents(...)
 
   return tables.select(entities, comparison)
+end
+
+function Selectors.getFirstWithComponents(state, ...)
+  local entities = state.entities
+  local comparison = compareComponents(...)
+
+  return tables.findFirst(entities, comparison)
 end
 
 

@@ -13,6 +13,7 @@ with libraries for collections, math, entity-component-systems, etc...
    getting-started
    moonpie
    moonpie.collections
+   moonpie.entities
    moonpie.events
    moonpie.graphics
    moonpie.math
