@@ -47,4 +47,14 @@ describe("moonpie.class", function()
   it("has a default call that subclasses", function()
     assert.equals(class.subclass, getmetatable(class).__call)
   end)
+
+  it("supports easy tostring override", function()
+    local c = class({})
+    c.__tostring = function(self) return "mystring" .. self.text end
+
+    local v = c:new()
+    v.text = "some"
+
+    assert.equals("mystringsome", tostring(v))
+  end)
 end)

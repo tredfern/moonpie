@@ -7,13 +7,15 @@ local safecall = require "moonpie.utility.safe_call"
 local class = {}
 
 function class:subclass(prototype)
-  setmetatable(prototype, { __index = self })
+  setmetatable(prototype, self)
+  self.__index = self
   return prototype
 end
 
 function class:new(...)
   local instance = {}
-  setmetatable(instance, { __index = self })
+  setmetatable(instance, self)
+  self.__index = self
   safecall(instance.constructor, instance, ...)
   return instance
 end
