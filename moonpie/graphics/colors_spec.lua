@@ -92,4 +92,14 @@ describe("Colors", function()
       assert.equals("number", type(v[4]))
     end
   end)
+
+  it("can grayscale a color", function()
+    -- algorithm g = 0.299R + 0.587G + 0.114B
+    local g = 0.299 * 0.5 + 0.587 * 0.4 + 0.114 * 0.3
+    local c = colors.grayscale({ 0.5, 0.4, 0.3, 1 })
+    assert.near(g, c[1], 0.01)
+    assert.near(g, c[2], 0.01)
+    assert.near(g, c[3], 0.01)
+    assert.equals(1, c[4])
+  end)
 end)

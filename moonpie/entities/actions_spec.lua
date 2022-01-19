@@ -30,4 +30,10 @@ describe("moonpie.entities.actions", function()
     assert.equals("name", action.payload.property)
     assert.equals("Foobar", action.payload.value)
   end)
+
+  it("can specify an update property should copy values", function()
+    local entity = {}
+    local action = Actions.updateProperty(entity, "name", "Foobar", true)
+    assert.is_true(action.payload.copyValues)
+  end)
 end)

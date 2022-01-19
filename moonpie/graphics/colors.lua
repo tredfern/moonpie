@@ -85,6 +85,11 @@ function colors.all()
   return out
 end
 
+function colors.grayscale(color)
+  local g = 0.299 * color[1] + 0.587 * color[2] + 0.144 * color[3]
+  return { g, g, g, color[4] }
+end
+
 setmetatable(colors, {
   __call = colors.getColor
 })

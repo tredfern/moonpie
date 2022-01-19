@@ -28,13 +28,14 @@ function Actions.remove(entity)
   }
 end
 
-function Actions.updateProperty(entity, property, value)
+function Actions.updateProperty(entity, property, value, copyValues)
   return {
     type = Actions.types.UPDATE_PROPERTY,
     payload = {
       entity = entity,
       property = property,
-      value = value
+      value = value,
+      copyValues = copyValues
     }
   }
 

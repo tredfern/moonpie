@@ -17,7 +17,7 @@ return createSlice({
   end,
   [Actions.types.UPDATE_PROPERTY] = function(state, action)
     local e, p, v = action.payload.entity, action.payload.property, action.payload.value
-    if type(v) == "table" then
+    if action.payload.copyValues and type(e[p]) == "table" then
       tables.copyKeys(v, e[p], true)
     else
       e[p] = v

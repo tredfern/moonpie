@@ -43,7 +43,7 @@ describe("moonpie.entities.reducer", function()
     local state = { e }
     reducer(state, {
       type = "ENTITIES_UPDATE_PROPERTY",
-      payload = { entity = e, property = "position", value = { x = 84 } }
+      payload = { entity = e, property = "position", value = { x = 84 }, copyValues = true }
     })
 
     assert.equals(84, e.position.x)

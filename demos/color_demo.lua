@@ -38,15 +38,25 @@ local function color_display()
 end
 
 return function()
+  local colors = moonpie.graphics.colors
   return {
     {
       components.h3({ text = "Lighten the things" }),
       components.section({
-        color_gradient(moonpie.graphics.colors.dark_lava, 20),
-        color_gradient(moonpie.graphics.colors.purple, 20),
-        color_gradient(moonpie.graphics.colors.avocado, 20),
+        color_gradient(colors.dark_lava, 20),
+        color_gradient(colors.purple, 20),
+        color_gradient(colors.avocado, 20),
       }),
     },
+    {
+      components.h3({ text = "Grayscale the above colors" }),
+      components.section {
+        color_gradient(colors.grayscale(colors.dark_lava), 20),
+        color_gradient(colors.grayscale(colors.purple), 20),
+        color_gradient(colors.grayscale(colors.avocado), 20),
+      }
+    },
+
     {
       components.h3({ text = "Named color library" }),
       color_display()
