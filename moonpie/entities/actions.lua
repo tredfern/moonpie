@@ -38,7 +38,6 @@ function Actions.updateProperty(entity, property, value, copyValues)
       copyValues = copyValues
     }
   }
-
 end
 
 return Actions
