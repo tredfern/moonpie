@@ -20,4 +20,9 @@ describe("moonpie.tables.slice", function()
     local a = { 1, 2, 3, 4, 5, 6, 7 }
     assert.array_matches({1, 2, 3, 4, 5 }, tables.slice(a, nil, 5))
   end)
+
+  it("can quickly slice from the end", function()
+    local a = { 1, 2, 3, 4, 5, 6, 7, 8 }
+    assert.array_matches( { 5, 6, 7, 8 } , tables.slice(a, -4))
+  end)
 end)

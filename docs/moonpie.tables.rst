@@ -24,6 +24,10 @@ tables.keysToList(tbl)
 tables.popRandom(list)
   Selects a random item out of the list, removes it and returns the selected item.
 
+tables.slice(list, start, [end])
+  Returns a slice of the elements from the array. If end is not provided, defaults to end of array. 
+  If a negative number is passed into start, it takes from the end of the array.
+
 tables.swap(tbl, i, j)
   Swaps two elements positions in the table
 
