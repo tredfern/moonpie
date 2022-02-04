@@ -123,6 +123,9 @@ onUpdate(component, changes)
   c:update({ newValue = "foo" }) 
   -- prints "foo"
 
+onMouseMove(component, x, y)
+  Called whenever the mouse moves around over the component. `x`, `y` are screen coordinates
+
 moonpie.ui.styles
 ~~~~~~~~~~~~~~~~~
 

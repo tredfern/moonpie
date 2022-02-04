@@ -37,8 +37,18 @@ function InputHandler.mouseDown(mouseButton)
   end
 end
 
+function InputHandler.mouseMove(x, y)
+  local nodes = RenderEngine.findByPosition(x, y)
+
+  for _, v in ipairs(nodes) do
+    if v.onMouseMove then
+      v:onMouseMove(x, y)
+    end
+  end
+end
 
 Mouse.onClick:add(InputHandler.click)
 Mouse.onMouseDown:add(InputHandler.mouseDown)
 Mouse.onMouseUp:add(InputHandler.mouseUp)
+Mouse.onMouseMove:add(InputHandler.mouseMove)
 return InputHandler

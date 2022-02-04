@@ -53,4 +53,16 @@ describe("moonpie.ui.input_handler", function()
     Mouse.onClick()
     assert.spy(component.clickSound.play).was.called_with(component.clickSound)
   end)
+
+  it("triggers mouse move events", function()
+    local component = {
+      onMouseMove = spy.new(function() end),
+      width = 100, height = 100
+    }
+    RenderEngine("ui", component)
+    MockLove.moveMouse(5, 10)
+    MockLove.moveMouse(8, 12)
+    Mouse:update()
+    assert.spy(component.onMouseMove).was.called()
+  end)
 end)

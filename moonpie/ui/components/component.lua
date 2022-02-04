@@ -26,6 +26,7 @@ local copy_props = {
   "margin",
   "mounted",
   "mouseDown",
+  "onMouseMove",
   "mouseUp",
   "padding",
   "paint",
