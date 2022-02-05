@@ -10,4 +10,12 @@ function statistics.update(stat_name, value)
   statistics[stat_name] = c + value
 end
 
+function statistics.increment(statName)
+  statistics.update(statName, 1)
+end
+
+function statistics.decrement(statName)
+  statistics.update(statName, -1)
+end
+
 return statistics

@@ -77,10 +77,10 @@ return function(component, parent)
     for _, v in ipairs(self.children) do
       v:destroy()
     end
-    statistics.update("nodes", -1)
+    statistics.decrement("nodes")
   end
 
-  statistics.update("nodes", 1)
+  statistics.increment("nodes")
   --Assign reference back for component
   n.component.node = n
   return n

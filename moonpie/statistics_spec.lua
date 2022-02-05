@@ -13,4 +13,14 @@ describe("moonpie.statistics", function()
     assert.equals(10, stats["val"])
   end)
 
+  it("can increment stats", function()
+    stats.increment("gobig")
+    assert.equals(1, stats["gobig"])
+  end)
+
+  it("can decrement stats", function()
+    stats.decrement("gosmall")
+    assert.equals(-1, stats.gosmall)
+  end)
+
 end)

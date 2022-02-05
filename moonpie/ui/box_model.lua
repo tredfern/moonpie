@@ -72,6 +72,11 @@ local function getRegion(box)
   return box.cachedRegion
 end
 
+local function screenToContentCoordinates(box, x, y)
+  local r = box:region()
+  return x - r.left, y - r.top
+end
+
 return function(element, parent)
   element = element or {}
   local box = {
@@ -96,7 +101,8 @@ return function(element, parent)
       self.parent = p
       self:update()
     end,
-    region = getRegion
+    region = getRegion,
+    screenToContentCoordinates = screenToContentCoordinates
   }
   calculateValues(box)
   return box
