@@ -5,6 +5,7 @@
 
 describe("moonpie.entities.actions", function()
   local Actions = require "moonpie.entities.actions"
+  local Property = require "moonpie.entities.property"
 
   it("can create an add entity action", function()
     local entity = {}
@@ -35,5 +36,15 @@ describe("moonpie.entities.actions", function()
     local entity = {}
     local action = Actions.updateProperty(entity, "name", "Foobar", true)
     assert.is_true(action.payload.copyValues)
+  end)
+
+  it("can take a property type to update and will replace the property value", function()
+    local entity = {}
+    local prop = Property("foo", "value")
+    local action = Actions.updateProperty(entity, prop)
+
+    assert.equals(entity, action.payload.entity)
+    assert.equals("foo", action.payload.property)
+    assert.equals("value", action.payload.value)
   end)
 end)

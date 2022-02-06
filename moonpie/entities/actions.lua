@@ -29,6 +29,11 @@ function Actions.remove(entity)
 end
 
 function Actions.updateProperty(entity, property, value, copyValues)
+  if type(property) == "table" and property.name and property.value then
+    value = property.value
+    property = property.name
+  end
+
   return {
     type = Actions.types.UPDATE_PROPERTY,
     payload = {
