@@ -47,4 +47,12 @@ describe("moonpie.entities.actions", function()
     assert.equals("foo", action.payload.property)
     assert.equals("value", action.payload.value)
   end)
+
+  it("can remove a property", function()
+    local entity = { foo = "bar" }
+    local action = Actions.removeProperty(entity, "foo")
+    assert.equals("ENTITIES_REMOVE_PROPERTY", action.type)
+    assert.equals(entity, action.payload.entity)
+    assert.equals("foo", action.payload.property)
+  end)
 end)

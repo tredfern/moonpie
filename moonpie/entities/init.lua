@@ -27,6 +27,10 @@ function Entities.remove(e)
   store.dispatch(Entities.actions.remove(e))
 end
 
+function Entities.removeProperty(e, property)
+  store.dispatch(Entities.actions.removeProperty(e, property))
+end
+
 function Entities.changed(e)
   store.dispatch(Entities.actions.updateProperty(e, "changed", true))
 end

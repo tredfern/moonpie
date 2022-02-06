@@ -48,4 +48,15 @@ describe("moonpie.entities.reducer", function()
 
     assert.equals(84, e.position.x)
   end)
+
+  it("can remove properties", function()
+    local e = { foo = "bar" }
+    local state = { e }
+    reducer(state, {
+      type = "ENTITIES_REMOVE_PROPERTY",
+      payload = { entity = e, property = "foo" }
+    })
+
+    assert.is_nil(e.foo)
+  end)
 end)

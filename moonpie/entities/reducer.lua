@@ -15,6 +15,11 @@ return createSlice({
   [Actions.types.REMOVE] = function(state, action)
     return tables.removeItem(state, action.payload.entity)
   end,
+  [Actions.types.REMOVE_PROPERTY] = function(state, action)
+    local e, p = action.payload.entity, action.payload.property
+    e[p] = nil
+    return state
+  end,
   [Actions.types.UPDATE_PROPERTY] = function(state, action)
     local e, p, v = action.payload.entity, action.payload.property, action.payload.value
     if action.payload.copyValues and type(e[p]) == "table" then

@@ -7,6 +7,7 @@ local Actions = {}
 Actions.types = {
   ADD = "ENTITIES_ADD",
   REMOVE = "ENTITIES_REMOVE",
+  REMOVE_PROPERTY = "ENTITIES_REMOVE_PROPERTY",
   UPDATE_PROPERTY = "ENTITIES_UPDATE_PROPERTY"
 }
 
@@ -24,6 +25,16 @@ function Actions.remove(entity)
     type = Actions.types.REMOVE,
     payload = {
       entity = entity
+    }
+  }
+end
+
+function Actions.removeProperty(entity, property)
+  return {
+    type = Actions.types.REMOVE_PROPERTY,
+    payload = {
+      entity = entity,
+      property = property
     }
   }
 end
