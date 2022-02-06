@@ -23,6 +23,7 @@ local moonpie = {
   keyboard = keyboard,
   math = require "moonpie.math",
   mouse = mouse,
+  layers = require "moonpie.ui.layers",
   logger = require "moonpie.logger",
   tables = require "moonpie.tables",
   ui = {
@@ -61,8 +62,12 @@ function moonpie.paint()
 end
 
 function moonpie.render(node, layer_name)
-  layer_name = layer_name or "ui"
+  layer_name = layer_name or moonpie.layers.UI
   return RenderEngine.renderAll(layer_name, node)
+end
+
+function moonpie.modal(node)
+  return moonpie.render(node, moonpie.layers.MODAL)
 end
 
 function moonpie.update()

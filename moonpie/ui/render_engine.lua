@@ -10,10 +10,18 @@ local safe_call = require "moonpie.utility.safe_call"
 local findByComponent = require "moonpie.ui.find_by_component"
 local update_queue = require "moonpie.ui.update_queue"
 local tables = require "moonpie.tables"
+local Layers = require "moonpie.ui.layers"
 local RenderEngine = {}
 
 RenderEngine.layers = {
-  order = { "background", "ui", "modal", "floating", "debug", "unit_test" }
+  order = {
+    Layers.BACKGROUND,
+    Layers.UI,
+    Layers.MODAL,
+    Layers.FLOATING,
+    Layers.DEBUG,
+    Layers.UNITTEST
+  }
 }
 
 function RenderEngine.removeComponentIfExists(component)
