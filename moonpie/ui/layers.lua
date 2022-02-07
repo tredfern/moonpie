@@ -9,5 +9,5 @@ return {
   MODAL = "modal",
   FLOATING = "floating",
   DEBUG = "debug",
-  UNITTEST = "unit_text"
+  UNITTEST = "unit_test"
 }

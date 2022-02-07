@@ -32,6 +32,7 @@ return {
   removeItem = require "moonpie.tables.remove_item",
   same = require "moonpie.tables.same",
   select = require "moonpie.tables.select",
+  selectType = require "moonpie.tables.select_type",
   shuffle = require "moonpie.tables.shuffle",
   slice = require "moonpie.tables.slice",
   sortBy = require "moonpie.tables.sort_by",

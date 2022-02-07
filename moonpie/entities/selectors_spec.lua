@@ -30,4 +30,37 @@ describe("moonpie.entities.selectors", function()
     local f = selectors.getFirstWithComponents(state, "specialProp")
     assert.equals(state.entities[1], f)
   end)
+
+  it("provides a handy findAll method", function()
+    local state = {
+      entities = {
+        { name = "foo", position = { x = 1, y = 3 }},
+        { name = "bar", position = { x = 2, y = 3 }},
+        { name = "jane", position = { x = 1, y = 3 }},
+        { position = { x = 1, y = 3 }},
+        { name = "lost-bob" },
+      }
+    }
+
+    local list = selectors.findAll(state, "name", "position")
+    assert.equals(3, #list)
+    list = selectors.findAll(state, "name", "position", function(e) return e.name == "foo" end)
+    assert.equals(1, #list)
+  end)
+
+  it("provides a handy findFirst method", function()
+    local state = {
+      entities = {
+        { name = "foo", position = { x = 1, y = 3 }},
+        { name = "bar", position = { x = 2, y = 3 }, player = true},
+        { name = "jane", position = { x = 1, y = 3 }},
+        { position = { x = 1, y = 3 }},
+        { name = "lost-bob" },
+      }
+    }
+
+    local e = selectors.findFirst(state, "name", "position", "player")
+    assert.equals("bar", e.name)
+    assert.is_true(e.player)
+  end)
 end)
