@@ -102,6 +102,7 @@ function ComponentFactory.addComponentMethods(c)
   c.logger = require "moonpie.logger"
   c.needsRemoval = function(self) return self.ready_to_remove end
   c.setFocus = function(self) require("moonpie.ui.user_focus"):setFocus(self) end
+  c.blur = function() require("moonpie.ui.user_focus"):clear() end
 
   c.show = function(self) self:update({ hidden = false}) end
   c.hide = function(self) self:update({ hidden = true}) end

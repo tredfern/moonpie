@@ -203,6 +203,14 @@ describe("Component", function()
       c:setFocus()
       assert.equals(c, UserFocus:getFocus())
     end)
+
+    it("can be blurred from focus", function()
+      local UserFocus = require "moonpie.ui.user_focus"
+      local c = Component.test()
+      c:setFocus()
+      c:blur()
+      assert.is_nil(UserFocus:getFocus())
+    end)
   end)
 
   describe("changing style", function()
