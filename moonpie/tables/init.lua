@@ -19,6 +19,7 @@ return {
   indexed = require "moonpie.tables.indexed",
   indexOf = require "moonpie.tables.index_of",
   isEmpty = require "moonpie.tables.is_empty",
+  iterToTable = require "moonpie.tables.iter_to_table",
   join = require "moonpie.tables.join",
   keysToList = require "moonpie.tables.keys_to_list",
   map = require "moonpie.tables.map",
