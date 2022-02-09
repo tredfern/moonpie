@@ -21,6 +21,10 @@ function Entities.add(e)
   store.dispatch(Entities.actions.add(e))
 end
 
+function Entities.addSystem(system, filter)
+  store.dispatch(Entities.actions.addSystem(system, filter))
+end
+
 function Entities.update(e, property, value, copyValues)
   store.dispatch(Entities.actions.updateProperty(e, property, value, copyValues))
 end
@@ -31,6 +35,10 @@ end
 
 function Entities.removeProperty(e, property)
   store.dispatch(Entities.actions.removeProperty(e, property))
+end
+
+function Entities.removeSystem(system)
+  store.dispatch(Entities.actions.removeSystem(system))
 end
 
 function Entities.changed(e)
