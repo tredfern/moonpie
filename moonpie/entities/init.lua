@@ -5,6 +5,8 @@
 
 local Entity = require "moonpie.entities.entity"
 local store = require "moonpie.state.store"
+local Events = require "moonpie.events"
+local tables = require "moonpie.tables"
 
 local Entities = {
   actions = require "moonpie.entities.actions",
@@ -34,5 +36,28 @@ end
 function Entities.changed(e)
   store.dispatch(Entities.actions.updateProperty(e, "changed", true))
 end
+
+
+function Entities.processUpdate()
+  local systems = Entities.selectors.getSystems(store.getState())
+
+  for _, s in ipairs(systems) do
+    local state = store.getState()
+    local filters = Entities.selectors.getFilter(state, s)
+    local entities = Entities.selectors.findAll(store.getState(), tables.unpack(filters))
+    s(entities)
+  end
+end
+
+
+function Entities.enable()
+  Events.beforeUpdate:add(Entities.processUpdate)
+end
+
+function Entities.disable()
+  Events.beforeUpdate:remove(Entities.processUpdate)
+end
+
+Entities.enable()
 
 return Entities

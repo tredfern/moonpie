@@ -12,12 +12,25 @@ return createSlice({
     state[#state + 1] = action.payload.entity
     return state
   end,
+  [Actions.types.ADD_SYSTEM] = function(state, action)
+    if not state.systems then state.systems = {} end
+    if not state.filters then state.filters = {} end
+
+    table.insert(state.systems, action.payload.system)
+    state.filters[action.payload.system] = action.payload.filters
+    return state
+  end,
   [Actions.types.REMOVE] = function(state, action)
     return tables.removeItem(state, action.payload.entity)
   end,
   [Actions.types.REMOVE_PROPERTY] = function(state, action)
     local e, p = action.payload.entity, action.payload.property
     e[p] = nil
+    return state
+  end,
+  [Actions.types.REMOVE_SYSTEM] = function(state, action)
+    tables.removeItem(state.systems, action.payload.system)
+    state.filters[action.payload.system] = nil
     return state
   end,
   [Actions.types.UPDATE_PROPERTY] = function(state, action)

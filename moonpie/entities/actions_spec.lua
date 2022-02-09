@@ -55,4 +55,20 @@ describe("moonpie.entities.actions", function()
     assert.equals(entity, action.payload.entity)
     assert.equals("foo", action.payload.property)
   end)
+
+  it("can register a system", function()
+    local s = function() end
+    local filters = { "foo", "bar" }
+    local action = Actions.addSystem(s, filters)
+    assert.equals("ENTITIES_ADD_SYSTEM", action.type)
+    assert.equals(s, action.payload.system)
+    assert.equals(filters, action.payload.filters)
+  end)
+
+  it("can remove a system", function()
+    local s = function() end
+    local action = Actions.removeSystem(s)
+    assert.equals("ENTITIES_REMOVE_SYSTEM", action.type)
+    assert.equals(s, action.payload.system)
+  end)
 end)

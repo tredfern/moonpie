@@ -6,8 +6,10 @@
 local Actions = {}
 Actions.types = {
   ADD = "ENTITIES_ADD",
+  ADD_SYSTEM = "ENTITIES_ADD_SYSTEM",
   REMOVE = "ENTITIES_REMOVE",
   REMOVE_PROPERTY = "ENTITIES_REMOVE_PROPERTY",
+  REMOVE_SYSTEM = "ENTITIES_REMOVE_SYSTEM",
   UPDATE_PROPERTY = "ENTITIES_UPDATE_PROPERTY"
 }
 
@@ -16,6 +18,16 @@ function Actions.add(entity)
     type = Actions.types.ADD,
     payload = {
       entity = entity
+    }
+  }
+end
+
+function Actions.addSystem(system, filters)
+  return {
+    type = Actions.types.ADD_SYSTEM,
+    payload = {
+      system = system,
+      filters = filters
     }
   }
 end
@@ -35,6 +47,15 @@ function Actions.removeProperty(entity, property)
     payload = {
       entity = entity,
       property = property
+    }
+  }
+end
+
+function Actions.removeSystem(system)
+  return {
+    type = Actions.types.REMOVE_SYSTEM,
+    payload = {
+      system = system
     }
   }
 end

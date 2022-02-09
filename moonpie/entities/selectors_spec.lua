@@ -63,4 +63,30 @@ describe("moonpie.entities.selectors", function()
     assert.equals("bar", e.name)
     assert.is_true(e.player)
   end)
+
+  it("can find all the systems", function()
+    local state = {
+      entities = {
+        systems = { function() end, function() end }
+      }
+    }
+
+    local result = selectors.getSystems(state)
+    assert.equals(2, #result)
+  end)
+
+  it("can find the filter for a system", function()
+    local s = function() end
+    local f = {}
+
+    local state = {
+      entities = {
+        systems = { s },
+        filters = { [s] = f }
+      }
+    }
+
+    local filter = selectors.getFilter(state, s)
+    assert.equals(f, filter)
+  end)
 end)

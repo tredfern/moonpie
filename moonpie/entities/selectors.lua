@@ -50,5 +50,13 @@ function Selectors.findFirst(state, ...)
   end)
 end
 
+function Selectors.getSystems(state)
+  return state.entities.systems
+end
+
+function Selectors.getFilter(state, system)
+  return state.entities.filters[system]
+end
+
 
 return Selectors

@@ -59,4 +59,30 @@ describe("moonpie.entities.reducer", function()
 
     assert.is_nil(e.foo)
   end)
+
+  it("can add systems", function()
+    local s = function() end
+    local f = {}
+
+    local state = {}
+    reducer(state, {
+      type = "ENTITIES_ADD_SYSTEM",
+      payload = { system = s, filters = f }
+    })
+
+    assert.array_includes(s, state.systems)
+    assert.equals(f, state.filters[s])
+  end)
+
+  it("can remove systems", function()
+    local s = function() end
+    local state = { systems = { s }, filters = { [s] = {} } }
+    reducer(state, {
+      type = "ENTITIES_REMOVE_SYSTEM",
+      payload = { system = s }
+    })
+
+    assert.not_array_includes(s, state.systems)
+    assert.is_nil(state.filters[s])
+  end)
 end)
