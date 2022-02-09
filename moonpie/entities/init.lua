@@ -66,6 +66,4 @@ function Entities.disable()
   Events.beforeUpdate:remove(Entities.processUpdate)
 end
 
-Entities.enable()
-
 return Entities
