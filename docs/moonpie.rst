@@ -11,18 +11,9 @@ need to require specific modules for operation of the framework.
 moonpie.class
 ^^^^^^^^^^^^^
 
-This is sets up a metatable for a table that provides basic OOP functionality. It's not meant to be an overly
-robust implementation as much as a lightweight overlay.
+Utilized the middleclass library for functionality: 
+https://github.com/kikito/middleclass
 
-.. code-block:: lua
-
-    local animal = moonpie.class({})
-    function animal:constructor(name)
-      self.name = name
-    end
-    
-    local duck = animal:new("duck")
-    print(duck.name)
 
 moonpie.keyboard
 ^^^^^^^^^^^^^^^^

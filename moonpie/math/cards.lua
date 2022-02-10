@@ -7,13 +7,13 @@ local class = require "moonpie.class"
 local tables = require "moonpie.tables"
 
 local Cards = {}
-local Deck = class({})
+local Deck = class("moonpie.math.Deck")
 
 function Cards.newDeck(cardList)
   return Deck:new(cardList)
 end
 
-function Deck:constructor(cardList)
+function Deck:initialize(cardList)
   self.cards = cardList
   self.drawPile = cardList
 end

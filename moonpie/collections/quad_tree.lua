@@ -5,9 +5,9 @@
 
 local class = require "moonpie.class"
 local list = require "moonpie.collections.list"
-local qt_node = class({})
+local qt_node = class("moonpie.collections.QuadTreeNode")
 
-function qt_node:constructor(props)
+function qt_node:initialize(props)
   self.x = props.x
   self.y = props.y
   self.width = props.width
@@ -28,9 +28,9 @@ function qt_node:contains(x, y, width, height)
 end
 
 
-local quad_tree = class({})
+local quad_tree = class("moonpie.collections.QuadTree")
 
-function quad_tree:constructor(props)
+function quad_tree:initialize(props)
   self.width = props.width
   self.height = props.height
   self.max_depth = props.max_depth

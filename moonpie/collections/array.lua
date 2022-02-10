@@ -5,9 +5,9 @@
 
 local Class = require "moonpie.class"
 local tables = require "moonpie.tables"
-local Array = Class({})
+local Array = Class("moonpie.collections.Array")
 
-function Array:constructor(dimensions)
+function Array:initialize(dimensions)
   self.dimensions = dimensions
 local mt = getmetatable(self)
 mt.__call = Array.call

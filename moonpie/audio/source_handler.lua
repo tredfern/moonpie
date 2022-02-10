@@ -4,9 +4,9 @@
 -- https://opensource.org/licenses/MIT
 
 local class = require "moonpie.class"
-local SourceHandler = {}
+local SourceHandler = class("moonpie.audio.SourceHandler")
 
-function SourceHandler:constructor(audioClip)
+function SourceHandler:initialize(audioClip)
   self.source = audioClip
   self.instances = {}
 end
@@ -38,4 +38,4 @@ function SourceHandler:stop()
   end
 end
 
-return class(SourceHandler)
+return SourceHandler

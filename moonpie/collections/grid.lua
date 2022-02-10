@@ -4,9 +4,9 @@
 -- https://opensource.org/licenses/MIT
 
 local class = require "moonpie.class"
-local Grid = class({})
+local Grid = class("moonpie.collections.Grid")
 
-function Grid:constructor(w, h, default)
+function Grid:initialize(w, h, default)
   self.width = w
   self.height = h
   self.default = default
