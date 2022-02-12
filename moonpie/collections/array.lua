@@ -9,8 +9,6 @@ local Array = Class("moonpie.collections.Array")
 
 function Array:initialize(dimensions)
   self.dimensions = dimensions
-local mt = getmetatable(self)
-mt.__call = Array.call
 end
 
 function Array:ensureElement(args)
@@ -39,7 +37,7 @@ function Array:set(args)
   v[args[self.dimensions]] = value
 end
 
-function Array:call(...)
+function Array:__call(...)
   -- get the values
   local args = tables.pack(...)
   self:ensureElement(args)
@@ -50,6 +48,5 @@ function Array:call(...)
     self:set(args)
   end
 end
-
 
 return Array
