@@ -278,7 +278,7 @@ describe("Component", function()
 
   it("returns decipherable error if component render function is not set up properly", function()
     Component("bad_component", function() end)
-    assert.has_errors(Component.bad_component, "Component did not render table")
+    assert.has_errors(Component.bad_component, "Component did not initialize.")
   end)
 
   it("provides easy access to the logger", function()
@@ -307,6 +307,22 @@ describe("Component", function()
       local instance = funky({ a = "test", color = "green" })
       assert.equals("test", instance.a)
       assert.equals("green", instance.color)
+    end)
+  end)
+
+  describe("simple function components", function()
+    it("can create a component that just returns a render function", function()
+      local func = Component("func", function()
+        return function(self)
+          return { self.a, self.b }
+        end
+      end)
+
+      local funcInstance = func({ a = 1, b = 2 })
+      assert.equals(1, funcInstance.a)
+      assert.equals(2, funcInstance.b)
+      local render = funcInstance:render()
+      assert.array_matches({ 1, 2 }, render)
     end)
   end)
 end)

@@ -51,7 +51,7 @@ function Selectors.findFirst(state, ...)
 end
 
 function Selectors.getSystems(state)
-  return state.entities.systems
+  return state.entities.systems or {}
 end
 
 function Selectors.getFilter(state, system)

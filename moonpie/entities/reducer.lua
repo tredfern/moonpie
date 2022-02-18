@@ -15,7 +15,6 @@ return createSlice({
   [Actions.types.ADD_SYSTEM] = function(state, action)
     if not state.systems then state.systems = {} end
     if not state.filters then state.filters = {} end
-
     table.insert(state.systems, action.payload.system)
     state.filters[action.payload.system] = action.payload.filters
     return state

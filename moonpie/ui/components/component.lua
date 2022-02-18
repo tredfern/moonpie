@@ -123,11 +123,20 @@ function ComponentFactory.addComponentMethods(c)
   c.hasComponentMethods = true
 end
 
-local function createComponent(name, render)
+local function createComponent(name, initializer)
   ComponentFactory[name] = function(props)
     props = props or {}
-    local c = render(props)
-    if not c then error("Component did not render table") end
+    local c = initializer(props)
+    if not c then error("Component did not initialize.") end
+
+    -- Build a new component using this render function
+    if type(c) == "function" then
+      local c2 = {
+        render = c
+      }
+      tables.copyKeys(props, c2, false)
+      c = c2
+    end
     c.name = name
 
     ComponentFactory.addComponentMethods(c)
@@ -148,8 +157,8 @@ local function createComponent(name, render)
 end
 
 setmetatable(ComponentFactory, { __call =
-  function(_, name, render)
-    return createComponent(name, render)
+  function(_, name, initializer)
+    return createComponent(name, initializer)
   end
 })
 
